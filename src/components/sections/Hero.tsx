@@ -6,18 +6,27 @@ import Clip3D from "@/components/ui/Clip3D";
 import SocialIcon from "@/components/ui/SocialIcon";
 import BrandIcon from "@/components/ui/BrandIcon";
 
-const HERO_STACK = ["nextdotjs", "react", "typescript", "nodedotjs", "postgresql", "prisma", "tailwindcss", "vercel"];
+const HERO_STACK = [
+  ["nextdotjs", "Next.js"],
+  ["react", "React"],
+  ["typescript", "TypeScript"],
+  ["nodedotjs", "Node.js"],
+  ["postgresql", "PostgreSQL"],
+  ["prisma", "Prisma"],
+  ["tailwindcss", "Tailwind CSS"],
+  ["vercel", "Vercel"],
+] as const;
 
 export default function Hero() {
   return (
     <section
       id="top"
-      className="relative flex items-center overflow-hidden px-4 pb-12 pt-28 sm:px-6 sm:pt-32 lg:min-h-[min(100svh,960px)] lg:pb-16"
+      className="relative flex items-center overflow-hidden px-4 pb-10 pt-24 sm:px-6 sm:pt-32 lg:min-h-[min(100svh,960px)] lg:pb-16"
     >
       <div aria-hidden className="grid-fade pointer-events-none absolute inset-0" />
 
-      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[1.05fr_1fr]">
-        <div>
+      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-6 lg:grid-cols-[1.05fr_1fr] lg:gap-10">
+        <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
           {profile.openToWork ? (
             <p className="clay inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm text-white/90">
               <span className="relative flex h-2.5 w-2.5">
@@ -28,45 +37,45 @@ export default function Hero() {
             </p>
           ) : null}
 
-          <h1 className="mt-6 font-display text-5xl font-semibold leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
-            <span className="flex items-center gap-3">
+          <h1 className="mt-6 font-display text-[2.6rem] font-semibold leading-[1.04] tracking-tight sm:text-6xl lg:text-7xl">
+            <span className="flex items-center justify-center gap-3 lg:justify-start">
               Hi, I&apos;m {profile.firstName}
-              <Clip3D name="wave" size={72} priority float tilt={-12} className="h-12 w-12 sm:h-16 sm:w-16" />
+              <Clip3D name="wave" size={72} priority float tilt={-12} className="h-11 w-11 sm:h-16 sm:w-16" />
             </span>
             <span className="text-gradient mt-1 block">{profile.role}</span>
           </h1>
 
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/85 sm:text-xl">{profile.headline}</p>
-          <p className="mt-3 max-w-xl leading-relaxed text-muted">{profile.intro}</p>
+          <p className="mt-5 max-w-xl text-balance text-lg leading-relaxed text-white/85 sm:text-xl">{profile.headline}</p>
+          <p className="mt-3 max-w-xl text-pretty leading-relaxed text-muted">{profile.intro}</p>
 
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-8 grid w-full max-w-sm grid-cols-2 gap-3 sm:flex sm:w-auto sm:max-w-none">
             <Link
               href="/#projects"
-              className="btn-clay inline-flex items-center gap-2 rounded-full bg-lilac px-6 py-3.5 font-semibold text-ink"
+              className="btn-clay inline-flex items-center justify-center gap-2 rounded-full bg-lilac px-5 py-3.5 font-semibold text-ink sm:px-6"
             >
-              View my work <ArrowRight size={18} />
+              View work <ArrowRight size={18} />
             </Link>
             {profile.resumeUrl ? (
               <a
                 href={profile.resumeUrl}
                 download
-                className="clay inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold transition hover:bg-white/10"
+                className="clay inline-flex items-center justify-center gap-2 rounded-full px-5 py-3.5 font-semibold transition hover:bg-white/10 sm:px-6"
               >
-                <Download size={18} /> Download resume
+                <Download size={18} /> Resume
               </a>
             ) : (
               <Link
                 href="/#contact"
-                className="clay inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold transition hover:bg-white/10"
+                className="clay inline-flex items-center justify-center gap-2 rounded-full px-5 py-3.5 font-semibold transition hover:bg-white/10 sm:px-6"
               >
                 Let&apos;s talk
               </Link>
             )}
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center gap-4 text-sm text-muted">
+          <div className="mt-7 flex flex-col items-center gap-4 text-sm text-muted sm:flex-row lg:items-center">
             <span className="inline-flex items-center gap-1.5">
-              <MapPin size={16} /> {profile.location} · {profile.timezone}
+              <MapPin size={16} /> {profile.location} · IST
             </span>
             <span className="hidden h-4 w-px bg-line sm:block" />
             <div className="flex items-center gap-2">
@@ -77,7 +86,7 @@ export default function Hero() {
                   target={s.href.startsWith("http") ? "_blank" : undefined}
                   rel="noreferrer"
                   aria-label={s.label}
-                  className="grid h-9 w-9 place-items-center rounded-full border border-line bg-white/5 transition hover:text-white"
+                  className="grid h-10 w-10 place-items-center rounded-full border border-line bg-white/5 transition hover:text-white"
                 >
                   <SocialIcon icon={s.icon} size={16} />
                 </a>
@@ -86,11 +95,13 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-[560px]">
+        <div className="relative mx-auto w-full max-w-[340px] sm:max-w-[460px] lg:max-w-[560px]">
           <ClayStage />
-          <div className="clay absolute -bottom-2 left-1/2 flex -translate-x-1/2 items-center gap-3 rounded-full bg-ink/60 px-5 py-3 backdrop-blur-md">
-            {HERO_STACK.map((slug) => (
-              <BrandIcon key={slug} slug={slug} size={18} className="text-white/80" />
+          <div role="list" aria-label="Main tech stack" className="clay absolute -bottom-1 left-1/2 flex -translate-x-1/2 items-center gap-2.5 rounded-full bg-ink/60 px-4 py-2.5 backdrop-blur-md sm:gap-3 sm:px-5 sm:py-3">
+            {HERO_STACK.map(([slug, label]) => (
+              <span role="listitem" key={slug}>
+                <BrandIcon slug={slug} label={label} size={16} className="text-white/80" />
+              </span>
             ))}
           </div>
         </div>

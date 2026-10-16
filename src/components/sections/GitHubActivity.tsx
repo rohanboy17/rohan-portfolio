@@ -28,7 +28,7 @@ export default async function GitHubActivity() {
   const totalLang = languages.reduce((n, [, c]) => n + c, 0) || 1;
 
   return (
-    <section id="github" className="px-4 py-20 sm:px-6 sm:py-24">
+    <section id="github" className="px-4 py-16 sm:px-6 sm:py-24">
       <div className="mx-auto max-w-6xl">
         <SectionHeading
           eyebrow="Open source"
@@ -37,7 +37,7 @@ export default async function GitHubActivity() {
           clip="sparkles"
         />
 
-        <div className="mt-12 grid gap-4 lg:grid-cols-[0.75fr_1.25fr]">
+        <div className="mt-10 grid gap-4 sm:mt-12 lg:grid-cols-[0.75fr_1.25fr]">
           <Reveal>
             <a
               href={user.html_url}
@@ -90,37 +90,40 @@ export default async function GitHubActivity() {
             </a>
           </Reveal>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            {repos.map((r, i) => (
-              <Reveal key={r.name} delay={i * 0.05}>
-                <a
-                  href={r.homepage || r.html_url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="clay flex h-full flex-col rounded-[24px] p-5 transition hover:-translate-y-0.5 hover:bg-white/[0.05]"
-                >
-                  <p className="font-display font-semibold">{r.name}</p>
-                  <p className="mt-1 line-clamp-2 flex-1 text-sm text-muted">
-                    {r.description || "Live project — click to open."}
-                  </p>
-                  <div className="mt-4 flex items-center gap-4 text-xs text-muted">
-                    {r.language ? (
-                      <span className="flex items-center gap-1.5">
-                        <span className={`h-2 w-2 rounded-full ${LANG_COLORS[r.language] ?? "bg-mint"}`} />
-                        {r.language}
-                      </span>
-                    ) : null}
-                    {r.stargazers_count ? (
-                      <span className="flex items-center gap-1">
-                        <Star size={12} /> {r.stargazers_count}
-                      </span>
-                    ) : null}
-                    <span>Updated {timeAgo(r.pushed_at)}</span>
-                  </div>
-                </a>
-              </Reveal>
-            ))}
-          </div>
+          {/* Swipe rail on phones, grid from `sm` up */}
+          <Reveal className="min-w-0">
+            <div className="rail -mx-4 flex min-w-0 gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:px-0 sm:pb-0">
+              {repos.map((r) => (
+                <div key={r.name} className="w-[78%] shrink-0 sm:w-auto">
+                  <a
+                    href={r.homepage || r.html_url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="clay flex h-full flex-col rounded-[24px] p-5 transition hover:-translate-y-0.5 hover:bg-white/[0.05]"
+                  >
+                    <p className="font-display font-semibold">{r.name}</p>
+                    <p className="mt-1 line-clamp-2 flex-1 text-sm text-muted">
+                      {r.description || "Live project — click to open."}
+                    </p>
+                    <div className="mt-4 flex items-center gap-4 text-xs text-muted">
+                      {r.language ? (
+                        <span className="flex items-center gap-1.5">
+                          <span className={`h-2 w-2 rounded-full ${LANG_COLORS[r.language] ?? "bg-mint"}`} />
+                          {r.language}
+                        </span>
+                      ) : null}
+                      {r.stargazers_count ? (
+                        <span className="flex items-center gap-1">
+                          <Star size={12} /> {r.stargazers_count}
+                        </span>
+                      ) : null}
+                      <span>Updated {timeAgo(r.pushed_at)}</span>
+                    </div>
+                  </a>
+                </div>
+              ))}
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>

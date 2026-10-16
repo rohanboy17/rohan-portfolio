@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import clsx from "clsx";
 import { profile } from "@/content/profile";
 
@@ -18,8 +17,6 @@ const NAV = [
 export default function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const { scrollYProgress } = useScroll();
-  const progress = useSpring(scrollYProgress, { stiffness: 200, damping: 30, mass: 0.2 });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -32,28 +29,25 @@ export default function SiteHeader() {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
     return () => {
       window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
     };
   }, [open]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-3 sm:px-6">
-      <motion.div
-        aria-hidden
-        style={{ scaleX: progress }}
-        className="fixed inset-x-0 top-0 h-[3px] origin-left bg-gradient-to-r from-lilac via-pink to-peach"
-      />
+    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6">
+      {/* Scroll progress: pure CSS scroll-driven animation, hidden where unsupported */}
+      <div aria-hidden className="scroll-progress fixed inset-x-0 top-0 h-[3px] bg-gradient-to-r from-lilac via-pink to-peach" />
       <div
         className={clsx(
-          "mx-auto flex h-14 max-w-6xl items-center justify-between rounded-full px-3 pl-5 transition-all duration-300",
-          scrolled ? "clay bg-ink/70 backdrop-blur-xl" : "border border-transparent",
+          "mx-auto flex h-14 max-w-6xl items-center justify-between rounded-full pl-4 pr-2 transition-[background-color,border-color,box-shadow] duration-300 sm:pl-5",
+          scrolled ? "clay bg-ink/75 backdrop-blur-xl" : "border border-transparent",
         )}
       >
-        <Link href="/" className="flex items-center gap-2 font-display text-lg font-semibold tracking-tight">
-          <span className="grid h-8 w-8 place-items-center rounded-xl bg-lilac text-sm font-bold text-ink btn-clay">
+        <Link href="/" className="flex items-center gap-2 font-display text-lg font-semibold tracking-tight" aria-label={`${profile.name} — home`}>
+          <span className="btn-clay grid h-8 w-8 place-items-center rounded-xl bg-lilac text-sm font-bold text-ink">
             {profile.firstName.charAt(0)}
           </span>
           <span>
@@ -86,6 +80,7 @@ export default function SiteHeader() {
             className="grid h-10 w-10 place-items-center rounded-full border border-line bg-white/5 md:hidden"
             aria-label="Open menu"
             aria-expanded={open}
+            aria-controls="mobile-menu"
             onClick={() => setOpen(true)}
           >
             <Menu size={18} />
@@ -93,48 +88,70 @@ export default function SiteHeader() {
         </div>
       </div>
 
-      {open ? (
-        <div className="fixed inset-0 z-[60] md:hidden" role="dialog" aria-modal="true" aria-label="Menu">
+      <div
+        id="mobile-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu"
+        className={clsx(
+          "fixed inset-0 z-[60] flex flex-col bg-ink/95 px-5 pb-8 pt-4 backdrop-blur-2xl transition-[opacity,visibility] duration-300 md:hidden",
+          open ? "visible opacity-100" : "invisible opacity-0",
+        )}
+      >
+        <div aria-hidden className="aurora pointer-events-none absolute inset-0" />
+        <div className="relative flex h-14 items-center justify-between pl-1">
+          <span className="font-display text-lg font-semibold">
+            {profile.firstName}
+            <span className="text-lilac">.</span>
+          </span>
           <button
             type="button"
+            className="grid h-10 w-10 place-items-center rounded-full border border-line bg-white/5"
             aria-label="Close menu"
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             onClick={() => setOpen(false)}
-          />
-          <div className="clay absolute inset-x-4 top-4 rounded-[28px] bg-surface p-5">
-            <div className="flex items-center justify-between">
-              <p className="text-xs uppercase tracking-[0.28em] text-muted">Menu</p>
-              <button
-                type="button"
-                className="grid h-10 w-10 place-items-center rounded-full border border-line bg-white/5"
-                aria-label="Close menu"
-                onClick={() => setOpen(false)}
-              >
-                <X size={18} />
-              </button>
-            </div>
-            <nav aria-label="Mobile" className="mt-4 grid gap-2">
-              {NAV.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="rounded-2xl border border-line bg-white/[0.03] px-5 py-4 font-display text-lg"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-            <Link
-              href="/#contact"
-              onClick={() => setOpen(false)}
-              className="btn-clay mt-4 flex justify-center rounded-full bg-lilac px-6 py-3 font-semibold text-ink"
-            >
-              Hire me
-            </Link>
-          </div>
+          >
+            <X size={18} />
+          </button>
         </div>
-      ) : null}
+        <nav aria-label="Mobile" className="relative mt-8 flex flex-col">
+          {NAV.map((item, i) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={() => setOpen(false)}
+              tabIndex={open ? 0 : -1}
+              className={clsx(
+                "flex items-center justify-between border-b border-line py-5 font-display text-3xl font-semibold transition-[opacity,transform] duration-500",
+                open ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0",
+              )}
+              style={{ transitionDelay: open ? `${80 + i * 50}ms` : "0ms" }}
+            >
+              {item.label}
+              <ArrowUpRight size={22} className="text-muted" />
+            </Link>
+          ))}
+        </nav>
+        <div className="relative mt-auto grid gap-3">
+          <Link
+            href="/#contact"
+            onClick={() => setOpen(false)}
+            tabIndex={open ? 0 : -1}
+            className="btn-clay flex justify-center rounded-full bg-lilac px-6 py-4 font-semibold text-ink"
+          >
+            Hire me
+          </Link>
+          {profile.resumeUrl ? (
+            <a
+              href={profile.resumeUrl}
+              download
+              tabIndex={open ? 0 : -1}
+              className="clay flex justify-center rounded-full px-6 py-4 font-semibold"
+            >
+              Download resume
+            </a>
+          ) : null}
+        </div>
+      </div>
     </header>
   );
 }

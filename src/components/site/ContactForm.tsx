@@ -9,7 +9,7 @@ type FormState = "idle" | "submitting" | "success" | "error";
 const REASONS = ["Full-time role", "Internship", "Freelance project", "Just saying hi"];
 
 const field =
-  "mt-2 w-full rounded-2xl border border-line bg-white/[0.03] px-4 py-3 text-sm text-white outline-none transition placeholder:text-white/30 focus:border-lilac/60 focus:bg-white/[0.05]";
+  "mt-2 w-full rounded-2xl border border-line bg-white/[0.03] px-4 py-3 text-base text-white outline-none sm:text-sm transition placeholder:text-white/30 focus:border-lilac/60 focus:bg-white/[0.05]";
 
 export default function ContactForm() {
   const startedAtRef = useRef<number | null>(null);
@@ -109,11 +109,11 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={state === "submitting"}
-          className="btn-clay inline-flex items-center justify-center gap-2 rounded-full bg-lilac px-7 py-3 font-semibold text-ink disabled:cursor-not-allowed disabled:opacity-60"
+          className="btn-clay inline-flex w-full items-center justify-center gap-2 rounded-full bg-lilac px-7 py-3.5 font-semibold text-ink disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
         >
           {state === "submitting" ? "Sending…" : "Send message"} <Send size={16} />
         </button>
-        <p role="status" className="text-sm text-muted">
+        <p role="status" className="text-center text-sm text-muted sm:text-left">
           {state === "success" ? "Thanks! I'll get back to you soon. 🎉" : error ?? ""}
         </p>
       </div>

@@ -5,16 +5,16 @@ import { Reveal } from "@/components/site/MotionPrimitives";
 
 function Timeline({ items }: { items: TimelineItem[] }) {
   return (
-    <ol className="relative space-y-6 before:absolute before:bottom-4 before:left-7 before:top-4 before:w-px before:bg-gradient-to-b before:from-lilac/60 before:via-pink/30 before:to-transparent">
+    <ol className="relative space-y-6 before:absolute before:bottom-4 before:left-6 before:top-4 sm:before:left-7 before:w-px before:bg-gradient-to-b before:from-lilac/60 before:via-pink/30 before:to-transparent">
       {items.map((item, i) => (
-        <li key={`${item.title}-${item.org}`} className="relative pl-20">
+        <li key={`${item.title}-${item.org}`} className="relative pl-16 sm:pl-20">
           <Reveal delay={i * 0.06}>
-            <span className="clay absolute left-0 top-0 grid h-14 w-14 place-items-center rounded-2xl bg-surface">
-              <Clip3D name={item.clip} size={36} />
+            <span className="clay absolute left-0 top-0 grid h-12 w-12 place-items-center rounded-2xl bg-surface sm:h-14 sm:w-14">
+              <Clip3D name={item.clip} size={36} className="h-7 w-7 sm:h-9 sm:w-9" />
             </span>
-            <div className="clay rounded-[28px] p-6">
-              <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <h3 className="font-display text-xl font-semibold">{item.title}</h3>
+            <div className="clay rounded-[24px] p-5 sm:rounded-[28px] sm:p-6">
+              <div className="flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:items-baseline sm:justify-between sm:gap-2">
+                <h3 className="font-display text-lg font-semibold sm:text-xl">{item.title}</h3>
                 <p className="text-sm text-lilac">{item.period}</p>
               </div>
               <p className="mt-1 text-sm text-muted">
@@ -41,46 +41,53 @@ export default function Experience() {
   const { experience, education, achievements } = profile;
 
   return (
-    <section id="experience" className="px-4 py-20 sm:px-6 sm:py-24">
+    <section id="experience" className="px-4 py-16 sm:px-6 sm:py-24">
       <div className="mx-auto max-w-6xl">
         <SectionHeading eyebrow="Journey" title="Experience & education." clip="briefcase" />
 
-        <div className="mt-12 grid gap-10 lg:grid-cols-2">
+        <div className="mt-10 grid gap-10 sm:mt-12 lg:grid-cols-2">
           <div>
-            <h3 className="mb-6 text-xs font-semibold uppercase tracking-[0.28em] text-muted">Experience</h3>
+            <h3 className="mb-5 text-center text-xs font-semibold uppercase tracking-[0.28em] text-muted sm:mb-6 sm:text-left">Experience</h3>
             <Timeline items={experience} />
           </div>
           <div className="space-y-10">
             {education.length ? (
               <div>
-                <h3 className="mb-6 text-xs font-semibold uppercase tracking-[0.28em] text-muted">Education</h3>
+                <h3 className="mb-5 text-center text-xs font-semibold uppercase tracking-[0.28em] text-muted sm:mb-6 sm:text-left">Education</h3>
                 <Timeline items={education} />
               </div>
             ) : null}
             {achievements.length ? (
               <div>
-                <h3 className="mb-6 text-xs font-semibold uppercase tracking-[0.28em] text-muted">
+                <h3 className="mb-5 text-center text-xs font-semibold uppercase tracking-[0.28em] text-muted sm:mb-6 sm:text-left">
                   Achievements & certifications
                 </h3>
                 <ul className="grid gap-3 sm:grid-cols-2">
-                  {achievements.map((a) => (
-                    <li key={a.title}>
-                      <Reveal>
-                        <a
-                          href={a.href}
-                          target={a.href ? "_blank" : undefined}
-                          rel="noreferrer"
-                          className="clay flex h-full items-center gap-4 rounded-[24px] p-4"
-                        >
-                          <Clip3D name={a.clip} size={44} />
-                          <span>
-                            <span className="block font-semibold">{a.title}</span>
-                            <span className="block text-sm text-muted">{a.detail}</span>
-                          </span>
-                        </a>
-                      </Reveal>
-                    </li>
-                  ))}
+                  {achievements.map((a) => {
+                    const body = (
+                      <>
+                        <Clip3D name={a.clip} size={44} />
+                        <span>
+                          <span className="block font-semibold">{a.title}</span>
+                          <span className="block text-sm text-muted">{a.detail}</span>
+                        </span>
+                      </>
+                    );
+                    const card = "clay flex h-full items-center gap-4 rounded-[24px] p-4";
+                    return (
+                      <li key={a.title}>
+                        <Reveal className="h-full">
+                          {a.href ? (
+                            <a href={a.href} target="_blank" rel="noreferrer" className={card}>
+                              {body}
+                            </a>
+                          ) : (
+                            <div className={card}>{body}</div>
+                          )}
+                        </Reveal>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             ) : null}

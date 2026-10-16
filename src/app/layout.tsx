@@ -2,7 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { profile } from "@/content/profile";
-import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
+import { SmoothScroll } from "@/components/providers/SmoothScroll";
+import RevealObserver from "@/components/site/RevealObserver";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
 import Analytics from "@/components/site/Analytics";
@@ -55,32 +56,37 @@ const personJsonLd = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}>
-      <body className="relative min-h-screen overflow-x-hidden">
+    // suppressHydrationWarning: the inline script below adds the "js" class before React hydrates.
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} antialiased`} suppressHydrationWarning>
+      <head>
+        {/* Lets CSS hide not-yet-revealed sections only when JS is running (no-JS visitors see everything). */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+      </head>
+      <body className="relative min-h-screen overflow-x-clip">
         <a
           href="#content"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-100 focus:rounded-full focus:bg-lilac focus:px-4 focus:py-2 focus:text-ink"
         >
           Skip to content
         </a>
-        <SmoothScrollProvider>
-          <div aria-hidden className="aurora pointer-events-none fixed inset-0 z-0" />
-          <div aria-hidden className="grain pointer-events-none fixed inset-0 z-0" />
-          <div className="relative z-10 flex min-h-screen flex-col">
-            <SiteHeader />
-            <main id="content" className="flex-1">
-              {children}
-            </main>
-            <SiteFooter />
-          </div>
-          <CustomCursor />
-          <Analytics />
-          <DevVitals />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-          />
-        </SmoothScrollProvider>
+        <div aria-hidden className="aurora pointer-events-none fixed inset-0 z-0" />
+        <div aria-hidden className="grain pointer-events-none fixed inset-0 z-0" />
+        <div className="relative z-10 flex min-h-screen flex-col">
+          <SiteHeader />
+          <main id="content" className="flex-1">
+            {children}
+          </main>
+          <SiteFooter />
+        </div>
+        <CustomCursor />
+        <SmoothScroll />
+        <RevealObserver />
+        <Analytics />
+        <DevVitals />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
       </body>
     </html>
   );

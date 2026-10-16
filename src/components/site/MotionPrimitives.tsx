@@ -1,80 +1,35 @@
-"use client";
+import type { CSSProperties, ReactNode } from "react";
 
-import { motion, useReducedMotion } from "framer-motion";
-import type { ReactNode } from "react";
+/*
+ * Scroll-reveal primitives with zero client JavaScript of their own.
+ * They render plain divs marked with `data-reveal`; <RevealObserver /> (mounted once in the
+ * layout) adds `data-shown` when each enters the viewport and CSS in globals.css animates it.
+ * Content stays visible if JavaScript never runs.
+ */
 
-export function Reveal({
-  children,
-  delay = 0,
-  y = 18,
-}: {
-  children: ReactNode;
-  delay?: number;
-  y?: number;
-}) {
-  const reduce = useReducedMotion();
-  const initial = reduce ? { opacity: 0 } : { opacity: 0, y };
-  const animate = reduce ? { opacity: 1 } : { opacity: 1, y: 0 };
+type Props = { children: ReactNode; className?: string; delay?: number };
 
+export function Reveal({ children, className, delay = 0 }: Props) {
   return (
-    <motion.div
-      initial={initial}
-      whileInView={animate}
-      viewport={{ once: true, margin: "-120px" }}
-      transition={{ duration: 0.7, delay, ease: "easeOut" }}
-    >
+    <div data-reveal="" className={className} style={delay ? ({ "--reveal-delay": `${delay}s` } as CSSProperties) : undefined}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
-export function Stagger({
-  children,
-  delayChildren = 0.05,
-  staggerChildren = 0.08,
-}: {
-  children: ReactNode;
-  delayChildren?: number;
-  staggerChildren?: number;
-}) {
-  const reduce = useReducedMotion();
-  const variants = {
-    hidden: { opacity: 1 },
-    show: {
-      opacity: 1,
-      transition: reduce ? {} : { delayChildren, staggerChildren },
-    },
-  } as const;
-
+/** Children marked with <Item> reveal one after another. */
+export function Stagger({ children, className }: Omit<Props, "delay">) {
   return (
-    <motion.div
-      variants={variants}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: "-120px" }}
-    >
+    <div data-stagger="" className={className}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
-export function Item({
-  children,
-  y = 14,
-}: {
-  children: ReactNode;
-  y?: number;
-}) {
-  const reduce = useReducedMotion();
-  const variants = {
-    hidden: reduce ? { opacity: 0 } : { opacity: 0, y },
-    show: reduce ? { opacity: 1 } : { opacity: 1, y: 0 },
-  } as const;
-
+export function Item({ children, className }: Omit<Props, "delay">) {
   return (
-    <motion.div variants={variants} transition={{ duration: 0.6, ease: "easeOut" }}>
+    <div data-reveal="" className={className}>
       {children}
-    </motion.div>
+    </div>
   );
 }
-

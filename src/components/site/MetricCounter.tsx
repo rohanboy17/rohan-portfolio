@@ -1,45 +1,36 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useInView, useReducedMotion } from "framer-motion";
+import { useEffect, useRef } from "react";
 
-function parseCounter(value: string): { start: number; end: number; suffix: string } | null {
-  const match = value.match(/^(\d+(?:\.\d+)?)(.*)$/);
-  if (!match) return null;
-  return { start: 0, end: Number(match[1]), suffix: (match[2] || "").trim() };
-}
-
+/** Counts "25+" up from 0 when scrolled into view. Writes to the DOM directly; SSR shows the final value. */
 export default function MetricCounter({ value }: { value: string }) {
-  const reduce = useReducedMotion();
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-120px" });
-
-  const parsed = useMemo(() => parseCounter(value), [value]);
-  const [animated, setAnimated] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!inView || reduce || !parsed) return;
-
-    const durationMs = 700;
-    const start = performance.now();
-
+    const el = ref.current;
+    const match = value.match(/^(\d+(?:\.\d+)?)(.*)$/);
+    if (!el || !match || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const end = Number(match[1]);
+    const suffix = match[2];
     let raf = 0;
-    const tick = (t: number) => {
-      const p = Math.min(1, (t - start) / durationMs);
-      const eased = 1 - Math.pow(1 - p, 3);
-      const n = parsed.end * eased;
-      const rounded = parsed.end % 1 === 0 ? Math.round(n) : Number(n.toFixed(1));
-      setAnimated(`${rounded}${parsed.suffix}`);
-      if (p < 1) raf = requestAnimationFrame(tick);
+
+    const io = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      io.disconnect();
+      const start = performance.now();
+      const tick = (t: number) => {
+        const p = Math.min(1, (t - start) / 900);
+        el.textContent = `${Math.round(end * (1 - Math.pow(1 - p, 3)))}${suffix}`;
+        if (p < 1) raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+    });
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(raf);
     };
+  }, [value]);
 
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [inView, parsed, reduce]);
-
-  return (
-    <span ref={ref} suppressHydrationWarning>
-      {animated ?? value}
-    </span>
-  );
+  return <span ref={ref}>{value}</span>;
 }

@@ -1,82 +1,53 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useRef, type ReactNode } from "react";
 
-interface TiltSpotlightCardProps {
-  children: React.ReactNode;
-  className?: string;
-}
+/**
+ * Card that tilts toward the pointer with a soft spotlight. Pure CSS variables,
+ * no re-renders; touch devices simply get a static card.
+ */
+export default function TiltSpotlightCard({ children, className = "" }: { children: ReactNode; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const frame = useRef(0);
 
-export default function TiltSpotlightCard({ children, className = "" }: TiltSpotlightCardProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], ["10deg", "-10deg"]), {
-    stiffness: 150,
-    damping: 20
-  });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], ["-10deg", "10deg"]), {
-    stiffness: 150,
-    damping: 20
-  });
-
-  const spotlightX = useSpring(useMotionValue(0), { stiffness: 200, damping: 30 });
-  const spotlightY = useSpring(useMotionValue(0), { stiffness: 200, damping: 30 });
-
-  function onMouseMove(e: React.MouseEvent) {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
+  function onPointerMove(e: React.PointerEvent<HTMLDivElement>) {
+    if (e.pointerType !== "mouse") return;
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    
-    const xPct = x / rect.width - 0.5;
-    const yPct = y / rect.height - 0.5;
-    
-    mouseX.set(xPct);
-    mouseY.set(yPct);
-    
-    spotlightX.set(x);
-    spotlightY.set(y);
+    cancelAnimationFrame(frame.current);
+    frame.current = requestAnimationFrame(() => {
+      el.style.setProperty("--mx", `${x}px`);
+      el.style.setProperty("--my", `${y}px`);
+      el.style.setProperty("--ry", `${(x / rect.width - 0.5) * 10}deg`);
+      el.style.setProperty("--rx", `${(0.5 - y / rect.height) * 10}deg`);
+    });
   }
 
-  function onMouseLeave() {
-    mouseX.set(0);
-    mouseY.set(0);
+  function onPointerLeave() {
+    cancelAnimationFrame(frame.current);
+    ref.current?.style.setProperty("--rx", "0deg");
+    ref.current?.style.setProperty("--ry", "0deg");
   }
 
   return (
-    <motion.div
-      ref={containerRef}
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: "preserve-3d"
-      }}
-      className={`relative group rounded-[32px] border border-line bg-white/[0.03] transition-colors hover:border-lilac/30 ${className}`}
+    <div
+      ref={ref}
+      onPointerMove={onPointerMove}
+      onPointerLeave={onPointerLeave}
+      className={`tilt-card group relative rounded-[28px] border border-line bg-white/[0.03] transition-[border-color,transform] duration-300 ease-out hover:border-lilac/30 ${className}`}
     >
-      {/* 3D Spotlight Overlay */}
-      <motion.div
-        className="pointer-events-none absolute -inset-px rounded-[32px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -inset-px rounded-[28px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{
-          background: useTransform(
-            [spotlightX, spotlightY],
-            ([x, y]) => `radial-gradient(600px circle at ${x}px ${y}px, rgba(196, 181, 253, 0.14), transparent 80%)`
-          ),
+          background:
+            "radial-gradient(500px circle at var(--mx, 50%) var(--my, 50%), rgb(196 181 253 / 0.14), transparent 80%)",
         }}
       />
-      
-      {/* Content wrapper with Z-translation for depth */}
-      <div style={{ transform: "translateZ(50px)" }} className="relative z-10 h-full">
-        {children}
-      </div>
-
-      {/* Internal shine effect */}
-      <div className="absolute inset-0 rounded-[32px] bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-    </motion.div>
+      <div className="relative z-10 h-full">{children}</div>
+    </div>
   );
 }

@@ -15,11 +15,14 @@ export default function BrandIcon({
   slug,
   size = 18,
   colored = false,
+  label,
   className,
 }: {
   slug: string;
   size?: number;
   colored?: boolean;
+  /** Accessible name. Omit when the icon sits next to visible text (it is then hidden from screen readers). */
+  label?: string;
   className?: string;
 }) {
   const icon = lookup(slug);
@@ -31,8 +34,9 @@ export default function BrandIcon({
 
   return (
     <svg
-      role="img"
-      aria-label={icon.title}
+      role={label ? "img" : undefined}
+      aria-label={label}
+      aria-hidden={label ? undefined : true}
       viewBox="0 0 24 24"
       width={size}
       height={size}

@@ -2,9 +2,9 @@
 
 import { Component, useEffect, useRef, useState, type ReactNode } from "react";
 import dynamic from "next/dynamic";
-import { useInView, useReducedMotion } from "framer-motion";
 import clsx from "clsx";
 import Clip3D from "@/components/ui/Clip3D";
+import { useFinePointer, useReducedMotion } from "@/lib/media";
 
 const ClayScene = dynamic(() => import("./ClayScene"), { ssr: false });
 
@@ -28,7 +28,7 @@ function hasWebGL() {
   }
 }
 
-/** Static 3D clip-art composition: first paint, reduced-motion and no-WebGL fallback. */
+/** Floating 3D clip-art composition: first paint, the whole experience on phones, and the no-WebGL fallback. */
 function Poster({ hidden }: { hidden: boolean }) {
   return (
     <div
@@ -38,40 +38,53 @@ function Poster({ hidden }: { hidden: boolean }) {
         hidden ? "pointer-events-none opacity-0" : "opacity-100",
       )}
     >
-      <Clip3D name="laptop" size={260} className="absolute left-1/2 top-1/2 w-[46%] -translate-x-1/2 -translate-y-1/2" />
-      <Clip3D name="rocket" size={140} float tilt={8} className="absolute right-[6%] top-[8%] w-[24%]" />
-      <Clip3D name="sparkles" size={110} float delay={1.2} className="absolute left-[8%] top-[12%] w-[18%]" />
-      <Clip3D name="database" size={110} float delay={0.6} className="absolute bottom-[10%] right-[10%] w-[18%]" />
-      <Clip3D name="bolt" size={100} float delay={1.8} tilt={-10} className="absolute bottom-[12%] left-[10%] w-[16%]" />
+      <Clip3D name="laptop" size={260} priority float delay={0.3} className="absolute left-1/2 top-1/2 w-[50%] -translate-x-1/2 -translate-y-1/2" />
+      <Clip3D name="rocket" size={140} float tilt={8} className="absolute right-[6%] top-[6%] w-[24%]" />
+      <Clip3D name="sparkles" size={110} float delay={1.2} className="absolute left-[8%] top-[10%] w-[18%]" />
+      <Clip3D name="database" size={110} float delay={0.6} className="absolute bottom-[8%] right-[10%] w-[18%]" />
+      <Clip3D name="bolt" size={100} float delay={1.8} tilt={-10} className="absolute bottom-[10%] left-[10%] w-[16%]" />
     </div>
   );
 }
 
+/**
+ * Hero visual. Desktop (mouse/trackpad): the WebGL clay scene, booted on first interaction so it never
+ * delays the first paint. Phones and reduced-motion: the lightweight floating clip-art poster only.
+ */
 export default function ClayStage({ className }: { className?: string }) {
+  const fine = useFinePointer();
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { margin: "200px 0px" });
+  const [inView, setInView] = useState(true);
   const [load, setLoad] = useState(false);
   const [ready, setReady] = useState(false);
 
-  // Three.js is heavy to boot, so start it on the visitor's first interaction.
-  // Until then the static poster shows, keeping first paint and LCP fast.
   useEffect(() => {
-    if (reduce || !hasWebGL()) return;
-    const events = ["pointermove", "pointerdown", "touchstart", "wheel", "scroll", "keydown"] as const;
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { rootMargin: "200px 0px" });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!fine || reduce || !hasWebGL()) return;
+    const events = ["pointermove", "pointerdown", "wheel", "scroll", "keydown"] as const;
     const start = () => {
       events.forEach((e) => window.removeEventListener(e, start));
       setLoad(true);
     };
     events.forEach((e) => window.addEventListener(e, start, { passive: true, once: true }));
     return () => events.forEach((e) => window.removeEventListener(e, start));
-  }, [reduce]);
+  }, [fine, reduce]);
+
+  const show3D = load && fine && !reduce;
 
   return (
     <div ref={ref} className={clsx("relative aspect-square w-full", className)}>
-      <div aria-hidden className="absolute inset-[12%] rounded-full bg-lilac/20 blur-3xl" />
-      <Poster hidden={ready} />
-      {load ? (
+      <div aria-hidden className="absolute inset-[14%] rounded-full bg-lilac/20 blur-3xl" />
+      <Poster hidden={show3D && ready} />
+      {show3D ? (
         <div className={clsx("absolute inset-0 transition-opacity duration-700", ready ? "opacity-100" : "opacity-0")}>
           <SceneBoundary>
             <ClayScene active={inView} onReady={() => setReady(true)} />

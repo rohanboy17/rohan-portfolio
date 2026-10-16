@@ -147,6 +147,83 @@ body {
   animation-play-state: paused;
 }
 
+/* Scroll reveal (see MotionPrimitives + RevealObserver). Only hides content once JS is confirmed running. */
+html.js [data-reveal]:not([data-shown]) {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+}
+
+[data-reveal] {
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s);
+}
+
+[data-stagger] > :nth-child(2) [data-reveal],
+[data-stagger] > [data-reveal]:nth-child(2) {
+  --reveal-delay: 0.08s;
+}
+[data-stagger] > :nth-child(3) [data-reveal],
+[data-stagger] > [data-reveal]:nth-child(3) {
+  --reveal-delay: 0.16s;
+}
+[data-stagger] > :nth-child(4) [data-reveal],
+[data-stagger] > [data-reveal]:nth-child(4) {
+  --reveal-delay: 0.24s;
+}
+[data-stagger] > :nth-child(n + 5) [data-reveal],
+[data-stagger] > [data-reveal]:nth-child(n + 5) {
+  --reveal-delay: 0.3s;
+}
+
+/* Header scroll progress, driven by the scroll position itself (no JS) */
+.scroll-progress {
+  display: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    display: block;
+    transform-origin: left;
+    transform: scaleX(0);
+    animation: grow-x linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+@keyframes grow-x {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Tilt card: rotation comes from CSS variables set on pointer move */
+.tilt-card {
+  transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+}
+
+/* Horizontal swipe rail for phones; becomes a normal grid from `sm` up via utility classes */
+.rail {
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.rail::-webkit-scrollbar {
+  display: none;
+}
+
+.rail > * {
+  scroll-snap-align: center;
+}
+
+/* Phones: skip the full-screen blend layer, it costs a repaint on every scroll frame */
+@media (max-width: 767px) {
+  .grain {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -155,5 +232,16 @@ body {
   .animate-float,
   .animate-marquee {
     animation: none !important;
+  }
+
+  html.js [data-reveal]:not([data-shown]) {
+    opacity: 1;
+    transform: none;
+  }
+
+  [data-reveal],
+  .tilt-card {
+    transition: none;
+    transform: none;
   }
 }

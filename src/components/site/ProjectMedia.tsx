@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { useReducedMotion } from "framer-motion";
 import clsx from "clsx";
+import { useReducedMotion } from "@/lib/media";
 import type { Project } from "@/content/profile";
 import { accentStyles } from "@/components/ui/accent";
 import Clip3D from "@/components/ui/Clip3D";
@@ -17,7 +17,7 @@ export default function ProjectMedia({ project, priority = false }: { project: P
   const ref = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
   const a = accentStyles[project.accent];
-  const host = project.liveUrl ? new URL(project.liveUrl).host : `${project.slug}.app`;
+  const host = project.liveUrl ? new URL(project.liveUrl).host : "Private build · launching soon";
 
   useEffect(() => {
     const video = ref.current;
