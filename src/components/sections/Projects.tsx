@@ -43,7 +43,8 @@ function FeaturedCard({ project, index }: { project: Project; index: number }) {
               </div>
             </dl>
 
-            <ul className="mt-4 space-y-1.5 text-sm text-white/85">
+            {/* Highlights live on the case-study page on phones, keeping cards under a screen tall */}
+            <ul className="mt-4 hidden space-y-1.5 text-sm text-white/85 sm:block">
               {project.highlights.map((h) => (
                 <li key={h} className="flex gap-2">
                   <span className={clsx("mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full", a.bg)} />
@@ -53,11 +54,22 @@ function FeaturedCard({ project, index }: { project: Project; index: number }) {
             </ul>
 
             <ul className="mt-5 flex flex-wrap gap-1.5">
-              {project.stack.map((t) => (
-                <li key={t} className={clsx("rounded-full border px-2.5 py-1 text-xs text-white/85 sm:px-3", a.border, a.soft)}>
+              {project.stack.map((t, i) => (
+                <li
+                  key={t}
+                  className={clsx(
+                    "rounded-full border px-2.5 py-1 text-xs text-white/85 sm:px-3",
+                    a.border,
+                    a.soft,
+                    i >= 4 && "hidden sm:inline-block",
+                  )}
+                >
                   {t}
                 </li>
               ))}
+              {project.stack.length > 4 ? (
+                <li className="rounded-full border border-line px-2.5 py-1 text-xs text-muted sm:hidden">+{project.stack.length - 4}</li>
+              ) : null}
             </ul>
 
             <div className="mt-6">

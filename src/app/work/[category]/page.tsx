@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { profile, categories, projectsInCategory } from "@/content/profile";
 import Clip3D from "@/components/ui/Clip3D";
-import { MiniCard } from "@/components/site/ProjectCard";
+import { CompactCard, MiniCard } from "@/components/site/ProjectCard";
 import CategoryPills from "@/components/site/CategoryPills";
 import { Item, Reveal, Stagger } from "@/components/site/MotionPrimitives";
 
@@ -57,10 +57,12 @@ export default async function CategoryPage({ params }: Params) {
           <CategoryPills active={category.slug} className="mt-8 justify-center sm:justify-start" />
         </Reveal>
 
-        <Stagger className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Phones: compact rows. sm and up: full preview cards in a grid. */}
+        <Stagger className="mt-8 grid gap-3 sm:mt-10 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
           {projects.map((p) => (
             <Item key={p.slug} className="h-full">
-              <MiniCard project={p} />
+              <CompactCard project={p} className="sm:hidden" />
+              <MiniCard project={p} className="hidden sm:flex" />
             </Item>
           ))}
         </Stagger>
