@@ -804,9 +804,41 @@ export const profile = {
   ] satisfies TimelineItem[] as TimelineItem[],
 
   achievements: [
-    { title: "GATE 2023 Qualified", detail: "Computer Science & IT · 2023", clip: "trophy" },
-    { title: "Cyber Security Course", detail: "6 months · Adamas University", clip: "shield" },
-  ] as { title: string; detail: string; clip: Clip; href?: string }[],
+    {
+      kind: "National exam",
+      title: "GATE 2023",
+      status: "Qualified",
+      issuer: "Graduate Aptitude Test in Engineering",
+      field: "Computer Science & Information Technology",
+      badge: "2023",
+      description:
+        "India's national engineering exam for postgraduate admissions at IITs and NITs and for PSU recruitment.",
+      clip: "trophy",
+      accent: "butter",
+    },
+    {
+      kind: "Certification",
+      title: "Cyber Security",
+      status: "Completed",
+      issuer: "Adamas University",
+      field: "6-month programme",
+      badge: "6 mo",
+      description: "A six-month programme in cyber-security fundamentals.",
+      clip: "shield",
+      accent: "sky",
+    },
+  ] as {
+    kind: string;
+    title: string;
+    status: string;
+    issuer: string;
+    field: string;
+    badge: string;
+    description: string;
+    clip: Clip;
+    accent: Accent;
+    href?: string;
+  }[],
 };
 
 export type Profile = typeof profile;

@@ -2,6 +2,7 @@ import { profile, type TimelineItem } from "@/content/profile";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Clip3D from "@/components/ui/Clip3D";
 import { Reveal } from "@/components/site/MotionPrimitives";
+import Credentials from "./Credentials";
 
 function Timeline({ items }: { items: TimelineItem[] }) {
   return (
@@ -38,7 +39,7 @@ function Timeline({ items }: { items: TimelineItem[] }) {
 }
 
 export default function Experience() {
-  const { experience, education, achievements } = profile;
+  const { experience, education } = profile;
 
   return (
     <section id="experience" className="px-4 py-16 sm:px-6 sm:py-24">
@@ -57,41 +58,7 @@ export default function Experience() {
                 <Timeline items={education} />
               </div>
             ) : null}
-            {achievements.length ? (
-              <div>
-                <h3 className="mb-5 text-center text-xs font-semibold uppercase tracking-[0.28em] text-muted sm:mb-6 sm:text-left">
-                  Achievements & certifications
-                </h3>
-                <ul className="grid gap-3 sm:grid-cols-2">
-                  {achievements.map((a) => {
-                    const body = (
-                      <>
-                        <Clip3D name={a.clip} size={44} />
-                        <span>
-                          <span className="block font-semibold">{a.title}</span>
-                          <span className="block text-sm text-muted">{a.detail}</span>
-                        </span>
-                      </>
-                    );
-                    const card = "clay flex h-full items-center gap-4 rounded-[24px] p-4";
-                    return (
-                      <li key={a.title}>
-                        <Reveal className="h-full">
-                          {a.href ? (
-                            <a href={a.href} target="_blank" rel="noreferrer" className={card}>
-                              {body}
-                            </a>
-                          ) : (
-                            <div className={card}>{body}</div>
-                          )}
-                        </Reveal>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            ) : null}
-            {!education.length && !achievements.length ? (
+            {!education.length ? (
               <Reveal>
                 <div className="clay flex items-center gap-5 rounded-[28px] p-6">
                   <Clip3D name="grad" size={72} float />
@@ -107,6 +74,8 @@ export default function Experience() {
             ) : null}
           </div>
         </div>
+
+        <Credentials />
       </div>
     </section>
   );
