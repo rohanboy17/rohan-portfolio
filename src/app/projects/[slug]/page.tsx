@@ -51,16 +51,17 @@ export default async function ProjectPage({ params }: Params) {
           <ArrowLeft size={16} /> All projects
         </Link>
 
-        <header className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        {/* Centered on mobile (clip above title), left-aligned from sm up — matches the homepage sections */}
+        <header className="mt-8 flex flex-col items-center gap-6 text-center sm:flex-row-reverse sm:items-end sm:justify-between sm:text-left">
+          <Clip3D name={project.clip} size={120} float priority className="h-20 w-20 shrink-0 sm:h-28 sm:w-28" />
           <div>
             <p className={clsx("text-xs font-semibold uppercase tracking-[0.28em]", a.text)}>{project.category}</p>
-            <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-6xl">{project.title}</h1>
-            <p className="mt-3 max-w-2xl text-lg text-white/85 sm:text-xl">{project.tagline}</p>
+            <h1 className="mt-3 text-balance font-display text-4xl font-semibold tracking-tight sm:text-6xl">{project.title}</h1>
+            <p className="mx-auto mt-3 max-w-xl text-lg text-white/85 sm:mx-0 sm:max-w-2xl sm:text-xl">{project.tagline}</p>
           </div>
-          <Clip3D name={project.clip} size={120} float priority className="h-24 w-24 sm:h-28 sm:w-28" />
         </header>
 
-        <div className="mt-8 flex flex-wrap gap-2">
+        <div className="mt-8 flex flex-wrap justify-center gap-2 sm:justify-start">
           {project.liveUrl ? (
             <a
               href={project.liveUrl}

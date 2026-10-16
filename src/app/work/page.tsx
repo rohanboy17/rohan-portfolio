@@ -23,9 +23,9 @@ export default function WorkHub() {
           <ArrowLeft size={16} /> Back to home
         </Link>
 
-        <header className="mt-8 max-w-2xl">
+        <header className="mx-auto mt-8 max-w-2xl text-center sm:mx-0 sm:text-left">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-lilac">The work</p>
-          <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-6xl">
+          <h1 className="mt-3 text-balance font-display text-4xl font-semibold tracking-tight sm:text-6xl">
             {total} projects, by category.
           </h1>
           <p className="mt-4 text-pretty text-lg text-muted">
