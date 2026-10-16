@@ -1,17 +1,9 @@
 import type { MetadataRoute } from "next";
-import { getSiteContent } from "@/lib/cms/get-site-content";
+import { profile } from "@/content/profile";
 
-export default async function robots(): Promise<MetadataRoute.Robots> {
-  const content = await getSiteContent();
-  const baseUrl = content.siteSeo?.siteUrl ?? "https://example.com";
-
+export default function robots(): MetadataRoute.Robots {
   return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-      disallow: ["/studio", "/api"],
-    },
-    sitemap: `${baseUrl}/sitemap.xml`,
+    rules: { userAgent: "*", allow: "/", disallow: ["/api"] },
+    sitemap: `${profile.siteUrl}/sitemap.xml`,
   };
 }
-

@@ -29,7 +29,7 @@ export default function MetricCounter({ value }: { value: string }) {
       const eased = 1 - Math.pow(1 - p, 3);
       const n = parsed.end * eased;
       const rounded = parsed.end % 1 === 0 ? Math.round(n) : Number(n.toFixed(1));
-      setAnimated(`${rounded}${parsed.suffix ? ` ${parsed.suffix}` : ""}`.trim());
+      setAnimated(`${rounded}${parsed.suffix}`);
       if (p < 1) raf = requestAnimationFrame(tick);
     };
 

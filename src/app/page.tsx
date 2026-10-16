@@ -1,28 +1,26 @@
-import { getSiteContent } from "@/lib/cms/get-site-content";
-import HeroSection from "@/components/sections/HeroSection";
-import TrustBarSection from "@/components/sections/TrustBarSection";
-import ServicesGridSection from "@/components/sections/ServicesGridSection";
-import ProofSection from "@/components/sections/ProofSection";
-import ProcessSection from "@/components/sections/ProcessSection";
-import DifferentiatorsSection from "@/components/sections/DifferentiatorsSection";
-import TestimonialsSection from "@/components/sections/TestimonialsSection";
-import FAQSection from "@/components/sections/FAQSection";
-import FinalCTASection from "@/components/sections/FinalCTASection";
+import Hero from "@/components/sections/Hero";
+import Stats from "@/components/sections/Stats";
+import About from "@/components/sections/About";
+import Skills from "@/components/sections/Skills";
+import Projects from "@/components/sections/Projects";
+import Experience from "@/components/sections/Experience";
+import GitHubActivity from "@/components/sections/GitHubActivity";
+import Contact from "@/components/sections/Contact";
 
-export default async function Home() {
-  const content = await getSiteContent();
+// Re-render at most once a day so the GitHub section stays fresh.
+export const revalidate = 86400;
 
+export default function Home() {
   return (
-    <main className="min-h-screen bg-[#030712] text-slate-50 selection:bg-cyan-500/30">
-      <HeroSection content={content} />
-      <TrustBarSection content={content} />
-      <ServicesGridSection content={content} />
-      <ProofSection content={content} />
-      <ProcessSection content={content} />
-      <DifferentiatorsSection content={content} />
-      <TestimonialsSection content={content} />
-      <FAQSection content={content} />
-      <FinalCTASection content={content} />
-    </main>
+    <>
+      <Hero />
+      <Stats />
+      <About />
+      <Skills />
+      <Projects />
+      <Experience />
+      <GitHubActivity />
+      <Contact />
+    </>
   );
 }

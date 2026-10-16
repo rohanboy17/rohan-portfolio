@@ -1,18 +1,24 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Send } from "lucide-react";
+import { profile } from "@/content/profile";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
+const REASONS = ["Full-time role", "Internship", "Freelance project", "Just saying hi"];
+
+const field =
+  "mt-2 w-full rounded-2xl border border-line bg-white/[0.03] px-4 py-3 text-sm text-white outline-none transition placeholder:text-white/30 focus:border-lilac/60 focus:bg-white/[0.05]";
+
 export default function ContactForm() {
   const startedAtRef = useRef<number | null>(null);
+  const [state, setState] = useState<FormState>("idle");
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     startedAtRef.current = Date.now();
   }, []);
-
-  const [state, setState] = useState<FormState>("idle");
-  const [error, setError] = useState<string | null>(null);
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -20,141 +26,82 @@ export default function ContactForm() {
     setError(null);
 
     const form = event.currentTarget;
-    const formData = new FormData(form);
-    const payload = Object.fromEntries(formData.entries());
+    const payload = Object.fromEntries(new FormData(form).entries());
 
     const res = await fetch("/api/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...payload, startedAt: startedAtRef.current ?? undefined }),
-    });
+    }).catch(() => null);
 
-    const data = (await res.json().catch(() => ({}))) as { error?: string; detail?: string };
-
-    if (res.ok) {
+    if (res?.ok) {
       setState("success");
       form.reset();
       return;
     }
 
+    const data = ((await res?.json().catch(() => ({}))) ?? {}) as { error?: string };
     setState("error");
 
-    if (data.error === "email_not_configured") {
-      setError(
-        "Contact email isn't configured yet. Add RESEND_API_KEY + CONTACT_TO_EMAIL in Vercel Env Vars.",
-      );
-      return;
-    }
-
-    if (data.error === "email_send_failed") {
-      setError(
-        `Email couldn't be sent. Check CONTACT_FROM_EMAIL is a Resend verified sender.${data.detail ? ` (${data.detail})` : ""}`,
-      );
-      return;
-    }
-
     if (data.error === "rate_limited") {
-      setError("Too many requests. Please wait a minute and try again.");
-      return;
+      setError("Too many messages. Please wait a minute and try again.");
+    } else if (data.error === "validation_failed") {
+      setError("Please fill in your name, a valid email and a message of at least 20 characters.");
+    } else {
+      // Email service not configured or failed — never leave the visitor stuck.
+      setError(`Couldn't send right now. Please email me directly at ${profile.email}.`);
     }
-
-    if (data.error === "validation_failed") {
-      setError("Please fill all required fields (message must be at least 20 characters).");
-      return;
-    }
-
-    setError("Something went wrong. Please try again.");
   }
 
   return (
     <form onSubmit={onSubmit} className="space-y-4">
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-2">
         <label className="block">
-          <span className="text-xs uppercase tracking-[0.2em] text-white/70">Name</span>
-          <input
-            name="name"
-            required
-            minLength={2}
-            className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-3 text-sm text-white outline-none transition focus:border-cyan-300/60"
-            placeholder="Your name"
-          />
+          <span className="text-sm font-medium text-white/80">Name</span>
+          <input name="name" required minLength={2} autoComplete="name" className={field} placeholder="Your name" />
         </label>
         <label className="block">
-          <span className="text-xs uppercase tracking-[0.2em] text-white/70">Email</span>
+          <span className="text-sm font-medium text-white/80">Email</span>
           <input
             name="email"
             required
             type="email"
-            className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-3 text-sm text-white outline-none transition focus:border-cyan-300/60"
+            autoComplete="email"
+            className={field}
             placeholder="you@company.com"
           />
         </label>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-2">
         <label className="block">
-          <span className="text-xs uppercase tracking-[0.2em] text-white/70">Company</span>
-          <input
-            name="company"
-            className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-3 text-sm text-white outline-none transition focus:border-cyan-300/60"
-            placeholder="Company name"
-          />
+          <span className="text-sm font-medium text-white/80">Company (optional)</span>
+          <input name="company" autoComplete="organization" className={field} placeholder="Company name" />
         </label>
         <label className="block">
-          <span className="text-xs uppercase tracking-[0.2em] text-white/70">Website</span>
-          <input
-            name="website"
-            tabIndex={-1}
-            autoComplete="off"
-            className="mt-2 w-full rounded-2xl border border-transparent bg-transparent px-4 py-3 text-sm text-transparent outline-none"
-            aria-hidden="true"
-          />
+          <span className="text-sm font-medium text-white/80">Reason</span>
+          <select name="reason" className={field} defaultValue={REASONS[0]}>
+            {REASONS.map((r) => (
+              <option key={r} value={r} className="bg-surface">
+                {r}
+              </option>
+            ))}
+          </select>
         </label>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        <label className="block">
-          <span className="text-xs uppercase tracking-[0.2em] text-white/70">Budget</span>
-          <select
-            name="budget"
-            className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-3 text-sm text-white outline-none transition focus:border-cyan-300/60"
-            defaultValue=""
-          >
-            <option value="" disabled>
-              Select a range
-            </option>
-            <option value="$2k-$5k">$2k-$5k</option>
-            <option value="$5k-$15k">$5k-$15k</option>
-            <option value="$15k-$50k">$15k-$50k</option>
-            <option value="$50k+">$50k+</option>
-          </select>
-        </label>
-        <label className="block">
-          <span className="text-xs uppercase tracking-[0.2em] text-white/70">Timeline</span>
-          <select
-            name="timeline"
-            className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-3 text-sm text-white outline-none transition focus:border-cyan-300/60"
-            defaultValue=""
-          >
-            <option value="" disabled>
-              When do you want to launch?
-            </option>
-            <option value="2-4 weeks">2-4 weeks</option>
-            <option value="1-2 months">1-2 months</option>
-            <option value="3+ months">3+ months</option>
-          </select>
-        </label>
-      </div>
+      {/* Honeypot: hidden from people, filled by bots */}
+      <input name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
 
       <label className="block">
-        <span className="text-xs uppercase tracking-[0.2em] text-white/70">Message</span>
+        <span className="text-sm font-medium text-white/80">Message</span>
         <textarea
           name="message"
           required
           minLength={20}
-          rows={6}
-          className="mt-2 w-full resize-none rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-3 text-sm text-white outline-none transition focus:border-cyan-300/60"
-          placeholder="What are you building? What does success look like?"
+          rows={5}
+          className={`${field} resize-none`}
+          placeholder="Tell me about the role or project…"
         />
       </label>
 
@@ -162,12 +109,12 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={state === "submitting"}
-          className="inline-flex items-center justify-center rounded-full bg-cyan-400 px-7 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300 disabled:cursor-not-allowed disabled:opacity-60"
+          className="btn-clay inline-flex items-center justify-center gap-2 rounded-full bg-lilac px-7 py-3 font-semibold text-ink disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {state === "submitting" ? "Sending..." : "Send request"}
+          {state === "submitting" ? "Sending…" : "Send message"} <Send size={16} />
         </button>
-        <p className="text-sm text-slate-300">
-          {state === "success" ? "Received - we'll reply soon." : error ?? " "}
+        <p role="status" className="text-sm text-muted">
+          {state === "success" ? "Thanks! I'll get back to you soon. 🎉" : error ?? ""}
         </p>
       </div>
     </form>

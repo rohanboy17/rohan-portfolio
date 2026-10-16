@@ -1,99 +1,64 @@
-# Software Company Site
+# Rohan Mondal — Full-Stack Developer Portfolio
 
-Premium software company website built with Next.js, featuring:
-- cinematic homepage
-- service detail pages
-- scroll-driven 3D storytelling
-- CMS-ready dynamic content architecture
+**Live:** https://rohan-portfolio.vercel.app
 
-## Deploy
+A fast, glossy-3D portfolio built with Next.js 16, React Three Fiber and Tailwind CSS v4. It has a hand-modelled clay 3D hero, 3D clip-art throughout, auto-recorded project demo videos, live GitHub activity and a working contact form.
 
-```text
-Deploy to Vercel:
-https://vercel.com/new/clone?repository-url=https://github.com/rohanboy17/software-company-site
+## Tech
+
+| Area | Tools |
+| --- | --- |
+| Framework | Next.js 16 (App Router, static + ISR), React 19, TypeScript |
+| 3D & motion | Three.js, React Three Fiber, Drei, Framer Motion, Lenis |
+| Styling | Tailwind CSS v4, `next/font` (Space Grotesk + Inter) |
+| Content | One typed file: `src/content/profile.ts` |
+| Email | Resend (`/api/contact`) |
+| Deploy | Vercel, GitHub Actions CI (lint + build) |
+
+## Performance
+
+- The 3D scene is code-split and only loads when the browser is idle. A static clip-art poster paints first, so WebGL never blocks the main content.
+- The scene stops rendering once it scrolls off screen. Mobile gets a lighter scene at DPR 1, and visitors with reduced motion see the poster only.
+- Demo videos are H.264 MP4s (`preload="none"`) that play only while they are on screen.
+- Every page is pre-rendered. The GitHub section refreshes once a day through ISR.
+
+## Edit content
+
+Everything visible on the site lives in **`src/content/profile.ts`**. Search for `TODO(rohan)` to find the details that still need filling in.
+
+- **Resume:** put the file at `public/resume.pdf` and set `resumeUrl: "/resume.pdf"`.
+- **Photo:** put it at `public/me.png` and set `avatar: "/me.png"`.
+- **Projects:** add an entry to `projects`. Set `featured: true` to show it as a large card.
+
+### Record project demo videos
+
+```bash
+npx playwright install chromium   # once
+npm run record:demos              # every project with a liveUrl
+npm run record:demos -- game-arena  # just one project
 ```
 
-## Local Development
+This writes `public/projects/<slug>.jpg`, `public/videos/<slug>.mp4` and `src/content/demo-media.json`. It requires `ffmpeg` on your PATH.
+
+## Run locally
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+### Environment variables (optional)
 
-## Environment Variables
+| Name | Purpose |
+| --- | --- |
+| `RESEND_API_KEY` | Sends contact-form emails |
+| `CONTACT_TO_EMAIL` | Inbox that receives messages |
+| `CONTACT_FROM_EMAIL` | Verified Resend sender (default `onboarding@resend.dev`) |
+| `GITHUB_TOKEN` | Raises the GitHub API rate limit for the activity section |
 
-Copy `.env.example` → `.env.local`.
+If the email variables are missing, the form still works: it shows the visitor your email address so they can write to you directly.
 
-### Sanity (optional)
-If configured, the site fetches content from Sanity. If not configured, it falls back to `src/content/site-content.ts`.
+## Credits
 
-```bash
-NEXT_PUBLIC_SANITY_PROJECT_ID=
-NEXT_PUBLIC_SANITY_DATASET=production
-NEXT_PUBLIC_SANITY_API_VERSION=2026-01-01
-```
-
-### Contact form (Resend)
-To enable `/contact` → `/api/contact` email delivery:
-
-```bash
-RESEND_API_KEY=
-CONTACT_TO_EMAIL=
-CONTACT_FROM_EMAIL=
-```
-
-## CMS Integration (Sanity)
-
-The app now uses a CMS adapter:
-- when Sanity environment variables exist, content is fetched from Sanity.
-- when not configured, the site falls back to local content in `src/content/site-content.ts`.
-
-Create `.env.local` from `.env.example` and set:
-
-```bash
-NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
-NEXT_PUBLIC_SANITY_DATASET=production
-NEXT_PUBLIC_SANITY_API_VERSION=2026-01-01
-```
-
-Main CMS integration files:
-- `src/lib/cms/sanity.ts`
-- `src/lib/cms/queries.ts`
-- `src/lib/cms/get-site-content.ts`
-- `src/app/studio/[[...tool]]/page.tsx`
-- `sanity.config.ts`
-- `sanity.cli.ts`
-- `sanity/schemaTypes/index.ts`
-
-Open embedded Studio at:
-- `http://localhost:3000/studio`
-
-Optional standalone Studio tooling commands:
-
-```bash
-npm run sanity:dev
-npm run sanity:deploy
-```
-
-Homepage variant route:
-- `http://localhost:3000/home/variant-b`
-
-Seed files:
-- `sanity/seed/siteContent.seed.json` (main)
-- `sanity/seed/siteContent.variant-b.seed.json` (variant-b)
-
-## Build Check
-
-```bash
-npm run lint
-npm run build
-```
-
-## Deploy (Vercel)
-
-1. Push this repo to GitHub.
-2. In Vercel: **New Project** → import the GitHub repo.
-3. Add env vars you need (Sanity optional; Resend required for contact email).
-4. Deploy.
+- 3D clip-art: [Microsoft Fluent Emoji](https://github.com/microsoft/fluentui-emoji) (MIT)
+- Brand icons: [Simple Icons](https://simpleicons.org) (CC0)

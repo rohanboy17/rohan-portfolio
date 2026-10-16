@@ -1,85 +1,46 @@
 import Link from "next/link";
-import type { SiteContent } from "@/content/site-content";
+import { profile } from "@/content/profile";
+import SocialIcon from "@/components/ui/SocialIcon";
 
-export default function SiteFooter({ content }: { content: SiteContent }) {
-  const year = new Date().getFullYear();
-
+export default function SiteFooter() {
   return (
-    <footer className="border-t border-white/10 bg-[#030712]">
-      <div className="mx-auto w-full max-w-6xl px-6 py-12 text-slate-200">
-        <div className="grid gap-10 md:grid-cols-[1.2fr_0.8fr_0.8fr]">
-          <div>
-            <p className="text-sm font-semibold tracking-[0.18em] uppercase text-white">
-              {content.companyName}
-            </p>
-            <p className="mt-4 max-w-md text-sm leading-7 text-slate-300">
-              {content.company?.tagline ??
-                "Premium engineering studio for high-performance websites, apps, and AI products."}
-            </p>
-            <p className="mt-5 text-sm text-slate-300">
-              <span className="text-white/70">Email:</span>{" "}
-              <a className="text-white hover:text-cyan-200" href={`mailto:${content.company?.email ?? "rohanmondalpc@gmail.com"}`}>
-                {content.company?.email ?? "rohanmondalpc@gmail.com"}
-              </a>
-            </p>
-            {content.company?.phone ? (
-              <p className="mt-2 text-sm text-slate-300">
-                <span className="text-white/70">Phone:</span>{" "}
-                <a className="text-white hover:text-cyan-200" href={`tel:${content.company.phone.replace(/\s+/g, "")}`}>
-                  {content.company.phone}
-                </a>
-              </p>
-            ) : null}
-          </div>
-
-          <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-white/70">Explore</p>
-            <div className="mt-4 flex flex-col gap-2 text-sm">
-              <Link href="/services" className="hover:text-white">
-                Services
-              </Link>
-              <Link href="/work" className="hover:text-white">
-                Work
-              </Link>
-              <Link href="/contact" className="hover:text-white">
-                Contact
-              </Link>
-            </div>
-          </div>
-
-          <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-white/70">Legal</p>
-            <div className="mt-4 flex flex-col gap-2 text-sm">
-              <Link href="/privacy" className="hover:text-white">
-                Privacy
-              </Link>
-              <Link href="/terms" className="hover:text-white">
-                Terms
-              </Link>
-            </div>
-            {content.company?.socials?.length ? (
-              <div className="mt-6 flex flex-wrap gap-2">
-                {content.company.socials.map((social) => (
-                  <a
-                    key={social.label}
-                    href={social.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs tracking-[0.2em] text-white/85 transition hover:bg-white/10"
-                  >
-                    {social.label}
-                  </a>
-                ))}
-              </div>
-            ) : null}
-          </div>
+    <footer className="border-t border-line px-4 py-10 sm:px-6">
+      <div className="mx-auto flex max-w-6xl flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="font-display text-lg font-semibold">
+            {profile.name}
+            <span className="text-lilac">.</span>
+          </p>
+          <p className="mt-1 text-sm text-muted">
+            {profile.role} · {profile.location} · Built with Next.js + Three.js
+          </p>
         </div>
-
-        <div className="mt-10 flex flex-col gap-2 border-t border-white/10 pt-8 text-xs text-slate-400 md:flex-row md:items-center md:justify-between">
-          <p>© {year} {content.companyName}. All rights reserved.</p>
-          <p className="text-slate-500">{content.company?.timezone ?? "UTC"}</p>
+        <div className="flex items-center gap-2">
+          {profile.socials.map((s) => (
+            <a
+              key={s.label}
+              href={s.href}
+              target={s.href.startsWith("http") ? "_blank" : undefined}
+              rel="noreferrer"
+              aria-label={s.label}
+              className="grid h-10 w-10 place-items-center rounded-full border border-line bg-white/5 text-muted transition hover:text-white"
+            >
+              <SocialIcon icon={s.icon} />
+            </a>
+          ))}
         </div>
       </div>
+      <p className="mx-auto mt-8 max-w-6xl text-xs text-muted/70">
+        © {new Date().getFullYear()} {profile.name}. 3D clip-art by{" "}
+        <Link href="https://github.com/microsoft/fluentui-emoji" className="underline underline-offset-2">
+          Microsoft Fluent Emoji
+        </Link>{" "}
+        (MIT) · Brand icons by{" "}
+        <Link href="https://simpleicons.org" className="underline underline-offset-2">
+          Simple Icons
+        </Link>{" "}
+        (CC0).
+      </p>
     </footer>
   );
 }

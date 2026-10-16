@@ -1,0 +1,42 @@
+{
+  "freeearnhub": {
+    "poster": "/projects/freeearnhub.jpg",
+    "video": "/videos/freeearnhub.mp4"
+  },
+  "toyco-india": {
+    "poster": "/projects/toyco-india.jpg",
+    "video": "/videos/toyco-india.mp4"
+  },
+  "game-arena": {
+    "poster": "/projects/game-arena.jpg",
+    "video": "/videos/game-arena.mp4"
+  },
+  "forge-container-commerce": {
+    "poster": "/projects/forge-container-commerce.jpg",
+    "video": "/videos/forge-container-commerce.mp4"
+  },
+  "ads-advanced-device-systems": {
+    "poster": "/projects/ads-advanced-device-systems.jpg",
+    "video": "/videos/ads-advanced-device-systems.mp4"
+  },
+  "petfu": {
+    "poster": "/projects/petfu.jpg",
+    "video": "/videos/petfu.mp4"
+  },
+  "forge74": {
+    "poster": "/projects/forge74.jpg",
+    "video": "/videos/forge74.mp4"
+  },
+  "hymel-electric": {
+    "poster": "/projects/hymel-electric.jpg",
+    "video": "/videos/hymel-electric.mp4"
+  },
+  "truckmate": {
+    "poster": "/projects/truckmate.jpg",
+    "video": "/videos/truckmate.mp4"
+  },
+  "eco-mart": {
+    "poster": "/projects/eco-mart.jpg",
+    "video": "/videos/eco-mart.mp4"
+  }
+}

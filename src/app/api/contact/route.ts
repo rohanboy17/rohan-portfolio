@@ -5,8 +5,7 @@ type ContactPayload = {
   name: string;
   email: string;
   company?: string;
-  budget?: string;
-  timeline?: string;
+  reason?: string;
   message: string;
   website?: string; // honeypot
   startedAt?: number; // anti-bot (ms timestamp)
@@ -82,7 +81,7 @@ export async function POST(req: Request) {
   // Email delivery (Resend) - optional.
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_TO_EMAIL;
-  const from = process.env.CONTACT_FROM_EMAIL || "NovaAxis Labs <onboarding@resend.dev>";
+  const from = process.env.CONTACT_FROM_EMAIL || "Portfolio <onboarding@resend.dev>";
 
   if (!apiKey || !to) {
     return NextResponse.json(
@@ -94,13 +93,12 @@ export async function POST(req: Request) {
   const { Resend } = await import("resend");
   const resend = new Resend(apiKey);
 
-  const subject = `New inquiry: ${name}`;
+  const subject = `Portfolio: ${body.reason || "New message"} from ${name}`;
   const text = [
     `Name: ${name}`,
     `Email: ${email}`,
     body.company ? `Company: ${body.company}` : "",
-    body.budget ? `Budget: ${body.budget}` : "",
-    body.timeline ? `Timeline: ${body.timeline}` : "",
+    body.reason ? `Reason: ${body.reason}` : "",
     "",
     message,
   ]

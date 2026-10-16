@@ -57,7 +57,7 @@ export default function TiltSpotlightCard({ children, className = "" }: TiltSpot
         rotateY,
         transformStyle: "preserve-3d"
       }}
-      className={`relative group rounded-[32px] border border-white/10 bg-slate-900/40 backdrop-blur-xl transition-colors hover:border-cyan-500/30 shadow-2xl ${className}`}
+      className={`relative group rounded-[32px] border border-line bg-white/[0.03] transition-colors hover:border-lilac/30 ${className}`}
     >
       {/* 3D Spotlight Overlay */}
       <motion.div
@@ -65,7 +65,7 @@ export default function TiltSpotlightCard({ children, className = "" }: TiltSpot
         style={{
           background: useTransform(
             [spotlightX, spotlightY],
-            ([x, y]) => `radial-gradient(600px circle at ${x}px ${y}px, rgba(34, 211, 238, 0.15), transparent 80%)`
+            ([x, y]) => `radial-gradient(600px circle at ${x}px ${y}px, rgba(196, 181, 253, 0.14), transparent 80%)`
           ),
         }}
       />

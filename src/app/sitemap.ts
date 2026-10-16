@@ -1,23 +1,14 @@
 import type { MetadataRoute } from "next";
-import { getSiteContent } from "@/lib/cms/get-site-content";
+import { profile } from "@/content/profile";
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const content = await getSiteContent();
-  const baseUrl = content.siteSeo?.siteUrl ?? "https://example.com";
+export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-
-  const staticRoutes = ["/", "/services", "/work", "/contact", "/privacy", "/terms"].map(
-    (path) => ({
-      url: `${baseUrl}${path}`,
+  return [
+    { url: profile.siteUrl, lastModified: now, priority: 1 },
+    ...profile.projects.map((p) => ({
+      url: `${profile.siteUrl}/projects/${p.slug}`,
       lastModified: now,
-    }),
-  );
-
-  const serviceRoutes = content.services.map((service) => ({
-    url: `${baseUrl}/services/${service.slug}`,
-    lastModified: now,
-  }));
-
-  return [...staticRoutes, ...serviceRoutes];
+      priority: p.featured ? 0.8 : 0.5,
+    })),
+  ];
 }
-

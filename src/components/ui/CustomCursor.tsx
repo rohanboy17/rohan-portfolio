@@ -1,14 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
+const FINE_POINTER = "(hover: hover) and (pointer: fine)";
+
+function subscribe(onChange: () => void) {
+  const mq = window.matchMedia(FINE_POINTER);
+  mq.addEventListener("change", onChange);
+  return () => mq.removeEventListener("change", onChange);
+}
+
 export function CustomCursor() {
-  const enabled =
-    typeof window !== "undefined" &&
-    !!window.matchMedia &&
-    !window.matchMedia("(pointer: coarse)").matches &&
-    window.matchMedia("(hover: hover)").matches;
+  // Server render (and hydration) always sees `false`, so markup matches; the client then upgrades.
+  const enabled = useSyncExternalStore(
+    subscribe,
+    () => window.matchMedia(FINE_POINTER).matches,
+    () => false,
+  );
 
   const [isHovering, setIsHovering] = useState(false);
 
@@ -61,7 +70,7 @@ export function CustomCursor() {
     <>
       {/* Small dot */}
       <motion.div
-        className="fixed top-0 left-0 w-3 h-3 bg-cyan-400 rounded-full pointer-events-none z-[9999]"
+        className="fixed top-0 left-0 w-3 h-3 bg-lilac rounded-full pointer-events-none z-[9999]"
         style={{
           x: cursorXSpring,
           y: cursorYSpring,
@@ -71,7 +80,7 @@ export function CustomCursor() {
       />
       {/* Outer ring */}
       <motion.div
-        className="fixed top-0 left-0 w-10 h-10 border border-cyan-400/50 rounded-full pointer-events-none z-[9998]"
+        className="fixed top-0 left-0 w-10 h-10 border border-lilac/60 rounded-full pointer-events-none z-[9998]"
         style={{
           x: outerXSpring,
           y: outerYSpring,
@@ -80,7 +89,7 @@ export function CustomCursor() {
         }}
         animate={{
           scale: isHovering ? 2 : 1,
-          backgroundColor: isHovering ? "rgba(34, 211, 238, 0.1)" : "rgba(0, 0, 0, 0)",
+          backgroundColor: isHovering ? "rgba(196, 181, 253, 0.12)" : "rgba(0, 0, 0, 0)",
         }}
         transition={{ duration: 0.3 }}
       />

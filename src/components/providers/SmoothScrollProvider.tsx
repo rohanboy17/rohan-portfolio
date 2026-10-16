@@ -19,11 +19,11 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
     <ReactLenis
       root
       options={{
-        lerp: 0.08,
-        duration: 1.9,
+        lerp: 0.1,
         smoothWheel: true,
-        wheelMultiplier: 0.65,
-        touchMultiplier: 0.75,
+        wheelMultiplier: 0.9,
+        // Smoothly scroll to #section links, offset for the fixed header.
+        anchors: { offset: -88 },
       }}
     >
       {children}
