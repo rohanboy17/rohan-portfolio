@@ -82,16 +82,16 @@ export const profile = {
     "From pixel-perfect interfaces to payments, auth and databases — I take products from idea to production on modern web tech.",
 
   about: [
-    "I'm a Computer Science graduate (B.Sc, 2023) and GATE 2023 CS qualifier from West Bengal, India. Since then I've shipped 25+ production websites and web apps for startups, B2B brands and e-commerce businesses.",
+    "I'm a Computer Science graduate (B.Sc, 2023) and GATE 2023 CS qualifier from West Bengal, India. Since then I've shipped 40+ production websites and web apps for startups, B2B brands and e-commerce businesses.",
     "I work end-to-end: Next.js and React on the front, Node, Prisma and PostgreSQL on the back, and Vercel, Docker and CI to ship it. I care about speed, accessibility and the small details that make software feel premium.",
     "I'm looking for a full-time role on a product team where I can own features end-to-end and keep learning from great engineers.",
   ],
 
   stats: [
     { value: "4+", label: "Years building for the web" },
-    { value: "25+", label: "Projects shipped" },
-    { value: "20+", label: "Live deployments" },
-    { value: "15+", label: "Technologies in production" },
+    { value: "40+", label: "Projects shipped" },
+    { value: "30+", label: "Live deployments" },
+    { value: "20+", label: "Technologies in production" },
   ],
 
   /** `primary` ones also appear in the hero; every account appears in Contact and the footer. */
@@ -762,7 +762,7 @@ export const profile = {
       location: "Remote · India",
       clip: "rocket",
       points: [
-        "Shipped 25+ websites, storefronts and web apps for startups, B2B manufacturers and e-commerce brands.",
+        "Shipped 40+ websites, storefronts and web apps for startups, B2B manufacturers and e-commerce brands.",
         "Built payment flows with Razorpay, role-based auth, and PostgreSQL/Prisma data models.",
         "Delivered on Next.js, React, Shopify and WooCommerce, deployed on Vercel with CI.",
       ],
