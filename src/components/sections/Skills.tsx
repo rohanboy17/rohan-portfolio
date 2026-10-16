@@ -7,8 +7,11 @@ import TiltSpotlightCard from "@/components/ui/TiltSpotlightCard";
 import { accentStyles } from "@/components/ui/accent";
 import { Item, Stagger } from "@/components/site/MotionPrimitives";
 
-// Bento layout: the first two groups get wider tiles on large screens.
-const SPANS = ["lg:col-span-3", "lg:col-span-3", "lg:col-span-2", "lg:col-span-2", "lg:col-span-2"];
+// Bento layout on a 6-column grid: six groups make two rows of three; five make 3+3 / 2+2+2.
+const SPANS =
+  profile.skills.length === 5
+    ? ["lg:col-span-3", "lg:col-span-3", "lg:col-span-2", "lg:col-span-2", "lg:col-span-2"]
+    : [];
 
 export default function Skills() {
   const all = profile.skills.flatMap((g) => g.items);

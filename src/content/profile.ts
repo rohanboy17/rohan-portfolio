@@ -59,24 +59,26 @@ export type TimelineItem = {
 };
 
 export const profile = {
-  name: "Rohan Mondal", // TODO(rohan): confirm full name
+  name: "Rohan Mondal",
   firstName: "Rohan",
   role: "Full-Stack Developer",
-  location: "India",
+  location: "West Bengal, India",
   timezone: "IST (UTC+05:30)",
   openToWork: true,
   email: "rohanmondalpc@gmail.com",
   siteUrl: "https://rohanmondal.vercel.app",
-  /** Put your resume at /public/resume.pdf, then set this to "/resume.pdf". */
-  resumeUrl: "", // TODO(rohan): add resume PDF
-  avatar: "/3d/dev.png", // TODO(rohan): swap for a photo or a 3D avatar of you, e.g. "/me.png"
+  /** Resume PDF in /public. Leave empty to hide the download button. */
+  resumeUrl: "/resume.pdf",
+  /** Your photo in /public. Leave empty to show a 3D avatar instead. */
+  photo: "/3d/me.png",
+  spokenLanguages: ["English", "Hindi", "Bengali"],
 
   headline: "I build fast, full-stack products people love to use.",
   intro:
     "From pixel-perfect interfaces to payments, auth and databases — I take products from idea to production on modern web tech.",
 
   about: [
-    "I'm a full-stack developer from India who has shipped 25+ production websites and web apps for startups, B2B brands and e-commerce businesses.",
+    "I'm a Computer Science graduate (B.Sc, 2023) and GATE 2023 CS qualifier from West Bengal, India. Since then I've shipped 25+ production websites and web apps for startups, B2B brands and e-commerce businesses.",
     "I work end-to-end: Next.js and React on the front, Node, Prisma and PostgreSQL on the back, and Vercel, Docker and CI to ship it. I care about speed, accessibility and the small details that make software feel premium.",
     "I'm looking for a full-time role on a product team where I can own features end-to-end and keep learning from great engineers.",
   ],
@@ -90,7 +92,7 @@ export const profile = {
 
   socials: [
     { label: "GitHub", href: "https://github.com/rohanboy17", icon: "github" },
-    { label: "LinkedIn", href: "https://www.linkedin.com/", icon: "linkedin" }, // TODO(rohan): your LinkedIn URL
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/rohanboy17/", icon: "linkedin" },
     { label: "Email", href: "mailto:rohanmondalpc@gmail.com", icon: "mail" },
   ],
 
@@ -116,6 +118,7 @@ export const profile = {
       accent: "peach",
       items: [
         { name: "Node.js", icon: "nodedotjs" },
+        { name: "Express", icon: "express" },
         { name: "REST APIs" },
         { name: "NextAuth / JWT" },
         { name: "Zod", icon: "zod" },
@@ -133,6 +136,20 @@ export const profile = {
         { name: "Drizzle ORM", icon: "drizzle" },
         { name: "Firebase", icon: "firebase" },
         { name: "MySQL", icon: "mysql" },
+      ],
+    },
+    {
+      title: "Languages & CS",
+      clip: "brain",
+      accent: "butter",
+      items: [
+        { name: "Data Structures & Algorithms" },
+        { name: "Java", icon: "openjdk" },
+        { name: "C", icon: "c" },
+        { name: "C++", icon: "cplusplus" },
+        { name: "Python", icon: "python" },
+        { name: "C#" },
+        { name: "SQL" },
       ],
     },
     {
@@ -357,33 +374,73 @@ export const profile = {
       stack: ["React", "Bootstrap 5", "JavaScript"],
       liveUrl: "https://eco-mart-storefront.vercel.app",
     },
+    {
+      slug: "rupashi-enterprise",
+      title: "Rupashi Enterprise",
+      tagline: "Dynamic full-stack B2B website",
+      category: "Full-stack website",
+      clip: "briefcase",
+      accent: "sky",
+      problem: "A B2B business needed a dynamic website its team could keep up to date, not a static brochure.",
+      solution: "Built the full stack — React front end with Express and PHP on the back — and hosted it on Hostinger.",
+      highlights: ["Dynamic, data-driven pages", "Deployed and maintained in production"],
+      stack: ["React", "Express", "PHP", "Hostinger"],
+      liveUrl: "https://rupashienterprise.vercel.app",
+    },
   ] satisfies Project[] as Project[],
 
   experience: [
     {
       title: "Freelance Full-Stack Developer",
       org: "Self-employed",
-      period: "2022 — Present", // TODO(rohan): confirm dates
+      period: "2023 — Present", // TODO(rohan): confirm start year
       location: "Remote · India",
-      clip: "briefcase",
+      clip: "rocket",
       points: [
         "Shipped 25+ websites, storefronts and web apps for startups, B2B manufacturers and e-commerce brands.",
         "Built payment flows with Razorpay, role-based auth, and PostgreSQL/Prisma data models.",
         "Delivered on Next.js, React, Shopify and WooCommerce, deployed on Vercel with CI.",
       ],
     },
-    // TODO(rohan): add internships or jobs, newest first, e.g.
-    // { title: "Software Engineering Intern", org: "Company", period: "Jan 2025 — Jun 2025", clip: "rocket", points: ["..."] },
+    {
+      title: "Full-Stack Web Developer",
+      org: "Rupashi Enterprise",
+      period: "6 months",
+      location: "India",
+      clip: "briefcase",
+      points: [
+        "Built the company's B2B dynamic website end to end with React, Express and PHP.",
+        "Handled deployment and hosting on Hostinger; the site is live at rupashienterprise.vercel.app.",
+      ],
+    },
   ] satisfies TimelineItem[] as TimelineItem[],
 
   education: [
-    // TODO(rohan): add your degree, e.g.
-    // { title: "B.Tech in Computer Science", org: "University name", period: "2021 — 2025", clip: "grad", points: ["CGPA 8.5 / 10"] },
+    {
+      title: "B.Sc. in Computer Science",
+      org: "Jogesh Chandra Chaudhuri College",
+      period: "Aug 2020 — Sep 2023",
+      location: "Tollygunge, Kolkata",
+      clip: "grad",
+      points: [
+        "Core CS: Data Structures, Algorithms, DBMS, Operating Systems, Computer Networks, Software Engineering, Theory of Computation.",
+        "Programming in C, Java (OOP & Advanced Java) and Python; Information Security, Data Mining and Image Processing.",
+        "College project: CURSED — an adventure game built with a teammate in Unreal Engine using Blueprints and C#.",
+      ],
+    },
+    {
+      title: "Higher Secondary (12th), Science",
+      org: "Julpia Andharmanik High School",
+      period: "Jan 2019 — Jun 2020",
+      location: "Julpia, West Bengal",
+      clip: "bulb",
+      points: ["Mathematics, Physics, Chemistry and Biology."],
+    },
   ] satisfies TimelineItem[] as TimelineItem[],
 
   achievements: [
-    // TODO(rohan): add certifications, hackathons, awards, e.g.
-    // { title: "AWS Certified Cloud Practitioner", detail: "Amazon Web Services · 2025", clip: "trophy" },
+    { title: "GATE 2023 Qualified", detail: "Computer Science & IT · 2023", clip: "trophy" },
+    { title: "Cyber Security Course", detail: "6 months · Adamas University", clip: "shield" },
   ] as { title: string; detail: string; clip: Clip; href?: string }[],
 };
 

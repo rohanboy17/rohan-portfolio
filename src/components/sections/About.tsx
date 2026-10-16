@@ -21,22 +21,29 @@ export default function About() {
             <div className="clay relative overflow-hidden rounded-[32px] p-8">
               <div aria-hidden className="absolute -right-10 -top-10 h-48 w-48 rounded-full bg-pink/20 blur-3xl" />
               <div aria-hidden className="absolute -bottom-12 -left-8 h-48 w-48 rounded-full bg-lilac/25 blur-3xl" />
-              <div className="relative mx-auto grid aspect-square max-w-[260px] place-items-center rounded-[28px] bg-gradient-to-br from-lilac/30 via-pink/15 to-peach/25">
-                <Image
-                  src={profile.avatar}
-                  alt={`${profile.name}`}
-                  width={220}
-                  height={220}
-                  className="animate-float drop-shadow-[0_24px_30px_rgba(0,0,0,0.45)]"
-                />
-                <Clip3D name="coffee" size={64} float delay={1} className="absolute -left-3 bottom-6" />
-                <Clip3D name="sparkles" size={52} float delay={0.4} className="absolute -right-2 top-4" />
+              <div className="relative mx-auto aspect-square max-w-[260px] rounded-[28px] bg-gradient-to-br from-lilac/60 via-pink/40 to-peach/50 p-1.5">
+                {profile.photo ? (
+                  <Image
+                    src={profile.photo}
+                    alt={`Photo of ${profile.name}`}
+                    fill
+                    sizes="260px"
+                    className="rounded-[24px] object-cover object-[50%_18%] p-1.5"
+                  />
+                ) : (
+                  <div className="grid h-full place-items-center">
+                    <Clip3D name="dev" size={220} float alt={profile.name} />
+                  </div>
+                )}
+                <Clip3D name="coffee" size={64} float delay={1} className="absolute -bottom-4 -left-6" />
+                <Clip3D name="sparkles" size={52} float delay={0.4} className="absolute -right-5 -top-4" />
               </div>
               <div className="relative mt-6 text-center">
                 <p className="font-display text-2xl font-semibold">{profile.name}</p>
                 <p className="text-muted">
                   {profile.role} · {profile.location}
                 </p>
+                <p className="mt-3 text-sm text-muted">Speaks {profile.spokenLanguages.join(" · ")}</p>
               </div>
             </div>
           </Reveal>

@@ -45,7 +45,10 @@ const personJsonLd = {
   jobTitle: profile.role,
   url: profile.siteUrl,
   email: `mailto:${profile.email}`,
-  address: { "@type": "PostalAddress", addressCountry: profile.location },
+  image: profile.photo ? `${profile.siteUrl}${profile.photo}` : undefined,
+  address: { "@type": "PostalAddress", addressRegion: "West Bengal", addressCountry: "IN" },
+  alumniOf: profile.education.map((e) => ({ "@type": "EducationalOrganization", name: e.org })),
+  knowsLanguage: profile.spokenLanguages,
   sameAs: profile.socials.filter((s) => s.href.startsWith("http")).map((s) => s.href),
   knowsAbout: profile.skills.flatMap((g) => g.items.map((i) => i.name)),
 };

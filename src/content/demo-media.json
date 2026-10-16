@@ -38,5 +38,9 @@
   "eco-mart": {
     "poster": "/projects/eco-mart.jpg",
     "video": "/videos/eco-mart.mp4"
+  },
+  "rupashi-enterprise": {
+    "poster": "/projects/rupashi-enterprise.jpg",
+    "video": "/videos/rupashi-enterprise.mp4"
   }
 }
