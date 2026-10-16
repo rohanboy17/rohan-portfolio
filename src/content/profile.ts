@@ -648,6 +648,110 @@ export const profile = {
       highlights: ["Breaking-news layout", "Launching soon"],
       stack: ["WordPress", "Elementor", "PHP"],
     },
+    {
+      slug: "llanolife",
+      title: "LlanoLife",
+      tagline: "Smart-tech & gadgets Shopify store",
+      category: "Shopify",
+      clip: "phone",
+      accent: "sky",
+      problem: "A consumer-tech brand needed a premium, dark storefront that makes gadgets feel desirable.",
+      solution: "A custom Shopify store — 'Smart tech, easy life' — with curated collections and a clean buying flow.",
+      highlights: ["Premium dark storefront", "Editable in Shopify"],
+      stack: ["Shopify", "Liquid", "JavaScript"],
+      liveUrl: "https://llanolife.com",
+    },
+    {
+      slug: "nour-skin",
+      title: "Leki Skincare",
+      tagline: "Curated Eucerin skincare store (Morocco)",
+      category: "Shopify",
+      clip: "palette",
+      accent: "pink",
+      problem: "A Moroccan skincare retailer needed a trustworthy store with local pricing in MAD.",
+      solution: "A clean Shopify store — 'The skin edit' — with a curated catalogue, sale pricing and localisation.",
+      highlights: ["Localised pricing (MAD)", "Curated product edit"],
+      stack: ["Shopify", "Liquid"],
+      liveUrl: "https://leki-maroc.com",
+    },
+    {
+      slug: "ripples-jewelry",
+      title: "Ripples Jewelry",
+      tagline: "Keepsake jewelry Shopify store",
+      category: "Shopify",
+      clip: "star",
+      accent: "butter",
+      problem: "A jewelry brand wanted its store to feel like meaningful, personal keepsakes — not a generic catalogue.",
+      solution: "An editorial Shopify store with a full catalogue and a warm, premium brand feel.",
+      highlights: ["Editorial product storytelling", "Full catalogue"],
+      stack: ["Shopify", "Liquid", "JavaScript"],
+      liveUrl: "https://ripplesjewelry.com",
+    },
+    {
+      slug: "wowei-lighting",
+      title: "Wowei Lighting",
+      tagline: "LED lighting manufacturer store",
+      category: "WordPress / WooCommerce",
+      clip: "bulb",
+      accent: "butter",
+      problem: "A Chinese LED-lighting manufacturer needed to present smart bulbs and fixtures to global buyers.",
+      solution: "A WooCommerce catalogue with product ranges, smart-lighting highlights and a company news section.",
+      highlights: ["Smart-lighting product catalogue", "Global-buyer focused"],
+      stack: ["WordPress", "WooCommerce", "PHP"],
+      liveUrl: "https://wowlight.com.cn",
+    },
+    {
+      slug: "herzite",
+      title: "Herzite Atelier",
+      tagline: "Custom-bracelet jewelry store",
+      category: "WordPress / WooCommerce",
+      clip: "sparkles",
+      accent: "lilac",
+      problem: "A jewelry brand wanted customers to design their own meaningful bracelets, not just buy stock pieces.",
+      solution: "A WooCommerce store with a 'design a bracelet' builder and a customer-creations showcase.",
+      highlights: ["Custom bracelet builder", "Customer-creations gallery"],
+      stack: ["WordPress", "WooCommerce", "PHP"],
+      liveUrl: "http://162.62.233.115", // TODO(rohan): add the Herzite live domain
+    },
+    {
+      slug: "rockstone-luxe",
+      title: "Rockstone Luxe",
+      tagline: "Luxury stone & surfaces store",
+      category: "WordPress / WooCommerce",
+      clip: "package",
+      accent: "mint",
+      problem: "A premium building-materials supplier needed an elegant store for luxury stone and surfaces.",
+      solution: "A custom 'Rockstone Luxe' WooCommerce theme with a refined catalogue and product detail.",
+      highlights: ["Custom WooCommerce theme", "Premium catalogue"],
+      stack: ["WordPress", "WooCommerce", "PHP"],
+      // TODO(rohan): confirm live domain — the dev server (43.131.45.150) was down, so no demo was recorded.
+    },
+    {
+      slug: "tg-packaging",
+      title: "TG Packaging",
+      tagline: "Cosmetic-packaging manufacturer site",
+      category: "B2B website",
+      clip: "palette",
+      accent: "pink",
+      problem: "A cosmetic-packaging manufacturer needed to showcase its range to beauty brands.",
+      solution: "A refined WordPress site — 'The sculpture of scent' — with product families and a concept-to-delivery story.",
+      highlights: ["Custom studio theme + plugin", "Concept-to-delivery journey"],
+      stack: ["WordPress", "PHP", "Custom theme & plugin"],
+      liveUrl: "http://43.157.62.224", // TODO(rohan): add the TG Packaging live domain
+    },
+    {
+      slug: "topfeel",
+      title: "Topfeel Packaging",
+      tagline: "Total packaging solution provider",
+      category: "B2B website",
+      clip: "package",
+      accent: "peach",
+      problem: "A packaging supplier needed a B2B site that turns manufacturers into quote requests.",
+      solution: "A WordPress site with product categories, a quote flow and a custom core plugin.",
+      highlights: ["Quote-focused B2B flow", "Custom theme + core plugin"],
+      stack: ["WordPress", "PHP", "Custom theme & plugin"],
+      liveUrl: "http://43.131.42.127", // TODO(rohan): add the Topfeel live domain
+    },
   ] satisfies Project[] as Project[],
 
   experience: [
@@ -716,3 +820,68 @@ for (const p of profile.projects) {
 
 export const featuredProjects = profile.projects.filter((p) => p.featured);
 export const otherProjects = profile.projects.filter((p) => !p.featured);
+
+/* ---------- Work categories ---------- */
+// Each project's `category` string maps to one broad business category below.
+// Every category gets its own page at /work/[slug].
+export type Category = {
+  slug: string;
+  title: string;
+  short: string;
+  tagline: string;
+  clip: Clip;
+  accent: Accent;
+  match: string[];
+};
+
+export const categories: Category[] = [
+  {
+    slug: "web-apps",
+    title: "Web Apps & SaaS",
+    short: "Web Apps",
+    tagline: "Full-stack products with auth, payments, dashboards and APIs — taken from idea to production.",
+    clip: "rocket",
+    accent: "lilac",
+    match: ["Full-stack SaaS", "Full-stack SaaS + Android", "Full-stack web app", "Mobile + full-stack", "Full-stack website"],
+  },
+  {
+    slug: "ecommerce",
+    title: "E-Commerce & Online Stores",
+    short: "E-Commerce",
+    tagline: "Marketplaces and storefronts built on Next.js, WooCommerce and Shopify.",
+    clip: "cart",
+    accent: "mint",
+    match: ["E-commerce platform", "WordPress / WooCommerce", "Shopify"],
+  },
+  {
+    slug: "business-sites",
+    title: "Business & Brand Websites",
+    short: "Business Sites",
+    tagline: "Fast, premium marketing sites for B2B manufacturers, brands and local businesses.",
+    clip: "globe",
+    accent: "peach",
+    match: ["B2B website", "Brand website", "Next.js website", "WordPress"],
+  },
+  {
+    slug: "creative",
+    title: "Creative & Interactive",
+    short: "Creative",
+    tagline: "Motion-rich, art-directed front-ends that make a brand feel premium.",
+    clip: "palette",
+    accent: "pink",
+    match: ["Creative frontend"],
+  },
+];
+
+export function categoryOf(project: Project): Category {
+  return categories.find((c) => c.match.includes(project.category)) ?? categories[categories.length - 1];
+}
+
+export function projectsInCategory(slug: string): Project[] {
+  // Featured first, so each category page leads with the strongest work.
+  return profile.projects
+    .filter((p) => categoryOf(p).slug === slug)
+    .sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)));
+}
+
+export const categoryCounts = categories.map((c) => ({ ...c, count: projectsInCategory(c.slug).length }));

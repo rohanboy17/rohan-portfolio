@@ -101,5 +101,33 @@
   "cockroach-jobs": {
     "poster": "/projects/cockroach-jobs.jpg",
     "video": "/videos/cockroach-jobs.mp4"
+  },
+  "llanolife": {
+    "poster": "/projects/llanolife.jpg",
+    "video": "/videos/llanolife.mp4"
+  },
+  "nour-skin": {
+    "poster": "/projects/nour-skin.jpg",
+    "video": "/videos/nour-skin.mp4"
+  },
+  "ripples-jewelry": {
+    "poster": "/projects/ripples-jewelry.jpg",
+    "video": "/videos/ripples-jewelry.mp4"
+  },
+  "wowei-lighting": {
+    "poster": "/projects/wowei-lighting.jpg",
+    "video": "/videos/wowei-lighting.mp4"
+  },
+  "tg-packaging": {
+    "poster": "/projects/tg-packaging.jpg",
+    "video": "/videos/tg-packaging.mp4"
+  },
+  "topfeel": {
+    "poster": "/projects/topfeel.jpg",
+    "video": "/videos/topfeel.mp4"
+  },
+  "herzite": {
+    "poster": "/projects/herzite.jpg",
+    "video": "/videos/herzite.mp4"
   }
 }

@@ -1,46 +1,15 @@
 import Link from "next/link";
 import clsx from "clsx";
-import { ArrowUpRight, ExternalLink } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { featuredProjects, otherProjects, type Project } from "@/content/profile";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Clip3D from "@/components/ui/Clip3D";
-import BrandIcon from "@/components/ui/BrandIcon";
 import ProjectMedia from "@/components/site/ProjectMedia";
+import { ProjectLinks, MiniCard } from "@/components/site/ProjectCard";
+import CategoryPills from "@/components/site/CategoryPills";
 import { accentStyles } from "@/components/ui/accent";
 import { Reveal } from "@/components/site/MotionPrimitives";
 import ShowMoreGrid from "@/components/site/ShowMoreGrid";
-
-const pill = "inline-flex items-center justify-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-semibold transition";
-
-function ProjectLinks({ project, compact = false }: { project: Project; compact?: boolean }) {
-  return (
-    <div className={clsx("flex gap-2", compact ? "flex-wrap" : "flex-wrap [&>*]:flex-1 sm:[&>*]:flex-none")}>
-      {project.liveUrl ? (
-        <a
-          href={project.liveUrl}
-          target="_blank"
-          rel="noreferrer"
-          className={clsx(pill, "btn-clay bg-white text-ink [--glow:rgb(255_255_255/0.25)]")}
-        >
-          Live <ExternalLink size={14} />
-        </a>
-      ) : null}
-      {project.repoUrl ? (
-        <a
-          href={project.repoUrl}
-          target="_blank"
-          rel="noreferrer"
-          className={clsx(pill, "border border-line bg-white/5 hover:bg-white/10")}
-        >
-          <BrandIcon slug="github" size={14} /> Code
-        </a>
-      ) : null}
-      <Link href={`/projects/${project.slug}`} className={clsx(pill, "border border-line bg-white/5 hover:bg-white/10")}>
-        Case study <ArrowUpRight size={14} />
-      </Link>
-    </div>
-  );
-}
 
 function FeaturedCard({ project, index }: { project: Project; index: number }) {
   const a = accentStyles[project.accent];
@@ -101,27 +70,6 @@ function FeaturedCard({ project, index }: { project: Project; index: number }) {
   );
 }
 
-function MiniCard({ project }: { project: Project }) {
-  const a = accentStyles[project.accent];
-  return (
-    <article className="clay group relative flex h-full flex-col overflow-hidden rounded-[28px] p-3 transition hover:-translate-y-1">
-      <div aria-hidden className={clsx("absolute -right-10 -top-10 h-32 w-32 rounded-full opacity-20 blur-2xl transition group-hover:opacity-40", a.bg)} />
-      <ProjectMedia project={project} />
-      <div className="relative flex flex-1 flex-col px-2 pb-2 pt-4">
-        <div className="flex items-center justify-between gap-3">
-          <h3 className="font-display text-lg font-semibold">{project.title}</h3>
-          <Clip3D name={project.clip} size={40} className="h-9 w-9 shrink-0 transition duration-500 group-hover:-rotate-6 group-hover:scale-110" />
-        </div>
-        <p className="mt-1 text-sm text-muted">{project.tagline}</p>
-        <p className="mt-3 text-xs text-white/60">{project.stack.join(" · ")}</p>
-        <div className="mt-auto pt-5">
-          <ProjectLinks project={project} compact />
-        </div>
-      </div>
-    </article>
-  );
-}
-
 export default function Projects() {
   return (
     <section id="projects" className="px-4 py-16 sm:px-6 sm:py-24">
@@ -132,6 +80,16 @@ export default function Projects() {
           description="SaaS platforms, marketplaces and e-commerce stores — chosen from 40+ builds, each designed, built and shipped by me."
           clip="rocket"
         />
+
+        {/* Browse by business category */}
+        <Reveal>
+          <div className="mt-8">
+            <p className="mb-3 text-center text-xs font-semibold uppercase tracking-[0.24em] text-muted sm:text-left">
+              Browse by category
+            </p>
+            <CategoryPills className="justify-center sm:justify-start" />
+          </div>
+        </Reveal>
 
         <div className="mt-10 space-y-5 sm:mt-12 sm:space-y-6">
           {featuredProjects.map((p, i) => (
@@ -152,6 +110,16 @@ export default function Projects() {
                 <MiniCard key={p.slug} project={p} />
               ))}
             </ShowMoreGrid>
+            <Reveal>
+              <div className="mt-10 flex justify-center">
+                <Link
+                  href="/work"
+                  className="btn-clay inline-flex items-center gap-2 rounded-full bg-lilac px-6 py-3 font-semibold text-ink"
+                >
+                  Explore all work by category <ArrowRight size={18} />
+                </Link>
+              </div>
+            </Reveal>
           </>
         ) : null}
       </div>
