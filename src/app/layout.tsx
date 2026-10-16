@@ -47,6 +47,7 @@ const personJsonLd = {
   url: profile.siteUrl,
   email: `mailto:${profile.email}`,
   image: profile.photo ? `${profile.siteUrl}${profile.photo}` : undefined,
+  logo: `${profile.siteUrl}/icon-512.png`,
   address: { "@type": "PostalAddress", addressRegion: "West Bengal", addressCountry: "IN" },
   alumniOf: profile.education.map((e) => ({ "@type": "EducationalOrganization", name: e.org })),
   knowsLanguage: profile.spokenLanguages,

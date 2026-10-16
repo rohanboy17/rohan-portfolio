@@ -595,6 +595,18 @@ export const profile = {
       stack: ["React", "Express", "PHP", "Hostinger"],
       liveUrl: "https://rupashienterprise.vercel.app",
     },
+    {
+      slug: "the-kolkata-news",
+      title: "The Kolkata News",
+      tagline: "Digital news portal for Kolkata",
+      category: "WordPress",
+      clip: "globe",
+      accent: "pink",
+      problem: "A local newsroom needed a fast site for breaking news, stories and reader tips.",
+      solution: "A WordPress news portal with story feeds, community sections and an enquiry form.",
+      highlights: ["Breaking-news layout", "Launching soon"],
+      stack: ["WordPress", "Elementor", "PHP"],
+    },
   ] satisfies Project[] as Project[],
 
   experience: [

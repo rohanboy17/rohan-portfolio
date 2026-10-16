@@ -3,6 +3,7 @@ import { ArrowUp, ArrowUpRight, Download, MapPin } from "lucide-react";
 import { profile } from "@/content/profile";
 import SocialIcon from "@/components/ui/SocialIcon";
 import Clip3D from "@/components/ui/Clip3D";
+import Logo from "@/components/ui/Logo";
 
 const NAV = [
   { href: "/#about", label: "About" },
@@ -24,9 +25,7 @@ export default function SiteFooter() {
         <div className="grid gap-12 text-center sm:text-left lg:grid-cols-[1.4fr_1fr_1fr]">
           <div className="flex flex-col items-center sm:items-start">
             <Link href="/" className="flex items-center gap-3 font-display text-xl font-semibold">
-              <span className="btn-clay grid h-10 w-10 place-items-center rounded-2xl bg-lilac font-bold text-ink">
-                {profile.firstName.charAt(0)}
-              </span>
+              <Logo size={44} id="logo-footer" />
               {profile.name}
             </Link>
             <p className="mt-4 max-w-sm text-pretty text-muted">

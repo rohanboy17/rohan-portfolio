@@ -14,6 +14,7 @@ async function clip(name: string) {
 
 export default async function OpenGraphImage() {
   const [laptop, rocket, wave] = await Promise.all([clip("laptop"), clip("rocket"), clip("wave")]);
+  const logo = `data:image/png;base64,${(await readFile(join(process.cwd(), "public/icon-192.png"))).toString("base64")}`;
 
   return new ImageResponse(
     (
@@ -31,7 +32,12 @@ export default async function OpenGraphImage() {
             "radial-gradient(circle at 10% 0%, rgba(196,181,253,0.35), transparent 50%), radial-gradient(circle at 90% 10%, rgba(249,168,212,0.25), transparent 45%), #0b0b12",
         }}
       >
-        <div style={{ display: "flex", flexDirection: "column", maxWidth: 680 }}>
+        <div style={{ position: "absolute", top: 56, left: 80, display: "flex", alignItems: "center", gap: 14, fontSize: 26, fontWeight: 600 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={logo} width={52} height={52} alt="" />
+          {profile.name}
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", maxWidth: 680, marginTop: 40 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 64, fontWeight: 700 }}>
             Hi, I&apos;m {profile.firstName}
             {/* eslint-disable-next-line @next/next/no-img-element */}

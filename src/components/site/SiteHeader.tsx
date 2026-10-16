@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import clsx from "clsx";
 import { profile } from "@/content/profile";
+import Logo from "@/components/ui/Logo";
 
 const NAV = [
   { href: "/#about", label: "About" },
@@ -47,9 +48,7 @@ export default function SiteHeader() {
         )}
       >
         <Link href="/" className="flex items-center gap-2 font-display text-lg font-semibold tracking-tight" aria-label={`${profile.name} — home`}>
-          <span className="btn-clay grid h-8 w-8 place-items-center rounded-xl bg-lilac text-sm font-bold text-ink">
-            {profile.firstName.charAt(0)}
-          </span>
+          <Logo size={34} id="logo-header" className="drop-shadow-[0_6px_14px_rgba(196,181,253,0.35)]" />
           <span>
             {profile.firstName}
             <span className="text-lilac">.</span>
@@ -100,9 +99,10 @@ export default function SiteHeader() {
       >
         <div aria-hidden className="aurora pointer-events-none absolute inset-0" />
         <div className="relative flex h-14 items-center justify-between pl-1">
-          <span className="font-display text-lg font-semibold">
+          <span className="flex items-center gap-2 font-display text-lg font-semibold">
+            <Logo size={32} id="logo-menu" />
             {profile.firstName}
-            <span className="text-lilac">.</span>
+            <span className="-ml-2 text-lilac">.</span>
           </span>
           <button
             type="button"

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <title>Rohan Mondal</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c4b5fd"/>
+      <stop offset="0.55" stop-color="#f9a8d4"/>
+      <stop offset="1" stop-color="#fdba8c"/>
+    </linearGradient>
+    <linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.55"/>
+      <stop offset="0.5" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="shade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.6" stop-color="#3b1d4a" stop-opacity="0"/>
+      <stop offset="1" stop-color="#3b1d4a" stop-opacity="0.28"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="128" fill="url(#bg)"/>
+  <rect width="512" height="512" rx="128" fill="url(#shade)"/>
+  <rect x="20" y="16" width="472" height="250" rx="112" fill="url(#gloss)"/>
+  <g transform="translate(-14 0)" fill="none" stroke="#120d1f" stroke-width="66" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M178 384V130h104a79 79 0 0 1 0 158H178"/>
+    <path d="M268 288l90 96"/>
+  </g>
+  <circle cx="408" cy="384" r="26" fill="#120d1f"/>
+</svg>

@@ -89,5 +89,9 @@
   "zhenyang-electric": {
     "poster": "/projects/zhenyang-electric.jpg",
     "video": "/videos/zhenyang-electric.mp4"
+  },
+  "the-kolkata-news": {
+    "poster": "/projects/the-kolkata-news.jpg",
+    "video": "/videos/the-kolkata-news.mp4"
   }
 }
