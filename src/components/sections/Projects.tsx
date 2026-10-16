@@ -8,6 +8,7 @@ import BrandIcon from "@/components/ui/BrandIcon";
 import ProjectMedia from "@/components/site/ProjectMedia";
 import { accentStyles } from "@/components/ui/accent";
 import { Reveal } from "@/components/site/MotionPrimitives";
+import ShowMoreGrid from "@/components/site/ShowMoreGrid";
 
 const pill = "inline-flex items-center justify-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-semibold transition";
 
@@ -128,7 +129,7 @@ export default function Projects() {
         <SectionHeading
           eyebrow="Selected work"
           title="Real products, live in production."
-          description="Marketplaces, payment platforms and storefronts — each one designed, built and deployed by me."
+          description="SaaS platforms, marketplaces and e-commerce stores — chosen from 40+ builds, each designed, built and shipped by me."
           clip="rocket"
         />
 
@@ -142,18 +143,15 @@ export default function Projects() {
           <>
             <Reveal>
               <div className="mt-16 flex items-end justify-between gap-4 sm:mt-20">
-                <h3 className="font-display text-2xl font-semibold">More client work</h3>
+                <h3 className="font-display text-2xl font-semibold">More work</h3>
                 <p className="text-sm text-muted sm:hidden">Swipe →</p>
               </div>
             </Reveal>
-            {/* Swipe rail on phones, grid from `sm` up */}
-            <div className="rail -mx-4 mt-6 flex gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:px-0 lg:grid-cols-3">
+            <ShowMoreGrid>
               {otherProjects.map((p) => (
-                <div key={p.slug} className="w-[82%] shrink-0 sm:w-auto">
-                  <MiniCard project={p} />
-                </div>
+                <MiniCard key={p.slug} project={p} />
               ))}
-            </div>
+            </ShowMoreGrid>
           </>
         ) : null}
       </div>
