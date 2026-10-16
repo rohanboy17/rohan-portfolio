@@ -381,6 +381,38 @@ export const profile = {
 
     // ---------- More work ----------
     {
+      slug: "organisedesk",
+      title: "OrganiseDesk",
+      tagline: "Android helpdesk app with a PHP ticket portal",
+      category: "Mobile + full-stack",
+      clip: "briefcase",
+      accent: "sky",
+      problem: "A support team needed to raise and track tickets on the move, backed by a web portal and API.",
+      solution:
+        "Built an Expo (React Native) Android app plus a matching PHP ticket portal and API, with staff roles, notifications and a Google Play release.",
+      highlights: [
+        "Expo Android app with push notifications and file sharing",
+        "PHP portal + API with staff roles and canned responses",
+        "Published to Google Play",
+      ],
+      stack: ["React Native", "Expo", "TypeScript", "PHP", "MySQL"],
+      liveUrl: "https://organisedesk.ink",
+      repoUrl: "https://github.com/rohanboy17/organisedesk-mobile",
+    },
+    {
+      slug: "cockroach-jobs",
+      title: "Cockroach Jobs",
+      tagline: "Fixed & freelance job board for Gen Z",
+      category: "WordPress",
+      clip: "bulb",
+      accent: "peach",
+      problem: "A hiring startup needed a job board where businesses post vacancies and applicants respond with text, images and video.",
+      solution: "Built a custom 'Cockroach Jobs Core' WordPress plugin on top of a job-portal theme, with employer and seeker flows.",
+      highlights: ["Custom job-board plugin", "Employer and job-seeker dashboards"],
+      stack: ["WordPress", "PHP", "Custom plugin"],
+      liveUrl: "https://cockroachjobs.in",
+    },
+    {
       slug: "evonet",
       title: "Evonet",
       tagline: "Fintech homepage redesign concept",

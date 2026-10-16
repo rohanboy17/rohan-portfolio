@@ -93,5 +93,13 @@
   "the-kolkata-news": {
     "poster": "/projects/the-kolkata-news.jpg",
     "video": "/videos/the-kolkata-news.mp4"
+  },
+  "organisedesk": {
+    "poster": "/projects/organisedesk.jpg",
+    "video": "/videos/organisedesk.mp4"
+  },
+  "cockroach-jobs": {
+    "poster": "/projects/cockroach-jobs.jpg",
+    "video": "/videos/cockroach-jobs.mp4"
   }
 }
