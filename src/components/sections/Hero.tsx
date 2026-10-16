@@ -3,7 +3,7 @@ import { ArrowRight, Download, MapPin } from "lucide-react";
 import { profile } from "@/content/profile";
 import ClayStage from "@/components/3d/ClayStage";
 import Clip3D from "@/components/ui/Clip3D";
-import SocialIcon from "@/components/ui/SocialIcon";
+import SocialRow from "@/components/ui/SocialRow";
 import BrandIcon from "@/components/ui/BrandIcon";
 
 const HERO_STACK = [
@@ -78,20 +78,7 @@ export default function Hero() {
               <MapPin size={16} /> {profile.location} · IST
             </span>
             <span className="hidden h-4 w-px bg-line sm:block" />
-            <div className="flex items-center gap-2">
-              {profile.socials.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target={s.href.startsWith("http") ? "_blank" : undefined}
-                  rel="noreferrer"
-                  aria-label={s.label}
-                  className="grid h-10 w-10 place-items-center rounded-full border border-line bg-white/5 transition hover:text-white"
-                >
-                  <SocialIcon icon={s.icon} size={16} />
-                </a>
-              ))}
-            </div>
+            <SocialRow primaryOnly withEmail />
           </div>
         </div>
 

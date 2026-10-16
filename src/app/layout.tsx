@@ -4,6 +4,7 @@ import "./globals.css";
 import { profile } from "@/content/profile";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import RevealObserver from "@/components/site/RevealObserver";
+import WhatsAppButton from "@/components/site/WhatsAppButton";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
 import Analytics from "@/components/site/Analytics";
@@ -46,6 +47,7 @@ const personJsonLd = {
   jobTitle: profile.role,
   url: profile.siteUrl,
   email: `mailto:${profile.email}`,
+  telephone: profile.phoneHref.replace("tel:", ""),
   image: profile.photo ? `${profile.siteUrl}${profile.photo}` : undefined,
   logo: `${profile.siteUrl}/icon-512.png`,
   address: { "@type": "PostalAddress", addressRegion: "West Bengal", addressCountry: "IN" },
@@ -79,6 +81,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           </main>
           <SiteFooter />
         </div>
+        <WhatsAppButton />
         <CustomCursor />
         <SmoothScroll />
         <RevealObserver />

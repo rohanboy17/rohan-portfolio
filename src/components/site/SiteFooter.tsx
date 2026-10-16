@@ -4,6 +4,7 @@ import { profile } from "@/content/profile";
 import SocialIcon from "@/components/ui/SocialIcon";
 import Clip3D from "@/components/ui/Clip3D";
 import Logo from "@/components/ui/Logo";
+import SocialRow from "@/components/ui/SocialRow";
 
 const NAV = [
   { href: "/#about", label: "About" },
@@ -64,18 +65,22 @@ export default function SiteFooter() {
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-muted">Connect</p>
             <ul className="mx-auto mt-5 w-fit space-y-3 text-left sm:mx-0">
-              {profile.socials.map((s) => (
-                <li key={s.label}>
+              {[
+                { label: profile.email, href: `mailto:${profile.email}`, icon: "mail" },
+                { label: profile.phone, href: profile.phoneHref, icon: "phone" },
+                { label: "Chat on WhatsApp", href: profile.whatsapp, icon: "whatsapp" },
+              ].map((c) => (
+                <li key={c.icon}>
                   <a
-                    href={s.href}
-                    target={s.href.startsWith("http") ? "_blank" : undefined}
+                    href={c.href}
+                    target={c.href.startsWith("http") ? "_blank" : undefined}
                     rel="noreferrer"
                     className="group inline-flex items-center gap-3 text-white/80 transition hover:text-white"
                   >
                     <span className="grid h-9 w-9 place-items-center rounded-full border border-line bg-white/5 transition group-hover:border-lilac/40">
-                      <SocialIcon icon={s.icon} size={15} />
+                      <SocialIcon icon={c.icon} size={15} />
                     </span>
-                    {s.label === "Email" ? profile.email : s.label}
+                    {c.label}
                   </a>
                 </li>
               ))}
@@ -86,6 +91,7 @@ export default function SiteFooter() {
                 {profile.location}
               </li>
             </ul>
+            <SocialRow className="mt-5 justify-center sm:justify-start" />
           </div>
         </div>
 
@@ -99,7 +105,7 @@ export default function SiteFooter() {
           <Clip3D name="sparkles" size={72} float delay={1} className="absolute left-[8%] top-1/4 h-10 w-10 sm:h-16 sm:w-16" />
         </div>
 
-        <div className="relative flex flex-col items-center gap-4 border-t border-line py-6 text-center text-xs text-muted sm:flex-row sm:justify-between sm:text-left">
+        <div className="relative flex flex-col items-center gap-4 border-t border-line pb-24 pt-6 text-center sm:pb-6 text-xs text-muted sm:flex-row sm:justify-between sm:text-left">
           <p>
             © {year} {profile.name}. Built with Next.js & Three.js.
             <span className="block sm:inline">

@@ -1,9 +1,10 @@
-import { Mail } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import BrandIcon from "./BrandIcon";
 
-/** GitHub comes from simple-icons; LinkedIn is no longer in simple-icons, so it is drawn here. */
+/** Brand icons come from simple-icons; LinkedIn is no longer in simple-icons, so it is drawn here. */
 export default function SocialIcon({ icon, size = 18 }: { icon: string; size?: number }) {
   if (icon === "mail") return <Mail size={size} aria-hidden />;
+  if (icon === "phone") return <Phone size={size} aria-hidden />;
   if (icon === "linkedin") {
     return (
       <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor" aria-hidden>

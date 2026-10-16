@@ -66,6 +66,10 @@ export const profile = {
   timezone: "IST (UTC+05:30)",
   openToWork: true,
   email: "rohanmondalpc@gmail.com",
+  phone: "+91 96744 78909",
+  phoneHref: "tel:+919674478909",
+  /** WhatsApp chat link (digits only, with country code) and the message it starts with. */
+  whatsapp: "https://wa.me/919674478909?text=" + encodeURIComponent("Hi Rohan, I saw your portfolio and would like to connect."),
   siteUrl: "https://rohanmondal.vercel.app",
   /** Resume PDF in /public. Leave empty to hide the download button. */
   resumeUrl: "/resume.pdf",
@@ -90,11 +94,15 @@ export const profile = {
     { value: "15+", label: "Technologies in production" },
   ],
 
+  /** `primary` ones also appear in the hero; every account appears in Contact and the footer. */
   socials: [
-    { label: "GitHub", href: "https://github.com/rohanboy17", icon: "github" },
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/rohanboy17/", icon: "linkedin" },
-    { label: "Email", href: "mailto:rohanmondalpc@gmail.com", icon: "mail" },
-  ],
+    { label: "GitHub", href: "https://github.com/rohanboy17", icon: "github", primary: true },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/rohanboy17/", icon: "linkedin", primary: true },
+    { label: "X", href: "https://x.com/rohan_boy_17", icon: "x", primary: true },
+    { label: "Instagram", href: "https://www.instagram.com/rohan_mondal_11", icon: "instagram" },
+    { label: "Facebook", href: "https://www.facebook.com/rohanmondalvlogs", icon: "facebook" },
+    { label: "YouTube", href: "https://www.youtube.com/@rohanmondal", icon: "youtube" },
+  ] as { label: string; href: string; icon: string; primary?: boolean }[],
 
   skills: [
     {
@@ -513,8 +521,9 @@ export const profile = {
       accent: "sky",
       problem: "A Kolkata neuro-psychiatry practice needed a calm, trustworthy site that explains complex care.",
       solution: "A custom WordPress theme with conditions, therapies, FAQs and appointment calls to action.",
-      highlights: ["Custom WordPress theme", "Launching soon"],
+      highlights: ["Custom WordPress theme", "Live for Dr. Bhaskar Mukherjee"],
       stack: ["WordPress", "PHP", "Custom theme"],
+      liveUrl: "https://doctorbhaskarmukherjee.com",
     },
     {
       slug: "van-shi-furniture",

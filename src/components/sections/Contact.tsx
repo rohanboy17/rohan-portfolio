@@ -1,6 +1,7 @@
 import { profile } from "@/content/profile";
 import Clip3D from "@/components/ui/Clip3D";
 import SocialIcon from "@/components/ui/SocialIcon";
+import SocialRow from "@/components/ui/SocialRow";
 import ContactForm from "@/components/site/ContactForm";
 import CopyEmail from "@/components/site/CopyEmail";
 import { Reveal } from "@/components/site/MotionPrimitives";
@@ -31,19 +32,24 @@ export default function Contact() {
                 <div className="mt-7 w-full max-w-md">
                   <CopyEmail email={profile.email} />
                 </div>
-                <div className="mt-4 flex flex-wrap justify-center gap-2 lg:justify-start">
-                  {profile.socials.map((s) => (
-                    <a
-                      key={s.label}
-                      href={s.href}
-                      target={s.href.startsWith("http") ? "_blank" : undefined}
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full border border-line bg-white/5 px-4 py-2.5 text-sm transition hover:bg-white/10"
-                    >
-                      <SocialIcon icon={s.icon} size={15} /> {s.label}
-                    </a>
-                  ))}
+                <div className="mt-3 grid w-full max-w-md grid-cols-2 gap-2">
+                  <a
+                    href={profile.phoneHref}
+                    className="clay inline-flex items-center justify-center gap-2 rounded-full px-4 py-3 text-sm font-semibold transition hover:bg-white/10"
+                  >
+                    <SocialIcon icon="phone" size={16} /> Call me
+                  </a>
+                  <a
+                    href={profile.whatsapp}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-[#25D366]/40 bg-[#25D366]/15 px-4 py-3 text-sm font-semibold text-[#5be38f] transition hover:bg-[#25D366]/25"
+                  >
+                    <SocialIcon icon="whatsapp" size={16} /> WhatsApp
+                  </a>
                 </div>
+                <p className="mt-3 text-sm text-muted">{profile.phone}</p>
+                <SocialRow className="mt-5 justify-center lg:justify-start" />
               </div>
             </Reveal>
             <Reveal delay={0.08} className="min-w-0">
