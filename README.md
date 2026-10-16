@@ -1,6 +1,6 @@
 # Rohan Mondal — Full-Stack Developer Portfolio
 
-**Live:** https://rohan-portfolio.vercel.app
+**Live:** https://rohanmondal.vercel.app
 
 A fast, glossy-3D portfolio built with Next.js 16, React Three Fiber and Tailwind CSS v4. It has a hand-modelled clay 3D hero, 3D clip-art throughout, auto-recorded project demo videos, live GitHub activity and a working contact form.
 

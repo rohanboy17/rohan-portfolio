@@ -38,7 +38,7 @@ function Poster({ hidden }: { hidden: boolean }) {
         hidden ? "pointer-events-none opacity-0" : "opacity-100",
       )}
     >
-      <Clip3D name="laptop" size={260} priority className="absolute left-1/2 top-1/2 w-[46%] -translate-x-1/2 -translate-y-1/2" />
+      <Clip3D name="laptop" size={260} className="absolute left-1/2 top-1/2 w-[46%] -translate-x-1/2 -translate-y-1/2" />
       <Clip3D name="rocket" size={140} float tilt={8} className="absolute right-[6%] top-[8%] w-[24%]" />
       <Clip3D name="sparkles" size={110} float delay={1.2} className="absolute left-[8%] top-[12%] w-[18%]" />
       <Clip3D name="database" size={110} float delay={0.6} className="absolute bottom-[10%] right-[10%] w-[18%]" />
@@ -54,19 +54,17 @@ export default function ClayStage({ className }: { className?: string }) {
   const [load, setLoad] = useState(false);
   const [ready, setReady] = useState(false);
 
-  // Start the 3D bundle only once the browser is idle, so text and LCP paint first.
+  // Three.js is heavy to boot, so start it on the visitor's first interaction.
+  // Until then the static poster shows, keeping first paint and LCP fast.
   useEffect(() => {
     if (reduce || !hasWebGL()) return;
-    const w = window as Window & {
-      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
-      cancelIdleCallback?: (id: number) => void;
+    const events = ["pointermove", "pointerdown", "touchstart", "wheel", "scroll", "keydown"] as const;
+    const start = () => {
+      events.forEach((e) => window.removeEventListener(e, start));
+      setLoad(true);
     };
-    if (w.requestIdleCallback) {
-      const id = w.requestIdleCallback(() => setLoad(true), { timeout: 1800 });
-      return () => w.cancelIdleCallback?.(id);
-    }
-    const id = window.setTimeout(() => setLoad(true), 900);
-    return () => window.clearTimeout(id);
+    events.forEach((e) => window.addEventListener(e, start, { passive: true, once: true }));
+    return () => events.forEach((e) => window.removeEventListener(e, start));
   }, [reduce]);
 
   return (

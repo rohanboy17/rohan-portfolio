@@ -66,7 +66,7 @@ export const profile = {
   timezone: "IST (UTC+05:30)",
   openToWork: true,
   email: "rohanmondalpc@gmail.com",
-  siteUrl: "https://rohan-portfolio.vercel.app",
+  siteUrl: "https://rohanmondal.vercel.app",
   /** Put your resume at /public/resume.pdf, then set this to "/resume.pdf". */
   resumeUrl: "", // TODO(rohan): add resume PDF
   avatar: "/3d/dev.png", // TODO(rohan): swap for a photo or a 3D avatar of you, e.g. "/me.png"

@@ -34,6 +34,8 @@ export default function Clip3D({
       width={size}
       height={size}
       priority={priority}
+      // Above-the-fold clips skip the optimizer round-trip: the static PNG is tiny and cached immutably.
+      unoptimized={priority}
       draggable={false}
       className={clsx(
         "select-none drop-shadow-[0_18px_24px_rgba(0,0,0,0.45)]",

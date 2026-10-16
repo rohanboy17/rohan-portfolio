@@ -30,7 +30,7 @@ export default function SiteFooter() {
           ))}
         </div>
       </div>
-      <p className="mx-auto mt-8 max-w-6xl text-xs text-muted/70">
+      <p className="mx-auto mt-8 max-w-6xl text-xs text-muted">
         © {new Date().getFullYear()} {profile.name}. 3D clip-art by{" "}
         <Link href="https://github.com/microsoft/fluentui-emoji" className="underline underline-offset-2">
           Microsoft Fluent Emoji
