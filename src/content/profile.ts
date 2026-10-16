@@ -711,7 +711,7 @@ export const profile = {
       solution: "A WooCommerce store with a 'design a bracelet' builder and a customer-creations showcase.",
       highlights: ["Custom bracelet builder", "Customer-creations gallery"],
       stack: ["WordPress", "WooCommerce", "PHP"],
-      liveUrl: "http://162.62.233.115", // TODO(rohan): add the Herzite live domain
+      liveUrl: "http://162.62.233.115", // live server (IP only)
     },
     {
       slug: "rockstone-luxe",
@@ -724,7 +724,7 @@ export const profile = {
       solution: "A custom 'Rockstone Luxe' WooCommerce theme with a refined catalogue and product detail.",
       highlights: ["Custom WooCommerce theme", "Premium catalogue"],
       stack: ["WordPress", "WooCommerce", "PHP"],
-      // TODO(rohan): confirm live domain — the dev server (43.131.45.150) was down, so no demo was recorded.
+      liveUrl: "http://43.131.45.150", // server was unreachable at record time, so no demo yet — re-run `npm run record:demos -- rockstone-luxe` when it's up
     },
     {
       slug: "tg-packaging",
@@ -737,7 +737,7 @@ export const profile = {
       solution: "A refined WordPress site — 'The sculpture of scent' — with product families and a concept-to-delivery story.",
       highlights: ["Custom studio theme + plugin", "Concept-to-delivery journey"],
       stack: ["WordPress", "PHP", "Custom theme & plugin"],
-      liveUrl: "http://43.157.62.224", // TODO(rohan): add the TG Packaging live domain
+      liveUrl: "http://43.157.62.224", // live server (IP only)
     },
     {
       slug: "topfeel",
@@ -750,7 +750,7 @@ export const profile = {
       solution: "A WordPress site with product categories, a quote flow and a custom core plugin.",
       highlights: ["Quote-focused B2B flow", "Custom theme + core plugin"],
       stack: ["WordPress", "PHP", "Custom theme & plugin"],
-      liveUrl: "http://43.131.42.127", // TODO(rohan): add the Topfeel live domain
+      liveUrl: "http://43.131.42.127", // live server (IP only)
     },
   ] satisfies Project[] as Project[],
 
