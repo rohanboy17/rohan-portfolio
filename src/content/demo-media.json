@@ -129,5 +129,41 @@
   "herzite": {
     "poster": "/projects/herzite.jpg",
     "video": "/videos/herzite.mp4"
+  },
+  "wolf-rocks": {
+    "poster": "/projects/wolf-rocks.jpg",
+    "video": "/videos/wolf-rocks.mp4"
+  },
+  "aravali-institute": {
+    "poster": "/projects/aravali-institute.jpg",
+    "video": "/videos/aravali-institute.mp4"
+  },
+  "helpinghands-ngo": {
+    "poster": "/projects/helpinghands-ngo.jpg",
+    "video": "/videos/helpinghands-ngo.mp4"
+  },
+  "truckmate-parts": {
+    "poster": "/projects/truckmate-parts.jpg",
+    "video": "/videos/truckmate-parts.mp4"
+  },
+  "eco-mart": {
+    "poster": "/projects/eco-mart.jpg",
+    "video": "/videos/eco-mart.mp4"
+  },
+  "whoop-uae-replica": {
+    "poster": "/projects/whoop-uae-replica.jpg",
+    "video": "/videos/whoop-uae-replica.mp4"
+  },
+  "aestetika-replica": {
+    "poster": "/projects/aestetika-replica.jpg",
+    "video": "/videos/aestetika-replica.mp4"
+  },
+  "novaedge-replica": {
+    "poster": "/projects/novaedge-replica.jpg",
+    "video": "/videos/novaedge-replica.mp4"
+  },
+  "novaforge-replica": {
+    "poster": "/projects/novaforge-replica.jpg",
+    "video": "/videos/novaforge-replica.mp4"
   }
 }

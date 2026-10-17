@@ -38,7 +38,7 @@ export default function WorkHub() {
             const a = accentStyles[c.accent];
             const sample = projectsInCategory(c.slug).slice(0, 4);
             return (
-              <Item key={c.slug} className="h-full">
+              <Item key={c.slug} className="h-full sm:odd:last:col-span-2">
                 <Link
                   href={`/work/${c.slug}`}
                   className="clay group relative flex h-full flex-col overflow-hidden rounded-[32px] p-6 transition hover:-translate-y-1 sm:p-8"

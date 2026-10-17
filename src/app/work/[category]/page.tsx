@@ -69,10 +69,10 @@ export default async function CategoryPage({ params }: Params) {
 
         <div className="mt-16 rounded-[32px] border border-line bg-white/[0.03] p-8 text-center sm:p-10">
           <h2 className="font-display text-2xl font-semibold sm:text-3xl">
-            Need a {category.short.toLowerCase()} project built?
+            {category.cta?.title ?? `Need a ${category.short.toLowerCase()} project built?`}
           </h2>
           <p className="mx-auto mt-3 max-w-md text-muted">
-            This is the kind of work I ship end to end. Let&apos;s talk about yours.
+            {category.cta?.body ?? "This is the kind of work I ship end to end. Let’s talk about yours."}
           </p>
           <Link
             href="/#contact"

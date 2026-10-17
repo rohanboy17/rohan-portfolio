@@ -90,7 +90,7 @@ export const profile = {
   stats: [
     { value: "4+", label: "Years building for the web" },
     { value: "40+", label: "Projects shipped" },
-    { value: "30+", label: "Live deployments" },
+    { value: "40+", label: "Live deployments" },
     { value: "20+", label: "Technologies in production" },
   ],
 
@@ -752,6 +752,127 @@ export const profile = {
       stack: ["WordPress", "PHP", "Custom theme & plugin"],
       liveUrl: "http://43.131.42.127", // live server (IP only)
     },
+    {
+      slug: "wolf-rocks",
+      title: "Wolf Rocks · 狼山石",
+      tagline: "Luxury Chinese homepage for a rare-stone brand",
+      category: "Brand website",
+      clip: "sparkles",
+      accent: "mint",
+      problem: "A Yinshan collector-stone brand needed a homepage that feels like a gallery, not a catalogue, for buyers of one-of-a-kind pieces.",
+      solution: "An editorial, Chinese-language homepage with collection showcases, origin storytelling and a calm, museum-like pace.",
+      highlights: ["Editorial luxury art direction", "Full Chinese-language (zh-CN) content"],
+      stack: ["Next.js", "React", "TypeScript", "Vite (vinext)", "Tailwind CSS"],
+      liveUrl: "https://jade-homepage-teal.vercel.app",
+    },
+    {
+      slug: "aravali-institute",
+      title: "Aravali Institute",
+      tagline: "Admissions site for a fast-track PGDM institute",
+      category: "Brand website",
+      clip: "grad",
+      accent: "sky",
+      problem: "A Bangalore institute had to explain its Learn & Earn PGDM to working learners and turn visits into applications.",
+      solution: "A React site that walks through the programme step by step, with courses, faculty, centres, placements and apply/brochure calls to action.",
+      highlights: ["Step-by-step career-journey section", "Apply and brochure CTAs on every page"],
+      stack: ["React", "Vite", "JavaScript", "CSS"],
+      liveUrl: "https://training-institute-frontend.vercel.app",
+      repoUrl: "https://github.com/rohanboy17/training-institute-frontend",
+    },
+    {
+      slug: "helpinghands-ngo",
+      title: "HelpingHands NGO",
+      tagline: "Education & community-support NGO website",
+      category: "Brand website",
+      clip: "wave",
+      accent: "peach",
+      problem: "A non-profit needed a clear, trustworthy site to present its causes and programmes and bring in donors and volunteers.",
+      solution: "A responsive React site organised around causes, programmes and news, with a donate call to action throughout.",
+      highlights: ["Cause and programme sections", "Donate CTA throughout"],
+      stack: ["React", "Vite", "JavaScript", "CSS"],
+      liveUrl: "https://ngo-website2.vercel.app",
+      repoUrl: "https://github.com/rohanboy17/ngo-website2",
+    },
+    {
+      slug: "truckmate-parts",
+      title: "TruckMate Parts",
+      tagline: "Truck-parts storefront + native WordPress theme",
+      category: "E-commerce frontend",
+      clip: "truck",
+      accent: "butter",
+      problem: "A truck-parts seller's buyers search by SKU, OEM number and vehicle, which a generic shop layout handles badly.",
+      solution: "A storefront with instant part-number search, a year/make/model selector and a cart drawer, shipped as a static build and as a WordPress theme.",
+      highlights: ["SKU / MPN / OEM search + vehicle fit selector", "Installable WordPress theme with editable products"],
+      stack: ["HTML", "CSS", "JavaScript", "WordPress", "PHP"],
+      liveUrl: "https://truck-mate-kappa.vercel.app",
+    },
+    {
+      slug: "eco-mart",
+      title: "Eco-Mart",
+      tagline: "Responsive e-commerce storefront from a Figma design",
+      category: "E-commerce frontend",
+      clip: "cart",
+      accent: "mint",
+      problem: "A hiring assignment: turn a full e-commerce homepage design from Figma into a responsive, working front end.",
+      solution: "A React + Bootstrap 5 build with flash-sale countdowns, category browsing and product grids, faithful to the design at every breakpoint.",
+      highlights: ["Live flash-sale countdown", "Matches the design across breakpoints"],
+      stack: ["React", "Vite", "Bootstrap 5", "CSS"],
+      liveUrl: "https://eco-mart-storefront.vercel.app",
+    },
+    {
+      slug: "whoop-uae-replica",
+      title: "WHOOP UAE Membership",
+      tagline: "Replica of WHOOP's UAE membership page",
+      category: "UI replica",
+      clip: "health",
+      accent: "peach",
+      problem: "Practice brief: rebuild a reference membership page with its plan comparison, carousels and hero video, without copying its code.",
+      solution: "Independently written HTML, CSS and JavaScript, including mobile plan selectors that make the comparison table usable on phones.",
+      highlights: ["Plan comparison with mobile selectors", "Hero video, carousels and reveal motion"],
+      stack: ["HTML", "Bootstrap 5", "CSS", "JavaScript"],
+      liveUrl: "https://whoop-uae-replica.vercel.app",
+    },
+    {
+      slug: "aestetika-replica",
+      title: "Aestetika",
+      tagline: "Replica of the Aestetika aesthetic-clinic theme",
+      category: "UI replica",
+      clip: "sparkles",
+      accent: "pink",
+      problem: "Practice brief: rebuild Bold Themes' Aestetika clinic demo as a fast, dependency-free static site.",
+      solution: "A hand-written HTML/CSS/JS build with self-hosted fonts, an SVG icon sprite, structured data and fully responsive layouts.",
+      highlights: ["No framework, no build step", "Self-hosted fonts + SVG sprite"],
+      stack: ["HTML", "CSS", "JavaScript"],
+      liveUrl: "https://aestetika-replica.vercel.app",
+    },
+    {
+      slug: "novaedge-replica",
+      title: "Novaedge",
+      tagline: "Replica of the Ewebot SEO-agency WordPress theme",
+      category: "UI replica",
+      clip: "chart",
+      accent: "sky",
+      problem: "Practice brief: rebuild the Ewebot theme's long, feature-heavy landing page as a standalone front end.",
+      solution: "A static rebuild of the theme showcase (demos, features and inner pages), prepared for deployment on Vercel.",
+      highlights: ["Long-form theme landing page", "Static, deploy-ready pages"],
+      stack: ["HTML", "CSS", "JavaScript", "PHP"],
+      liveUrl: "https://clone2-jade-zeta.vercel.app",
+      repoUrl: "https://github.com/rohanboy17/clone2",
+    },
+    {
+      slug: "novaforge-replica",
+      title: "NovaForge",
+      tagline: "Replica of W3CMS's Plexify agency template",
+      category: "UI replica",
+      clip: "rocket",
+      accent: "lilac",
+      problem: "Practice brief: rebuild a busy digital-agency template with mega menus, counters and animated sections.",
+      solution: "A static rebuild of the Plexify homepage with its full navigation, service cards, case studies and motion.",
+      highlights: ["Mega-menu navigation", "Animated counters and lettering"],
+      stack: ["HTML", "CSS", "JavaScript"],
+      liveUrl: "https://home-clone-six.vercel.app",
+      repoUrl: "https://github.com/rohanboy17/home-clone",
+    },
   ] satisfies Project[] as Project[],
 
   experience: [
@@ -864,6 +985,8 @@ export type Category = {
   clip: Clip;
   accent: Accent;
   match: string[];
+  /** Overrides the closing call to action on the category page. */
+  cta?: { title: string; body: string };
 };
 
 export const categories: Category[] = [
@@ -883,7 +1006,7 @@ export const categories: Category[] = [
     tagline: "Marketplaces and storefronts built on Next.js, WooCommerce and Shopify.",
     clip: "cart",
     accent: "mint",
-    match: ["E-commerce platform", "WordPress / WooCommerce", "Shopify"],
+    match: ["E-commerce platform", "E-commerce frontend", "WordPress / WooCommerce", "Shopify"],
   },
   {
     slug: "business-sites",
@@ -903,10 +1026,24 @@ export const categories: Category[] = [
     accent: "pink",
     match: ["Creative frontend"],
   },
+  {
+    slug: "replicas",
+    title: "UI Replicas & Rebuilds",
+    short: "Replicas",
+    tagline: "Practice rebuilds of existing sites and themes, written from scratch to sharpen layout, motion and responsive detail. Not client work.",
+    clip: "puzzle",
+    accent: "butter",
+    match: ["UI replica"],
+    cta: {
+      title: "Have a design that needs building?",
+      body: "I turn Figma files and reference sites into fast, responsive front ends. Let's talk about yours.",
+    },
+  },
 ];
 
 export function categoryOf(project: Project): Category {
-  return categories.find((c) => c.match.includes(project.category)) ?? categories[categories.length - 1];
+  // Unmapped category strings fall back to Creative.
+  return categories.find((c) => c.match.includes(project.category)) ?? categories.find((c) => c.slug === "creative")!;
 }
 
 export function projectsInCategory(slug: string): Project[] {
