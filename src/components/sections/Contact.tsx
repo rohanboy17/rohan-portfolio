@@ -27,7 +27,7 @@ export default function Contact() {
                   Let&apos;s build something <span className="text-gradient">great</span> together.
                 </h2>
                 <p className="mt-4 max-w-md text-pretty text-muted sm:text-lg">
-                  Hiring for a full-stack role, or have a product to ship? I usually reply within a day.
+                  Need a website, online store or mobile app? Tell me about it and get a free quote. I usually reply within a day. Hiring for a full-time role? I&apos;d love to hear from you too.
                 </p>
                 <div className="mt-7 w-full max-w-md">
                   <CopyEmail email={profile.email} />

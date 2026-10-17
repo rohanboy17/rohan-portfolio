@@ -6,6 +6,7 @@ type ContactPayload = {
   email: string;
   company?: string;
   reason?: string;
+  budget?: string;
   message: string;
   website?: string; // honeypot
   startedAt?: number; // anti-bot (ms timestamp)
@@ -98,7 +99,8 @@ export async function POST(req: Request) {
     `Name: ${name}`,
     `Email: ${email}`,
     body.company ? `Company: ${body.company}` : "",
-    body.reason ? `Reason: ${body.reason}` : "",
+    body.reason ? `Project: ${body.reason}` : "",
+    body.budget ? `Budget: ${body.budget}` : "",
     "",
     message,
   ]

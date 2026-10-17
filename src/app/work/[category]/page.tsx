@@ -7,6 +7,7 @@ import Clip3D from "@/components/ui/Clip3D";
 import { CompactCard, MiniCard } from "@/components/site/ProjectCard";
 import CategoryPills from "@/components/site/CategoryPills";
 import { Item, Reveal, Stagger } from "@/components/site/MotionPrimitives";
+import JsonLd, { breadcrumbs } from "@/components/site/JsonLd";
 
 type Params = { params: Promise<{ category: string }> };
 
@@ -38,6 +39,12 @@ export default async function CategoryPage({ params }: Params) {
 
   return (
     <div className="px-4 pb-24 pt-28 sm:px-6 sm:pt-36">
+      <JsonLd
+        data={breadcrumbs([
+          ["Work", "/work"],
+          [category.title, `/work/${category.slug}`],
+        ])}
+      />
       <div className="mx-auto max-w-6xl">
         <Link href="/work" className="inline-flex items-center gap-2 text-sm text-muted transition hover:text-white">
           <ArrowLeft size={16} /> All categories
@@ -78,7 +85,7 @@ export default async function CategoryPage({ params }: Params) {
             href="/#contact"
             className="btn-clay mt-6 inline-flex items-center gap-2 rounded-full bg-lilac px-6 py-3 font-semibold text-ink"
           >
-            Start a conversation
+            Get a free quote
           </Link>
         </div>
       </div>

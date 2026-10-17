@@ -5,7 +5,7 @@ import { profile } from "@/content/profile";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = `${profile.name} — ${profile.role}`;
+export const alt = `${profile.name} — Freelance ${profile.heroTitle}`;
 
 async function clip(name: string) {
   const data = await readFile(join(process.cwd(), "public/3d", `${name}.png`));
@@ -52,7 +52,7 @@ export default async function OpenGraphImage() {
               color: "transparent",
             }}
           >
-            {profile.role}
+            {`Freelance ${profile.heroTitle}`}
           </div>
           <div style={{ marginTop: 24, fontSize: 28, lineHeight: 1.35, color: "rgba(244,244,251,0.8)" }}>
             {profile.headline}

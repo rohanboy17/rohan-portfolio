@@ -62,9 +62,13 @@ export const profile = {
   name: "Rohan Mondal",
   firstName: "Rohan",
   role: "Full-Stack Developer",
+  /** Big gradient line in the hero heading — phrased the way clients search. */
+  heroTitle: "Web & App Developer",
   location: "West Bengal, India",
   timezone: "IST (UTC+05:30)",
   openToWork: true,
+  /** Shown in the hero and footer badges while `openToWork` is true. */
+  availability: "Available for new projects",
   email: "rohanmondalpc@gmail.com",
   phone: "+91 96744 78909",
   phoneHref: "tel:+919674478909",
@@ -77,14 +81,37 @@ export const profile = {
   photo: "/3d/me.png",
   spokenLanguages: ["English", "Hindi", "Bengali"],
 
-  headline: "I build fast, full-stack products people love to use.",
+  headline: "I design and build websites and mobile apps that win you customers.",
   intro:
-    "From pixel-perfect interfaces to payments, auth and databases — I take products from idea to production on modern web tech.",
+    "Freelance full-stack developer for businesses worldwide — fast business websites, online stores, custom web apps and Android/iOS apps, taken from idea to launch.",
+
+  /** Search-engine title and description for the homepage. */
+  seo: {
+    title: "Rohan Mondal — Freelance Web & Mobile App Developer",
+    description:
+      "Freelance web & mobile app developer in India building websites, online stores, web apps and Android/iOS apps for businesses worldwide. Get a free quote.",
+    keywords: [
+      "freelance web developer",
+      "hire web developer",
+      "website development services",
+      "mobile app developer",
+      "React Native developer",
+      "Next.js developer",
+      "Shopify developer",
+      "WordPress developer",
+      "e-commerce website development",
+      "web developer India",
+      "web developer Kolkata",
+      "app developer West Bengal",
+    ],
+    /** Google Search Console HTML-tag token (the `content` value only). */
+    googleSiteVerification: "",
+  },
 
   about: [
     "I'm a Computer Science graduate (B.Sc, 2023) and GATE 2023 CS qualifier from West Bengal, India. Since then I've shipped 40+ production websites and web apps for startups, B2B brands and e-commerce businesses.",
     "I work end-to-end: Next.js and React on the front, Node, Prisma and PostgreSQL on the back, and Vercel, Docker and CI to ship it. I care about speed, accessibility and the small details that make software feel premium.",
-    "I'm looking for a full-time role on a product team where I can own features end-to-end and keep learning from great engineers.",
+    "I work directly with founders and businesses in India, the US, Europe and Asia — one developer from first call to launch, no agency hand-offs. I'm also open to full-time roles on product teams.",
   ],
 
   stats: [
@@ -1054,3 +1081,338 @@ export function projectsInCategory(slug: string): Project[] {
 }
 
 export const categoryCounts = categories.map((c) => ({ ...c, count: projectsInCategory(c.slug).length }));
+
+/* ---------- Services (for clients) ---------- */
+// Each service gets a landing page at /services/[slug], written for the searches clients actually make.
+export type Service = {
+  slug: string;
+  /** Short name for cards, nav and breadcrumbs. */
+  title: string;
+  /** Page heading — includes the phrase clients search for. */
+  heading: string;
+  metaTitle: string;
+  metaDescription: string;
+  tagline: string;
+  clip: Clip;
+  accent: Accent;
+  intro: string[];
+  /** Who this service is for. */
+  idealFor: string[];
+  deliverables: { title: string; body: string }[];
+  stack: string[];
+  /** Slugs of projects in `profile.projects` that prove this service. */
+  projects: string[];
+  faqs: { q: string; a: string }[];
+};
+
+export const services: Service[] = [
+  {
+    slug: "website-development",
+    title: "Website Development",
+    heading: "Website design & development for businesses",
+    metaTitle: "Freelance Website Developer — Business Website Design & Development",
+    metaDescription:
+      "Fast, SEO-ready business websites designed and built by freelance developer Rohan Mondal. Next.js, React and WordPress sites for companies worldwide. Get a free quote.",
+    tagline: "Fast, premium websites that turn visitors into enquiries.",
+    clip: "globe",
+    accent: "peach",
+    intro: [
+      "Your website is often the first conversation a customer has with your business. I design and build fast, mobile-first websites that explain what you do clearly, load in under two seconds and make it easy to get in touch.",
+      "I've built sites for manufacturers, exporters, brands, institutes and non-profits in India, the US, Europe and China, including multilingual sites for international buyers.",
+    ],
+    idealFor: [
+      "Businesses that need a new site or a redesign of an outdated one",
+      "B2B manufacturers and exporters selling to global buyers",
+      "Startups that need a launch-ready marketing site",
+      "Institutes, clinics, agencies and non-profits",
+    ],
+    deliverables: [
+      { title: "Custom design", body: "A layout designed around your brand and your customers — no generic template look." },
+      { title: "Mobile-first build", body: "Pixel-perfect on phones, tablets and desktops, tested on real devices." },
+      { title: "SEO foundations", body: "Clean headings, metadata, sitemap, structured data and fast Core Web Vitals from day one." },
+      { title: "Lead capture", body: "Contact forms, quote requests and WhatsApp buttons that deliver straight to your inbox." },
+      { title: "Editable content", body: "A CMS (WordPress or headless) when your team needs to update pages without a developer." },
+      { title: "Launch & hosting", body: "Domain, hosting, SSL and analytics set up, plus support after launch." },
+    ],
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "WordPress", "Vercel"],
+    projects: ["yunjing-technology", "furui-machinery", "zhenyang-electric", "wolf-rocks", "ads-advanced-device-systems", "aravali-institute"],
+    faqs: [
+      {
+        q: "How long does a business website take?",
+        a: "A typical 5–8 page business website takes 2–4 weeks from approved design to launch. A single landing page can be ready in under a week.",
+      },
+      {
+        q: "Will my website show up on Google?",
+        a: "Every site I build ships with technical SEO in place: fast loading, mobile-friendly layouts, proper headings, metadata, a sitemap and structured data. I also set up Google Search Console so your pages get indexed.",
+      },
+      {
+        q: "Can I edit the website myself after launch?",
+        a: "Yes. If you need to edit content regularly, I build on WordPress or connect a headless CMS so you can update text, images and pages without touching code.",
+      },
+      {
+        q: "Do you redesign existing websites?",
+        a: "Yes. I can redesign an outdated site, move it to a faster platform and keep your existing URLs and search rankings intact with proper redirects.",
+      },
+    ],
+  },
+  {
+    slug: "mobile-app-development",
+    title: "Mobile App Development",
+    heading: "Mobile app development for Android & iOS",
+    metaTitle: "Mobile App Developer — React Native Android & iOS App Development",
+    metaDescription:
+      "Hire a freelance mobile app developer for Android and iOS. Cross-platform React Native (Expo) apps with backends, push notifications and admin dashboards. Free quote.",
+    tagline: "Cross-platform apps with the backend and admin panel to run them.",
+    clip: "phone",
+    accent: "lilac",
+    intro: [
+      "I build mobile apps with React Native (Expo), so one codebase runs on both Android and iOS, which saves you time and budget compared with two separate native apps.",
+      "Because I'm a full-stack developer, you get the whole product: the app, the API and database behind it, and the web dashboard your team uses to manage it. I've shipped apps to Google Play, including a helpdesk app with push notifications and a VoIP testing suite that also runs as an Android app.",
+    ],
+    idealFor: [
+      "Startups launching an MVP on Android and iOS",
+      "Businesses turning an internal process into an app for staff",
+      "Companies that already have a website or web app and need a mobile version",
+      "Service businesses that need bookings, tickets or notifications",
+    ],
+    deliverables: [
+      { title: "Android & iOS app", body: "One React Native codebase, tested on real devices and published to the app stores." },
+      { title: "Backend & API", body: "Secure APIs, authentication, roles and a database designed for your data." },
+      { title: "Admin dashboard", body: "A web panel to manage users, content, orders or tickets." },
+      { title: "Push notifications", body: "Timely alerts that bring users back into the app." },
+      { title: "Web-to-app", body: "Turn an existing web app into an installable Android/iOS app with Capacitor." },
+      { title: "Store release", body: "Google Play and App Store listings, builds and updates handled for you." },
+    ],
+    stack: ["React Native", "Expo", "TypeScript", "Capacitor", "Node.js", "PHP", "PostgreSQL", "MySQL"],
+    projects: ["organisedesk", "routequire", "freeearnhub", "game-arena"],
+    faqs: [
+      {
+        q: "Do you build for both Android and iOS?",
+        a: "Yes. I use React Native with Expo, so one codebase produces both an Android and an iOS app. That usually costs far less than building two native apps.",
+      },
+      {
+        q: "Can you also build the backend and admin panel?",
+        a: "Yes, that's my strength as a full-stack developer. I build the API, database and web admin dashboard alongside the app, so everything works together.",
+      },
+      {
+        q: "Will you publish the app to Google Play and the App Store?",
+        a: "Yes. I prepare the store listings and builds and handle the submission process. The developer accounts stay in your name, so you own the app.",
+      },
+      {
+        q: "I already have a website. Can it become an app?",
+        a: "Often, yes. A web app can be wrapped as a native Android/iOS app with Capacitor, or I can build a dedicated React Native app that shares your existing backend.",
+      },
+    ],
+  },
+  {
+    slug: "ecommerce-development",
+    title: "E-commerce Development",
+    heading: "E-commerce website development: Shopify, WooCommerce & custom stores",
+    metaTitle: "E-commerce Website Developer — Shopify, WooCommerce & Next.js Stores",
+    metaDescription:
+      "Online stores that sell: Shopify and WooCommerce development, custom Next.js marketplaces, payments, B2B checkout and store redesigns. Freelance developer, free quote.",
+    tagline: "Online stores built to sell, on Shopify, WooCommerce or a custom stack.",
+    clip: "cart",
+    accent: "mint",
+    intro: [
+      "I build online stores that are fast, easy to browse on a phone and simple to check out from, because every extra second and every extra step costs sales.",
+      "I've built Shopify themes, WooCommerce stores with custom plugins for B2B checkout and freight estimates, and a full multi-vendor marketplace in Next.js with seller onboarding and admin operations, for sellers in India, the US and Europe.",
+    ],
+    idealFor: [
+      "Brands launching their first online store",
+      "Stores that are slow, dated or hard to use on mobile",
+      "B2B suppliers who need quotes, bulk orders or custom checkout",
+      "Marketplaces with multiple sellers",
+    ],
+    deliverables: [
+      { title: "Shopify stores", body: "Custom Online Store 2.0 themes and sections, tuned for speed and conversions." },
+      { title: "WooCommerce stores", body: "WordPress stores with custom plugins for B2B pricing, shipping and checkout." },
+      { title: "Custom marketplaces", body: "Next.js + PostgreSQL platforms with multi-vendor dashboards and payouts." },
+      { title: "Payments", body: "Razorpay and UPI for India, Stripe or PayPal for international customers, verified on the server." },
+      { title: "Product catalogue", body: "Categories, filters and search that help customers find the right product fast." },
+      { title: "Store redesigns", body: "Modernise an existing store without losing products, orders or SEO." },
+    ],
+    stack: ["Shopify", "Liquid", "WooCommerce", "WordPress", "Next.js", "Razorpay", "Stripe", "PostgreSQL"],
+    projects: ["toyco-india", "containers-unlimited", "euro-agro-fertilizers", "marento-home", "petfu", "truckmate-parts"],
+    faqs: [
+      {
+        q: "Shopify or WooCommerce — which is right for me?",
+        a: "Shopify is best if you want a fully hosted store with minimal maintenance. WooCommerce suits businesses that want full control, custom B2B logic or no monthly platform fees. I'll recommend one based on your products and budget.",
+      },
+      {
+        q: "Can you migrate my existing store?",
+        a: "Yes. I can move products, customers and content to a new platform or theme, and set up redirects so you keep your search rankings.",
+      },
+      {
+        q: "Which payment gateways do you integrate?",
+        a: "Razorpay and UPI for India, and Stripe and PayPal for international payments, as well as any gateway with a documented API.",
+      },
+      {
+        q: "Do you build multi-vendor marketplaces?",
+        a: "Yes. I built Toyco India, a multi-vendor toy marketplace with seller onboarding and KYC, carts, coupons, orders and an admin panel, on Next.js and PostgreSQL.",
+      },
+    ],
+  },
+  {
+    slug: "web-app-development",
+    title: "Web App & SaaS Development",
+    heading: "Custom web app & SaaS development",
+    metaTitle: "Custom Web App & SaaS Developer — Next.js, Node.js, PostgreSQL",
+    metaDescription:
+      "Custom web applications, SaaS platforms, dashboards and portals built end to end: auth, payments, APIs and databases. Hire a freelance full-stack developer. Free quote.",
+    tagline: "Custom software for the work spreadsheets and off-the-shelf tools can't handle.",
+    clip: "rocket",
+    accent: "sky",
+    intro: [
+      "When your business outgrows spreadsheets and off-the-shelf tools, a custom web app fits your exact workflow. I build SaaS products, dashboards, portals and internal tools end to end: database, API, interface and deployment.",
+      "Recent builds include a multi-company e-signature platform, a VoIP route-testing suite with live dashboards, and an eSports tournament platform with wallets and an anti-cheat approval flow.",
+    ],
+    idealFor: [
+      "Founders building a SaaS MVP",
+      "Companies replacing spreadsheets with a proper system",
+      "Teams that need a customer portal or admin dashboard",
+      "Products that need payments, roles and reporting",
+    ],
+    deliverables: [
+      { title: "MVP to production", body: "Scope a lean first version, launch it, then iterate with real users." },
+      { title: "Auth & roles", body: "Secure sign-in, teams, permissions and audit trails." },
+      { title: "Payments & billing", body: "Subscriptions, wallets and invoices with Razorpay or Stripe." },
+      { title: "Dashboards & reports", body: "KPIs, charts and exports that help you run the business." },
+      { title: "APIs & integrations", body: "REST APIs, webhooks and connections to the tools you already use." },
+      { title: "Deployment & CI", body: "Vercel or Docker deployments with automated checks on every change." },
+    ],
+    stack: ["Next.js", "React", "TypeScript", "Node.js", "Express", "PostgreSQL", "Prisma", "Laravel", "Docker"],
+    projects: ["signawaydocs", "routequire", "freeearnhub", "game-arena", "rupashi-enterprise"],
+    faqs: [
+      {
+        q: "Can you build an MVP for my startup?",
+        a: "Yes. We start by agreeing the smallest version that proves your idea, I build and launch it, and we add features based on what users actually do.",
+      },
+      {
+        q: "Who owns the code?",
+        a: "You do. The code lives in your GitHub repository and the hosting is in your accounts, so you're never locked in to me.",
+      },
+      {
+        q: "Can you work on an existing codebase?",
+        a: "Yes. I can add features, fix bugs, improve performance or modernise an existing React, Next.js, Node.js, PHP or Laravel application.",
+      },
+      {
+        q: "How do we communicate during the project?",
+        a: "You'll get regular progress updates and a live preview link you can click through, and you can reach me on email, WhatsApp or video calls in your time zone.",
+      },
+    ],
+  },
+  {
+    slug: "wordpress-development",
+    title: "WordPress Development",
+    heading: "WordPress development: custom themes & plugins",
+    metaTitle: "WordPress Developer — Custom Themes, Plugins & WooCommerce",
+    metaDescription:
+      "Freelance WordPress developer for custom block themes, plugins, WooCommerce, speed fixes and redesigns. Sites your team can edit without breaking. Free quote.",
+    tagline: "Custom themes and plugins your team can edit without breaking anything.",
+    clip: "tools",
+    accent: "butter",
+    intro: [
+      "WordPress is ideal when your team wants to publish and edit content without a developer. I build custom block themes and plugins instead of stacking page builders, so the site stays fast, secure and easy to edit.",
+      "I've built a full job-board plugin, a B2B commerce suite for WooCommerce, editable corporate themes and news sites.",
+    ],
+    idealFor: [
+      "Businesses that update their content often",
+      "Slow or broken WordPress sites that need fixing",
+      "Projects that need a custom feature no plugin offers",
+      "Publishers, job boards and membership sites",
+    ],
+    deliverables: [
+      { title: "Custom block themes", body: "Lightweight themes designed for your brand, editable in the block editor." },
+      { title: "Custom plugins", body: "Job boards, B2B checkout, booking and other features built to spec." },
+      { title: "WooCommerce", body: "Stores with custom product logic, shipping and checkout." },
+      { title: "Speed & security", body: "Fix slow pages, clean up plugins and harden the install." },
+      { title: "Redesigns & fixes", body: "Mobile fixes, redesigns and migrations without losing content." },
+      { title: "Training & handover", body: "A short walkthrough so your team can manage the site confidently." },
+    ],
+    stack: ["WordPress", "PHP", "WooCommerce", "Block themes", "Elementor", "MySQL"],
+    projects: ["cockroach-jobs", "pushkey", "euro-agro-fertilizers", "containers-unlimited", "the-kolkata-news"],
+    faqs: [
+      {
+        q: "Can you fix or speed up my existing WordPress site?",
+        a: "Yes. I audit slow pages, remove heavy plugins, optimise images and caching, and fix mobile layout problems.",
+      },
+      {
+        q: "Do you use page builders?",
+        a: "Only when a client already relies on one, such as Elementor. For new builds I prefer custom block themes, which are faster and easier to maintain.",
+      },
+      {
+        q: "Can you build a custom plugin?",
+        a: "Yes. I've built custom plugins for job boards, B2B checkout, freight estimates and editable content blocks.",
+      },
+    ],
+  },
+];
+
+/** How every project runs, shown on the services pages. */
+export const workProcess = [
+  { title: "Free discovery call", body: "We talk through your goals, audience and timeline. No cost, no obligation." },
+  { title: "Proposal & fixed quote", body: "You get a clear scope, timeline and price in writing before any work starts." },
+  { title: "Design", body: "I design the key screens and refine them with you until they're right." },
+  { title: "Build with live previews", body: "You follow progress on a live preview link, with regular updates." },
+  { title: "Launch", body: "Testing on real devices, SEO setup, analytics, and a smooth go-live." },
+  { title: "Support", body: "Post-launch fixes included, plus ongoing maintenance if you need it." },
+];
+
+/** Reasons to hire, shown on the services hub. */
+export const whyHire = [
+  { title: "Work directly with the developer", body: "No account managers or hand-offs. You talk to the person building your product." },
+  { title: "Clients worldwide", body: "Projects delivered for businesses in India, the US, the Netherlands and China." },
+  { title: "Your time zone", body: "Based in India (IST), with overlap for UK/EU working hours and async updates for the US and Australia." },
+  { title: "You own everything", body: "Code, domains and hosting stay in your accounts. No lock-in." },
+];
+
+/** General questions, shown on the services hub. */
+export const generalFaqs = [
+  {
+    q: "How much does a website or app cost?",
+    a: "It depends on scope. A landing page costs much less than a marketplace or a mobile app. Tell me what you need and I'll send a fixed quote within 24–48 hours, free and with no obligation.",
+  },
+  {
+    q: "Do you work with international clients?",
+    a: "Yes. I work with clients worldwide and have delivered projects for businesses in the US, the Netherlands, China and across India. I communicate in English, Hindi and Bengali.",
+  },
+  {
+    q: "How do payments work?",
+    a: "Usually a deposit to start, with the rest split across milestones. I accept bank transfer, UPI, PayPal and Wise for international clients.",
+  },
+  {
+    q: "Do you offer support after launch?",
+    a: "Yes. Bug fixes are included after launch, and I offer ongoing maintenance, updates and new features if you need them.",
+  },
+  {
+    q: "Are you available for full-time roles too?",
+    a: "Yes. Alongside freelance projects, I'm open to full-time roles on product teams. Get in touch through the contact form.",
+  },
+];
+
+export function getService(slug: string) {
+  return services.find((s) => s.slug === slug);
+}
+
+export function projectsForService(service: Service): Project[] {
+  return service.projects.map((slug) => {
+    const project = profile.projects.find((p) => p.slug === slug);
+    // Fail the build on a typo rather than silently dropping proof from the page.
+    if (!project) throw new Error(`Service "${service.slug}" references unknown project "${slug}"`);
+    return project;
+  });
+}
+
+/** The service a project best demonstrates, for linking case studies to their service page. */
+export function serviceForProject(project: Project): Service {
+  const listed = services.find((s) => s.projects.includes(project.slug));
+  if (listed) return listed;
+  const slug = /Android|Mobile/.test(project.category)
+    ? "mobile-app-development"
+    : project.category === "WordPress"
+      ? "wordpress-development"
+      : ({ "web-apps": "web-app-development", ecommerce: "ecommerce-development" } as Record<string, string>)[categoryOf(project).slug] ??
+        "website-development";
+  return getService(slug)!;
+}

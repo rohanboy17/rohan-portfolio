@@ -3,12 +3,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import clsx from "clsx";
 import { ArrowLeft, ExternalLink } from "lucide-react";
-import { profile } from "@/content/profile";
+import { profile, categoryOf, serviceForProject } from "@/content/profile";
 import Clip3D from "@/components/ui/Clip3D";
 import BrandIcon from "@/components/ui/BrandIcon";
 import ProjectMedia from "@/components/site/ProjectMedia";
 import { accentStyles } from "@/components/ui/accent";
 import { Reveal } from "@/components/site/MotionPrimitives";
+import QuoteCta from "@/components/site/QuoteCta";
+import JsonLd, { breadcrumbs } from "@/components/site/JsonLd";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -39,6 +41,8 @@ export default async function ProjectPage({ params }: Params) {
   const a = accentStyles[project.accent];
   const index = profile.projects.indexOf(project);
   const next = profile.projects[(index + 1) % profile.projects.length];
+  const category = categoryOf(project);
+  const service = serviceForProject(project);
   const sections = project.caseStudy?.sections ?? [
     { heading: "The problem", body: project.problem },
     { heading: "What I built", body: project.solution },
@@ -46,6 +50,13 @@ export default async function ProjectPage({ params }: Params) {
 
   return (
     <article className="px-4 pb-24 pt-28 sm:px-6 sm:pt-36">
+      <JsonLd
+        data={breadcrumbs([
+          ["Work", "/work"],
+          [category.title, `/work/${category.slug}`],
+          [project.title, `/projects/${project.slug}`],
+        ])}
+      />
       <div className="mx-auto max-w-5xl">
         <Link href="/#projects" className="inline-flex items-center gap-2 text-sm text-muted transition hover:text-white">
           <ArrowLeft size={16} /> All projects
@@ -134,6 +145,22 @@ export default async function ProjectPage({ params }: Params) {
             </div>
           </aside>
         </div>
+
+        {category.slug === "replicas" ? null : (
+          <>
+            <QuoteCta
+              title="Want something like this?"
+              body={`I build projects like ${project.title} for businesses worldwide. Tell me what you need and get a free, fixed quote.`}
+            />
+            <p className="mt-4 text-center text-sm text-muted">
+              Learn more about my{" "}
+              <Link href={`/services/${service.slug}`} className="font-semibold text-lilac hover:underline">
+                {service.title.toLowerCase()} services
+              </Link>
+              .
+            </p>
+          </>
+        )}
 
         <Link
           href={`/projects/${next.slug}`}

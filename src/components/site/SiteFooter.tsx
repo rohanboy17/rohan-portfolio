@@ -7,6 +7,8 @@ import Logo from "@/components/ui/Logo";
 import SocialRow from "@/components/ui/SocialRow";
 
 const NAV = [
+  { href: "/services", label: "Services" },
+  { href: "/work", label: "All work" },
   { href: "/#about", label: "About" },
   { href: "/#skills", label: "Skills" },
   { href: "/#projects", label: "Projects" },
@@ -30,16 +32,16 @@ export default function SiteFooter() {
               {profile.name}
             </Link>
             <p className="mt-4 max-w-sm text-pretty text-muted">
-              {profile.role} crafting fast, polished web products — from idea to production.
+              Freelance web & mobile app developer building fast, polished products for businesses worldwide.
             </p>
             {profile.openToWork ? (
               <p className="mt-5 inline-flex items-center gap-2 rounded-full border border-mint/25 bg-mint/10 px-3.5 py-1.5 text-sm text-mint">
-                <span className="h-2 w-2 rounded-full bg-mint" /> Available for full-time roles
+                <span className="h-2 w-2 rounded-full bg-mint" /> {profile.availability}
               </p>
             ) : null}
             <div className="mt-6 flex flex-wrap justify-center gap-2 sm:justify-start">
               <Link href="/#contact" className="btn-clay inline-flex items-center gap-1.5 rounded-full bg-lilac px-5 py-2.5 text-sm font-semibold text-ink">
-                Hire me <ArrowUpRight size={15} />
+                Get a quote <ArrowUpRight size={15} />
               </Link>
               {profile.resumeUrl ? (
                 <a href={profile.resumeUrl} download className="clay inline-flex items-center gap-1.5 rounded-full px-5 py-2.5 text-sm font-semibold">

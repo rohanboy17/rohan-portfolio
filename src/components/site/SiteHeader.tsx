@@ -9,7 +9,7 @@ import Logo from "@/components/ui/Logo";
 
 const NAV = [
   { href: "/#about", label: "About" },
-  { href: "/#skills", label: "Skills" },
+  { href: "/services", label: "Services" },
   { href: "/#projects", label: "Projects" },
   { href: "/#experience", label: "Experience" },
   { href: "/#contact", label: "Contact" },
@@ -72,7 +72,7 @@ export default function SiteHeader() {
             href="/#contact"
             className="btn-clay hidden rounded-full bg-lilac px-5 py-2 text-sm font-semibold text-ink sm:inline-flex"
           >
-            Hire me
+            Get a quote
           </Link>
           <button
             type="button"
@@ -138,7 +138,7 @@ export default function SiteHeader() {
             tabIndex={open ? 0 : -1}
             className="btn-clay flex justify-center rounded-full bg-lilac px-6 py-4 font-semibold text-ink"
           >
-            Hire me
+            Get a quote
           </Link>
           {profile.resumeUrl ? (
             <a

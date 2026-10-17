@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import { profile } from "@/content/profile";
+import { profile, services } from "@/content/profile";
+import JsonLd from "@/components/site/JsonLd";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import RevealObserver from "@/components/site/RevealObserver";
 import WhatsAppButton from "@/components/site/WhatsAppButton";
@@ -14,48 +15,82 @@ import { CustomCursor } from "@/components/ui/CustomCursor";
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
 const spaceGrotesk = Space_Grotesk({ variable: "--font-space-grotesk", subsets: ["latin"], display: "swap" });
 
-const title = `${profile.name} — ${profile.role}`;
-const description = `${profile.headline} ${profile.intro}`;
+const title = profile.seo.title;
+const description = profile.seo.description;
 
 export const metadata: Metadata = {
   metadataBase: new URL(profile.siteUrl),
   title: { default: title, template: `%s · ${profile.name}` },
   description,
-  keywords: [
-    profile.name,
-    "Full-Stack Developer",
-    "Next.js developer",
-    "React developer",
-    "TypeScript",
-    "Portfolio",
-    "India",
-  ],
+  keywords: [profile.name, ...profile.seo.keywords],
   authors: [{ name: profile.name, url: profile.siteUrl }],
+  creator: profile.name,
   alternates: { canonical: "/" },
-  openGraph: { title, description, url: profile.siteUrl, siteName: profile.name, type: "profile" },
-  twitter: { card: "summary_large_image", title, description },
+  openGraph: { title, description, url: profile.siteUrl, siteName: profile.name, type: "website", locale: "en_US" },
+  twitter: { card: "summary_large_image", title, description, creator: "@rohan_boy_17" },
+  robots: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
+  verification: profile.seo.googleSiteVerification ? { google: profile.seo.googleSiteVerification } : undefined,
 };
 
 export const viewport: Viewport = {
   themeColor: "#0b0b12",
 };
 
-const personJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: profile.name,
-  jobTitle: profile.role,
-  url: profile.siteUrl,
-  email: `mailto:${profile.email}`,
-  telephone: profile.phoneHref.replace("tel:", ""),
-  image: profile.photo ? `${profile.siteUrl}${profile.photo}` : undefined,
-  logo: `${profile.siteUrl}/icon-512.png`,
-  address: { "@type": "PostalAddress", addressRegion: "West Bengal", addressCountry: "IN" },
-  alumniOf: profile.education.map((e) => ({ "@type": "EducationalOrganization", name: e.org })),
-  knowsLanguage: profile.spokenLanguages,
-  sameAs: profile.socials.filter((s) => s.href.startsWith("http")).map((s) => s.href),
-  knowsAbout: profile.skills.flatMap((g) => g.items.map((i) => i.name)),
-};
+const sameAs = profile.socials.filter((s) => s.href.startsWith("http")).map((s) => s.href);
+
+const siteJsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": `${profile.siteUrl}/#person`,
+    name: profile.name,
+    jobTitle: profile.role,
+    description: profile.seo.description,
+    url: profile.siteUrl,
+    email: `mailto:${profile.email}`,
+    telephone: profile.phoneHref.replace("tel:", ""),
+    image: profile.photo ? `${profile.siteUrl}${profile.photo}` : undefined,
+    address: { "@type": "PostalAddress", addressRegion: "West Bengal", addressCountry: "IN" },
+    alumniOf: profile.education.map((e) => ({ "@type": "EducationalOrganization", name: e.org })),
+    knowsLanguage: profile.spokenLanguages,
+    sameAs,
+    knowsAbout: profile.skills.flatMap((g) => g.items.map((i) => i.name)),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "@id": `${profile.siteUrl}/#business`,
+    name: `${profile.name} — Web & Mobile App Development`,
+    description: profile.seo.description,
+    url: profile.siteUrl,
+    logo: `${profile.siteUrl}/icon-512.png`,
+    image: `${profile.siteUrl}/opengraph-image`,
+    email: profile.email,
+    telephone: profile.phoneHref.replace("tel:", ""),
+    founder: { "@id": `${profile.siteUrl}/#person` },
+    address: { "@type": "PostalAddress", addressRegion: "West Bengal", addressCountry: "IN" },
+    areaServed: "Worldwide",
+    availableLanguage: profile.spokenLanguages,
+    sameAs,
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Development services",
+      itemListElement: services.map((s) => ({
+        "@type": "Offer",
+        itemOffered: { "@type": "Service", name: s.title, url: `${profile.siteUrl}/services/${s.slug}` },
+      })),
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${profile.siteUrl}/#website`,
+    name: profile.name,
+    url: profile.siteUrl,
+    publisher: { "@id": `${profile.siteUrl}/#person` },
+    inLanguage: "en",
+  },
+];
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
@@ -87,10 +122,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <RevealObserver />
         <Analytics />
         <DevVitals />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-        />
+        <JsonLd data={siteJsonLd} />
       </body>
     </html>
   );

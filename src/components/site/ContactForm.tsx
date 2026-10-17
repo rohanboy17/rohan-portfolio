@@ -6,7 +6,17 @@ import { profile } from "@/content/profile";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
-const REASONS = ["Full-time role", "Internship", "Freelance project", "Just saying hi"];
+const REASONS = [
+  "Website",
+  "Mobile app",
+  "Online store / e-commerce",
+  "Web app / SaaS",
+  "WordPress",
+  "Full-time role",
+  "Something else",
+];
+
+const BUDGETS = ["Not sure yet", "Under $500", "$500 – $2,000", "$2,000 – $5,000", "$5,000+"];
 
 const field =
   "mt-2 w-full rounded-2xl border border-line bg-white/[0.03] px-4 py-3 text-base text-white outline-none sm:text-sm transition placeholder:text-white/30 focus:border-lilac/60 focus:bg-white/[0.05]";
@@ -75,11 +85,7 @@ export default function ContactForm() {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block">
-          <span className="text-sm font-medium text-white/80">Company (optional)</span>
-          <input name="company" autoComplete="organization" className={field} placeholder="Company name" />
-        </label>
-        <label className="block">
-          <span className="text-sm font-medium text-white/80">Reason</span>
+          <span className="text-sm font-medium text-white/80">What do you need?</span>
           <select name="reason" className={field} defaultValue={REASONS[0]}>
             {REASONS.map((r) => (
               <option key={r} value={r} className="bg-surface">
@@ -88,7 +94,22 @@ export default function ContactForm() {
             ))}
           </select>
         </label>
+        <label className="block">
+          <span className="text-sm font-medium text-white/80">Budget (optional)</span>
+          <select name="budget" className={field} defaultValue={BUDGETS[0]}>
+            {BUDGETS.map((b) => (
+              <option key={b} value={b} className="bg-surface">
+                {b}
+              </option>
+            ))}
+          </select>
+        </label>
       </div>
+
+      <label className="block">
+        <span className="text-sm font-medium text-white/80">Company or website (optional)</span>
+        <input name="company" autoComplete="organization" className={field} placeholder="Company name or current website" />
+      </label>
 
       {/* Honeypot: hidden from people, filled by bots */}
       <input name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
@@ -101,7 +122,7 @@ export default function ContactForm() {
           minLength={20}
           rows={5}
           className={`${field} resize-none`}
-          placeholder="Tell me about the role or project…"
+          placeholder="What do you want to build? Goals, features, deadline, links to sites you like…"
         />
       </label>
 

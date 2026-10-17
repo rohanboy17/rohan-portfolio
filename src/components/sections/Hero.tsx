@@ -33,7 +33,7 @@ export default function Hero() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint opacity-60 motion-reduce:hidden" />
                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-mint" />
               </span>
-              Open to full-time roles
+              {profile.availability}
             </p>
           ) : null}
 
@@ -42,7 +42,7 @@ export default function Hero() {
               Hi, I&apos;m {profile.firstName}
               <Clip3D name="wave" size={72} priority float tilt={-12} className="h-11 w-11 sm:h-16 sm:w-16" />
             </span>
-            <span className="text-gradient mt-1 block">{profile.role}</span>
+            <span className="text-gradient mt-1 block">{profile.heroTitle}</span>
           </h1>
 
           <p className="mt-5 max-w-xl text-balance text-lg leading-relaxed text-white/85 sm:text-xl">{profile.headline}</p>
