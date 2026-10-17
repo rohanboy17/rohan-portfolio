@@ -46,7 +46,7 @@ export default function Services() {
               className="group flex h-full flex-col items-center justify-center gap-3 rounded-[28px] border border-dashed border-lilac/40 bg-lilac/5 p-6 text-center transition hover:bg-lilac/10"
             >
               <p className="font-display text-lg font-semibold sm:text-xl">Have something else in mind?</p>
-              <p className="text-sm text-muted">Tell me about it — free quote within a day.</p>
+              <p className="text-sm text-muted">Tell me about it — free quote within 24 hours.</p>
               <span className="btn-clay mt-1 inline-flex items-center gap-2 rounded-full bg-lilac px-5 py-2.5 text-sm font-semibold text-ink">
                 Get a free quote <ArrowRight size={16} />
               </span>

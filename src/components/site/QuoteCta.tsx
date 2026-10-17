@@ -6,7 +6,7 @@ import SocialIcon from "@/components/ui/SocialIcon";
 /** Closing call to action on client-facing pages: free quote + WhatsApp. */
 export default function QuoteCta({
   title = "Tell me about your project",
-  body = "Share a few details and I'll reply within a day with ideas, a timeline and a free, fixed quote.",
+  body = "Share a few details and within 24 hours I'll send ideas, a timeline and a free, fixed quote.",
 }: {
   title?: string;
   body?: string;

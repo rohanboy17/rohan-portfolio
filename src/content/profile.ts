@@ -105,7 +105,7 @@ export const profile = {
       "app developer West Bengal",
     ],
     /** Google Search Console HTML-tag token (the `content` value only). */
-    googleSiteVerification: "",
+    googleSiteVerification: "2JJ5lMQpeFBrQE6BnyPWafH9YYeLrwio-366_MibMqk",
   },
 
   about: [
@@ -1371,7 +1371,7 @@ export const whyHire = [
 export const generalFaqs = [
   {
     q: "How much does a website or app cost?",
-    a: "It depends on scope. A landing page costs much less than a marketplace or a mobile app. Tell me what you need and I'll send a fixed quote within 24–48 hours, free and with no obligation.",
+    a: "It depends on scope. A landing page costs much less than a marketplace or a mobile app. Tell me what you need and I'll send a fixed quote within 24 hours, free and with no obligation.",
   },
   {
     q: "Do you work with international clients?",
@@ -1379,7 +1379,7 @@ export const generalFaqs = [
   },
   {
     q: "How do payments work?",
-    a: "Usually a deposit to start, with the rest split across milestones. I accept bank transfer, UPI, PayPal and Wise for international clients.",
+    a: "Usually a deposit to start, with the rest split across milestones. I accept PayPal and Binance, so paying from anywhere in the world is easy.",
   },
   {
     q: "Do you offer support after launch?",
