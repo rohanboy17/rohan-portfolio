@@ -1379,7 +1379,7 @@ export const generalFaqs = [
   },
   {
     q: "How do payments work?",
-    a: "Usually a deposit to start, with the rest split across milestones. I accept PayPal and Binance, so paying from anywhere in the world is easy.",
+    a: "Usually a deposit to start, with the rest split across milestones. I accept UPI and bank transfer in India, and PayPal and Binance for international clients, so paying from anywhere in the world is easy.",
   },
   {
     q: "Do you offer support after launch?",
