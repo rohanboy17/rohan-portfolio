@@ -165,5 +165,33 @@
   "novaforge-replica": {
     "poster": "/projects/novaforge-replica.jpg",
     "video": "/videos/novaforge-replica.mp4"
+  },
+  "newco": {
+    "poster": "/projects/newco.jpg",
+    "video": "/videos/newco.mp4"
+  },
+  "hype-associates": {
+    "poster": "/projects/hype-associates.jpg",
+    "video": "/videos/hype-associates.mp4"
+  },
+  "ufixpro": {
+    "poster": "/projects/ufixpro.jpg",
+    "video": "/videos/ufixpro.mp4"
+  },
+  "nicki-gunshop": {
+    "poster": "/projects/nicki-gunshop.jpg",
+    "video": "/videos/nicki-gunshop.mp4"
+  },
+  "aureve": {
+    "poster": "/projects/aureve.jpg",
+    "video": "/videos/aureve.mp4"
+  },
+  "asset-care": {
+    "poster": "/projects/asset-care.jpg",
+    "video": "/videos/asset-care.mp4"
+  },
+  "verita-smsf-audit": {
+    "poster": "/projects/verita-smsf-audit.jpg",
+    "video": "/videos/verita-smsf-audit.mp4"
   }
 }

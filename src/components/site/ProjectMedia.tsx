@@ -17,7 +17,7 @@ export default function ProjectMedia({ project, priority = false }: { project: P
   const ref = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
   const a = accentStyles[project.accent];
-  const host = project.liveUrl ? new URL(project.liveUrl).host : "Private build · launching soon";
+  const host = project.liveUrl ? new URL(project.liveUrl).host : (project.mediaLabel ?? "Private build · launching soon");
 
   useEffect(() => {
     const video = ref.current;
