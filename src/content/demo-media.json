@@ -193,5 +193,25 @@
   "verita-smsf-audit": {
     "poster": "/projects/verita-smsf-audit.jpg",
     "video": "/videos/verita-smsf-audit.mp4"
+  },
+  "hashtag-tourism": {
+    "poster": "/projects/hashtag-tourism.jpg",
+    "video": "/videos/hashtag-tourism.mp4"
+  },
+  "tbd-drone": {
+    "poster": "/projects/tbd-drone.jpg",
+    "video": "/videos/tbd-drone.mp4"
+  },
+  "book-spa": {
+    "poster": "/projects/book-spa.jpg",
+    "video": "/videos/book-spa.mp4"
+  },
+  "xinke-tea": {
+    "poster": "/projects/xinke-tea.jpg",
+    "video": "/videos/xinke-tea.mp4"
+  },
+  "yunpei": {
+    "poster": "/projects/yunpei.jpg",
+    "video": "/videos/yunpei.mp4"
   }
 }
