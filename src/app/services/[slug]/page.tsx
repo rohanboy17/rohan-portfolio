@@ -13,6 +13,7 @@ import ProcessSteps from "@/components/site/ProcessSteps";
 import Faq from "@/components/site/Faq";
 import QuoteCta from "@/components/site/QuoteCta";
 import JsonLd, { breadcrumbs, faqPage } from "@/components/site/JsonLd";
+import { shareMetadata } from "@/lib/seo";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     title: { absolute: service.metaTitle },
     description: service.metaDescription,
     alternates: { canonical: url },
-    openGraph: { title: service.metaTitle, description: service.metaDescription, url },
+    ...shareMetadata({ title: service.metaTitle, description: service.metaDescription, path: url }),
   };
 }
 

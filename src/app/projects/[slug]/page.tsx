@@ -11,6 +11,7 @@ import { accentStyles } from "@/components/ui/accent";
 import { Reveal } from "@/components/site/MotionPrimitives";
 import QuoteCta from "@/components/site/QuoteCta";
 import JsonLd, { breadcrumbs } from "@/components/site/JsonLd";
+import { shareMetadata, metaDescription } from "@/lib/seo";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -29,8 +30,15 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   if (!project) return {};
   return {
     title: project.title,
-    description: `${project.tagline}. ${project.solution}`,
+    description: metaDescription(`${project.tagline}. ${project.solution}`),
     alternates: { canonical: `/projects/${project.slug}` },
+    ...shareMetadata({
+      title: `${project.title} — ${project.tagline}`,
+      description: metaDescription(project.solution),
+      path: `/projects/${project.slug}`,
+      image: project.poster,
+      imageAlt: `${project.title} screenshot`,
+    }),
   };
 }
 
@@ -51,11 +59,27 @@ export default async function ProjectPage({ params }: Params) {
   return (
     <article className="px-4 pb-24 pt-28 sm:px-6 sm:pt-36">
       <JsonLd
-        data={breadcrumbs([
-          ["Work", "/work"],
-          [category.title, `/work/${category.slug}`],
-          [project.title, `/projects/${project.slug}`],
-        ])}
+        data={[
+          breadcrumbs([
+            ["Work", "/work"],
+            [category.title, `/work/${category.slug}`],
+            [project.title, `/projects/${project.slug}`],
+          ]),
+          {
+            "@context": "https://schema.org",
+            "@type": "CreativeWork",
+            name: project.title,
+            headline: project.tagline,
+            description: project.solution,
+            url: `${profile.siteUrl}/projects/${project.slug}`,
+            image: project.poster ? `${profile.siteUrl}${project.poster}` : undefined,
+            genre: project.category,
+            keywords: project.stack.join(", "),
+            creator: { "@id": `${profile.siteUrl}/#person` },
+            // The live product itself, when there is one.
+            sameAs: project.liveUrl,
+          },
+        ]}
       />
       <div className="mx-auto max-w-5xl">
         <Link href="/#projects" className="inline-flex items-center gap-2 text-sm text-muted transition hover:text-white">

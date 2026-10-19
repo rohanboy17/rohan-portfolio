@@ -8,6 +8,7 @@ import { CompactCard, MiniCard } from "@/components/site/ProjectCard";
 import CategoryPills from "@/components/site/CategoryPills";
 import { Item, Reveal, Stagger } from "@/components/site/MotionPrimitives";
 import JsonLd, { breadcrumbs } from "@/components/site/JsonLd";
+import { shareMetadata, metaDescription } from "@/lib/seo";
 
 type Params = { params: Promise<{ category: string }> };
 
@@ -26,8 +27,13 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   if (!category) return {};
   return {
     title: category.title,
-    description: `${category.tagline} — ${projectsInCategory(category.slug).length} projects by ${profile.name}.`,
+    description: metaDescription(`${category.tagline} — ${projectsInCategory(category.slug).length} projects by ${profile.name}.`),
     alternates: { canonical: `/work/${category.slug}` },
+    ...shareMetadata({
+      title: `${category.title} — ${profile.name}`,
+      description: category.tagline,
+      path: `/work/${category.slug}`,
+    }),
   };
 }
 
@@ -40,10 +46,23 @@ export default async function CategoryPage({ params }: Params) {
   return (
     <div className="px-4 pb-24 pt-28 sm:px-6 sm:pt-36">
       <JsonLd
-        data={breadcrumbs([
-          ["Work", "/work"],
-          [category.title, `/work/${category.slug}`],
-        ])}
+        data={[
+          breadcrumbs([
+            ["Work", "/work"],
+            [category.title, `/work/${category.slug}`],
+          ]),
+          {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: category.title,
+            itemListElement: projects.map((p, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              url: `${profile.siteUrl}/projects/${p.slug}`,
+              name: p.title,
+            })),
+          },
+        ]}
       />
       <div className="mx-auto max-w-6xl">
         <Link href="/work" className="inline-flex items-center gap-2 text-sm text-muted transition hover:text-white">

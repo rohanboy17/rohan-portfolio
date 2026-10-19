@@ -11,15 +11,16 @@ import ProcessSteps from "@/components/site/ProcessSteps";
 import Faq from "@/components/site/Faq";
 import QuoteCta from "@/components/site/QuoteCta";
 import JsonLd, { breadcrumbs, faqPage } from "@/components/site/JsonLd";
+import { shareMetadata } from "@/lib/seo";
 
 const title = "Web & Mobile App Development Services";
-const description = `Hire ${profile.name}, a freelance full-stack developer, for websites, mobile apps, e-commerce stores, web apps and WordPress — for businesses worldwide. Free quote.`;
+const description = `Hire ${profile.name}, a freelance full-stack developer, for websites, mobile apps, e-commerce stores, web apps and WordPress, worldwide. Free quote.`;
 
 export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/services" },
-  openGraph: { title, description, url: "/services" },
+  ...shareMetadata({ title, description, path: "/services" }),
 };
 
 export default function ServicesPage() {

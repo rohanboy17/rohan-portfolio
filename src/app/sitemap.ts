@@ -21,6 +21,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${profile.siteUrl}/projects/${p.slug}`,
       lastModified: now,
       priority: p.featured ? 0.8 : 0.5,
+      // Image sitemap: lets Google Images index each project screenshot.
+      images: p.poster ? [`${profile.siteUrl}${p.poster}`] : undefined,
     })),
   ];
 }

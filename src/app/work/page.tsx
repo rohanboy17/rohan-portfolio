@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { shareMetadata } from "@/lib/seo";
 import Link from "next/link";
 import clsx from "clsx";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
@@ -11,6 +12,11 @@ export const metadata: Metadata = {
   title: "Work by category",
   description: `Browse ${profile.name}'s projects by category — web apps & SaaS, e-commerce stores, business sites and creative builds.`,
   alternates: { canonical: "/work" },
+  ...shareMetadata({
+    title: "Work by category",
+    description: `Browse ${profile.name}'s projects by category — web apps & SaaS, e-commerce stores, business sites and creative builds.`,
+    path: "/work",
+  }),
 };
 
 export default function WorkHub() {
@@ -29,7 +35,7 @@ export default function WorkHub() {
             {total} projects, by category.
           </h1>
           <p className="mt-4 text-pretty text-lg text-muted">
-            Pick the kind of product you&apos;re hiring for — each category opens a page of the real, live builds in it.
+            Pick the kind of product you&apos;re hiring for — each category opens a page of the real builds in it.
           </p>
         </header>
 

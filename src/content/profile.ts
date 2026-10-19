@@ -111,15 +111,15 @@ export const profile = {
   },
 
   about: [
-    "I'm a Computer Science graduate (B.Sc, 2023) and GATE 2023 CS qualifier from West Bengal, India. Since then I've shipped 40+ production websites and web apps for startups, B2B brands and e-commerce businesses.",
+    "I'm a Computer Science graduate (B.Sc, 2023) and GATE 2023 CS qualifier from West Bengal, India. Since then I've shipped 50+ production websites and web apps for startups, B2B brands and e-commerce businesses.",
     "I work end-to-end: Next.js and React on the front, Node, Prisma and PostgreSQL on the back, and Vercel, Docker and CI to ship it. I care about speed, accessibility and the small details that make software feel premium.",
-    "I work directly with founders and businesses in India, the US, Europe and Asia — one developer from first call to launch, no agency hand-offs. I'm also open to full-time roles on product teams.",
+    "I work directly with founders and businesses in India, the US, Canada, the UAE, Europe and Asia — one developer from first call to launch, no agency hand-offs. I'm also open to full-time roles on product teams.",
   ],
 
   stats: [
     { value: "4+", label: "Years building for the web" },
-    { value: "40+", label: "Projects shipped" },
-    { value: "40+", label: "Live deployments" },
+    { value: "50+", label: "Projects shipped" },
+    { value: "50+", label: "Live deployments" },
     { value: "20+", label: "Technologies in production" },
   ],
 
@@ -1124,7 +1124,7 @@ export const profile = {
       location: "Remote · India",
       clip: "rocket",
       points: [
-        "Shipped 40+ websites, storefronts and web apps for startups, B2B manufacturers and e-commerce brands.",
+        "Shipped 50+ websites, storefronts and web apps for startups, B2B manufacturers and e-commerce brands.",
         "Built payment flows with Razorpay, role-based auth, and PostgreSQL/Prisma data models.",
         "Delivered on Next.js, React, Shopify and WooCommerce, deployed on Vercel with CI.",
       ],
@@ -1324,15 +1324,15 @@ export const services: Service[] = [
     slug: "website-development",
     title: "Website Development",
     heading: "Website design & development for businesses",
-    metaTitle: "Freelance Website Developer — Business Website Design & Development",
+    metaTitle: "Website Design & Development — Freelance Web Developer",
     metaDescription:
-      "Fast, SEO-ready business websites designed and built by freelance developer Rohan Mondal. Next.js, React and WordPress sites for companies worldwide. Get a free quote.",
+      "Fast, SEO-ready business websites by freelance developer Rohan Mondal. Next.js, React and WordPress sites for companies worldwide. Get a free quote.",
     tagline: "Fast, premium websites that turn visitors into enquiries.",
     clip: "globe",
     accent: "peach",
     intro: [
       "Your website is often the first conversation a customer has with your business. I design and build fast, mobile-first websites that explain what you do clearly, load in under two seconds and make it easy to get in touch.",
-      "I've built sites for manufacturers, exporters, brands, institutes and non-profits in India, the US, Europe and China, including multilingual sites for international buyers.",
+      "I've built sites for manufacturers, exporters, brands, travel companies and non-profits in India, the US, Canada, the UAE, Europe and China, including multilingual sites for international buyers.",
     ],
     idealFor: [
       "Businesses that need a new site or a redesign of an outdated one",
@@ -1375,7 +1375,7 @@ export const services: Service[] = [
     heading: "Mobile app development for Android & iOS",
     metaTitle: "Mobile App Developer — React Native Android & iOS App Development",
     metaDescription:
-      "Hire a freelance mobile app developer for Android and iOS. Cross-platform React Native (Expo) apps with backends, push notifications and admin dashboards. Free quote.",
+      "Hire a freelance mobile app developer for Android and iOS: cross-platform React Native apps with backends, push notifications and admin panels. Free quote.",
     tagline: "Cross-platform apps with the backend and admin panel to run them.",
     clip: "phone",
     accent: "lilac",
@@ -1422,9 +1422,9 @@ export const services: Service[] = [
     slug: "ecommerce-development",
     title: "E-commerce Development",
     heading: "E-commerce website development: Shopify, WooCommerce & custom stores",
-    metaTitle: "E-commerce Website Developer — Shopify, WooCommerce & Next.js Stores",
+    metaTitle: "E-commerce Developer — Shopify, WooCommerce & Next.js Stores",
     metaDescription:
-      "Online stores that sell: Shopify and WooCommerce development, custom Next.js marketplaces, payments, B2B checkout and store redesigns. Freelance developer, free quote.",
+      "Online stores that sell: Shopify and WooCommerce development, custom Next.js marketplaces, payments, B2B checkout and redesigns. Get a free quote.",
     tagline: "Online stores built to sell, on Shopify, WooCommerce or a custom stack.",
     clip: "cart",
     accent: "mint",
@@ -1473,7 +1473,7 @@ export const services: Service[] = [
     heading: "Custom web app & SaaS development",
     metaTitle: "Custom Web App & SaaS Developer — Next.js, Node.js, PostgreSQL",
     metaDescription:
-      "Custom web applications, SaaS platforms, dashboards and portals built end to end: auth, payments, APIs and databases. Hire a freelance full-stack developer. Free quote.",
+      "Custom web apps, SaaS platforms, dashboards and portals built end to end: auth, payments, APIs and databases. Hire a freelance full-stack developer.",
     tagline: "Custom software for the work spreadsheets and off-the-shelf tools can't handle.",
     clip: "rocket",
     accent: "sky",
@@ -1496,7 +1496,7 @@ export const services: Service[] = [
       { title: "Deployment & CI", body: "Vercel or Docker deployments with automated checks on every change." },
     ],
     stack: ["Next.js", "React", "TypeScript", "Node.js", "Express", "PostgreSQL", "Prisma", "Laravel", "Docker"],
-    projects: ["signawaydocs", "routequire", "freeearnhub", "game-arena", "rupashi-enterprise"],
+    projects: ["signawaydocs", "routequire", "jetseasyy", "freeearnhub", "game-arena", "rupashi-enterprise"],
     faqs: [
       {
         q: "Can you build an MVP for my startup?",
@@ -1545,7 +1545,7 @@ export const services: Service[] = [
       { title: "Training & handover", body: "A short walkthrough so your team can manage the site confidently." },
     ],
     stack: ["WordPress", "PHP", "WooCommerce", "Block themes", "Elementor", "MySQL"],
-    projects: ["cockroach-jobs", "pushkey", "euro-agro-fertilizers", "containers-unlimited", "the-kolkata-news"],
+    projects: ["cockroach-jobs", "book-spa", "pushkey", "euro-agro-fertilizers", "hype-associates", "xinke-tea"],
     faqs: [
       {
         q: "Can you fix or speed up my existing WordPress site?",
@@ -1576,7 +1576,7 @@ export const workProcess = [
 /** Reasons to hire, shown on the services hub. */
 export const whyHire = [
   { title: "Work directly with the developer", body: "No account managers or hand-offs. You talk to the person building your product." },
-  { title: "Clients worldwide", body: "Projects delivered for businesses in India, the US, the Netherlands and China." },
+  { title: "Clients worldwide", body: "Projects delivered for businesses in India, the US, Canada, the UAE, the Netherlands and China." },
   { title: "Your time zone", body: "Based in India (IST), with overlap for UK/EU working hours and async updates for the US and Australia." },
   { title: "You own everything", body: "Code, domains and hosting stay in your accounts. No lock-in." },
 ];
@@ -1589,7 +1589,7 @@ export const generalFaqs = [
   },
   {
     q: "Do you work with international clients?",
-    a: "Yes. I work with clients worldwide and have delivered projects for businesses in the US, the Netherlands, China and across India. I communicate in English, Hindi and Bengali.",
+    a: "Yes. I work with clients worldwide and have delivered projects for businesses in the US, Canada, the UAE, the Netherlands, China and across India. I communicate in English, Hindi and Bengali.",
   },
   {
     q: "How do payments work?",
