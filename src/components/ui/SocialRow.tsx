@@ -19,8 +19,11 @@ export default function SocialRow({
     ...(withEmail ? [{ label: "Email", href: `mailto:${profile.email}`, icon: "mail" }] : []),
   ];
 
+  // Seven or more icons at full size overflow a phone-width card; shrink slightly so they stay on one row.
+  const compact = links.length > 6;
+
   return (
-    <ul className={clsx("flex flex-wrap items-center gap-2", className)}>
+    <ul className={clsx("flex flex-wrap items-center", compact ? "gap-1.5" : "gap-2", className)}>
       {links.map((s) => (
         <li key={s.label}>
           <a
@@ -29,7 +32,10 @@ export default function SocialRow({
             rel="noreferrer"
             aria-label={s.label}
             title={s.label}
-            className="grid h-10 w-10 place-items-center rounded-full border border-line bg-white/5 text-white/80 transition hover:-translate-y-0.5 hover:border-lilac/40 hover:text-white"
+            className={clsx(
+              "grid place-items-center rounded-full border border-line bg-white/5 text-white/80 transition hover:-translate-y-0.5 hover:border-lilac/40 hover:text-white",
+              compact ? "h-9 w-9" : "h-10 w-10",
+            )}
           >
             <SocialIcon icon={s.icon} size={size} />
           </a>

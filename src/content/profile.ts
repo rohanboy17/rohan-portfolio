@@ -128,9 +128,10 @@ export const profile = {
     { label: "GitHub", href: "https://github.com/rohanboy17", icon: "github", primary: true },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/rohanboy17/", icon: "linkedin", primary: true },
     { label: "X", href: "https://x.com/rohan_boy_17", icon: "x", primary: true },
-    { label: "Instagram", href: "https://www.instagram.com/rohan_mondal_11", icon: "instagram" },
-    { label: "Facebook", href: "https://www.facebook.com/rohanmondalvlogs", icon: "facebook" },
-    { label: "YouTube", href: "https://www.youtube.com/@rohanmondal", icon: "youtube" },
+    { label: "Instagram", href: "https://www.instagram.com/rohan_x_mondal", icon: "instagram" },
+    { label: "Threads", href: "https://www.threads.com/@rohan_x_mondal", icon: "threads" },
+    { label: "Facebook", href: "https://www.facebook.com/rohanwebdesignerkolkata", icon: "facebook" },
+    { label: "YouTube", href: "https://youtube.com/@rohanmondal09", icon: "youtube" },
   ] as { label: string; href: string; icon: string; primary?: boolean }[],
 
   skills: [
