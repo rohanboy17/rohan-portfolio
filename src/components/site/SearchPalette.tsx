@@ -99,7 +99,9 @@ export default function SearchPalette({ onClose }: { onClose: () => void }) {
         aria-label="Search projects"
         onMouseDown={(e) => e.stopPropagation()}
         onKeyDown={onKeyDown}
-        className="clay w-full max-w-xl overflow-hidden rounded-[28px] bg-ink/95"
+        className="clay w-full max-w-xl overflow-hidden rounded-[28px]"
+        // `.clay` would otherwise leave the dialog see-through (see SiteHeader SOLID).
+        style={{ background: "linear-gradient(180deg, rgb(255 255 255 / 0.065), rgb(255 255 255 / 0.02)), var(--color-ink)" }}
       >
         <div className="flex items-center gap-3 border-b border-line px-5">
           <Search size={18} className="shrink-0 text-muted" aria-hidden />

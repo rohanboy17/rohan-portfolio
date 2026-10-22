@@ -5,17 +5,23 @@ import SocialIcon from "@/components/ui/SocialIcon";
 import Clip3D from "@/components/ui/Clip3D";
 import Logo from "@/components/ui/Logo";
 import SocialRow from "@/components/ui/SocialRow";
+import { siteNav, type NavLink } from "@/lib/nav";
 
-const NAV = [
-  { href: "/services", label: "Services" },
-  { href: "/work", label: "All work" },
-  { href: "/industries", label: "Industries" },
-  { href: "/#about", label: "About" },
-  { href: "/#skills", label: "Skills" },
-  { href: "/#projects", label: "Projects" },
-  { href: "/#experience", label: "Experience" },
-  { href: "/#contact", label: "Contact" },
-];
+/** Footer link columns, from the same menu as the header (lib/nav.ts). */
+function footerColumns(): { title: string; links: NavLink[] }[] {
+  const nav = siteNav();
+  const menu = (label: string) => nav.find((n) => n.label === label)?.sections ?? [];
+  const work = menu("Work");
+  return [
+    { title: "Services", links: [...menu("Services").flatMap((s) => s.links), { href: "/services", label: "All services" }] },
+    { title: "Work", links: work.filter((s) => s.title !== "By industry").flatMap((s) => s.links) },
+    { title: "Industries", links: work.find((s) => s.title === "By industry")?.links ?? [] },
+    {
+      title: "About",
+      links: [...menu("About").flatMap((s) => s.links), ...nav.filter((n) => !n.sections).map(({ href, label }) => ({ href, label }))],
+    },
+  ];
+}
 
 export default function SiteFooter() {
   const year = new Date().getFullYear();
@@ -26,7 +32,7 @@ export default function SiteFooter() {
       <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-[420px] bg-[radial-gradient(60%_80%_at_50%_100%,rgb(196_181_253/0.18),transparent_70%)]" />
 
       <div className="relative mx-auto max-w-6xl px-4 pt-14 sm:px-6 sm:pt-20">
-        <div className="grid gap-12 text-center sm:text-left lg:grid-cols-[1.4fr_1fr_1fr]">
+        <div className="grid gap-12 text-center sm:text-left lg:grid-cols-[1.25fr_2.75fr]">
           <div className="flex flex-col items-center sm:items-start">
             <Link href="/" className="flex items-center gap-3 font-display text-xl font-semibold">
               <Logo size={44} id="logo-footer" />
@@ -50,24 +56,8 @@ export default function SiteFooter() {
                 </a>
               ) : null}
             </div>
-          </div>
 
-          <nav aria-label="Footer">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-muted">Navigate</p>
-            <ul className="mt-5 grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-1">
-              {NAV.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className="text-white/80 transition hover:text-lilac">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-muted">Connect</p>
-            <ul className="mx-auto mt-5 w-fit space-y-3 text-left sm:mx-0">
+            <ul className="mx-auto mt-8 w-fit space-y-3 text-left sm:mx-0">
               {[
                 { label: profile.email, href: `mailto:${profile.email}`, icon: "mail" },
                 { label: profile.phone, href: profile.phoneHref, icon: "phone" },
@@ -96,6 +86,24 @@ export default function SiteFooter() {
             </ul>
             <SocialRow className="mt-5 justify-center sm:justify-start" />
           </div>
+
+          {/* Same menu as the header, as link columns */}
+          <nav aria-label="Footer" className="grid grid-cols-2 gap-x-6 gap-y-10 text-left sm:grid-cols-4">
+            {footerColumns().map((col) => (
+              <div key={col.title}>
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-muted">{col.title}</p>
+                <ul className="mt-5 space-y-3">
+                  {col.links.map((l) => (
+                    <li key={l.href + l.label}>
+                      <Link href={l.href} className="text-sm text-white/80 transition hover:text-lilac">
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </nav>
         </div>
 
         {/* Oversized wordmark */}

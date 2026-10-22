@@ -3,6 +3,7 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { profile, services } from "@/content/profile";
 import JsonLd from "@/components/site/JsonLd";
+import { siteNav } from "@/lib/nav";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import RevealObserver from "@/components/site/RevealObserver";
 import WhatsAppButton from "@/components/site/WhatsAppButton";
@@ -110,7 +111,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <div aria-hidden className="aurora pointer-events-none fixed inset-0 z-0" />
         <div aria-hidden className="grain pointer-events-none fixed inset-0 z-0" />
         <div className="relative z-10 flex min-h-screen flex-col">
-          <SiteHeader name={profile.name} firstName={profile.firstName} resumeUrl={profile.resumeUrl || undefined} />
+          <SiteHeader name={profile.name} firstName={profile.firstName} resumeUrl={profile.resumeUrl || undefined} nav={siteNav()} />
           <main id="content" className="flex-1">
             {children}
           </main>
