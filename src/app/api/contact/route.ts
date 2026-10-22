@@ -7,6 +7,10 @@ type ContactPayload = {
   company?: string;
   reason?: string;
   budget?: string;
+  /** "demo" = free demo request from the search page; message is optional. */
+  kind?: "demo";
+  industry?: string;
+  phone?: string;
   message: string;
   website?: string; // honeypot
   startedAt?: number; // anti-bot (ms timestamp)
@@ -71,8 +75,13 @@ export async function POST(req: Request) {
   const name = (body.name || "").trim();
   const email = (body.email || "").trim();
   const message = (body.message || "").trim();
+  const isDemo = body.kind === "demo";
+  const industry = (body.industry || "").trim().slice(0, 80);
 
-  if (!name || !email || !message || !isEmail(email) || message.length < 20) {
+  const invalid = isDemo
+    ? !name || !email || !isEmail(email) || industry.length < 2
+    : !name || !email || !message || !isEmail(email) || message.length < 20;
+  if (invalid) {
     return NextResponse.json(
       { ok: false, error: "validation_failed" },
       { status: 400 },
@@ -94,15 +103,20 @@ export async function POST(req: Request) {
   const { Resend } = await import("resend");
   const resend = new Resend(apiKey);
 
-  const subject = `Portfolio: ${body.reason || "New message"} from ${name}`;
+  const subject = isDemo
+    ? `Free demo request: ${industry} ${(body.reason || "website").toLowerCase()} — ${name}`
+    : `Portfolio: ${body.reason || "New message"} from ${name}`;
   const text = [
+    isDemo ? "FREE DEMO REQUEST (promised within 3–4 working hours)" : "",
     `Name: ${name}`,
     `Email: ${email}`,
+    body.phone ? `WhatsApp / phone: ${body.phone}` : "",
+    isDemo ? `Business type: ${industry}` : "",
     body.company ? `Company: ${body.company}` : "",
-    body.reason ? `Project: ${body.reason}` : "",
+    body.reason ? `${isDemo ? "Needs" : "Project"}: ${body.reason}` : "",
     body.budget ? `Budget: ${body.budget}` : "",
     "",
-    message,
+    message || "(no extra notes)",
   ]
     .filter(Boolean)
     .join("\n");

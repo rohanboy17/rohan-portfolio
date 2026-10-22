@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import clsx from "clsx";
 import { ArrowLeft, ExternalLink } from "lucide-react";
-import { profile, categoryOf, serviceForProject } from "@/content/profile";
+import { profile, categoryOf, serviceForProject, industryOf, sectorOf, liveIndustries } from "@/content/profile";
 import Clip3D from "@/components/ui/Clip3D";
 import BrandIcon from "@/components/ui/BrandIcon";
 import ProjectMedia from "@/components/site/ProjectMedia";
@@ -91,6 +91,18 @@ export default async function ProjectPage({ params }: Params) {
           <Clip3D name={project.clip} size={120} float priority className="h-20 w-20 shrink-0 sm:h-28 sm:w-28" />
           <div>
             <p className={clsx("text-xs font-semibold uppercase tracking-[0.28em]", a.text)}>{project.category}</p>
+            {/* Industry badge: links to the industry page when there is one */}
+            <p className="mt-2 text-sm text-muted">
+              {liveIndustries.some((i) => i.slug === project.industry) && category.slug !== "replicas" ? (
+                <Link href={`/industries/${project.industry}`} className="hover:text-white hover:underline">
+                  {industryOf(project).title}
+                </Link>
+              ) : (
+                industryOf(project).title
+              )}
+              {" · "}
+              {sectorOf(project).title}
+            </p>
             <h1 className="mt-3 text-balance font-display text-4xl font-semibold tracking-tight sm:text-6xl">{project.title}</h1>
             <p className="mx-auto mt-3 max-w-xl text-lg text-white/85 sm:mx-0 sm:max-w-2xl sm:text-xl">{project.tagline}</p>
           </div>

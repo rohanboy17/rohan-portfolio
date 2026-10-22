@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import clsx from "clsx";
-import { profile } from "@/content/profile";
 import Logo from "@/components/ui/Logo";
+import SearchLauncher from "@/components/site/SearchLauncher";
 
 const NAV = [
   { href: "/#about", label: "About" },
@@ -15,7 +15,11 @@ const NAV = [
   { href: "/#contact", label: "Contact" },
 ];
 
-export default function SiteHeader() {
+/**
+ * Client component: it takes the few profile values it needs as props, so profile.ts (all project
+ * copy) is never bundled into the browser JS of every page.
+ */
+export default function SiteHeader({ name, firstName, resumeUrl }: { name: string; firstName: string; resumeUrl?: string }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -47,10 +51,10 @@ export default function SiteHeader() {
           scrolled ? "clay bg-ink/75 backdrop-blur-xl" : "border border-transparent",
         )}
       >
-        <Link href="/" className="flex items-center gap-2 font-display text-lg font-semibold tracking-tight" aria-label={`${profile.name} — home`}>
+        <Link href="/" className="flex items-center gap-2 font-display text-lg font-semibold tracking-tight" aria-label={`${name} — home`}>
           <Logo size={34} id="logo-header" className="drop-shadow-[0_6px_14px_rgba(196,181,253,0.35)]" />
           <span>
-            {profile.firstName}
+            {firstName}
             <span className="text-lilac">.</span>
           </span>
         </Link>
@@ -68,6 +72,7 @@ export default function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <SearchLauncher />
           <Link
             href="/#contact"
             className="btn-clay hidden rounded-full bg-lilac px-5 py-2 text-sm font-semibold text-ink sm:inline-flex"
@@ -101,7 +106,7 @@ export default function SiteHeader() {
         <div className="relative flex h-14 items-center justify-between pl-1">
           <span className="flex items-center gap-2 font-display text-lg font-semibold">
             <Logo size={32} id="logo-menu" />
-            {profile.firstName}
+            {firstName}
             <span className="-ml-2 text-lilac">.</span>
           </span>
           <button
@@ -140,9 +145,9 @@ export default function SiteHeader() {
           >
             Get a quote
           </Link>
-          {profile.resumeUrl ? (
+          {resumeUrl ? (
             <a
-              href={profile.resumeUrl}
+              href={resumeUrl}
               download
               tabIndex={open ? 0 : -1}
               className="clay flex justify-center rounded-full px-6 py-4 font-semibold"

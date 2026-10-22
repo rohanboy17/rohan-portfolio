@@ -110,7 +110,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <div aria-hidden className="aurora pointer-events-none fixed inset-0 z-0" />
         <div aria-hidden className="grain pointer-events-none fixed inset-0 z-0" />
         <div className="relative z-10 flex min-h-screen flex-col">
-          <SiteHeader />
+          <SiteHeader name={profile.name} firstName={profile.firstName} resumeUrl={profile.resumeUrl || undefined} />
           <main id="content" className="flex-1">
             {children}
           </main>

@@ -20,6 +20,12 @@ export type Project = {
   title: string;
   tagline: string;
   category: string;
+  /** The client's trade, for industry search and /industries pages. */
+  industry: IndustrySlug;
+  /** Sub-sector slug within `industry` (see `industries` below). */
+  sector: string;
+  /** Extra search terms not already in the copy. */
+  keywords?: string[];
   clip: Clip;
   accent: Accent;
   problem: string;
@@ -71,6 +77,13 @@ export const profile = {
   openToWork: true,
   /** Shown in the hero and footer badges while `openToWork` is true. */
   availability: "Available for new projects",
+  /** Offer shown when a search finds no project for a visitor's industry. `{business}` is replaced with their search, e.g. "hotel". */
+  demoOffer: {
+    title: "Get a free {business} homepage demo in 3–4 hours",
+    body: "Tell me about your business and I'll design a homepage demo for you, free and with no obligation, so you can see it before you decide.",
+    smallPrint: "Mon–Sat, 10 AM–8 PM IST · no obligation",
+    whatsapp: "Hi Rohan, I'd like a free {business} website demo.",
+  },
   email: "rohanmondalpc@gmail.com",
   phone: "+91 96744 78909",
   phoneHref: "tel:+919674478909",
@@ -222,6 +235,8 @@ export const profile = {
       title: "SignawayDocs",
       tagline: "Multi-company agreement & e-signature platform",
       category: "Full-stack SaaS",
+      industry: "finance",
+      sector: "legal",
       clip: "shield",
       accent: "mint",
       problem:
@@ -260,6 +275,8 @@ export const profile = {
       title: "Toyco India Marketplace",
       tagline: "SEO-first multi-vendor toy marketplace",
       category: "E-commerce platform",
+      industry: "retail",
+      sector: "toys",
       clip: "toy",
       accent: "butter",
       problem:
@@ -298,6 +315,8 @@ export const profile = {
       title: "Containers Unlimited LLC",
       tagline: "WooCommerce store for a US shipping-container supplier",
       category: "WordPress / WooCommerce",
+      industry: "logistics",
+      sector: "containers",
       clip: "truck",
       accent: "peach",
       problem:
@@ -318,6 +337,8 @@ export const profile = {
       title: "RouteQuire Telecom Suite",
       tagline: "Call-route testing & fraud monitoring for VoIP carriers",
       category: "Full-stack SaaS + Android",
+      industry: "technology",
+      sector: "telecom",
       clip: "phone",
       accent: "sky",
       problem:
@@ -356,6 +377,8 @@ export const profile = {
       title: "Yunjing Technology",
       tagline: "Advanced-materials company website",
       category: "Next.js website",
+      industry: "manufacturing",
+      sector: "materials",
       clip: "star",
       accent: "sky",
       problem: "A materials-science company had to explain MAX phases and MXenes to industrial buyers.",
@@ -371,6 +394,8 @@ export const profile = {
       title: "Shine Li Atelier",
       tagline: "Editorial fashion brand experience",
       category: "Creative frontend",
+      industry: "retail",
+      sector: "fashion",
       clip: "palette",
       accent: "pink",
       problem: "A fashion label wanted its website to feel like a printed lookbook, not another template store.",
@@ -392,6 +417,8 @@ export const profile = {
       title: "Euro Agro Fertilizers",
       tagline: "B2B WooCommerce for a Dutch fertilizer supplier",
       category: "WordPress / WooCommerce",
+      industry: "agriculture-food",
+      sector: "agri",
       clip: "globe",
       accent: "mint",
       problem: "A Netherlands-based supplier needed to sell fertilizer worldwide to business buyers.",
@@ -405,6 +432,8 @@ export const profile = {
       title: "ADS Advanced Device Systems",
       tagline: "B2B medical-device platform website",
       category: "B2B website",
+      industry: "healthcare",
+      sector: "medical-devices",
       clip: "health",
       accent: "sky",
       problem: "A medical-device maker needed a site that turns technical buyers into quote requests.",
@@ -418,6 +447,8 @@ export const profile = {
       title: "AUREVE",
       tagline: "Luxury handbag & watch boutique on OpenCart",
       category: "OpenCart",
+      industry: "retail",
+      sector: "fashion",
       clip: "bags",
       accent: "lilac",
       problem: "A dense perfume template had to become a calm, premium multi-brand boutique for handbags and watches.",
@@ -431,6 +462,8 @@ export const profile = {
       title: "Wolf Rocks · 狼山石",
       tagline: "Luxury Chinese homepage for a rare-stone brand",
       category: "Brand website",
+      industry: "retail",
+      sector: "jewelry",
       clip: "sparkles",
       accent: "mint",
       problem: "A Yinshan collector-stone brand needed a homepage that feels like a gallery, not a catalogue, for buyers of one-of-a-kind pieces.",
@@ -444,6 +477,8 @@ export const profile = {
       title: "Jetseasyy",
       tagline: "Private-jet charter booking platform",
       category: "Full-stack web app",
+      industry: "travel-hospitality",
+      sector: "aviation",
       clip: "rocket",
       accent: "sky",
       problem: "A private-aviation startup wanted a full charter-booking experience modelled on an established industry site, live under its own brand.",
@@ -457,6 +492,8 @@ export const profile = {
       title: "Forge74 Industrial",
       tagline: "Interactive heavy-equipment supply experience",
       category: "Brand website",
+      industry: "manufacturing",
+      sector: "machinery",
       clip: "factory",
       accent: "peach",
       problem: "An equipment supplier needed to look as strong online as its machines.",
@@ -470,6 +507,8 @@ export const profile = {
       title: "ZhenYang Electric",
       tagline: "Grid-safety hardware catalogue",
       category: "B2B website",
+      industry: "manufacturing",
+      sector: "electrical",
       clip: "plug",
       accent: "sky",
       problem: "An electrical-safety manufacturer needed buyers to find and request the right products fast.",
@@ -483,6 +522,8 @@ export const profile = {
       title: "Hymel Electric",
       tagline: "Premium website for an electrical brand",
       category: "Brand website",
+      industry: "manufacturing",
+      sector: "electrical",
       clip: "plug",
       accent: "mint",
       problem: "An electrical manufacturer needed a modern, trustworthy web presence.",
@@ -497,6 +538,8 @@ export const profile = {
       title: "Furui Machinery",
       tagline: "Equipment catalogue for a machinery exporter",
       category: "B2B website",
+      industry: "manufacturing",
+      sector: "machinery",
       clip: "factory",
       accent: "sky",
       problem: "A forklift and construction-equipment maker needed to present its range to international buyers.",
@@ -510,6 +553,8 @@ export const profile = {
       title: "FreeEarnHub",
       tagline: "Role-based micro-task marketplace with real payments",
       category: "Full-stack SaaS",
+      industry: "technology",
+      sector: "gig",
       clip: "money",
       accent: "lilac",
       problem:
@@ -547,6 +592,8 @@ export const profile = {
       title: "OrganiseDesk",
       tagline: "Android helpdesk app with a PHP ticket portal",
       category: "Mobile + full-stack",
+      industry: "technology",
+      sector: "support",
       clip: "briefcase",
       accent: "sky",
       problem: "A support team needed to raise and track tickets on the move, backed by a web portal and API.",
@@ -566,6 +613,8 @@ export const profile = {
       title: "Van Shi Furniture",
       tagline: "Luxury furniture showroom site",
       category: "WordPress",
+      industry: "construction-property",
+      sector: "interiors",
       clip: "star",
       accent: "peach",
       problem: "A furniture showroom wanted its website to feel as premium as its pieces.",
@@ -581,6 +630,8 @@ export const profile = {
       title: "Marento Home",
       tagline: "Shopify storefront for home textiles",
       category: "Shopify",
+      industry: "retail",
+      sector: "home",
       clip: "bags",
       accent: "butter",
       problem: "A home-textiles brand wanted a calm, premium store that sells bedding by mood.",
@@ -594,6 +645,8 @@ export const profile = {
       title: "Petfu Shopify Store",
       tagline: "Premium Shopify OS 2.0 storefront",
       category: "Shopify",
+      industry: "retail",
+      sector: "pets",
       clip: "dog",
       accent: "pink",
       problem: "A pet brand wanted a premium storefront that still lets the team edit everything in Shopify.",
@@ -607,6 +660,8 @@ export const profile = {
       title: "Evonet",
       tagline: "Fintech homepage redesign concept",
       category: "Creative frontend",
+      industry: "finance",
+      sector: "fintech",
       clip: "bolt",
       accent: "lilac",
       problem: "A payments company's homepage didn't feel as modern as the product behind it.",
@@ -620,6 +675,8 @@ export const profile = {
       title: "TG Packaging",
       tagline: "Cosmetic-packaging manufacturer site",
       category: "B2B website",
+      industry: "manufacturing",
+      sector: "packaging",
       clip: "palette",
       accent: "pink",
       problem: "A cosmetic-packaging manufacturer needed to showcase its range to beauty brands.",
@@ -633,6 +690,8 @@ export const profile = {
       title: "Global Wine Bottles",
       tagline: "WooCommerce redesign for a packaging supplier",
       category: "WordPress / WooCommerce",
+      industry: "manufacturing",
+      sector: "packaging",
       clip: "party",
       accent: "mint",
       problem: "A glass-packaging supplier's store was hard to browse and broke on mobile.",
@@ -646,6 +705,8 @@ export const profile = {
       title: "Pushkey Corporate",
       tagline: "Custom WordPress block theme for a construction & export firm",
       category: "WordPress",
+      industry: "construction-property",
+      sector: "construction",
       clip: "tools",
       accent: "butter",
       problem: "A construction, trading and export company wanted an editorial site it could edit itself.",
@@ -659,6 +720,8 @@ export const profile = {
       title: "Forge Container Commerce",
       tagline: "Custom WooCommerce store with quote workflows",
       category: "WordPress / WooCommerce",
+      industry: "logistics",
+      sector: "containers",
       clip: "package",
       accent: "peach",
       problem: "Containers are sold three ways — buy now, request a quote, or both — and off-the-shelf themes couldn't handle it.",
@@ -672,6 +735,8 @@ export const profile = {
       title: "Asset Care",
       tagline: "Marketing site for housing-society management software",
       category: "Next.js website",
+      industry: "construction-property",
+      sector: "property-management",
       clip: "gear",
       accent: "mint",
       problem: "A society-management product had to explain maintenance, billing, notices and registers to committees in plain language.",
@@ -685,6 +750,8 @@ export const profile = {
       title: "Verita SMSF Audit",
       tagline: "Concept site for an Australian SMSF audit practice",
       category: "Next.js website",
+      industry: "finance",
+      sector: "accounting",
       clip: "shield",
       accent: "sky",
       problem: "An Australian SMSF audit practice needed accountants to trust it quickly and request a quote without friction.",
@@ -698,6 +765,8 @@ export const profile = {
       title: "NEWCO",
       tagline: "B2B site for an engineered-textiles manufacturer",
       category: "B2B website",
+      industry: "manufacturing",
+      sector: "textiles",
       clip: "factory",
       accent: "sky",
       problem: "A Calgary-based maker of mesh belts and filter cloths needed industrial buyers to find the right fabric and send a qualified enquiry.",
@@ -711,6 +780,8 @@ export const profile = {
       title: "Topfeel Packaging",
       tagline: "Total packaging solution provider",
       category: "B2B website",
+      industry: "manufacturing",
+      sector: "packaging",
       clip: "package",
       accent: "peach",
       problem: "A packaging supplier needed a B2B site that turns manufacturers into quote requests.",
@@ -724,6 +795,8 @@ export const profile = {
       title: "Herzite Atelier",
       tagline: "Custom-bracelet jewelry store",
       category: "WordPress / WooCommerce",
+      industry: "retail",
+      sector: "jewelry",
       clip: "sparkles",
       accent: "lilac",
       problem: "A jewelry brand wanted customers to design their own meaningful bracelets, not just buy stock pieces.",
@@ -737,6 +810,8 @@ export const profile = {
       title: "TBD Drone Controllers",
       tagline: "WooCommerce store for an FPV radio-controller brand",
       category: "WordPress / WooCommerce",
+      industry: "retail",
+      sector: "electronics",
       clip: "game",
       accent: "lilac",
       problem: "An FPV hardware brand needed product pages that make a technical radio controller feel premium and easy to buy.",
@@ -750,6 +825,8 @@ export const profile = {
       title: "Hashtag Tourism",
       tagline: "Travel-agency website for a Dubai tour operator",
       category: "Brand website",
+      industry: "travel-hospitality",
+      sector: "travel-agencies",
       clip: "globe",
       accent: "sky",
       problem: "A Dubai travel company's site was a single UAE campaign page, so it didn't present its full service: tours, visas, transport and events.",
@@ -763,6 +840,8 @@ export const profile = {
       title: "Yunpei",
       tagline: "Manufacturer site for instant hot-water dispensers",
       category: "B2B website",
+      industry: "manufacturing",
+      sector: "appliances",
       clip: "plug",
       accent: "peach",
       problem: "A Zhongshan appliance maker needed a brand-coloured site that wins overseas distributors and OEM/ODM partners.",
@@ -776,6 +855,8 @@ export const profile = {
       title: "Xinke Tea",
       tagline: "B2B website for a Chinese tea supplier",
       category: "B2B website",
+      industry: "agriculture-food",
+      sector: "tea",
       clip: "coffee",
       accent: "mint",
       problem: "A Shenzhen tea exporter needed overseas brands and importers to trust its quality and request private-label quotes.",
@@ -789,6 +870,8 @@ export const profile = {
       title: "Cockroach Jobs",
       tagline: "Fixed & freelance job board for Gen Z",
       category: "WordPress",
+      industry: "jobs-hr",
+      sector: "job-boards",
       clip: "bulb",
       accent: "peach",
       problem: "A hiring startup needed a job board where businesses post vacancies and applicants respond with text, images and video.",
@@ -802,6 +885,8 @@ export const profile = {
       title: "GameArena",
       tagline: "Skill-based eSports tournament platform",
       category: "Full-stack web app",
+      industry: "technology",
+      sector: "gaming",
       clip: "game",
       accent: "lilac",
       problem: "Online tournaments are easy to cheat in: players can submit fake results and claim prizes.",
@@ -816,6 +901,8 @@ export const profile = {
       title: "Book Spa",
       tagline: "Spa directory and lead-generation platform for India",
       category: "WordPress",
+      industry: "healthcare",
+      sector: "spa",
       clip: "health",
       accent: "pink",
       problem: "A spa directory with 5,000+ listings needed visitors to find nearby spas fast and businesses to sign up and advertise.",
@@ -829,6 +916,8 @@ export const profile = {
       title: "Wowei Lighting",
       tagline: "LED lighting manufacturer store",
       category: "WordPress / WooCommerce",
+      industry: "manufacturing",
+      sector: "lighting",
       clip: "bulb",
       accent: "butter",
       problem: "A Chinese LED-lighting manufacturer needed to present smart bulbs and fixtures to global buyers.",
@@ -842,6 +931,8 @@ export const profile = {
       title: "Ripples Jewelry",
       tagline: "Keepsake jewelry Shopify store",
       category: "Shopify",
+      industry: "retail",
+      sector: "jewelry",
       clip: "star",
       accent: "butter",
       problem: "A jewelry brand wanted its store to feel like meaningful, personal keepsakes — not a generic catalogue.",
@@ -855,6 +946,8 @@ export const profile = {
       title: "NEURON Clinic",
       tagline: "Neuro-psychiatry clinic website",
       category: "WordPress",
+      industry: "healthcare",
+      sector: "clinics",
       clip: "brain",
       accent: "sky",
       problem: "A Kolkata neuro-psychiatry practice needed a calm, trustworthy site that explains complex care.",
@@ -868,6 +961,8 @@ export const profile = {
       title: "Hype Associates",
       tagline: "Bilingual portfolio site for an interior-design studio",
       category: "WordPress",
+      industry: "construction-property",
+      sector: "interiors",
       clip: "palette",
       accent: "peach",
       problem: "An interior-design studio wanted its projects to speak for themselves, in English and Chinese.",
@@ -881,6 +976,8 @@ export const profile = {
       title: "Star Jewelry",
       tagline: "Shopify store for a fashion-jewelry brand",
       category: "Shopify",
+      industry: "retail",
+      sector: "jewelry",
       clip: "star",
       accent: "pink",
       problem: "A jewelry brand selling worldwide needed product titles, collections and pages tuned to match the polished stores it competes with.",
@@ -898,6 +995,8 @@ export const profile = {
       title: "LlanoLife",
       tagline: "Smart-tech & gadgets Shopify store",
       category: "Shopify",
+      industry: "retail",
+      sector: "electronics",
       clip: "phone",
       accent: "sky",
       problem: "A consumer-tech brand needed a premium, dark storefront that makes gadgets feel desirable.",
@@ -911,6 +1010,8 @@ export const profile = {
       title: "TruckMate Parts",
       tagline: "Truck-parts storefront + native WordPress theme",
       category: "E-commerce frontend",
+      industry: "manufacturing",
+      sector: "auto-parts",
       clip: "truck",
       accent: "butter",
       problem: "A truck-parts seller's buyers search by SKU, OEM number and vehicle, which a generic shop layout handles badly.",
@@ -924,6 +1025,8 @@ export const profile = {
       title: "Kotak Neo–AmiBroker Bridge",
       tagline: "Real-time market-data bridge for traders",
       category: "Trading software",
+      industry: "finance",
+      sector: "trading",
       clip: "chart",
       accent: "mint",
       problem: "A trader wanted live one-minute candles from the Kotak Neo API inside AmiBroker, which has no native connector.",
@@ -937,6 +1040,8 @@ export const profile = {
       title: "Influencer Discovery Automation",
       tagline: "n8n workflow that finds Instagram influencers by hashtag",
       category: "Automation",
+      industry: "technology",
+      sector: "marketing",
       clip: "bolt",
       accent: "pink",
       problem: "A marketing team spent hours finding and vetting Instagram influencers by hand.",
@@ -950,6 +1055,8 @@ export const profile = {
       title: "Aravali Institute",
       tagline: "Admissions site for a fast-track PGDM institute",
       category: "Brand website",
+      industry: "education-media",
+      sector: "colleges",
       clip: "grad",
       accent: "sky",
       problem: "A Bangalore institute had to explain its Learn & Earn PGDM to working learners and turn visits into applications.",
@@ -964,6 +1071,8 @@ export const profile = {
       title: "Leki Skincare",
       tagline: "Curated Eucerin skincare store (Morocco)",
       category: "Shopify",
+      industry: "retail",
+      sector: "beauty",
       clip: "palette",
       accent: "pink",
       problem: "A Moroccan skincare retailer needed a trustworthy store with local pricing in MAD.",
@@ -977,6 +1086,8 @@ export const profile = {
       title: "HelpingHands NGO",
       tagline: "Education & community-support NGO website",
       category: "Brand website",
+      industry: "education-media",
+      sector: "ngo",
       clip: "wave",
       accent: "peach",
       problem: "A non-profit needed a clear, trustworthy site to present its causes and programmes and bring in donors and volunteers.",
@@ -991,6 +1102,8 @@ export const profile = {
       title: "Ufixpro",
       tagline: "WooCommerce catalogue for a phone repair-parts supplier",
       category: "WordPress / WooCommerce",
+      industry: "retail",
+      sector: "electronics",
       clip: "phone",
       accent: "pink",
       problem: "A repair-parts supplier with thousands of SKUs needed buyers to find the right screen, battery or flex cable fast and get in touch.",
@@ -1004,6 +1117,8 @@ export const profile = {
       title: "Nicki Gun Shop",
       tagline: "WooCommerce redesign for a licensed US firearms retailer",
       category: "WordPress / WooCommerce",
+      industry: "retail",
+      sector: "outdoor",
       clip: "target",
       accent: "butter",
       problem: "A licensed retailer's store looked dated and hard to shop on mobile, but its search rankings had to survive the redesign.",
@@ -1017,6 +1132,8 @@ export const profile = {
       title: "Eco-Mart",
       tagline: "Responsive e-commerce storefront from a Figma design",
       category: "E-commerce frontend",
+      industry: "retail",
+      sector: "marketplaces",
       clip: "cart",
       accent: "mint",
       problem: "A hiring assignment: turn a full e-commerce homepage design from Figma into a responsive, working front end.",
@@ -1030,6 +1147,8 @@ export const profile = {
       title: "Rupashi Enterprise",
       tagline: "B2B website for a Kolkata poultry supplier",
       category: "Full-stack website",
+      industry: "agriculture-food",
+      sector: "meat",
       clip: "briefcase",
       accent: "sky",
       problem: "A B2B meat and poultry supplier needed a dynamic website its team could keep up to date.",
@@ -1043,6 +1162,8 @@ export const profile = {
       title: "The Kolkata News",
       tagline: "Digital news portal for Kolkata",
       category: "WordPress",
+      industry: "education-media",
+      sector: "news",
       clip: "globe",
       accent: "pink",
       problem: "A local newsroom needed a fast site for breaking news, stories and reader tips.",
@@ -1055,6 +1176,8 @@ export const profile = {
       title: "Rockstone Luxe",
       tagline: "Luxury stone & surfaces store",
       category: "WordPress / WooCommerce",
+      industry: "construction-property",
+      sector: "building-materials",
       clip: "package",
       accent: "mint",
       problem: "A premium building-materials supplier needed an elegant store for luxury stone and surfaces.",
@@ -1068,6 +1191,8 @@ export const profile = {
       title: "WHOOP UAE Membership",
       tagline: "Replica of WHOOP's UAE membership page",
       category: "UI replica",
+      industry: "healthcare",
+      sector: "fitness",
       clip: "health",
       accent: "peach",
       problem: "Practice brief: rebuild a reference membership page with its plan comparison, carousels and hero video, without copying its code.",
@@ -1081,6 +1206,8 @@ export const profile = {
       title: "Aestetika",
       tagline: "Replica of the Aestetika aesthetic-clinic theme",
       category: "UI replica",
+      industry: "healthcare",
+      sector: "clinics",
       clip: "sparkles",
       accent: "pink",
       problem: "Practice brief: rebuild Bold Themes' Aestetika clinic demo as a fast, dependency-free static site.",
@@ -1094,6 +1221,8 @@ export const profile = {
       title: "Novaedge",
       tagline: "Replica of the Ewebot SEO-agency WordPress theme",
       category: "UI replica",
+      industry: "technology",
+      sector: "agencies",
       clip: "chart",
       accent: "sky",
       problem: "Practice brief: rebuild the Ewebot theme's long, feature-heavy landing page as a standalone front end.",
@@ -1108,6 +1237,8 @@ export const profile = {
       title: "NovaForge",
       tagline: "Replica of W3CMS's Plexify agency template",
       category: "UI replica",
+      industry: "technology",
+      sector: "agencies",
       clip: "rocket",
       accent: "lilac",
       problem: "Practice brief: rebuild a busy digital-agency template with mega menus, counters and animated sections.",
@@ -1298,6 +1429,327 @@ export function projectsInCategory(slug: string): Project[] {
 }
 
 export const categoryCounts = categories.map((c) => ({ ...c, count: projectsInCategory(c.slug).length }));
+
+/* ---------- Industries (who the client is) ---------- */
+// Categories above say *what* was built; industries say *who* it was built for, so a hotel
+// owner can find relevant work. Each industry gets /industries/[slug] once it has projects.
+// `keywords` are search synonyms. A sector with no projects still matches in search, which
+// then offers the free demo instead.
+export type IndustrySlug =
+  | "retail"
+  | "manufacturing"
+  | "construction-property"
+  | "logistics"
+  | "agriculture-food"
+  | "healthcare"
+  | "travel-hospitality"
+  | "finance"
+  | "technology"
+  | "jobs-hr"
+  | "education-media";
+
+export type Industry = {
+  slug: IndustrySlug;
+  title: string;
+  short: string;
+  /** How the free-demo offer names this trade: "Get a free {label} homepage demo". */
+  label: string;
+  clip: Clip;
+  accent: Accent;
+  /** SEO intro for the industry page. */
+  intro: string;
+  /** "What I build for this industry" bullets. */
+  builds: string[];
+  keywords: string[];
+  sectors: { slug: string; title: string; keywords: string[] }[];
+};
+
+export const industries: Industry[] = [
+  {
+    slug: "retail",
+    title: "Retail & E-commerce",
+    short: "Retail",
+    label: "online store",
+    clip: "cart",
+    accent: "mint",
+    intro:
+      "Online stores and brand sites for shops selling fashion, jewelry, beauty, electronics, toys, pet products and more, built to load fast on phones and turn browsers into buyers.",
+    builds: [
+      "Shopify and WooCommerce stores with fast, mobile-first checkout",
+      "Custom marketplaces with seller accounts, coupons and order management",
+      "Product catalogues with filters, search and multi-currency pricing",
+      "Brand sites with editorial lookbooks and collection storytelling",
+    ],
+    keywords: ["shop", "store", "online store", "ecommerce", "e-commerce", "retail", "brand", "boutique", "sell online", "products"],
+    sectors: [
+      { slug: "toys", title: "Toys & kids", keywords: ["toy", "kids", "children", "baby", "games"] },
+      { slug: "fashion", title: "Fashion & luxury", keywords: ["fashion", "clothing", "apparel", "luxury", "handbag", "watch", "boutique"] },
+      { slug: "jewelry", title: "Jewelry", keywords: ["jewelry", "jewellery", "jewel", "ornament", "gold", "silver", "bracelet", "necklace", "ring", "gem", "jade", "stone"] },
+      { slug: "beauty", title: "Beauty & skincare", keywords: ["beauty", "skincare", "skin care", "cosmetics", "makeup", "salon"] },
+      { slug: "home", title: "Home & furniture", keywords: ["home", "furniture", "bedding", "decor", "textiles", "homeware"] },
+      { slug: "pets", title: "Pet products", keywords: ["pet", "pets", "dog", "cat", "pet food", "pet treats"] },
+      { slug: "electronics", title: "Electronics & gadgets", keywords: ["electronics", "gadget", "mobile", "phone parts", "tech accessories", "drone", "repair parts"] },
+      { slug: "outdoor", title: "Outdoor & sporting goods", keywords: ["outdoor", "sports", "sporting goods", "hunting", "firearms", "camping"] },
+      { slug: "marketplaces", title: "Marketplaces", keywords: ["marketplace", "multi-vendor", "multi vendor", "sellers", "amazon like"] },
+      { slug: "grocery", title: "Grocery & supermarkets", keywords: ["grocery", "supermarket", "kirana", "vegetables", "fruits", "food delivery"] },
+    ],
+  },
+  {
+    slug: "manufacturing",
+    title: "Manufacturing & Industrial",
+    short: "Manufacturing",
+    label: "manufacturing",
+    clip: "factory",
+    accent: "sky",
+    intro:
+      "B2B websites for manufacturers, exporters and suppliers: clear product catalogues, technical specs and quote requests that bring in qualified buyers from around the world.",
+    builds: [
+      "Product catalogues with technical specifications and downloadable data",
+      "Quote-request and RFQ flows that land directly in your inbox",
+      "Multilingual sites for international buyers (English, Chinese and more)",
+      "Lead-focused B2B sites that look as solid as your factory",
+    ],
+    keywords: ["manufacturer", "manufacturing", "factory", "industrial", "exporter", "supplier", "b2b", "wholesale", "oem", "odm"],
+    sectors: [
+      { slug: "machinery", title: "Machinery & equipment", keywords: ["machinery", "machine", "equipment", "forklift", "heavy equipment", "tools"] },
+      { slug: "electrical", title: "Electrical & power", keywords: ["electrical", "electric", "power", "grid", "switchgear", "cables"] },
+      { slug: "lighting", title: "Lighting", keywords: ["lighting", "led", "lamp", "lights", "bulb"] },
+      { slug: "materials", title: "Advanced materials & chemicals", keywords: ["materials", "chemical", "chemicals", "nanomaterials", "mxene", "science"] },
+      { slug: "textiles", title: "Textiles", keywords: ["textile", "fabric", "mesh", "filter cloth", "garment"] },
+      { slug: "appliances", title: "Home appliances", keywords: ["appliance", "appliances", "water dispenser", "water purifier", "kitchen"] },
+      { slug: "auto-parts", title: "Auto & truck parts", keywords: ["auto parts", "car parts", "truck", "spare parts", "automotive"] },
+      { slug: "packaging", title: "Packaging", keywords: ["packaging", "bottles", "boxes", "cosmetic packaging", "glass"] },
+    ],
+  },
+  {
+    slug: "construction-property",
+    title: "Construction, Interiors & Property",
+    short: "Construction & Property",
+    label: "construction",
+    clip: "tools",
+    accent: "peach",
+    intro:
+      "Websites for builders, building-material suppliers, interior designers and property managers, made to showcase projects and turn visitors into site visits and enquiries.",
+    builds: [
+      "Project portfolios and before/after galleries",
+      "Material catalogues with finishes, sizes and quote requests",
+      "Society and property-management software and marketing sites",
+      "Bilingual sites for studios with international clients",
+    ],
+    keywords: ["construction", "builder", "contractor", "property", "interior", "architecture", "real estate", "building"],
+    sectors: [
+      { slug: "building-materials", title: "Building materials", keywords: ["building materials", "tiles", "marble", "stone", "cement"] },
+      { slug: "construction", title: "Construction & trading", keywords: ["construction", "contractor", "builder", "civil", "trading"] },
+      { slug: "interiors", title: "Interior design & furniture", keywords: ["interior", "interior design", "furniture", "showroom", "decor", "architect"] },
+      { slug: "property-management", title: "Property & society management", keywords: ["property management", "housing society", "apartment", "facility management", "maintenance"] },
+      { slug: "real-estate", title: "Real estate agencies", keywords: ["real estate", "realtor", "broker", "property listing", "flats", "rent"] },
+    ],
+  },
+  {
+    slug: "logistics",
+    title: "Logistics & Shipping",
+    short: "Logistics",
+    label: "logistics",
+    clip: "truck",
+    accent: "butter",
+    intro:
+      "Stores and lead-generation sites for logistics, shipping and container businesses, with clear pricing, delivery coverage and fast quote requests.",
+    builds: [
+      "Container and equipment stores with delivery quotes",
+      "Freight quote calculators and tracking pages",
+      "Multi-location service pages that rank in local search",
+    ],
+    keywords: ["logistics", "shipping", "freight", "cargo", "transport", "delivery", "courier"],
+    sectors: [
+      { slug: "containers", title: "Shipping containers", keywords: ["container", "containers", "shipping container", "storage container", "modular"] },
+      { slug: "freight", title: "Freight & courier", keywords: ["freight", "courier", "parcel", "tracking", "forwarding", "trucking"] },
+    ],
+  },
+  {
+    slug: "agriculture-food",
+    title: "Agriculture & Food",
+    short: "Agri & Food",
+    label: "food & agri",
+    clip: "coffee",
+    accent: "mint",
+    intro:
+      "Websites for food producers, agri suppliers and exporters: product ranges, certifications and bulk or private-label enquiries, made easy for buyers.",
+    builds: [
+      "Bulk and B2B ordering with destination-based quotes",
+      "Private-label and OEM service pages",
+      "Product catalogues with specs, certifications and packaging options",
+    ],
+    keywords: ["agriculture", "farm", "food", "agri", "fertilizer", "food products", "fmcg"],
+    sectors: [
+      { slug: "agri", title: "Fertilizers & agri supplies", keywords: ["fertilizer", "fertiliser", "agri", "seeds", "farming", "crop"] },
+      { slug: "tea", title: "Tea & beverages", keywords: ["tea", "coffee", "beverage", "drinks", "matcha"] },
+      { slug: "meat", title: "Meat & poultry", keywords: ["meat", "chicken", "poultry", "fish", "seafood"] },
+      { slug: "restaurants", title: "Restaurants & cafés", keywords: ["restaurant", "cafe", "café", "bakery", "menu", "food delivery", "cloud kitchen", "bar"] },
+    ],
+  },
+  {
+    slug: "healthcare",
+    title: "Healthcare & Wellness",
+    short: "Healthcare",
+    label: "healthcare",
+    clip: "health",
+    accent: "pink",
+    intro:
+      "Trustworthy websites and platforms for clinics, wellness businesses and medical-device makers, with clear services, doctor profiles and easy appointment requests.",
+    builds: [
+      "Clinic sites with doctor profiles and appointment booking",
+      "Medical-device product sites for B2B buyers and distributors",
+      "Wellness directories and lead-generation platforms",
+    ],
+    keywords: ["healthcare", "health", "medical", "wellness", "clinic", "hospital", "doctor"],
+    sectors: [
+      { slug: "medical-devices", title: "Medical devices", keywords: ["medical device", "medical equipment", "healthtech"] },
+      { slug: "clinics", title: "Clinics & doctors", keywords: ["clinic", "doctor", "hospital", "psychiatrist", "mental health", "aesthetic", "physician"] },
+      { slug: "spa", title: "Spa & wellness", keywords: ["spa", "massage", "wellness", "salon", "beauty parlour"] },
+      { slug: "fitness", title: "Fitness", keywords: ["fitness", "gym", "yoga", "wearable", "workout", "trainer"] },
+      { slug: "dental", title: "Dental", keywords: ["dental", "dentist", "teeth", "orthodontist"] },
+    ],
+  },
+  {
+    slug: "travel-hospitality",
+    title: "Travel & Hospitality",
+    short: "Travel & Hospitality",
+    label: "travel",
+    clip: "globe",
+    accent: "sky",
+    intro:
+      "Booking-ready websites for travel agencies, tour operators, hotels and charter companies, with package pages, enquiry forms and trip-planning flows.",
+    builds: [
+      "Tour and package pages with quote-based or online booking",
+      "Search and booking flows for flights, charters and stays",
+      "Fast, image-rich sites that look great on phones",
+    ],
+    keywords: ["travel", "tourism", "hospitality", "tour", "booking", "holiday", "trip"],
+    sectors: [
+      { slug: "travel-agencies", title: "Travel agencies", keywords: ["travel agency", "tour operator", "holiday packages", "visa", "tourism"] },
+      { slug: "aviation", title: "Private aviation & charter", keywords: ["private jet", "jet", "charter", "aviation", "flight", "airline"] },
+      { slug: "hotels", title: "Hotels & resorts", keywords: ["hotel", "hotels", "resort", "homestay", "guest house", "rooms", "booking engine", "villa", "hostel"] },
+      { slug: "tours", title: "Tours & activities", keywords: ["tours", "activities", "excursion", "adventure", "experiences"] },
+    ],
+  },
+  {
+    slug: "finance",
+    title: "Finance & Professional Services",
+    short: "Finance",
+    label: "finance",
+    clip: "money",
+    accent: "lilac",
+    intro:
+      "Websites, tools and platforms for fintechs, traders, accountants and legal-document businesses, where trust, security and clear workflows come first.",
+    builds: [
+      "Fintech and payments marketing sites",
+      "Secure SaaS for documents, e-signatures and audits",
+      "Trading and market-data tools",
+      "Lead-focused sites for accounting and audit practices",
+    ],
+    keywords: ["finance", "fintech", "accounting", "legal", "professional services", "bank", "payments", "insurance"],
+    sectors: [
+      { slug: "fintech", title: "Payments & fintech", keywords: ["payments", "fintech", "wallet", "payment gateway"] },
+      { slug: "trading", title: "Trading & investing", keywords: ["trading", "stock market", "broker", "amibroker", "market data", "investing"] },
+      { slug: "accounting", title: "Accounting & audit", keywords: ["accounting", "audit", "accountant", "ca firm", "tax", "bookkeeping", "smsf"] },
+      { slug: "legal", title: "Legal & documents", keywords: ["legal", "law firm", "lawyer", "contracts", "e-signature", "esign", "documents"] },
+    ],
+  },
+  {
+    slug: "technology",
+    title: "Technology & SaaS",
+    short: "Tech & SaaS",
+    label: "SaaS",
+    clip: "rocket",
+    accent: "lilac",
+    intro:
+      "SaaS products, platforms and internal tools for tech companies and startups: dashboards, auth, payments and APIs, taken from idea to production.",
+    builds: [
+      "SaaS MVPs with auth, roles, billing and dashboards",
+      "Customer-support and helpdesk apps (web + Android)",
+      "Gaming, gig and marketplace platforms with wallets",
+      "Automations that connect your tools (n8n, APIs, AI)",
+    ],
+    keywords: ["saas", "software", "startup", "platform", "app", "tech", "dashboard", "it company"],
+    sectors: [
+      { slug: "telecom", title: "Telecom & VoIP", keywords: ["telecom", "voip", "sip", "call center", "calls"] },
+      { slug: "support", title: "Helpdesk & support", keywords: ["helpdesk", "support", "ticketing", "customer service", "crm"] },
+      { slug: "gig", title: "Gig & task platforms", keywords: ["gig", "micro task", "freelance platform", "earning platform", "task"] },
+      { slug: "gaming", title: "Gaming & eSports", keywords: ["gaming", "esports", "tournament", "game"] },
+      { slug: "marketing", title: "Marketing automation", keywords: ["marketing", "automation", "n8n", "influencer", "instagram", "lead generation"] },
+      { slug: "agencies", title: "Digital agencies", keywords: ["agency", "digital agency", "seo agency", "marketing agency", "studio"] },
+    ],
+  },
+  {
+    slug: "jobs-hr",
+    title: "Jobs & HR",
+    short: "Jobs & HR",
+    label: "job portal",
+    clip: "briefcase",
+    accent: "peach",
+    intro:
+      "Job boards and hiring platforms with employer dashboards, candidate profiles and application flows that work on any phone.",
+    builds: [
+      "Job boards with employer and job-seeker accounts",
+      "Application flows with text, image and video responses",
+      "Recruitment-agency sites with job listings",
+    ],
+    keywords: ["jobs", "hiring", "recruitment", "hr", "careers", "job portal", "staffing"],
+    sectors: [
+      { slug: "job-boards", title: "Job boards", keywords: ["job board", "job portal", "naukri like", "job listings"] },
+      { slug: "recruitment", title: "Recruitment agencies", keywords: ["recruitment", "staffing", "placement agency", "headhunter", "manpower"] },
+    ],
+  },
+  {
+    slug: "education-media",
+    title: "Education, Non-profit & Media",
+    short: "Education & Media",
+    label: "education",
+    clip: "grad",
+    accent: "butter",
+    intro:
+      "Websites for colleges, training institutes, NGOs and news publishers: clear programmes, admissions and donation calls to action, and fast content pages.",
+    builds: [
+      "Admission-focused sites for colleges and training institutes",
+      "NGO sites with causes, programmes and donation CTAs",
+      "News portals with categories and fast article pages",
+    ],
+    keywords: ["education", "school", "college", "ngo", "non-profit", "charity", "news", "media", "coaching"],
+    sectors: [
+      { slug: "colleges", title: "Colleges & training", keywords: ["college", "institute", "training", "coaching", "pgdm", "university", "course"] },
+      { slug: "ngo", title: "NGOs & charities", keywords: ["ngo", "charity", "non-profit", "nonprofit", "foundation", "donation"] },
+      { slug: "news", title: "News & media", keywords: ["news", "media", "magazine", "blog", "portal", "publisher"] },
+      { slug: "schools", title: "Schools", keywords: ["school", "kindergarten", "preschool", "playschool", "academy"] },
+    ],
+  },
+];
+
+export function industryOf(project: Project): Industry {
+  return industries.find((i) => i.slug === project.industry)!;
+}
+
+export function sectorOf(project: Project) {
+  return industryOf(project).sectors.find((s) => s.slug === project.sector)!;
+}
+
+export function projectsInIndustry(slug: IndustrySlug): Project[] {
+  // Featured first, then the ranked order of `profile.projects`.
+  return profile.projects
+    .filter((p) => p.industry === slug)
+    .sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)));
+}
+
+/** Industries with at least one real (non-replica) project; only these get a landing page. */
+export const liveIndustries = industries.filter((i) =>
+  profile.projects.some((p) => p.industry === i.slug && p.category !== "UI replica"),
+);
+
+// Fail the build if a project points at a sector its industry doesn't have.
+for (const p of profile.projects) {
+  if (!industries.find((i) => i.slug === p.industry)?.sectors.some((s) => s.slug === p.sector)) {
+    throw new Error(`Project "${p.slug}" has unknown sector "${p.industry}/${p.sector}"`);
+  }
+}
 
 /* ---------- Services (for clients) ---------- */
 // Each service gets a landing page at /services/[slug], written for the searches clients actually make.

@@ -9,6 +9,7 @@ import SocialRow from "@/components/ui/SocialRow";
 const NAV = [
   { href: "/services", label: "Services" },
   { href: "/work", label: "All work" },
+  { href: "/industries", label: "Industries" },
   { href: "/#about", label: "About" },
   { href: "/#skills", label: "Skills" },
   { href: "/#projects", label: "Projects" },

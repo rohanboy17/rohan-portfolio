@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { profile, categories, services } from "@/content/profile";
+import { profile, categories, services, liveIndustries } from "@/content/profile";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -12,6 +12,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     })),
     { url: `${profile.siteUrl}/work`, lastModified: now, priority: 0.8 },
+    { url: `${profile.siteUrl}/industries`, lastModified: now, priority: 0.85 },
+    ...liveIndustries.map((i) => ({
+      url: `${profile.siteUrl}/industries/${i.slug}`,
+      lastModified: now,
+      priority: 0.85,
+    })),
     ...categories.map((c) => ({
       url: `${profile.siteUrl}/work/${c.slug}`,
       lastModified: now,

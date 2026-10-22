@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Send } from "lucide-react";
-import { profile } from "@/content/profile";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -21,7 +20,8 @@ const BUDGETS = ["Not sure yet", "Under $500", "$500 – $2,000", "$2,000 – $5
 const field =
   "mt-2 w-full rounded-2xl border border-line bg-white/[0.03] px-4 py-3 text-base text-white outline-none sm:text-sm transition placeholder:text-white/30 focus:border-lilac/60 focus:bg-white/[0.05]";
 
-export default function ContactForm() {
+/** Takes the fallback email as a prop so profile.ts stays out of the client bundle. */
+export default function ContactForm({ email }: { email: string }) {
   const startedAtRef = useRef<number | null>(null);
   const [state, setState] = useState<FormState>("idle");
   const [error, setError] = useState<string | null>(null);
@@ -59,7 +59,7 @@ export default function ContactForm() {
       setError("Please fill in your name, a valid email and a message of at least 20 characters.");
     } else {
       // Email service not configured or failed — never leave the visitor stuck.
-      setError(`Couldn't send right now. Please email me directly at ${profile.email}.`);
+      setError(`Couldn't send right now. Please email me directly at ${email}.`);
     }
   }
 

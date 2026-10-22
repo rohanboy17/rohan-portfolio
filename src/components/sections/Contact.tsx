@@ -54,7 +54,7 @@ export default function Contact() {
             </Reveal>
             <Reveal delay={0.08} className="min-w-0">
               <div className="rounded-[24px] border border-line bg-ink/60 p-4 backdrop-blur-md sm:rounded-[28px] sm:p-7">
-                <ContactForm />
+                <ContactForm email={profile.email} />
               </div>
             </Reveal>
           </div>
