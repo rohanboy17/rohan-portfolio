@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import clsx from "clsx";
-import { ArrowLeft, ExternalLink } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, ExternalLink } from "lucide-react";
 import { profile, categoryOf, serviceForProject, industryOf, sectorOf, liveIndustries } from "@/content/profile";
 import Clip3D from "@/components/ui/Clip3D";
 import BrandIcon from "@/components/ui/BrandIcon";
@@ -10,6 +10,7 @@ import ProjectMedia from "@/components/site/ProjectMedia";
 import { accentStyles } from "@/components/ui/accent";
 import { Reveal } from "@/components/site/MotionPrimitives";
 import QuoteCta from "@/components/site/QuoteCta";
+import { articlesForProject } from "@/content/articles";
 import JsonLd, { breadcrumbs } from "@/components/site/JsonLd";
 import { shareMetadata, metaDescription } from "@/lib/seo";
 
@@ -134,6 +135,20 @@ export default async function ProjectPage({ params }: Params) {
         <div className="mt-10">
           <ProjectMedia project={project} priority />
         </div>
+
+        {articlesForProject(project.slug).map((story) => (
+          <Link
+            key={story.slug}
+            href={`/blog/${story.slug}`}
+            className="mt-6 flex items-center justify-between gap-4 rounded-3xl border border-lilac/30 bg-lilac/10 p-5 transition hover:bg-lilac/15"
+          >
+            <span>
+              <span className="block text-xs font-semibold uppercase tracking-[0.24em] text-lilac">Build story</span>
+              <span className="mt-1 block font-semibold text-white">{story.title}</span>
+            </span>
+            <ArrowUpRight size={18} className="shrink-0 text-lilac" />
+          </Link>
+        ))}
 
         <div className="mt-12 grid gap-8 lg:grid-cols-[1.4fr_0.6fr]">
           <div className="space-y-6">

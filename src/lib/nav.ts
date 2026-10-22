@@ -39,6 +39,7 @@ export function siteNav(): NavItem[] {
             { href: "/work", label: "Search all work", hint: `${profile.projects.length} projects by industry or need` },
             { href: "/#projects", label: "Featured projects", hint: "The strongest work, with case studies" },
             { href: "/industries", label: "All industries", hint: `${liveIndustries.length} industries served` },
+            { href: "/blog", label: "Build stories", hint: "How real projects were built" },
           ],
         },
         {

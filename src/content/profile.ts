@@ -77,6 +77,22 @@ export const profile = {
   openToWork: true,
   /** Shown in the hero and footer badges while `openToWork` is true. */
   availability: "Available for new projects",
+  /**
+   * Real client testimonials only, used with the client's permission. Never invent these.
+   * The homepage section stays hidden while the list is empty. `project` is a project slug.
+   */
+  testimonials: [] as { quote: string; name: string; role: string; company: string; project?: string; country?: string }[],
+  /** Real clients for the "Trusted by" strip (project slug + where the client is based). */
+  trustedBy: [
+    { project: "containers-unlimited", country: "USA" },
+    { project: "euro-agro-fertilizers", country: "Netherlands" },
+    { project: "newco", country: "Canada" },
+    { project: "hashtag-tourism", country: "UAE" },
+    { project: "yunjing-technology", country: "China" },
+    { project: "wowei-lighting", country: "China" },
+    { project: "toyco-india", country: "India" },
+    { project: "rupashi-enterprise", country: "India" },
+  ],
   /** Offer shown when a search finds no project for a visitor's industry. `{business}` is replaced with their search, e.g. "hotel". */
   demoOffer: {
     title: "Get a free {business} homepage demo in 3–4 hours",

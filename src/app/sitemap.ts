@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { profile, categories, services, liveIndustries } from "@/content/profile";
+import { articles } from "@/content/articles";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -13,6 +14,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     { url: `${profile.siteUrl}/work`, lastModified: now, priority: 0.8 },
     { url: `${profile.siteUrl}/industries`, lastModified: now, priority: 0.85 },
+    { url: `${profile.siteUrl}/blog`, lastModified: now, priority: 0.8 },
+    ...articles.map((a) => ({
+      url: `${profile.siteUrl}/blog/${a.slug}`,
+      lastModified: new Date(a.updated ?? a.published),
+      priority: 0.75,
+    })),
     ...liveIndustries.map((i) => ({
       url: `${profile.siteUrl}/industries/${i.slug}`,
       lastModified: now,
