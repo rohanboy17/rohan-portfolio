@@ -11,6 +11,8 @@ type Clip3DProps = {
   /** Resting tilt in degrees. */
   tilt?: number;
   priority?: boolean;
+  /** Load immediately but without a preload hint (above-the-fold art that isn't the hero image). */
+  eager?: boolean;
   className?: string;
   alt?: string;
 };
@@ -23,6 +25,7 @@ export default function Clip3D({
   delay = 0,
   tilt = 0,
   priority = false,
+  eager = false,
   className,
   alt = "",
 }: Clip3DProps) {
@@ -34,6 +37,7 @@ export default function Clip3D({
       width={size}
       height={size}
       priority={priority}
+      loading={priority ? undefined : eager ? "eager" : undefined}
       // Above-the-fold clips skip the optimizer round-trip: the static PNG is tiny and cached immutably.
       unoptimized={priority}
       draggable={false}

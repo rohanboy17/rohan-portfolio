@@ -104,6 +104,7 @@ export default async function IndustryPage({ params }: Params) {
           </nav>
         </Reveal>
 
+        <h2 className="sr-only">Projects</h2>
         {/* Phones: compact rows. sm and up: full preview cards in a grid. */}
         <Stagger className="mt-10 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
           {projects.map((p) => (

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import clsx from "clsx";
 import { ArrowRight } from "lucide-react";
-import { featuredProjects, otherProjects, type Project } from "@/content/profile";
+import { profile, featuredProjects, otherProjects, type Project } from "@/content/profile";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Clip3D from "@/components/ui/Clip3D";
 import ProjectMedia from "@/components/site/ProjectMedia";
@@ -117,8 +117,10 @@ export default function Projects() {
                 <p className="text-sm text-muted sm:hidden">Swipe →</p>
               </div>
             </Reveal>
+            {/* Only the next nine: rendering every project here (each with a video player) froze
+                phones for seconds. The full, searchable list lives on /work. */}
             <ShowMoreGrid>
-              {otherProjects.map((p) => (
+              {otherProjects.slice(0, 9).map((p) => (
                 <MiniCard key={p.slug} project={p} />
               ))}
             </ShowMoreGrid>
@@ -128,7 +130,7 @@ export default function Projects() {
                   href="/work"
                   className="btn-clay inline-flex items-center gap-2 rounded-full bg-lilac px-6 py-3 font-semibold text-ink"
                 >
-                  Explore all work by category <ArrowRight size={18} />
+                  Search all {profile.projects.length} projects <ArrowRight size={18} />
                 </Link>
               </div>
             </Reveal>

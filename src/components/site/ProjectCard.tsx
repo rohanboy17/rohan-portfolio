@@ -40,13 +40,58 @@ export function ProjectLinks({ project, compact = false }: { project: Project; c
   );
 }
 
-/** Compact project card with the demo preview on top. Used on the homepage and category pages. */
-export function MiniCard({ project, className }: { project: Project; className?: string }) {
+/**
+ * Static browser-framed screenshot: the same look as ProjectMedia, but no video and no client
+ * JavaScript. For long lists (/work) where dozens of video players would block the main thread.
+ */
+function PosterFrame({ project, priority = false }: { project: Project; priority?: boolean }) {
+  const a = accentStyles[project.accent];
+  const host = project.liveUrl ? new URL(project.liveUrl).host : (project.mediaLabel ?? "Private build · launching soon");
+  return (
+    <div className={clsx("overflow-hidden rounded-[24px] border bg-ink", a.border)}>
+      <div className="flex items-center gap-2 border-b border-line bg-white/[0.03] px-4 py-2.5">
+        <span className="h-2.5 w-2.5 rounded-full bg-pink/80" />
+        <span className="h-2.5 w-2.5 rounded-full bg-butter/80" />
+        <span className="h-2.5 w-2.5 rounded-full bg-mint/80" />
+        <span className="ml-3 truncate rounded-full bg-white/5 px-3 py-0.5 text-xs text-muted">{host}</span>
+      </div>
+      <div className="relative aspect-[16/10] overflow-hidden">
+        {project.poster ? (
+          <Image
+            src={project.poster}
+            alt={`${project.title} screenshot`}
+            fill
+            priority={priority}
+            sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
+            className="object-cover object-top"
+          />
+        ) : (
+          <div className={clsx("absolute inset-0 grid place-items-center bg-gradient-to-br to-transparent", a.from)}>
+            <Clip3D name={project.clip} size={120} className="h-24 w-24" />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/** Compact project card with the demo preview on top. `lite` swaps the video player for a static screenshot. */
+export function MiniCard({
+  project,
+  className,
+  lite = false,
+  priority = false,
+}: {
+  project: Project;
+  className?: string;
+  lite?: boolean;
+  priority?: boolean;
+}) {
   const a = accentStyles[project.accent];
   return (
     <article className={clsx("clay group relative flex h-full flex-col overflow-hidden rounded-[28px] p-3 transition hover:-translate-y-1", className)}>
       <div aria-hidden className={clsx("absolute -right-10 -top-10 h-32 w-32 rounded-full opacity-20 blur-2xl transition group-hover:opacity-40", a.bg)} />
-      <ProjectMedia project={project} />
+      {lite ? <PosterFrame project={project} priority={priority} /> : <ProjectMedia project={project} priority={priority} />}
       <div className="relative flex flex-1 flex-col px-2 pb-2 pt-4">
         <div className="flex items-center justify-between gap-3">
           <h3 className="font-display text-lg font-semibold">{project.title}</h3>
@@ -66,7 +111,7 @@ export function MiniCard({ project, className }: { project: Project; className?:
  * Phone-sized project row: poster thumbnail on the left, key facts and two small actions on the right.
  * About a third of the height of MiniCard, so long category lists stay scannable.
  */
-export function CompactCard({ project, className }: { project: Project; className?: string }) {
+export function CompactCard({ project, className, priority = false }: { project: Project; className?: string; priority?: boolean }) {
   const a = accentStyles[project.accent];
   return (
     <article className={clsx("clay relative flex gap-3 overflow-hidden rounded-[22px] p-2.5", className)}>
@@ -76,7 +121,7 @@ export function CompactCard({ project, className }: { project: Project; classNam
         className="relative min-h-[112px] w-[38%] shrink-0 self-stretch overflow-hidden rounded-2xl border border-line bg-ink"
       >
         {project.poster ? (
-          <Image src={project.poster} alt="" fill sizes="150px" className="object-cover object-left-top" />
+          <Image src={project.poster} alt="" fill sizes="150px" priority={priority} className="object-cover object-left-top" />
         ) : (
           <div className={clsx("absolute inset-0 grid place-items-center bg-gradient-to-br to-transparent", a.from)}>
             <Clip3D name={project.clip} size={64} className="h-12 w-12" />

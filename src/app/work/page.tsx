@@ -62,11 +62,13 @@ export default function WorkHub() {
         />
 
         {/* Every project, server-rendered (and crawlable); WorkExplorer only hides and reorders items. */}
+        <h2 className="sr-only">All projects</h2>
+        {/* Lite cards: static screenshots, no video players, so 59 cards stay light on phones. */}
         <ul id={LIST_ID} className="mt-6 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
-          {profile.projects.map((p) => (
+          {profile.projects.map((p, i) => (
             <li key={p.slug} data-slug={p.slug} data-industry={p.industry} data-sector={p.sector} data-type={categoryOf(p).slug} className="h-full">
-              <CompactCard project={p} className="sm:hidden" />
-              <MiniCard project={p} className="hidden h-full sm:flex" />
+              <CompactCard project={p} className="sm:hidden" priority={i < 2} />
+              <MiniCard project={p} className="hidden h-full sm:flex" lite priority={i < 3} />
             </li>
           ))}
         </ul>
