@@ -67,7 +67,8 @@ export default function CarouselControls({
         setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 4);
       });
     };
-    onScroll();
+    // No initial measurement: at load the track sits at the first slide, and measuring here
+    // would force a layout while the page is still painting.
     el.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       cancelAnimationFrame(frame);
@@ -83,12 +84,15 @@ export default function CarouselControls({
     let focus = false;
     let touch = false;
     let visible = false;
-    let resumeAt = 0; // after a touch, wait a moment before moving again
+    let running = false;
+    let waiting = false;
+    let resumeAt = 0; // after a touch or a rewind, wait a moment before moving again
     let rewindAt = 0; // reached the end: rewind at this time
     let raf = 0;
     let last = 0;
     let elapsed = 0; // "step": time spent on the current slide
-    let pos = el.scrollLeft; // "drift": fractional position (scrollLeft rounds)
+    let pos = 0; // "drift": fractional position (scrollLeft rounds)
+    let max = 0;
 
     // Drifting fights scroll-snap, so snap is off while it runs.
     if (autoplay === "drift") el.style.scrollSnapType = "none";
@@ -97,12 +101,14 @@ export default function CarouselControls({
       raf = requestAnimationFrame(tick);
       const dt = last ? Math.min(t - last, 64) : 0;
       last = t;
-      const paused = hover || focus || touch || !visible || document.hidden || t < resumeAt;
-      if (paused) {
-        pos = el.scrollLeft;
+      if (t < resumeAt) {
+        waiting = true;
         return;
       }
-      const max = el.scrollWidth - el.clientWidth;
+      if (waiting) {
+        waiting = false;
+        pos = el.scrollLeft;
+      }
       if (rewindAt) {
         if (t >= rewindAt) {
           rewindAt = 0;
@@ -131,11 +137,37 @@ export default function CarouselControls({
       }
     };
 
-    const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting), { threshold: 0.4 });
+    // The loop only runs while the track is on screen and nobody is using it, so it costs
+    // nothing during page load or while the visitor reads elsewhere.
+    const sync = () => {
+      const run = visible && !hover && !focus && !touch && !document.hidden;
+      if (run && !running) {
+        running = true;
+        last = 0;
+        pos = el.scrollLeft;
+        max = el.scrollWidth - el.clientWidth;
+        raf = requestAnimationFrame(tick);
+      } else if (!run && running) {
+        running = false;
+        cancelAnimationFrame(raf);
+      }
+    };
+
+    const io = new IntersectionObserver(
+      ([e]) => {
+        visible = e.isIntersecting;
+        sync();
+      },
+      { threshold: 0.4 },
+    );
     io.observe(el);
     const on = (type: string, fn: (e: Event) => void) => {
-      el.addEventListener(type, fn, { passive: true });
-      return () => el.removeEventListener(type, fn);
+      const handler = (e: Event) => {
+        fn(e);
+        sync();
+      };
+      el.addEventListener(type, handler, { passive: true });
+      return () => el.removeEventListener(type, handler);
     };
     const offs = [
       on("pointerenter", (e) => (hover = (e as PointerEvent).pointerType === "mouse")),
@@ -149,12 +181,13 @@ export default function CarouselControls({
       on("focusin", () => (focus = true)),
       on("focusout", () => (focus = false)),
     ];
-    raf = requestAnimationFrame(tick);
+    document.addEventListener("visibilitychange", sync);
 
     return () => {
       cancelAnimationFrame(raf);
       io.disconnect();
       offs.forEach((off) => off());
+      document.removeEventListener("visibilitychange", sync);
       el.style.scrollSnapType = "";
     };
   }, [active, autoplay, target, count, interval, speed]);

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { profile, services } from "@/content/profile";
 import JsonLd from "@/components/site/JsonLd";
@@ -14,8 +14,17 @@ import Analytics from "@/components/site/Analytics";
 import DevVitals from "@/components/site/DevVitals";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
-const spaceGrotesk = Space_Grotesk({ variable: "--font-space-grotesk", subsets: ["latin"], display: "swap" });
+// Body text uses the device's own UI font (Roboto, San Francisco, Segoe UI): it looks like
+// Inter and costs nothing to download. Headings keep Space Grotesk, self-hosted as a
+// latin-only file: next/font/google also declares latin-ext, which the ₹ sign (U+20B9)
+// pulled in on every page. Without it, ₹ renders in the metric-matched Arial fallback.
+const spaceGrotesk = localFont({
+  src: "./fonts/space-grotesk-latin.woff2",
+  weight: "300 700",
+  variable: "--font-space-grotesk",
+  display: "swap",
+  adjustFontFallback: "Arial",
+});
 
 const title = profile.seo.title;
 const description = profile.seo.description;
@@ -97,7 +106,7 @@ const siteJsonLd = [
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     // suppressHydrationWarning: the inline script below adds the "js" class before React hydrates.
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} antialiased`} suppressHydrationWarning>
+    <html lang="en" className={`${spaceGrotesk.variable} antialiased`} suppressHydrationWarning>
       <head>
         {/* Lets CSS hide not-yet-revealed sections only when JS is running (no-JS visitors see everything). */}
         {/* data-loading="page" shows the top loading bar until the window load event (see PageLoader). */}

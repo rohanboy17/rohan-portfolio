@@ -14,8 +14,6 @@ const SPANS =
     : [];
 
 export default function Skills() {
-  const all = profile.skills.flatMap((g) => g.items);
-
   return (
     <section id="skills" className="px-4 py-16 sm:px-6 sm:py-24">
       <div className="mx-auto max-w-6xl">
@@ -72,21 +70,6 @@ export default function Skills() {
             );
           })}
         </Stagger>
-
-        <div aria-hidden className="marquee mt-10 hidden overflow-hidden sm:block [mask-image:linear-gradient(90deg,transparent,black_12%,black_88%,transparent)]">
-          <div className="animate-marquee flex w-max gap-3">
-            {[...all, ...all].map((s, i) => (
-              <span
-                key={`${s.name}-${i}`}
-                aria-hidden={i >= all.length ? true : undefined}
-                className="clay inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm text-muted"
-              >
-                {s.icon ? <BrandIcon slug={s.icon} size={14} /> : null}
-                {s.name}
-              </span>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   );

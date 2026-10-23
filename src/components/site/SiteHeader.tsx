@@ -121,7 +121,9 @@ export default function SiteHeader({
                   hidden={menu !== item.label}
                   className="absolute left-1/2 top-full -translate-x-1/2 pt-3"
                 >
-                  <DesktopPanel item={item} onNavigate={closeAll} />
+                  {/* Rendered only while open: keeps ~300 menu nodes out of every page load (the footer
+                      carries the same links for crawlers and no-JS visitors). */}
+                  {menu === item.label ? <DesktopPanel item={item} onNavigate={closeAll} /> : null}
                 </div>
               </div>
             ) : (
@@ -218,7 +220,7 @@ export default function SiteHeader({
                   <ChevronDown size={22} className={clsx("text-muted transition-transform", expanded && "rotate-180")} />
                 </button>
                 <div id={`m-menu-${item.label}`} hidden={!expanded} className="pb-5">
-                  {item.sections.map((section) => (
+                  {expanded && item.sections.map((section) => (
                     <div key={section.title} className="mt-2 first:mt-0">
                       <p className="px-1 pb-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-muted">{section.title}</p>
                       <ul className={clsx("grid gap-x-3", section.wide && "grid-cols-2")}>
@@ -230,7 +232,7 @@ export default function SiteHeader({
                       </ul>
                     </div>
                   ))}
-                  {item.more ? <MenuLink link={item.more} onNavigate={closeAll} tabIndex={open ? 0 : -1} compact accent /> : null}
+                  {expanded && item.more ? <MenuLink link={item.more} onNavigate={closeAll} tabIndex={open ? 0 : -1} compact accent /> : null}
                 </div>
               </div>
             );

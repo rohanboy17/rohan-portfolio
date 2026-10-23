@@ -90,7 +90,7 @@ export default async function ProjectPage({ params }: Params) {
 
         {/* Centered on mobile (clip above title), left-aligned from sm up — matches the homepage sections */}
         <header className="mt-8 flex flex-col items-center gap-6 text-center sm:flex-row-reverse sm:items-end sm:justify-between sm:text-left">
-          <Clip3D name={project.clip} size={120} float priority className="h-20 w-20 shrink-0 sm:h-28 sm:w-28" />
+          <Clip3D name={project.clip} size={120} float eager className="h-20 w-20 shrink-0 sm:h-28 sm:w-28" />
           <div>
             <p className={clsx("text-xs font-semibold uppercase tracking-[0.28em]", a.text)}>{project.category}</p>
             {/* Industry badge: links to the industry page when there is one */}

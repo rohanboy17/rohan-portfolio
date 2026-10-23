@@ -75,7 +75,7 @@ export default async function ServicePage({ params }: Params) {
 
         {/* Centered on mobile (clip above title), left-aligned from sm up — matches the homepage sections */}
         <header className="mt-8 flex flex-col items-center gap-5 text-center sm:flex-row-reverse sm:items-end sm:justify-between sm:text-left">
-          <Clip3D name={service.clip} size={120} float priority className="h-20 w-20 shrink-0 sm:h-28 sm:w-28" />
+          <Clip3D name={service.clip} size={120} float eager className="h-20 w-20 shrink-0 sm:h-28 sm:w-28" />
           <div className="max-w-3xl">
             <p className={clsx("text-xs font-semibold uppercase tracking-[0.28em]", a.text)}>{service.title}</p>
             <h1 className="mt-3 text-balance font-display text-4xl font-semibold tracking-tight sm:text-6xl">{service.heading}</h1>

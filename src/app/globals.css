@@ -13,7 +13,7 @@
   --color-pink: #f9a8d4;
   --color-butter: #fde68a;
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
 
   --animate-float: float 6s ease-in-out infinite;

@@ -54,7 +54,7 @@ export default function ProjectMedia({ project, priority = false }: { project: M
             alt={`${project.title} screenshot`}
             fill
             priority={priority}
-            sizes="(min-width: 1024px) 560px, 100vw"
+            sizes="(min-width: 1024px) 560px, (min-width: 640px) 90vw, 86vw"
             className={clsx("object-cover object-top transition-opacity duration-500", playing && "opacity-0")}
           />
         ) : (
