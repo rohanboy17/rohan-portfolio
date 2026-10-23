@@ -69,6 +69,7 @@ export function siteNav(): NavItem[] {
         },
       ],
     },
+    { label: "Pricing", href: "/pricing" },
     { label: "Contact", href: "/#contact" },
   ];
 }

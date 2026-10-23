@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     { url: `${profile.siteUrl}/work`, lastModified: now, priority: 0.8 },
     { url: `${profile.siteUrl}/industries`, lastModified: now, priority: 0.85 },
+    { url: `${profile.siteUrl}/pricing`, lastModified: now, priority: 0.95 },
     { url: `${profile.siteUrl}/blog`, lastModified: now, priority: 0.8 },
     ...articles.map((a) => ({
       url: `${profile.siteUrl}/blog/${a.slug}`,

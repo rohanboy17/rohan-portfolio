@@ -1824,7 +1824,7 @@ export const services: Service[] = [
     faqs: [
       {
         q: "How long does a business website take?",
-        a: "A typical 5–8 page business website takes 2–4 weeks from approved design to launch. A single landing page can be ready in under a week.",
+        a: "A Launch site (up to 5 pages) is live in 2–3 days and a Business site (up to 15 pages) in 4–5 days, after you approve the free homepage demo. Larger custom builds take 2–4 weeks.",
       },
       {
         q: "Will my website show up on Google?",
@@ -2056,7 +2056,7 @@ export const whyHire = [
 export const generalFaqs = [
   {
     q: "How much does a website or app cost?",
-    a: "It depends on scope. A landing page costs much less than a marketplace or a mobile app. Tell me what you need and I'll send a fixed quote within 24 hours, free and with no obligation.",
+    a: "Websites start at ₹4,999 ($99), online stores at ₹19,999 ($349) and apps or web apps from ₹34,999 ($599). See the pricing page for what each plan includes, or tell me what you need and I'll send a fixed quote within 24 hours.",
   },
   {
     q: "Do you work with international clients?",
