@@ -470,3 +470,12 @@ html[data-loading="nav"] {
     transform: rotate(360deg);
   }
 }
+/* MobileCollapse: closed on phones once JS runs; always open from md up or without JS. */
+@media (max-width: 767.98px) {
+  html.js .mobile-collapse:not([data-open]) {
+    display: none;
+  }
+}
+html:not(.js) .js-only {
+  display: none;
+}

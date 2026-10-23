@@ -1,18 +1,39 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import clsx from "clsx";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
+
+const reducedQuery = "(prefers-reduced-motion: reduce)";
+const subscribeReduced = (cb: () => void) => {
+  const mq = window.matchMedia(reducedQuery);
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+};
+
+/** Index of the slide nearest the track's left edge. */
+function slideIndex(el: HTMLElement, count: number) {
+  const first = el.firstElementChild as HTMLElement | null;
+  const step = first ? first.offsetWidth + parseFloat(getComputedStyle(el).columnGap || "0") : el.clientWidth;
+  return Math.min(count - 1, Math.round(el.scrollLeft / Math.max(step, 1)));
+}
 
 /**
  * Arrows + dots (or a counter) for a server-rendered `.carousel` track with the given id.
  * The track is plain CSS scroll-snap, so it still swipes without this; this just adds buttons.
- * Visitor-driven only: no autoplay.
+ *
+ * Optional autoplay: "step" moves one slide every `interval` ms (the active dot fills up as a
+ * timer); "drift" glides the track slowly and continuously. Either way it pauses on hover,
+ * focus, touch, off-screen or in a background tab, rewinds at the end, has a pause button,
+ * stops for good once the visitor uses the arrows or dots, and never runs under reduced motion.
  */
 export default function CarouselControls({
   target,
   labels,
   dots = true,
+  autoplay,
+  interval = 7000,
+  speed = 25,
   className,
 }: {
   /** id of the `.carousel` element. */
@@ -20,10 +41,19 @@ export default function CarouselControls({
   /** One label per slide (used for the dots' accessible names). */
   labels: string[];
   dots?: boolean;
+  autoplay?: "step" | "drift";
+  /** "step": ms per slide. */
+  interval?: number;
+  /** "drift": pixels per second. */
+  speed?: number;
   className?: string;
 }) {
   const [index, setIndex] = useState(0);
   const [atEnd, setAtEnd] = useState(false);
+  const [playing, setPlaying] = useState(true);
+  const reduced = useSyncExternalStore(subscribeReduced, () => window.matchMedia(reducedQuery).matches, () => true);
+  const active = Boolean(autoplay) && playing && !reduced;
+  const timerDot = useRef<HTMLSpanElement>(null);
   const count = labels.length;
 
   useEffect(() => {
@@ -33,9 +63,7 @@ export default function CarouselControls({
     const onScroll = () => {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
-        const first = el.firstElementChild as HTMLElement | null;
-        const step = first ? first.offsetWidth + parseFloat(getComputedStyle(el).columnGap || "0") : el.clientWidth;
-        setIndex(Math.min(count - 1, Math.round(el.scrollLeft / Math.max(step, 1))));
+        setIndex(slideIndex(el, count));
         setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 4);
       });
     };
@@ -47,15 +75,103 @@ export default function CarouselControls({
     };
   }, [target, count]);
 
+  useEffect(() => {
+    const el = document.getElementById(target);
+    if (!active || !el) return;
+
+    let hover = false;
+    let focus = false;
+    let touch = false;
+    let visible = false;
+    let resumeAt = 0; // after a touch, wait a moment before moving again
+    let rewindAt = 0; // reached the end: rewind at this time
+    let raf = 0;
+    let last = 0;
+    let elapsed = 0; // "step": time spent on the current slide
+    let pos = el.scrollLeft; // "drift": fractional position (scrollLeft rounds)
+
+    // Drifting fights scroll-snap, so snap is off while it runs.
+    if (autoplay === "drift") el.style.scrollSnapType = "none";
+
+    const tick = (t: number) => {
+      raf = requestAnimationFrame(tick);
+      const dt = last ? Math.min(t - last, 64) : 0;
+      last = t;
+      const paused = hover || focus || touch || !visible || document.hidden || t < resumeAt;
+      if (paused) {
+        pos = el.scrollLeft;
+        return;
+      }
+      const max = el.scrollWidth - el.clientWidth;
+      if (rewindAt) {
+        if (t >= rewindAt) {
+          rewindAt = 0;
+          resumeAt = t + 1600;
+          elapsed = 0;
+          el.scrollTo({ left: 0, behavior: "smooth" });
+        }
+        return;
+      }
+      if (autoplay === "drift") {
+        pos = Math.min(max, pos + (speed * dt) / 1000);
+        el.scrollLeft = pos;
+        if (pos >= max - 1) rewindAt = t + 1200;
+      } else {
+        elapsed += dt;
+        timerDot.current?.style.setProperty("--p", String(Math.min(1, elapsed / interval)));
+        if (elapsed >= interval) {
+          elapsed = 0;
+          const next = slideIndex(el, count) + 1;
+          if (next >= count || el.scrollLeft >= max - 4) rewindAt = t;
+          else {
+            const slide = el.children[next] as HTMLElement;
+            el.scrollTo({ left: slide.offsetLeft - el.offsetLeft, behavior: "smooth" });
+          }
+        }
+      }
+    };
+
+    const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting), { threshold: 0.4 });
+    io.observe(el);
+    const on = (type: string, fn: (e: Event) => void) => {
+      el.addEventListener(type, fn, { passive: true });
+      return () => el.removeEventListener(type, fn);
+    };
+    const offs = [
+      on("pointerenter", (e) => (hover = (e as PointerEvent).pointerType === "mouse")),
+      on("pointerleave", () => (hover = false)),
+      on("touchstart", () => (touch = true)),
+      on("touchend", () => {
+        touch = false;
+        resumeAt = performance.now() + 2500;
+        elapsed = 0;
+      }),
+      on("focusin", () => (focus = true)),
+      on("focusout", () => (focus = false)),
+    ];
+    raf = requestAnimationFrame(tick);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      io.disconnect();
+      offs.forEach((off) => off());
+      el.style.scrollSnapType = "";
+    };
+  }, [active, autoplay, target, count, interval, speed]);
+
   const go = (i: number) => {
     const el = document.getElementById(target);
     const slide = el?.children[Math.max(0, Math.min(count - 1, i))] as HTMLElement | undefined;
     if (!el || !slide) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    el.scrollTo({ left: slide.offsetLeft - el.offsetLeft, behavior: reduce ? "auto" : "smooth" });
+    el.scrollTo({ left: slide.offsetLeft - el.offsetLeft, behavior: reduced ? "auto" : "smooth" });
+  };
+  // The visitor took over: stop autoplay for good.
+  const choose = (i: number) => {
+    setPlaying(false);
+    go(i);
   };
 
-  const arrow =
+  const round =
     "grid h-11 w-11 place-items-center rounded-full border border-line bg-white/5 text-white transition hover:border-lilac/50 hover:bg-white/10 disabled:opacity-30 disabled:hover:bg-white/5";
 
   return (
@@ -66,23 +182,47 @@ export default function CarouselControls({
             <button
               key={label + i}
               type="button"
-              onClick={() => go(i)}
+              onClick={() => choose(i)}
               aria-label={`Show ${label}`}
               aria-current={i === index}
-              className={clsx("h-2 rounded-full transition-all", i === index ? "w-7 bg-lilac" : "w-2 bg-white/25 hover:bg-white/50")}
-            />
+              className={clsx(
+                "relative h-2 overflow-hidden rounded-full transition-all",
+                i === index ? "w-7 bg-lilac/35" : "w-2 bg-white/25 hover:bg-white/50",
+              )}
+            >
+              {i === index ? (
+                // Fills up while autoplay waits on this slide; full when paused.
+                <span
+                  ref={timerDot}
+                  aria-hidden
+                  className="absolute inset-0 origin-left rounded-full bg-lilac"
+                  style={{ transform: active && autoplay === "step" ? "scaleX(var(--p, 0))" : undefined }}
+                />
+              ) : null}
+            </button>
           ))}
         </div>
       ) : (
-        <p className="text-sm tabular-nums text-muted" aria-live="polite">
+        <p className="text-sm tabular-nums text-muted" aria-live={active ? "off" : "polite"}>
           {index + 1} / {count}
         </p>
       )}
       <div className="flex gap-2">
-        <button type="button" className={arrow} onClick={() => go(index - 1)} disabled={index === 0} aria-label="Previous" aria-controls={target}>
+        {autoplay && !reduced ? (
+          <button
+            type="button"
+            className={round}
+            onClick={() => setPlaying((p) => !p)}
+            aria-label={playing ? "Pause slideshow" : "Play slideshow"}
+            aria-controls={target}
+          >
+            {playing ? <Pause size={16} /> : <Play size={16} />}
+          </button>
+        ) : null}
+        <button type="button" className={round} onClick={() => choose(index - 1)} disabled={index === 0} aria-label="Previous" aria-controls={target}>
           <ChevronLeft size={20} />
         </button>
-        <button type="button" className={arrow} onClick={() => go(index + 1)} disabled={atEnd} aria-label="Next" aria-controls={target}>
+        <button type="button" className={round} onClick={() => choose(index + 1)} disabled={atEnd} aria-label="Next" aria-controls={target}>
           <ChevronRight size={20} />
         </button>
       </div>

@@ -6,6 +6,7 @@ import { plans, carePlan, everyPlan, comparison } from "@/content/pricing";
 import SectionHeading from "@/components/ui/SectionHeading";
 import SocialIcon from "@/components/ui/SocialIcon";
 import { Item, Reveal, Stagger } from "@/components/site/MotionPrimitives";
+import MobileCollapse from "@/components/site/MobileCollapse";
 
 const waNumber = profile.whatsapp.match(/wa\.me\/(\d+)/)?.[1] ?? "";
 const wa = (text: string) => `https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`;
@@ -29,7 +30,8 @@ export default function Pricing({ full = false, asPage = false }: { full?: boole
           />
         )}
 
-        <Stagger className={clsx("swipe-xl grid gap-4 xl:grid-cols-4", !asPage && "mt-10 sm:mt-12")}>
+        {/* Plans stack on phones (prices compared at a glance, features behind "See all"), 2-up on tablets, 4-up on desktop. */}
+        <Stagger className={clsx("grid gap-5 md:grid-cols-2 md:gap-4 xl:grid-cols-4", !asPage && "mt-10 sm:mt-12")}>
           {plans.map((p) => (
             <Item key={p.slug} className="h-full">
               <article
@@ -42,7 +44,7 @@ export default function Pricing({ full = false, asPage = false }: { full?: boole
                   <p className="absolute -top-3 left-6 rounded-full bg-lilac px-3 py-1 text-xs font-semibold text-ink">Most popular</p>
                 ) : null}
                 <h3 className="font-display text-xl font-semibold">{p.name}</h3>
-                <p className="mt-1.5 min-h-[3.75rem] text-pretty text-sm leading-relaxed text-muted">{p.forWho}</p>
+                <p className="mt-1.5 text-pretty text-sm leading-relaxed text-muted md:min-h-[3.75rem]">{p.forWho}</p>
                 <p className="mt-4 flex items-baseline gap-2">
                   {p.priceNote === "starting price" ? <span className="text-sm text-muted">from</span> : null}
                   <span className="font-display text-4xl font-semibold tracking-tight">{p.inr}</span>
@@ -53,22 +55,24 @@ export default function Pricing({ full = false, asPage = false }: { full?: boole
                 <p className="mt-3 inline-flex w-fit items-center gap-1.5 rounded-full border border-mint/30 bg-mint/10 px-3 py-1 text-xs font-medium text-mint">
                   <Clock size={12} /> {p.delivery}
                 </p>
-                <ul className="mt-5 space-y-2.5 text-sm">
-                  {p.features.map((f) =>
-                    f.endsWith(":") ? (
-                      <li key={f} className="font-semibold text-white">
-                        {f}
-                      </li>
-                    ) : (
-                      <li key={f} className="flex gap-2.5 text-white/85">
-                        <Check size={16} className="mt-0.5 shrink-0 text-lilac" aria-hidden />
-                        {f}
-                      </li>
-                    ),
-                  )}
-                </ul>
-                {p.note ? <p className="mt-4 text-xs leading-relaxed text-muted">{p.note}</p> : null}
-                <div className="mt-auto grid gap-2 pt-6">
+                <MobileCollapse more={`See all ${p.features.filter((f) => !f.endsWith(":")).length} features`}>
+                  <ul className="mt-5 space-y-2.5 text-sm">
+                    {p.features.map((f) =>
+                      f.endsWith(":") ? (
+                        <li key={f} className="font-semibold text-white">
+                          {f}
+                        </li>
+                      ) : (
+                        <li key={f} className="flex gap-2.5 text-white/85">
+                          <Check size={16} className="mt-0.5 shrink-0 text-lilac" aria-hidden />
+                          {f}
+                        </li>
+                      ),
+                    )}
+                  </ul>
+                  {p.note ? <p className="mt-4 text-xs leading-relaxed text-muted">{p.note}</p> : null}
+                </MobileCollapse>
+                <div className="mt-auto grid gap-2 pt-5 md:pt-6">
                   <a
                     href={wa(p.whatsapp)}
                     target="_blank"

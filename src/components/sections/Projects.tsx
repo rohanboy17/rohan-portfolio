@@ -110,7 +110,7 @@ export default function Projects() {
               </div>
             ))}
           </div>
-          <CarouselControls target="featured-track" labels={featuredProjects.map((p) => p.title)} className="mt-5" />
+          <CarouselControls target="featured-track" labels={featuredProjects.map((p) => p.title)} autoplay="step" className="mt-5" />
         </Reveal>
 
         {otherProjects.length ? (
@@ -120,7 +120,7 @@ export default function Projects() {
             <Reveal>
               <div className="mt-16 flex items-end justify-between gap-4 sm:mt-20">
                 <h3 className="font-display text-2xl font-semibold">More work</h3>
-                <CarouselControls target="more-track" labels={otherProjects.slice(0, 9).map((p) => p.title)} dots={false} />
+                <CarouselControls target="more-track" labels={otherProjects.slice(0, 9).map((p) => p.title)} dots={false} autoplay="drift" />
               </div>
               <div id="more-track" className="carousel mt-6 gap-4" aria-label="More projects">
                 {otherProjects.slice(0, 9).map((p) => (
