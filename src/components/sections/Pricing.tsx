@@ -18,7 +18,9 @@ export default function Pricing({ full = false, asPage = false }: { full?: boole
   return (
     <section id="pricing" aria-labelledby={asPage ? undefined : "pricing-title"} className={clsx(!asPage && "px-4 py-16 sm:px-6 sm:py-24")}>
       <div className={clsx(!asPage && "mx-auto max-w-6xl")}>
-        {asPage ? null : (
+        {asPage ? (
+          <h2 className="sr-only">Plans</h2>
+        ) : (
           <SectionHeading
             eyebrow="Pricing"
             title="Simple prices. Fast delivery."
