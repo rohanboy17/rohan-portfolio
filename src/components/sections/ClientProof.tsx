@@ -24,7 +24,7 @@ export default function ClientProof() {
           <ul className="mt-6 flex flex-wrap justify-center gap-2.5">
             {clients.map((c) => (
               <li key={c.project!.slug}>
-                <Link
+                <Link prefetch={false}
                   href={`/projects/${c.project!.slug}`}
                   className="inline-flex items-center gap-2 rounded-full border border-line bg-white/5 px-4 py-2 text-sm text-white/85 transition hover:border-lilac/40 hover:text-white"
                 >
@@ -52,7 +52,7 @@ export default function ClientProof() {
                         {t.country ? ` · ${t.country}` : ""}
                       </span>
                       {project ? (
-                        <Link href={`/projects/${project.slug}`} className="mt-2 inline-block text-xs font-semibold text-lilac hover:underline">
+                        <Link prefetch={false} href={`/projects/${project.slug}`} className="mt-2 inline-block text-xs font-semibold text-lilac hover:underline">
                           See the project →
                         </Link>
                       ) : null}

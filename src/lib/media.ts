@@ -27,5 +27,10 @@ export function useMediaQuery(query: string, serverValue = false) {
 }
 
 export const useReducedMotion = () => useMediaQuery("(prefers-reduced-motion: reduce)");
+
+const noSubscribe = () => () => {};
+/** True when <html class="lite"> was set (phones, low-end devices, Data Saver); see layout.tsx. */
+export const useLite = () =>
+  useSyncExternalStore(noSubscribe, () => document.documentElement.classList.contains("lite"), () => false);
 /** Mouse or trackpad on a large enough screen: where hover effects and WebGL make sense. */
 export const useFinePointer = () => useMediaQuery("(hover: hover) and (pointer: fine) and (min-width: 768px)");

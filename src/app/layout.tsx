@@ -99,7 +99,15 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} antialiased`} suppressHydrationWarning>
       <head>
         {/* Lets CSS hide not-yet-revealed sections only when JS is running (no-JS visitors see everything). */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        {/* "lite" = phones, touch screens, low-end devices, Data Saver or reduced motion: CSS and
+            components drop the costly effects (blur, grain, floating art, autoplay video). Set before
+            first paint so nothing flashes. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){var d=document.documentElement,n=navigator;d.classList.add('js');try{if(matchMedia('(hover: none), (pointer: coarse), (max-width: 767px), (prefers-reduced-motion: reduce)').matches||(n.deviceMemory&&n.deviceMemory<=4)||(n.hardwareConcurrency&&n.hardwareConcurrency<=4)||(n.connection&&n.connection.saveData))d.classList.add('lite')}catch(e){}})()",
+          }}
+        />
       </head>
       <body className="relative min-h-screen overflow-x-clip">
         <a

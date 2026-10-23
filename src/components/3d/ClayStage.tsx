@@ -4,7 +4,7 @@ import { Component, useEffect, useRef, useState, type ReactNode } from "react";
 import dynamic from "next/dynamic";
 import clsx from "clsx";
 import Clip3D from "@/components/ui/Clip3D";
-import { useFinePointer, useReducedMotion } from "@/lib/media";
+import { useFinePointer, useLite, useReducedMotion } from "@/lib/media";
 
 const ClayScene = dynamic(() => import("./ClayScene"), { ssr: false });
 
@@ -54,6 +54,8 @@ function Poster({ hidden }: { hidden: boolean }) {
 export default function ClayStage({ className }: { className?: string }) {
   const fine = useFinePointer();
   const reduce = useReducedMotion();
+  // Low-end desktops keep the static poster too: WebGL is the heaviest thing on the page.
+  const lite = useLite();
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(true);
   const [load, setLoad] = useState(false);
@@ -68,7 +70,7 @@ export default function ClayStage({ className }: { className?: string }) {
   }, []);
 
   useEffect(() => {
-    if (!fine || reduce || !hasWebGL()) return;
+    if (!fine || reduce || lite || !hasWebGL()) return;
     const events = ["pointermove", "pointerdown", "wheel", "scroll", "keydown"] as const;
     const start = () => {
       events.forEach((e) => window.removeEventListener(e, start));
@@ -76,9 +78,9 @@ export default function ClayStage({ className }: { className?: string }) {
     };
     events.forEach((e) => window.addEventListener(e, start, { passive: true, once: true }));
     return () => events.forEach((e) => window.removeEventListener(e, start));
-  }, [fine, reduce]);
+  }, [fine, reduce, lite]);
 
-  const show3D = load && fine && !reduce;
+  const show3D = load && fine && !reduce && !lite;
 
   return (
     <div ref={ref} className={clsx("relative aspect-square w-full", className)}>

@@ -34,7 +34,7 @@ export default function SiteFooter() {
       <div className="relative mx-auto max-w-6xl px-4 pt-14 sm:px-6 sm:pt-20">
         <div className="grid gap-12 text-center sm:text-left lg:grid-cols-[1.25fr_2.75fr]">
           <div className="flex flex-col items-center sm:items-start">
-            <Link href="/" className="flex items-center gap-3 font-display text-xl font-semibold">
+            <Link prefetch={false} href="/" className="flex items-center gap-3 font-display text-xl font-semibold">
               <Logo size={44} id="logo-footer" />
               {profile.name}
             </Link>
@@ -47,7 +47,7 @@ export default function SiteFooter() {
               </p>
             ) : null}
             <div className="mt-6 flex flex-wrap justify-center gap-2 sm:justify-start">
-              <Link href="/#contact" className="btn-clay inline-flex items-center gap-1.5 rounded-full bg-lilac px-5 py-2.5 text-sm font-semibold text-ink">
+              <Link prefetch={false} href="/#contact" className="btn-clay inline-flex items-center gap-1.5 rounded-full bg-lilac px-5 py-2.5 text-sm font-semibold text-ink">
                 Get a quote <ArrowUpRight size={15} />
               </Link>
               {profile.resumeUrl ? (
@@ -95,7 +95,7 @@ export default function SiteFooter() {
                 <ul className="mt-5 space-y-3">
                   {col.links.map((l) => (
                     <li key={l.href + l.label}>
-                      <Link href={l.href} className="text-sm text-white/80 transition hover:text-lilac">
+                      <Link prefetch={false} href={l.href} className="text-sm text-white/80 transition hover:text-lilac">
                         {l.label}
                       </Link>
                     </li>

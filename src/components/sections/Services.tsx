@@ -23,7 +23,7 @@ export default function Services() {
             const a = accentStyles[s.accent];
             return (
               <Item key={s.slug} className="h-full">
-                <Link
+                <Link prefetch={false}
                   href={`/services/${s.slug}`}
                   className="clay group relative flex h-full items-start gap-4 overflow-hidden rounded-[28px] p-5 transition hover:-translate-y-1 sm:flex-col sm:p-6"
                 >
@@ -41,7 +41,7 @@ export default function Services() {
             );
           })}
           <Item className="h-full">
-            <Link
+            <Link prefetch={false}
               href="/#contact"
               className="group flex h-full flex-col items-center justify-center gap-3 rounded-[28px] border border-dashed border-lilac/40 bg-lilac/5 p-6 text-center transition hover:bg-lilac/10"
             >
@@ -56,7 +56,7 @@ export default function Services() {
 
         <Reveal>
           <p className="mt-6 text-center text-sm text-muted sm:text-left">
-            <Link href="/services" className="font-semibold text-lilac hover:underline">
+            <Link prefetch={false} href="/services" className="font-semibold text-lilac hover:underline">
               See all services, process &amp; FAQs →
             </Link>
           </p>

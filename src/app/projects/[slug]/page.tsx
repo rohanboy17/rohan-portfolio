@@ -83,7 +83,7 @@ export default async function ProjectPage({ params }: Params) {
         ]}
       />
       <div className="mx-auto max-w-5xl">
-        <Link href="/#projects" className="inline-flex items-center gap-2 text-sm text-muted transition hover:text-white">
+        <Link prefetch={false} href="/#projects" className="inline-flex items-center gap-2 text-sm text-muted transition hover:text-white">
           <ArrowLeft size={16} /> All projects
         </Link>
 
@@ -95,7 +95,7 @@ export default async function ProjectPage({ params }: Params) {
             {/* Industry badge: links to the industry page when there is one */}
             <p className="mt-2 text-sm text-muted">
               {liveIndustries.some((i) => i.slug === project.industry) && category.slug !== "replicas" ? (
-                <Link href={`/industries/${project.industry}`} className="hover:text-white hover:underline">
+                <Link prefetch={false} href={`/industries/${project.industry}`} className="hover:text-white hover:underline">
                   {industryOf(project).title}
                 </Link>
               ) : (
@@ -137,7 +137,7 @@ export default async function ProjectPage({ params }: Params) {
         </div>
 
         {articlesForProject(project.slug).map((story) => (
-          <Link
+          <Link prefetch={false}
             key={story.slug}
             href={`/blog/${story.slug}`}
             className="mt-6 flex items-center justify-between gap-4 rounded-3xl border border-lilac/30 bg-lilac/10 p-5 transition hover:bg-lilac/15"
@@ -205,7 +205,7 @@ export default async function ProjectPage({ params }: Params) {
             />
             <p className="mt-4 text-center text-sm text-muted">
               Learn more about my{" "}
-              <Link href={`/services/${service.slug}`} className="font-semibold text-lilac hover:underline">
+              <Link prefetch={false} href={`/services/${service.slug}`} className="font-semibold text-lilac hover:underline">
                 {service.title.toLowerCase()} services
               </Link>
               .
@@ -213,7 +213,7 @@ export default async function ProjectPage({ params }: Params) {
           </>
         )}
 
-        <Link
+        <Link prefetch={false}
           href={`/projects/${next.slug}`}
           className="clay group mt-16 flex items-center justify-between gap-4 rounded-[32px] p-6 transition hover:bg-white/[0.05] sm:p-8"
         >

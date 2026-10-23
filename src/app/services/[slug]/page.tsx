@@ -69,7 +69,7 @@ export default async function ServicePage({ params }: Params) {
         ]}
       />
       <div className="mx-auto max-w-6xl">
-        <Link href="/services" className="inline-flex items-center gap-2 text-sm text-muted transition hover:text-white">
+        <Link prefetch={false} href="/services" className="inline-flex items-center gap-2 text-sm text-muted transition hover:text-white">
           <ArrowLeft size={16} /> All services
         </Link>
 
@@ -84,7 +84,7 @@ export default async function ServicePage({ params }: Params) {
         </header>
 
         <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">
-          <Link
+          <Link prefetch={false}
             href="/#contact"
             className="btn-clay inline-flex items-center gap-2 rounded-full bg-lilac px-6 py-3 font-semibold text-ink"
           >
@@ -184,7 +184,7 @@ export default async function ServicePage({ params }: Params) {
           <ul className="mt-4 flex flex-wrap justify-center gap-2.5 sm:justify-start">
             {others.map((s) => (
               <li key={s.slug}>
-                <Link
+                <Link prefetch={false}
                   href={`/services/${s.slug}`}
                   className="inline-flex items-center gap-2 rounded-full border border-line bg-white/5 px-4 py-2 text-sm font-medium text-muted transition hover:text-white"
                 >

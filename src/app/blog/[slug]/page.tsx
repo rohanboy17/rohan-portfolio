@@ -83,7 +83,7 @@ export default async function ArticlePage({ params }: Params) {
         ]}
       />
       <div className="mx-auto max-w-3xl">
-        <Link href="/blog" className="inline-flex items-center gap-2 text-sm text-muted transition hover:text-white">
+        <Link prefetch={false} href="/blog" className="inline-flex items-center gap-2 text-sm text-muted transition hover:text-white">
           <ArrowLeft size={16} /> All build stories
         </Link>
 
@@ -92,7 +92,7 @@ export default async function ArticlePage({ params }: Params) {
           <h1 className="mt-3 text-balance font-display text-3xl font-semibold leading-tight tracking-tight sm:text-5xl">{a.title}</h1>
           <p className="mt-4 text-sm text-muted">
             By{" "}
-            <Link href="/#about" className="text-white/85 hover:underline">
+            <Link prefetch={false} href="/#about" className="text-white/85 hover:underline">
               {profile.name}
             </Link>{" "}
             · <time dateTime={a.published}>{formatDate(a.published)}</time> · {readingMinutes(a)} min read
@@ -146,7 +146,7 @@ export default async function ArticlePage({ params }: Params) {
               <p className="mt-1 text-sm text-muted">{project.tagline}</p>
             </div>
             <div className="flex shrink-0 flex-wrap gap-2">
-              <Link href={`/projects/${project.slug}`} className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white/5 px-4 py-2 text-sm font-semibold transition hover:bg-white/10">
+              <Link prefetch={false} href={`/projects/${project.slug}`} className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white/5 px-4 py-2 text-sm font-semibold transition hover:bg-white/10">
                 Case study <ArrowUpRight size={14} />
               </Link>
               {project.liveUrl ? (
@@ -164,7 +164,7 @@ export default async function ArticlePage({ params }: Params) {
             {related.map((s, i) => (
               <span key={s.slug}>
                 {i ? " · " : ""}
-                <Link href={`/services/${s.slug}`} className="font-semibold text-lilac hover:underline">
+                <Link prefetch={false} href={`/services/${s.slug}`} className="font-semibold text-lilac hover:underline">
                   {s.title}
                 </Link>
               </span>
@@ -180,7 +180,7 @@ export default async function ArticlePage({ params }: Params) {
             <ul className="mt-4 space-y-3">
               {others.map((o) => (
                 <li key={o.slug}>
-                  <Link href={`/blog/${o.slug}`} className="clay group flex items-center justify-between gap-4 rounded-2xl p-4 transition hover:bg-white/[0.05]">
+                  <Link prefetch={false} href={`/blog/${o.slug}`} className="clay group flex items-center justify-between gap-4 rounded-2xl p-4 transition hover:bg-white/[0.05]">
                     <span className="font-semibold">{o.title}</span>
                     <ArrowUpRight size={16} className="shrink-0 text-muted transition group-hover:text-white" />
                   </Link>

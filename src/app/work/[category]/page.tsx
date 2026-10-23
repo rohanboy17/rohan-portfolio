@@ -65,7 +65,7 @@ export default async function CategoryPage({ params }: Params) {
         ]}
       />
       <div className="mx-auto max-w-6xl">
-        <Link href="/work" className="inline-flex items-center gap-2 text-sm text-muted transition hover:text-white">
+        <Link prefetch={false} href="/work" className="inline-flex items-center gap-2 text-sm text-muted transition hover:text-white">
           <ArrowLeft size={16} /> All categories
         </Link>
 
@@ -100,7 +100,7 @@ export default async function CategoryPage({ params }: Params) {
           <p className="mx-auto mt-3 max-w-md text-muted">
             {category.cta?.body ?? "This is the kind of work I ship end to end. Let’s talk about yours."}
           </p>
-          <Link
+          <Link prefetch={false}
             href="/#contact"
             className="btn-clay mt-6 inline-flex items-center gap-2 rounded-full bg-lilac px-6 py-3 font-semibold text-ink"
           >

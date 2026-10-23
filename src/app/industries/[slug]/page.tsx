@@ -71,7 +71,7 @@ export default async function IndustryPage({ params }: Params) {
         ]}
       />
       <div className="mx-auto max-w-6xl">
-        <Link href="/industries" className="inline-flex items-center gap-2 text-sm text-muted transition hover:text-white">
+        <Link prefetch={false} href="/industries" className="inline-flex items-center gap-2 text-sm text-muted transition hover:text-white">
           <ArrowLeft size={16} /> All industries
         </Link>
 
@@ -90,7 +90,7 @@ export default async function IndustryPage({ params }: Params) {
         <Reveal>
           <nav aria-label="Sectors" className="mt-8 flex flex-wrap justify-center gap-2 sm:justify-start">
             {sectorCounts.map((s) => (
-              <Link
+              <Link prefetch={false}
                 key={s.slug}
                 href={`/work?industry=${ind.slug}&sector=${s.slug}${s.count ? "" : "#demo"}`}
                 className={clsx(
@@ -134,7 +134,7 @@ export default async function IndustryPage({ params }: Params) {
                 <ul className="mt-4 flex flex-wrap gap-2">
                   {services.map((s) => (
                     <li key={s.slug}>
-                      <Link href={`/services/${s.slug}`} className="inline-flex rounded-full border border-line bg-white/5 px-3 py-1.5 text-sm text-white/85 transition hover:border-lilac/40 hover:text-white">
+                      <Link prefetch={false} href={`/services/${s.slug}`} className="inline-flex rounded-full border border-line bg-white/5 px-3 py-1.5 text-sm text-white/85 transition hover:border-lilac/40 hover:text-white">
                         {s.title}
                       </Link>
                     </li>

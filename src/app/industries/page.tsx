@@ -27,7 +27,7 @@ export default function IndustriesHub() {
     <div className="px-4 pb-24 pt-28 sm:px-6 sm:pt-36">
       <JsonLd data={breadcrumbs([["Industries", "/industries"]])} />
       <div className="mx-auto max-w-6xl">
-        <Link href="/work" className="inline-flex items-center gap-2 text-sm text-muted transition hover:text-white">
+        <Link prefetch={false} href="/work" className="inline-flex items-center gap-2 text-sm text-muted transition hover:text-white">
           <ArrowLeft size={16} /> Search all work
         </Link>
 
@@ -47,7 +47,7 @@ export default function IndustriesHub() {
             const projects = projectsInIndustry(ind.slug).filter((p) => p.category !== "UI replica");
             return (
               <Item key={ind.slug} className="h-full">
-                <Link
+                <Link prefetch={false}
                   href={`/industries/${ind.slug}`}
                   className="clay group relative flex h-full flex-col overflow-hidden rounded-[28px] p-6 transition hover:-translate-y-1"
                 >

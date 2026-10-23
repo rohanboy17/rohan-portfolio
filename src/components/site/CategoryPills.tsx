@@ -8,7 +8,7 @@ import Clip3D from "@/components/ui/Clip3D";
 export default function CategoryPills({ active, className }: { active?: string; className?: string }) {
   return (
     <div className={clsx("flex flex-wrap gap-2.5", className)}>
-      <Link
+      <Link prefetch={false}
         href="/work"
         className={clsx(
           "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition",
@@ -21,7 +21,7 @@ export default function CategoryPills({ active, className }: { active?: string; 
         const a = accentStyles[c.accent];
         const on = active === c.slug;
         return (
-          <Link
+          <Link prefetch={false}
             key={c.slug}
             href={`/work/${c.slug}`}
             className={clsx(

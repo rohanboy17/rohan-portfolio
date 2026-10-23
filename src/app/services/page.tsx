@@ -28,7 +28,7 @@ export default function ServicesPage() {
     <div className="px-4 pb-24 pt-28 sm:px-6 sm:pt-36">
       <JsonLd data={[breadcrumbs([["Services", "/services"]]), faqPage(generalFaqs)]} />
       <div className="mx-auto max-w-6xl">
-        <Link href="/" className="inline-flex items-center gap-2 text-sm text-muted transition hover:text-white">
+        <Link prefetch={false} href="/" className="inline-flex items-center gap-2 text-sm text-muted transition hover:text-white">
           <ArrowLeft size={16} /> Back to home
         </Link>
 
@@ -52,7 +52,7 @@ export default function ServicesPage() {
             const a = accentStyles[s.accent];
             return (
               <Item key={s.slug} className="h-full">
-                <Link
+                <Link prefetch={false}
                   href={`/services/${s.slug}`}
                   className="clay group relative flex h-full flex-col overflow-hidden rounded-[28px] p-6 transition hover:-translate-y-1"
                 >

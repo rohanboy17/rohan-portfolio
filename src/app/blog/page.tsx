@@ -27,7 +27,7 @@ export default function BlogIndex() {
     <div className="px-4 pb-24 pt-28 sm:px-6 sm:pt-36">
       <JsonLd data={breadcrumbs([["Blog", "/blog"]])} />
       <div className="mx-auto max-w-6xl">
-        <Link href="/" className="inline-flex items-center gap-2 text-sm text-muted transition hover:text-white">
+        <Link prefetch={false} href="/" className="inline-flex items-center gap-2 text-sm text-muted transition hover:text-white">
           <ArrowLeft size={16} /> Back to home
         </Link>
 
@@ -44,7 +44,7 @@ export default function BlogIndex() {
             const poster = posterOf(a.project);
             return (
               <Item key={a.slug} className="h-full">
-                <Link href={`/blog/${a.slug}`} className="clay group flex h-full flex-col overflow-hidden rounded-[28px] p-3 transition hover:-translate-y-1">
+                <Link prefetch={false} href={`/blog/${a.slug}`} className="clay group flex h-full flex-col overflow-hidden rounded-[28px] p-3 transition hover:-translate-y-1">
                   {poster ? (
                     <div className="relative aspect-[16/9] overflow-hidden rounded-[22px] border border-line">
                       <Image src={poster} alt="" fill priority={i < 2} sizes="(min-width: 640px) 560px, 100vw" className="object-cover object-top transition duration-500 group-hover:scale-[1.02]" />

@@ -126,7 +126,7 @@ export default function Projects() {
             </ShowMoreGrid>
             <Reveal>
               <div className="mt-10 flex justify-center">
-                <Link
+                <Link prefetch={false}
                   href="/work"
                   className="btn-clay inline-flex items-center gap-2 rounded-full bg-lilac px-6 py-3 font-semibold text-ink"
                 >

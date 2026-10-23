@@ -245,3 +245,34 @@ html.js [data-reveal]:not([data-shown]) {
     transform: none;
   }
 }
+
+/* ---------- Lite mode ----------
+   <html class="lite"> is set before first paint (see layout.tsx) on phones, touch screens,
+   low-end devices (<=4 GB RAM or <=4 cores), Data Saver and reduced motion. It removes the
+   effects that make cheap GPUs stutter: full-screen blending, big gaussian blurs, frosted glass
+   and endless animations. Desktop keeps everything. */
+.lite .grain {
+  display: none;
+}
+.lite .animate-float {
+  animation: none;
+}
+/* Decorative glows: a radial mask looks almost the same as a 64px blur at a fraction of the cost. */
+.lite .blur-xl,
+.lite .blur-2xl,
+.lite .blur-3xl {
+  filter: none;
+  -webkit-mask-image: radial-gradient(closest-side, #000 10%, transparent);
+  mask-image: radial-gradient(closest-side, #000 10%, transparent);
+}
+.lite .backdrop-blur-sm,
+.lite .backdrop-blur-md,
+.lite .backdrop-blur-xl,
+.lite .backdrop-blur-2xl {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+/* Surfaces that relied on frosted glass for legibility get a solid tint instead. */
+.lite .solid-when-lite {
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.065), rgb(255 255 255 / 0.02)), rgb(11 11 18 / 0.94);
+}

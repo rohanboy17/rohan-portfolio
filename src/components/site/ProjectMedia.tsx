@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
-import { useReducedMotion } from "@/lib/media";
+import { useLite, useReducedMotion } from "@/lib/media";
 import type { Project } from "@/content/profile";
 import { accentStyles } from "@/components/ui/accent";
 import Clip3D from "@/components/ui/Clip3D";
@@ -14,6 +14,9 @@ import Clip3D from "@/components/ui/Clip3D";
  */
 export default function ProjectMedia({ project, priority = false }: { project: Project; priority?: boolean }) {
   const reduce = useReducedMotion();
+  // Phones and low-end devices: no autoplay (each loop is 0.2–0.8 MB and costly to decode).
+  // The poster stays, with a tap-to-preview button.
+  const lite = useLite();
   const ref = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
   const a = accentStyles[project.accent];
@@ -21,7 +24,7 @@ export default function ProjectMedia({ project, priority = false }: { project: P
 
   useEffect(() => {
     const video = ref.current;
-    if (!video || reduce) return;
+    if (!video || reduce || lite) return;
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -34,7 +37,7 @@ export default function ProjectMedia({ project, priority = false }: { project: P
     );
     io.observe(video);
     return () => io.disconnect();
-  }, [reduce]);
+  }, [reduce, lite]);
 
   return (
     <div className={clsx("overflow-hidden rounded-[24px] border bg-ink", a.border)}>
@@ -70,6 +73,18 @@ export default function ProjectMedia({ project, priority = false }: { project: P
             aria-hidden
             className="absolute inset-0 h-full w-full object-cover object-top"
           />
+        ) : null}
+        {project.video && lite && !reduce && !playing ? (
+          <button
+            type="button"
+            onClick={() => {
+              ref.current?.play().then(() => setPlaying(true)).catch(() => {});
+            }}
+            aria-label={`Play ${project.title} preview`}
+            className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full bg-ink/85 px-3 py-1.5 text-xs font-semibold text-white"
+          >
+            ▶ Preview
+          </button>
         ) : null}
       </div>
     </div>

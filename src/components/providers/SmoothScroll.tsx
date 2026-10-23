@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useFinePointer, useReducedMotion } from "@/lib/media";
+import { useFinePointer, useLite, useReducedMotion } from "@/lib/media";
 
 /**
  * Lenis smooth scrolling for mouse/trackpad users only. It is loaded on demand,
@@ -10,9 +10,10 @@ import { useFinePointer, useReducedMotion } from "@/lib/media";
 export function SmoothScroll() {
   const fine = useFinePointer();
   const reduce = useReducedMotion();
+  const lite = useLite();
 
   useEffect(() => {
-    if (!fine || reduce) return;
+    if (!fine || reduce || lite) return;
     let lenis: { destroy: () => void } | undefined;
     let cancelled = false;
     import("lenis").then(({ default: Lenis }) => {
@@ -23,7 +24,7 @@ export function SmoothScroll() {
       cancelled = true;
       lenis?.destroy();
     };
-  }, [fine, reduce]);
+  }, [fine, reduce, lite]);
 
   return null;
 }

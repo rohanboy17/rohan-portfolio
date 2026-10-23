@@ -82,10 +82,10 @@ export default function SiteHeader({
       <div
         className={clsx(
           "mx-auto flex h-14 max-w-6xl items-center justify-between rounded-full pl-4 pr-2 transition-[background-color,border-color,box-shadow] duration-300 sm:pl-5",
-          scrolled || menu ? "clay bg-ink/75 backdrop-blur-xl" : "border border-transparent",
+          scrolled || menu ? "clay solid-when-lite bg-ink/75 backdrop-blur-xl" : "border border-transparent",
         )}
       >
-        <Link href="/" className="flex items-center gap-2 font-display text-lg font-semibold tracking-tight" aria-label={`${name} — home`}>
+        <Link prefetch={false} href="/" className="flex items-center gap-2 font-display text-lg font-semibold tracking-tight" aria-label={`${name} — home`}>
           <Logo size={34} id="logo-header" className="drop-shadow-[0_6px_14px_rgba(196,181,253,0.35)]" />
           <span>
             {firstName}
@@ -125,7 +125,7 @@ export default function SiteHeader({
                 </div>
               </div>
             ) : (
-              <Link
+              <Link prefetch={false}
                 key={item.label}
                 href={item.href}
                 className="rounded-full px-4 py-2 text-sm text-muted transition hover:bg-white/5 hover:text-white"
@@ -138,7 +138,7 @@ export default function SiteHeader({
 
         <div className="flex items-center gap-2">
           <SearchLauncher />
-          <Link
+          <Link prefetch={false}
             href="/#contact"
             className="btn-clay hidden rounded-full bg-lilac px-5 py-2 text-sm font-semibold text-ink sm:inline-flex"
           >
@@ -190,7 +190,7 @@ export default function SiteHeader({
             const enter = open ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0";
             if (!item.sections) {
               return (
-                <Link
+                <Link prefetch={false}
                   key={item.label}
                   href={item.href}
                   onClick={closeAll}
@@ -237,7 +237,7 @@ export default function SiteHeader({
           })}
         </nav>
         <div className="relative mt-6 grid shrink-0 gap-3">
-          <Link
+          <Link prefetch={false}
             href="/#contact"
             onClick={closeAll}
             tabIndex={open ? 0 : -1}
@@ -323,7 +323,7 @@ function MenuLink({
       {body}
     </a>
   ) : (
-    <Link href={link.href} onClick={onNavigate} tabIndex={tabIndex} className={className}>
+    <Link prefetch={false} href={link.href} onClick={onNavigate} tabIndex={tabIndex} className={className}>
       {body}
     </Link>
   );

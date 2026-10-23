@@ -33,7 +33,7 @@ export function ProjectLinks({ project, compact = false }: { project: Project; c
           <BrandIcon slug="github" size={14} /> Code
         </a>
       ) : null}
-      <Link href={`/projects/${project.slug}`} className={clsx(pill, "border border-line bg-white/5 hover:bg-white/10")}>
+      <Link prefetch={false} href={`/projects/${project.slug}`} className={clsx(pill, "border border-line bg-white/5 hover:bg-white/10")}>
         Case study <ArrowUpRight size={14} />
       </Link>
     </div>
@@ -115,7 +115,7 @@ export function CompactCard({ project, className, priority = false }: { project:
   const a = accentStyles[project.accent];
   return (
     <article className={clsx("clay relative flex gap-3 overflow-hidden rounded-[22px] p-2.5", className)}>
-      <Link
+      <Link prefetch={false}
         href={`/projects/${project.slug}`}
         aria-label={`${project.title} case study`}
         className="relative min-h-[112px] w-[38%] shrink-0 self-stretch overflow-hidden rounded-2xl border border-line bg-ink"
@@ -146,7 +146,7 @@ export function CompactCard({ project, className, priority = false }: { project:
               Live <ExternalLink size={12} />
             </a>
           ) : null}
-          <Link
+          <Link prefetch={false}
             href={`/projects/${project.slug}`}
             className="inline-flex items-center gap-1 rounded-full border border-line bg-white/5 px-3 py-2 text-xs font-semibold"
           >

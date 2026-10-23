@@ -39,7 +39,7 @@ export default function WorkHub() {
   return (
     <div className="px-4 pb-24 pt-28 sm:px-6 sm:pt-36">
       <div className="mx-auto max-w-6xl">
-        <Link href="/#projects" className="inline-flex items-center gap-2 text-sm text-muted transition hover:text-white">
+        <Link prefetch={false} href="/#projects" className="inline-flex items-center gap-2 text-sm text-muted transition hover:text-white">
           <ArrowLeft size={16} /> Back to home
         </Link>
 
@@ -79,7 +79,7 @@ export default function WorkHub() {
           </h2>
           <p className="mt-2 text-center text-muted sm:text-left">
             Or browse{" "}
-            <Link href="/industries" className="font-semibold text-lilac hover:underline">
+            <Link prefetch={false} href="/industries" className="font-semibold text-lilac hover:underline">
               all industries
             </Link>
             .
@@ -90,7 +90,7 @@ export default function WorkHub() {
               const sample = projectsInCategory(c.slug).slice(0, 4);
               return (
                 <Item key={c.slug} className="h-full sm:odd:last:col-span-2">
-                  <Link
+                  <Link prefetch={false}
                     href={`/work/${c.slug}`}
                     className="clay group relative flex h-full flex-col overflow-hidden rounded-[32px] p-6 transition hover:-translate-y-1 sm:p-8"
                   >

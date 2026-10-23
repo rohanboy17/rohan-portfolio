@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useFinePointer, useReducedMotion } from "@/lib/media";
+import { useFinePointer, useLite, useReducedMotion } from "@/lib/media";
 
 /** Soft trailing cursor ring for mouse users. One rAF loop, no React re-renders. */
 export function CustomCursor() {
@@ -9,7 +9,8 @@ export function CustomCursor() {
   const reduce = useReducedMotion();
   const dot = useRef<HTMLDivElement>(null);
   const ring = useRef<HTMLDivElement>(null);
-  const enabled = fine && !reduce;
+  const lite = useLite();
+  const enabled = fine && !reduce && !lite;
 
   useEffect(() => {
     if (!enabled) return;
