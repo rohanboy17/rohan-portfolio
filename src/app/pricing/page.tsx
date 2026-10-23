@@ -12,7 +12,7 @@ import { shareMetadata } from "@/lib/seo";
 
 const title = "Website Design Prices in Kolkata & India from ₹4,999";
 const description =
-  "Website from ₹4,999, online store ₹19,999, mobile app from ₹34,999. Custom-built in days with a free homepage demo before you pay. Clear prices, no hidden charges.";
+  "Website from ₹4,999, online store ₹19,999, app from ₹34,999. Custom-built in days, with a free homepage demo before you pay. No hidden charges.";
 
 export const metadata: Metadata = {
   title: { absolute: title },
