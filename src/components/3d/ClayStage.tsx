@@ -38,7 +38,7 @@ function Poster({ hidden }: { hidden: boolean }) {
         hidden ? "pointer-events-none opacity-0" : "opacity-100",
       )}
     >
-      <Clip3D name="laptop" size={260} eager float delay={0.3} className="absolute left-1/2 top-1/2 w-[50%] -translate-x-1/2 -translate-y-1/2" />
+      <Clip3D name="laptop" size={260} priority float delay={0.3} className="absolute left-1/2 top-1/2 w-[50%] -translate-x-1/2 -translate-y-1/2" />
       <Clip3D name="rocket" size={140} eager float tilt={8} className="absolute right-[6%] top-[6%] w-[24%]" />
       <Clip3D name="sparkles" size={110} eager float delay={1.2} className="absolute left-[8%] top-[10%] w-[18%]" />
       <Clip3D name="database" size={110} eager float delay={0.6} className="absolute bottom-[8%] right-[10%] w-[18%]" />

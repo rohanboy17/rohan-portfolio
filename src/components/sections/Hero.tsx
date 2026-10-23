@@ -30,7 +30,7 @@ export default function Hero() {
           <h1 className="mt-6 font-display text-[2.6rem] font-semibold leading-[1.04] tracking-tight sm:text-6xl lg:text-7xl">
             <span className="flex items-center justify-center gap-3 lg:justify-start">
               Hi, I&apos;m {profile.firstName}
-              <Clip3D name="wave" size={72} eager float tilt={-12} className="h-11 w-11 sm:h-16 sm:w-16" />
+              <Clip3D name="wave" size={72} priority float tilt={-12} className="h-11 w-11 sm:h-16 sm:w-16" />
             </span>
             <span className="text-gradient mt-1 block">{profile.heroTitle}</span>
           </h1>

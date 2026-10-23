@@ -128,6 +128,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           Skip to content
         </a>
         <PageLoader />
+        <div id="top-sentinel" aria-hidden className="pointer-events-none absolute left-0 top-0 h-3 w-px" />
         <div aria-hidden className="aurora pointer-events-none fixed inset-0 z-0" />
         <div aria-hidden className="grain pointer-events-none fixed inset-0 z-0" />
         <div className="relative z-10 flex min-h-screen flex-col">

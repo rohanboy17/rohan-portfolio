@@ -30,11 +30,14 @@ export default function SiteHeader({
   const closeTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const navRef = useRef<HTMLElement>(null);
 
+  // "Scrolled" = the 12px marker at the top of the page (#top-sentinel, layout.tsx) has left the
+  // viewport. An observer instead of reading scrollY: no forced layout while the page loads.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const sentinel = document.getElementById("top-sentinel");
+    if (!sentinel) return;
+    const io = new IntersectionObserver(([e]) => setScrolled(!e.isIntersecting));
+    io.observe(sentinel);
+    return () => io.disconnect();
   }, []);
 
   useEffect(() => {
