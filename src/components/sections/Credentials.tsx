@@ -10,12 +10,14 @@ import { Item, Reveal, Stagger } from "@/components/site/MotionPrimitives";
  * gradient border in the item's accent, floating 3D badge with glow, status seal and a hover shine.
  * Centered on phones, left-aligned from `sm` up.
  */
-export default function Credentials() {
+/** `inTab`: rendered inside the Journey tabs, so the section's own heading is dropped. */
+export default function Credentials({ inTab = false }: { inTab?: boolean }) {
   const { achievements } = profile;
   if (!achievements.length) return null;
 
   return (
-    <div className="mt-16 sm:mt-20">
+    <div className={inTab ? undefined : "mt-16 sm:mt-20"}>
+      {inTab ? null : (
       <Reveal>
         <div className="flex flex-col items-center gap-3 text-center sm:flex-row sm:items-end sm:justify-between sm:text-left">
           <div>
@@ -29,8 +31,9 @@ export default function Credentials() {
           </p>
         </div>
       </Reveal>
+      )}
 
-      <Stagger className="mt-8 grid gap-5 md:grid-cols-2">
+      <Stagger className={inTab ? "grid gap-5 md:grid-cols-2" : "mt-8 grid gap-5 md:grid-cols-2"}>
         {achievements.map((c) => {
           const a = accentStyles[c.accent];
           const Tag = c.href ? "a" : "div";

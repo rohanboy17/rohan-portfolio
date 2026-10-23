@@ -123,7 +123,7 @@ export default async function ServicePage({ params }: Params) {
 
         <section className="mt-20">
           <SectionHeading eyebrow="What you get" title="Everything you need to launch." clip="package" />
-          <Stagger className="mt-10 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
+          <Stagger className="swipe-sm mt-10 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
             {service.deliverables.map((d) => (
               <Item key={d.title} className="h-full">
                 <div className="clay h-full rounded-3xl p-5 sm:p-6">

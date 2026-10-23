@@ -41,7 +41,7 @@ export default function IndustriesHub() {
           </p>
         </header>
 
-        <Stagger className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <Stagger className="swipe-sm mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {liveIndustries.map((ind) => {
             const a = accentStyles[ind.accent];
             const projects = projectsInIndustry(ind.slug).filter((p) => p.category !== "UI replica");

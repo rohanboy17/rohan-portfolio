@@ -47,7 +47,7 @@ export default function ServicesPage() {
           </div>
         </header>
 
-        <Stagger className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <Stagger className="swipe-sm mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((s) => {
             const a = accentStyles[s.accent];
             return (
@@ -71,7 +71,7 @@ export default function ServicesPage() {
 
         <section className="mt-20">
           <SectionHeading eyebrow="Why work with me" title="One developer, start to finish." clip="star" />
-          <Stagger className="mt-10 grid gap-3 sm:grid-cols-2 sm:gap-4">
+          <Stagger className="swipe-sm mt-10 grid gap-3 sm:grid-cols-2 sm:gap-4">
             {whyHire.map((w) => (
               <Item key={w.title} className="h-full">
                 <div className="clay h-full rounded-3xl p-5 sm:p-6">

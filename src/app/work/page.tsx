@@ -21,6 +21,8 @@ export const metadata: Metadata = {
 };
 
 const LIST_ID = "work-results";
+/** Cards shown before "Show all" when no filter is active (all show without JavaScript). */
+const FIRST_PAGE = 12;
 
 export default function WorkHub() {
   const total = profile.projects.length;
@@ -58,6 +60,7 @@ export default function WorkHub() {
           types={categoryCounts.map((c) => ({ slug: c.slug, short: c.short, count: c.count }))}
           items={profile.projects.map((p) => ({ slug: p.slug, industry: p.industry, sector: p.sector, type: categoryOf(p).slug }))}
           listId={LIST_ID}
+          firstPage={FIRST_PAGE}
           demo={{ offer: profile.demoOffer, whatsappNumber, email: profile.email }}
         />
 
@@ -65,13 +68,15 @@ export default function WorkHub() {
         <h2 className="sr-only">All projects</h2>
         {/* One compact card per project at every size: half the DOM of phone + desktop variants,
             which keeps hydration of 59 results fast on phones. */}
-        <ul id={LIST_ID} className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <ul id={LIST_ID} data-collapsed="" className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {profile.projects.map((p, i) => (
-            <li key={p.slug} data-slug={p.slug} data-industry={p.industry} data-sector={p.sector} data-type={categoryOf(p).slug} className="h-full">
+            <li key={p.slug} data-slug={p.slug} data-industry={p.industry} data-sector={p.sector} data-type={categoryOf(p).slug} data-extra={i >= FIRST_PAGE ? "" : undefined} className="h-full">
               <CompactCard project={p} className="h-full" priority={i < 3} />
             </li>
           ))}
         </ul>
+        {/* WorkExplorer puts its "Show all" button here. */}
+        <div id={`${LIST_ID}-more`} />
 
         <section className="mt-20" aria-labelledby="by-type">
           <h2 id="by-type" className="text-center font-display text-2xl font-semibold sm:text-left sm:text-3xl">

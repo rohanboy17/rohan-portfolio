@@ -29,7 +29,7 @@ export default function Pricing({ full = false, asPage = false }: { full?: boole
           />
         )}
 
-        <Stagger className={clsx("grid gap-4 md:grid-cols-2 xl:grid-cols-4", !asPage && "mt-10 sm:mt-12")}>
+        <Stagger className={clsx("swipe-xl grid gap-4 xl:grid-cols-4", !asPage && "mt-10 sm:mt-12")}>
           {plans.map((p) => (
             <Item key={p.slug} className="h-full">
               <article
@@ -90,7 +90,7 @@ export default function Pricing({ full = false, asPage = false }: { full?: boole
         </Stagger>
 
         <Reveal>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="swipe-sm mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {everyPlan.map((e) => (
               <div key={e.title} className="rounded-3xl border border-line bg-white/[0.03] p-4">
                 <p className="text-sm font-semibold text-white">{e.title}</p>

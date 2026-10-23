@@ -26,7 +26,7 @@ export default function Skills() {
           clip="tools"
         />
 
-        <Stagger className="mt-10 grid gap-3 sm:mt-12 sm:grid-cols-2 sm:gap-4 lg:grid-cols-6">
+        <Stagger className="swipe-sm mt-10 grid gap-3 sm:mt-12 sm:grid-cols-2 sm:gap-4 lg:grid-cols-6">
           {profile.skills.map((group, i) => {
             const a = accentStyles[group.accent];
             return (

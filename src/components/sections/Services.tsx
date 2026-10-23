@@ -18,7 +18,7 @@ export default function Services() {
           clip="briefcase"
         />
 
-        <Stagger className="mt-10 grid gap-3 sm:mt-12 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
+        <Stagger className="swipe-sm mt-10 grid gap-3 sm:mt-12 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
           {services.map((s) => {
             const a = accentStyles[s.accent];
             return (

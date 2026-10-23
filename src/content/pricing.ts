@@ -42,8 +42,8 @@ export const plans: Plan[] = [
       "WhatsApp, call and enquiry-form buttons",
       "Google Maps and social links",
       "SEO setup: titles, sitemap and Google Search Console",
-      "Free .in or .com domain for the first year",
-      "Free SSL and no yearly hosting fee",
+      "Free .in or .com domain and hosting for the first year",
+      "Free SSL certificate",
       "2 rounds of changes",
       "30 days of free support",
     ],
@@ -140,7 +140,7 @@ export const comparison: { label: string; them: string; me: string }[] = [
   { label: "See it before you pay", them: "No", me: "Free homepage demo in 3–4 hours" },
   { label: "Design", them: "Mostly ready-made templates", me: "Custom-designed and hand-coded" },
   { label: "Copywriting", them: "Extra charge", me: "Help included" },
-  { label: "Hosting renewal", them: "₹1,000–3,500 every year", me: "No hosting fee for static sites" },
+  { label: "Domain and hosting", them: "Hosting ₹1,000–3,500 a year, domain extra", me: "Both free for the first year" },
   { label: "Support", them: "AMC from ₹2,000/month", me: "30–90 days free, then ₹999/month" },
   { label: "Who you talk to", them: "Sales or account manager", me: "The developer, directly" },
 ];
@@ -160,7 +160,7 @@ export const pricingFaqs = [
   },
   {
     q: "What's not included in the price?",
-    a: "Only third-party fees: domain renewal after the first year (around ₹800–1,000), Shopify or paid hosting for stores and apps, payment-gateway charges, and app-store developer accounts (Google Play $25 once, Apple $99 a year). I'll tell you about each one upfront.",
+    a: "Only third-party fees: domain and hosting renewal after the first year (I'll quote the exact yearly cost before launch), Shopify or paid hosting for stores and apps, payment-gateway charges, and app-store developer accounts (Google Play $25 once, Apple $99 a year). I'll tell you about each one upfront.",
   },
   {
     q: "Do you work with clients outside India?",

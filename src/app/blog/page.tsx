@@ -39,31 +39,31 @@ export default function BlogIndex() {
           </p>
         </header>
 
-        <Stagger className="mt-12 grid gap-4 sm:grid-cols-2">
+        <Stagger className="mt-10 grid gap-3 sm:mt-12 sm:grid-cols-2 sm:gap-4">
           {posts.map((a, i) => {
             const poster = posterOf(a.project);
             return (
               <Item key={a.slug} className="h-full">
-                <Link prefetch={false} href={`/blog/${a.slug}`} className="clay group flex h-full flex-col overflow-hidden rounded-[28px] p-3 transition hover:-translate-y-1">
+                <Link prefetch={false} href={`/blog/${a.slug}`} className="clay group flex h-full items-center gap-3 overflow-hidden rounded-3xl p-3 transition hover:-translate-y-1 sm:flex-col sm:items-stretch sm:gap-0 sm:rounded-[28px]">
                   {poster ? (
-                    <div className="relative aspect-[16/9] overflow-hidden rounded-[22px] border border-line">
-                      <Image src={poster} alt="" fill priority={i < 2} sizes="(min-width: 640px) 560px, 100vw" className="object-cover object-top transition duration-500 group-hover:scale-[1.02]" />
+                    <div className="relative aspect-square w-24 shrink-0 overflow-hidden rounded-2xl border border-line sm:aspect-[16/9] sm:w-auto sm:rounded-[22px]">
+                      <Image src={poster} alt="" fill priority={i < 2} sizes="(min-width: 640px) 560px, 96px" className="object-cover object-top transition duration-500 group-hover:scale-[1.02]" />
                     </div>
                   ) : null}
-                  <div className="flex flex-1 flex-col px-2 pb-2 pt-4">
+                  <div className="flex min-w-0 flex-1 flex-col sm:px-2 sm:pb-2 sm:pt-4">
                     <p className="text-xs text-muted">
                       {formatDate(a.published)} · {readingMinutes(a)} min read
                     </p>
-                    <h2 className="mt-2 text-balance font-display text-xl font-semibold sm:text-2xl">{a.title}</h2>
-                    <p className="mt-2 text-pretty text-sm leading-relaxed text-muted">{a.description}</p>
-                    <ul className="mt-4 flex flex-wrap gap-1.5">
+                    <h2 className="mt-1 text-balance font-display text-base font-semibold leading-snug sm:mt-2 sm:text-2xl">{a.title}</h2>
+                    <p className="mt-2 hidden text-pretty text-sm leading-relaxed text-muted sm:block">{a.description}</p>
+                    <ul className="mt-4 hidden flex-wrap gap-1.5 sm:flex">
                       {a.tags.slice(0, 4).map((t) => (
                         <li key={t} className="rounded-full border border-line bg-white/5 px-2.5 py-1 text-xs text-white/80">
                           {t}
                         </li>
                       ))}
                     </ul>
-                    <p className="mt-auto flex items-center gap-1.5 pt-5 text-sm font-semibold text-lilac">
+                    <p className="mt-auto flex items-center gap-1.5 pt-2 text-sm font-semibold text-lilac sm:pt-5">
                       Read the story <ArrowUpRight size={15} />
                     </p>
                   </div>

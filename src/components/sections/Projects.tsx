@@ -10,17 +10,15 @@ import { ProjectLinks, MiniCard } from "@/components/site/ProjectCard";
 import CategoryPills from "@/components/site/CategoryPills";
 import { accentStyles } from "@/components/ui/accent";
 import { Reveal } from "@/components/site/MotionPrimitives";
-import ShowMoreGrid from "@/components/site/ShowMoreGrid";
+import CarouselControls from "@/components/site/CarouselControls";
 
 function FeaturedCard({ project, index }: { project: Project; index: number }) {
   const a = accentStyles[project.accent];
-  const flip = index % 2 === 1;
 
   return (
-    <Reveal>
-      <article className="clay relative overflow-hidden rounded-[32px] p-3 sm:rounded-[36px] sm:p-6">
-        <div aria-hidden className={clsx("absolute -top-24 h-64 w-64 rounded-full opacity-30 blur-3xl", a.bg, flip ? "-left-16" : "-right-16")} />
-        <div className={clsx("relative grid items-center gap-5 lg:grid-cols-2 lg:gap-10", flip && "lg:[&>*:first-child]:order-2")}>
+    <article className="clay relative h-full overflow-hidden rounded-[32px] p-3 sm:rounded-[36px] sm:p-6">
+        <div aria-hidden className={clsx("absolute -right-16 -top-24 h-64 w-64 rounded-full opacity-30 blur-3xl", a.bg)} />
+        <div className="relative grid items-center gap-5 lg:grid-cols-2 lg:gap-10">
           <ProjectMedia project={mediaProps(project)} priority={index === 0} />
           <div className="min-w-0 px-2 pb-3 sm:px-2 lg:px-0 lg:pb-2">
             <div className="flex items-center gap-3">
@@ -79,7 +77,6 @@ function FeaturedCard({ project, index }: { project: Project; index: number }) {
           </div>
         </div>
       </article>
-    </Reveal>
   );
 }
 
@@ -104,27 +101,35 @@ export default function Projects() {
           </div>
         </Reveal>
 
-        <div className="mt-10 space-y-5 sm:mt-12 sm:space-y-6">
-          {featuredProjects.map((p, i) => (
-            <FeaturedCard key={p.slug} project={p} index={i} />
-          ))}
-        </div>
+        {/* Featured spotlight: one project at a time instead of six stacked cards. */}
+        <Reveal>
+          <div id="featured-track" className="carousel mt-10 gap-4 sm:mt-12" aria-label="Featured projects">
+            {featuredProjects.map((p, i) => (
+              <div key={p.slug} className="w-full" aria-roledescription="slide" aria-label={`${i + 1} of ${featuredProjects.length}: ${p.title}`}>
+                <FeaturedCard project={p} index={i} />
+              </div>
+            ))}
+          </div>
+          <CarouselControls target="featured-track" labels={featuredProjects.map((p) => p.title)} className="mt-5" />
+        </Reveal>
 
         {otherProjects.length ? (
           <>
+            {/* Only the next nine: rendering every project here (each with a video player) froze
+                phones for seconds. The full, searchable list lives on /work. */}
             <Reveal>
               <div className="mt-16 flex items-end justify-between gap-4 sm:mt-20">
                 <h3 className="font-display text-2xl font-semibold">More work</h3>
-                <p className="text-sm text-muted sm:hidden">Swipe →</p>
+                <CarouselControls target="more-track" labels={otherProjects.slice(0, 9).map((p) => p.title)} dots={false} />
+              </div>
+              <div id="more-track" className="carousel mt-6 gap-4" aria-label="More projects">
+                {otherProjects.slice(0, 9).map((p) => (
+                  <div key={p.slug} className="w-[82%] sm:w-[calc(50%-0.5rem)] lg:w-[calc((100%-2rem)/3)]">
+                    <MiniCard project={p} />
+                  </div>
+                ))}
               </div>
             </Reveal>
-            {/* Only the next nine: rendering every project here (each with a video player) froze
-                phones for seconds. The full, searchable list lives on /work. */}
-            <ShowMoreGrid>
-              {otherProjects.slice(0, 9).map((p) => (
-                <MiniCard key={p.slug} project={p} />
-              ))}
-            </ShowMoreGrid>
             <Reveal>
               <div className="mt-10 flex justify-center">
                 <Link prefetch={false}

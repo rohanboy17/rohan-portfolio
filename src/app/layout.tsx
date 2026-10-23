@@ -6,7 +6,8 @@ import JsonLd from "@/components/site/JsonLd";
 import { siteNav } from "@/lib/nav";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import RevealObserver from "@/components/site/RevealObserver";
-import WhatsAppButton from "@/components/site/WhatsAppButton";
+import FloatingContact from "@/components/site/FloatingContact";
+import PageLoader from "@/components/site/PageLoader";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
 import Analytics from "@/components/site/Analytics";
@@ -99,13 +100,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} antialiased`} suppressHydrationWarning>
       <head>
         {/* Lets CSS hide not-yet-revealed sections only when JS is running (no-JS visitors see everything). */}
+        {/* data-loading="page" shows the top loading bar until the window load event (see PageLoader). */}
         {/* "lite" = phones, touch screens, low-end devices, Data Saver or reduced motion: CSS and
             components drop the costly effects (blur, grain, floating art, autoplay video). Set before
             first paint so nothing flashes. */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "(function(){var d=document.documentElement,n=navigator;d.classList.add('js');try{if(matchMedia('(hover: none), (pointer: coarse), (max-width: 767px), (prefers-reduced-motion: reduce)').matches||(n.deviceMemory&&n.deviceMemory<=4)||(n.hardwareConcurrency&&n.hardwareConcurrency<=4)||(n.connection&&n.connection.saveData))d.classList.add('lite')}catch(e){}})()",
+              "(function(){var d=document.documentElement,n=navigator;d.classList.add('js');d.dataset.loading='page';var done=function(){if(d.dataset.loading==='page')delete d.dataset.loading};addEventListener('load',done);setTimeout(done,15000);try{if(matchMedia('(hover: none), (pointer: coarse), (max-width: 767px), (prefers-reduced-motion: reduce)').matches||(n.deviceMemory&&n.deviceMemory<=4)||(n.hardwareConcurrency&&n.hardwareConcurrency<=4)||(n.connection&&n.connection.saveData))d.classList.add('lite')}catch(e){}})()",
           }}
         />
       </head>
@@ -116,6 +118,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         >
           Skip to content
         </a>
+        <PageLoader />
         <div aria-hidden className="aurora pointer-events-none fixed inset-0 z-0" />
         <div aria-hidden className="grain pointer-events-none fixed inset-0 z-0" />
         <div className="relative z-10 flex min-h-screen flex-col">
@@ -125,7 +128,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           </main>
           <SiteFooter />
         </div>
-        <WhatsAppButton />
+        <FloatingContact />
         <CustomCursor />
         <SmoothScroll />
         <RevealObserver />

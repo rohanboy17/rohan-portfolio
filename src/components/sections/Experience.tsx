@@ -3,6 +3,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import Clip3D from "@/components/ui/Clip3D";
 import { Reveal } from "@/components/site/MotionPrimitives";
 import Credentials from "./Credentials";
+import Tabs from "@/components/site/Tabs";
 
 function Timeline({ items }: { items: TimelineItem[] }) {
   return (
@@ -38,44 +39,24 @@ function Timeline({ items }: { items: TimelineItem[] }) {
   );
 }
 
+/** Experience, education and certifications as tabs: one panel at a time instead of three stacked lists. */
 export default function Experience() {
-  const { experience, education } = profile;
+  const { experience, education, achievements } = profile;
+  const tabs = [
+    { label: "Experience", panel: <Timeline items={experience} /> },
+    ...(education.length ? [{ label: "Education", panel: <Timeline items={education} /> }] : []),
+    ...(achievements.length ? [{ label: "Certifications", panel: <Credentials inTab /> }] : []),
+  ];
 
   return (
     <section id="experience" className="px-4 py-16 sm:px-6 sm:py-24">
       <div className="mx-auto max-w-6xl">
         <SectionHeading eyebrow="Journey" title="Experience & education." clip="briefcase" />
-
-        <div className="mt-10 grid gap-10 sm:mt-12 lg:grid-cols-2">
-          <div>
-            <h3 className="mb-5 text-center text-xs font-semibold uppercase tracking-[0.28em] text-muted sm:mb-6 sm:text-left">Experience</h3>
-            <Timeline items={experience} />
-          </div>
-          <div className="space-y-10">
-            {education.length ? (
-              <div>
-                <h3 className="mb-5 text-center text-xs font-semibold uppercase tracking-[0.28em] text-muted sm:mb-6 sm:text-left">Education</h3>
-                <Timeline items={education} />
-              </div>
-            ) : null}
-            {!education.length ? (
-              <Reveal>
-                <div className="clay flex items-center gap-5 rounded-[28px] p-6">
-                  <Clip3D name="grad" size={72} float />
-                  <div>
-                    <p className="font-display text-xl font-semibold">Always learning</p>
-                    <p className="mt-1 text-sm text-muted">
-                      Every project teaches something new — from payment webhooks and database design to
-                      WebGL and Core Web Vitals.
-                    </p>
-                  </div>
-                </div>
-              </Reveal>
-            ) : null}
-          </div>
-        </div>
-
-        <Credentials />
+        <Tabs labels={tabs.map((t) => t.label)} className="mx-auto mt-10 max-w-4xl sm:mt-12">
+          {tabs.map((t) => (
+            <div key={t.label}>{t.panel}</div>
+          ))}
+        </Tabs>
       </div>
     </section>
   );

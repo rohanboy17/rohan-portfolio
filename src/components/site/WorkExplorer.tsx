@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
 import clsx from "clsx";
-import { Search, X } from "lucide-react";
+import { ChevronDown, Search, X } from "lucide-react";
 import { loadSearchIndex, search, type SearchIndex } from "@/lib/search";
 import DemoRequest, { type DemoOffer } from "./DemoRequest";
 
@@ -23,6 +24,8 @@ type Props = {
   items: ExplorerItem[];
   /** id of the server-rendered <ul> whose <li data-slug> items this filters. */
   listId: string;
+  /** How many cards show before "Show all" when no filter is active. */
+  firstPage: number;
   demo: { offer: DemoOffer; whatsappNumber: string; email: string };
 };
 
@@ -60,7 +63,7 @@ function navigate(f: Filters) {
  * server-rendered list; this island only toggles `hidden` and CSS `order` on those items,
  * so no card code ships to the browser and the page works fully without JavaScript.
  */
-export default function WorkExplorer({ industries, types, items, listId, demo }: Props) {
+export default function WorkExplorer({ industries, types, items, listId, firstPage, demo }: Props) {
   const qs = useSyncExternalStore(subscribeUrl, urlSnapshot, serverSnapshot);
   const filters = useMemo(() => parse(qs), [qs]);
   const set = (patch: Partial<Filters>) => navigate({ ...filters, ...patch });
@@ -102,17 +105,37 @@ export default function WorkExplorer({ industries, types, items, listId, demo }:
     return { visible, rank, related: fallback ? industries.find((i) => i.slug === fallback)?.title : undefined };
   }, [items, filters.industry, filters.sector, filters.type, result, industries]);
 
+  const anyFilter = Boolean(filters.q || filters.industry || filters.sector || filters.type);
+  // Unfiltered, the list starts at the first few cards (CSS hides the `data-extra` ones while
+  // the list has `data-collapsed`) so the page stays short; any filter shows every match.
+  const [expanded, setExpanded] = useState(false);
+  const collapsed = !anyFilter && !expanded;
+  const moreSlot = useSyncExternalStore(
+    noopSubscribe,
+    () => document.getElementById(`${listId}-more`),
+    () => null,
+  );
+
   // Apply the view to the server-rendered list (DOM only, no React state).
   useEffect(() => {
-    document
-      .getElementById(listId)
+    const list = document.getElementById(listId);
+    list?.toggleAttribute("data-collapsed", collapsed);
+    list
       ?.querySelectorAll<HTMLElement>("li[data-slug]")
       .forEach((li) => {
         const slug = li.dataset.slug!;
         li.hidden = !view.visible.has(slug);
         li.style.order = view.rank.has(slug) ? String(view.rank.get(slug)) : "";
       });
-  }, [view, listId]);
+  }, [view, listId, collapsed]);
+
+  const showAll = () => {
+    setExpanded(true);
+    // Keyboard users continue from the first newly shown card.
+    requestAnimationFrame(() =>
+      document.querySelector<HTMLElement>(`#${listId} > li[data-extra] a`)?.focus({ preventScroll: true }),
+    );
+  };
 
   const shown = view.visible.size;
   const total = items.length;
@@ -129,7 +152,6 @@ export default function WorkExplorer({ industries, types, items, listId, demo }:
     setDraft(null);
     navigate({ q: "", industry: "", sector: "", type: "" });
   };
-  const anyFilter = Boolean(filters.q || filters.industry || filters.sector || filters.type);
   const related = view.related;
 
   return (
@@ -210,7 +232,9 @@ export default function WorkExplorer({ industries, types, items, listId, demo }:
             ? "Searching…"
             : related
               ? `No exact match for “${filters.q}”. Closest work in ${related}: ${shown} projects`
-              : `${shown} of ${total} projects`}
+              : collapsed
+                ? `Showing ${Math.min(shown, firstPage)} of ${total} projects`
+                : `${shown} of ${total} projects`}
         </p>
         {anyFilter ? (
           <button type="button" onClick={clearAll} className="text-sm font-semibold text-lilac hover:underline">
@@ -220,9 +244,26 @@ export default function WorkExplorer({ industries, types, items, listId, demo }:
       </div>
 
       {demoFor ? <DemoRequest business={demoFor} {...demo} className="mt-6" /> : null}
+
+      {collapsed && moreSlot
+        ? createPortal(
+            <div className="mt-8 flex justify-center">
+              <button
+                type="button"
+                onClick={showAll}
+                className="clay inline-flex items-center gap-2 rounded-full px-6 py-3 font-semibold transition hover:bg-white/10"
+              >
+                Show all {total} projects <ChevronDown size={18} />
+              </button>
+            </div>,
+            moreSlot,
+          )
+        : null}
     </div>
   );
 }
+
+const noopSubscribe = () => () => {};
 
 /** Sector title → how a visitor would say it: "Hotels & resorts" → "hotel", "Real estate agencies" → "real estate agency". */
 function demoLabel(title: string): string {

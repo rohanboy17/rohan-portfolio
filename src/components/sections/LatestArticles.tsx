@@ -20,7 +20,7 @@ export default function LatestArticles() {
           description="Short build stories: the problem, the architecture and the trade-offs, from projects you can see live."
           clip="bulb"
         />
-        <Stagger className="mt-10 grid gap-4 sm:mt-12 md:grid-cols-3">
+        <Stagger className="swipe-md mt-10 grid gap-4 sm:mt-12 md:grid-cols-3">
           {latest.map((a) => {
             const poster = posterOf(a.project);
             return (

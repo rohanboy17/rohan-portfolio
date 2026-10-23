@@ -52,11 +52,21 @@ export default function About() {
           <div className="flex min-w-0 flex-col gap-4 sm:gap-6">
             <Reveal delay={0.08}>
               <div className="clay rounded-[32px] p-6 text-base leading-relaxed text-white/85 sm:p-8 sm:text-lg">
-                {profile.about.map((p) => (
-                  <p key={p} className="mt-4 text-pretty first:mt-0">
-                    {p}
-                  </p>
-                ))}
+                <p className="text-pretty">{profile.about[0]}</p>
+                {/* The rest folds away: the first paragraph says who I am, the rest is detail. */}
+                {profile.about.length > 1 ? (
+                  <details className="group mt-4">
+                    <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 text-sm font-semibold text-lilac [&::-webkit-details-marker]:hidden">
+                      <span className="group-open:hidden">Read more</span>
+                      <span className="hidden group-open:inline">Show less</span>
+                    </summary>
+                    {profile.about.slice(1).map((p) => (
+                      <p key={p} className="mt-4 text-pretty">
+                        {p}
+                      </p>
+                    ))}
+                  </details>
+                ) : null}
               </div>
             </Reveal>
             {/* Swipe rail on phones, three columns from `sm` up */}
