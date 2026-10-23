@@ -7,6 +7,7 @@ import { accentStyles } from "@/components/ui/accent";
 import Clip3D from "@/components/ui/Clip3D";
 import BrandIcon from "@/components/ui/BrandIcon";
 import ProjectMedia from "@/components/site/ProjectMedia";
+import { mediaProps } from "@/lib/media-props";
 
 const pill = "inline-flex items-center justify-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-semibold transition";
 
@@ -91,7 +92,7 @@ export function MiniCard({
   return (
     <article className={clsx("clay group relative flex h-full flex-col overflow-hidden rounded-[28px] p-3 transition hover:-translate-y-1", className)}>
       <div aria-hidden className={clsx("absolute -right-10 -top-10 h-32 w-32 rounded-full opacity-20 blur-2xl transition group-hover:opacity-40", a.bg)} />
-      {lite ? <PosterFrame project={project} priority={priority} /> : <ProjectMedia project={project} priority={priority} />}
+      {lite ? <PosterFrame project={project} priority={priority} /> : <ProjectMedia project={mediaProps(project)} priority={priority} />}
       <div className="relative flex flex-1 flex-col px-2 pb-2 pt-4">
         <div className="flex items-center justify-between gap-3">
           <h3 className="font-display text-lg font-semibold">{project.title}</h3>

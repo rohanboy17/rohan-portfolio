@@ -5,17 +5,9 @@ import ClayStage from "@/components/3d/ClayStage";
 import Clip3D from "@/components/ui/Clip3D";
 import SocialRow from "@/components/ui/SocialRow";
 import BrandIcon from "@/components/ui/BrandIcon";
+import { HERO_STACK } from "@/lib/icons";
 
-const HERO_STACK = [
-  ["nextdotjs", "Next.js"],
-  ["react", "React"],
-  ["typescript", "TypeScript"],
-  ["nodedotjs", "Node.js"],
-  ["postgresql", "PostgreSQL"],
-  ["prisma", "Prisma"],
-  ["tailwindcss", "Tailwind CSS"],
-  ["vercel", "Vercel"],
-] as const;
+
 
 export default function Hero() {
   return (

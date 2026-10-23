@@ -1,15 +1,9 @@
-import * as icons from "simple-icons";
-
-type SimpleIcon = { title: string; path: string; hex: string };
-
-function lookup(slug: string): SimpleIcon | undefined {
-  const key = `si${slug.charAt(0).toUpperCase()}${slug.slice(1)}`;
-  return (icons as unknown as Record<string, SimpleIcon | undefined>)[key];
-}
+import { lookupIcon, SPRITE_SLUGS, spriteHref } from "@/lib/icons";
 
 /**
- * Brand logo from simple-icons (CC0). Server component only: the icon data
- * stays on the server and just the <svg> path reaches the browser.
+ * Brand logo from simple-icons (CC0). Server component only. Icons in the /icons.svg sprite
+ * render as a tiny <use> reference (the browser caches the sprite once); anything else falls
+ * back to an inline path, so an icon can never go missing.
  */
 export default function BrandIcon({
   slug,
@@ -25,7 +19,7 @@ export default function BrandIcon({
   label?: string;
   className?: string;
 }) {
-  const icon = lookup(slug);
+  const icon = lookupIcon(slug);
   if (!icon) return null;
 
   // Very dark brand colours (Next.js, Vercel…) would vanish on the dark theme.
@@ -43,7 +37,7 @@ export default function BrandIcon({
       fill={fill}
       className={className}
     >
-      <path d={icon.path} />
+      {SPRITE_SLUGS.includes(slug) ? <use href={spriteHref(slug)} /> : <path d={icon.path} />}
     </svg>
   );
 }

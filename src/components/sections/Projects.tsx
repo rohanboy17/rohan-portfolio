@@ -5,6 +5,7 @@ import { profile, featuredProjects, otherProjects, type Project } from "@/conten
 import SectionHeading from "@/components/ui/SectionHeading";
 import Clip3D from "@/components/ui/Clip3D";
 import ProjectMedia from "@/components/site/ProjectMedia";
+import { mediaProps } from "@/lib/media-props";
 import { ProjectLinks, MiniCard } from "@/components/site/ProjectCard";
 import CategoryPills from "@/components/site/CategoryPills";
 import { accentStyles } from "@/components/ui/accent";
@@ -20,7 +21,7 @@ function FeaturedCard({ project, index }: { project: Project; index: number }) {
       <article className="clay relative overflow-hidden rounded-[32px] p-3 sm:rounded-[36px] sm:p-6">
         <div aria-hidden className={clsx("absolute -top-24 h-64 w-64 rounded-full opacity-30 blur-3xl", a.bg, flip ? "-left-16" : "-right-16")} />
         <div className={clsx("relative grid items-center gap-5 lg:grid-cols-2 lg:gap-10", flip && "lg:[&>*:first-child]:order-2")}>
-          <ProjectMedia project={project} priority={index === 0} />
+          <ProjectMedia project={mediaProps(project)} priority={index === 0} />
           <div className="min-w-0 px-2 pb-3 sm:px-2 lg:px-0 lg:pb-2">
             <div className="flex items-center gap-3">
               <Clip3D name={project.clip} size={44} className="h-9 w-9 sm:h-11 sm:w-11" />

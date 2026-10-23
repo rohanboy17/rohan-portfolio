@@ -7,6 +7,7 @@ import { profile, categoryOf, serviceForProject, industryOf, sectorOf, liveIndus
 import Clip3D from "@/components/ui/Clip3D";
 import BrandIcon from "@/components/ui/BrandIcon";
 import ProjectMedia from "@/components/site/ProjectMedia";
+import { mediaProps } from "@/lib/media-props";
 import { accentStyles } from "@/components/ui/accent";
 import { Reveal } from "@/components/site/MotionPrimitives";
 import QuoteCta from "@/components/site/QuoteCta";
@@ -133,7 +134,7 @@ export default async function ProjectPage({ params }: Params) {
         </div>
 
         <div className="mt-10">
-          <ProjectMedia project={project} priority />
+          <ProjectMedia project={mediaProps(project)} priority />
         </div>
 
         {articlesForProject(project.slug).map((story) => (

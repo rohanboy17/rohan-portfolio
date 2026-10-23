@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import { useLite, useReducedMotion } from "@/lib/media";
-import type { Project } from "@/content/profile";
+import type { MediaProject } from "@/lib/media-props";
 import { accentStyles } from "@/components/ui/accent";
 import Clip3D from "@/components/ui/Clip3D";
 
@@ -12,7 +12,7 @@ import Clip3D from "@/components/ui/Clip3D";
  * Browser-framed project preview. Plays a muted demo loop while on screen,
  * falls back to the poster, and finally to a 3D clip-art cover.
  */
-export default function ProjectMedia({ project, priority = false }: { project: Project; priority?: boolean }) {
+export default function ProjectMedia({ project, priority = false }: { project: MediaProject; priority?: boolean }) {
   const reduce = useReducedMotion();
   // Phones and low-end devices: no autoplay (each loop is 0.2–0.8 MB and costly to decode).
   // The poster stays, with a tap-to-preview button.
