@@ -125,6 +125,22 @@ export const carePlan = {
   features: ["Updates and backups", "Uptime monitoring", "Up to 1 hour of changes every month", "Priority WhatsApp support"],
 };
 
+/** One-off changes to a site that's already live, whoever built it. */
+export const changesPlan = {
+  name: "Changes to an existing website",
+  inr: "₹2,499",
+  period: "per request",
+  forWho: "Already have a website, built by me or another developer? Get it edited, fixed or extended.",
+  features: [
+    "Text, image and layout edits",
+    "Bug and broken-page fixes",
+    "New sections, pages or features",
+    "WordPress, Shopify, React / Next.js and PHP sites",
+  ],
+  note: "Starting price. Send me the site and what you need, and I'll confirm a fixed price before any work starts.",
+  whatsapp: "Hi Rohan, I have an existing website and need some changes. Can you take a look?",
+};
+
 /** Promises that apply to every plan. */
 export const everyPlan = [
   { title: "Free demo first", body: "See your homepage designed in 3–4 hours before you pay anything." },
@@ -161,6 +177,10 @@ export const pricingFaqs = [
   {
     q: "What's not included in the price?",
     a: "Only third-party fees: domain and hosting renewal after the first year (I'll quote the exact yearly cost before launch), Shopify or paid hosting for stores and apps, payment-gateway charges, and app-store developer accounts (Google Play $25 once, Apple $99 a year). I'll tell you about each one upfront.",
+  },
+  {
+    q: "Can you change a website another developer built?",
+    a: "Yes. Edits, fixes and new features on existing WordPress, Shopify, React, Next.js and PHP sites start at ₹2,499 per request. Share the site and what you need, and I'll confirm a fixed price before starting.",
   },
   {
     q: "Do you work with clients outside India?",

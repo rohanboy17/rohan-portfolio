@@ -2,7 +2,7 @@ import Link from "next/link";
 import clsx from "clsx";
 import { ArrowRight, Check, Clock } from "lucide-react";
 import { profile } from "@/content/profile";
-import { plans, carePlan, everyPlan, comparison, internationalMarkup } from "@/content/pricing";
+import { plans, carePlan, changesPlan, everyPlan, comparison, internationalMarkup } from "@/content/pricing";
 import { usdFromInr, usdPerInr } from "@/lib/fx";
 import SectionHeading from "@/components/ui/SectionHeading";
 import SocialIcon from "@/components/ui/SocialIcon";
@@ -125,6 +125,35 @@ export default async function Pricing({ full = false, asPage = false }: { full?:
                 </li>
               ))}
             </ul>
+          </div>
+        </Reveal>
+
+        <Reveal>
+          <div className="clay mt-4 flex flex-col gap-4 rounded-3xl p-5 sm:p-6 lg:flex-row lg:items-center lg:justify-between">
+            <div className="lg:max-w-md">
+              <p className="font-semibold text-white">
+                {changesPlan.name}: <span className="text-muted">from</span> {changesPlan.inr}{" "}
+                <span className="text-muted">{changesPlan.period}</span>{" "}
+                <span className="text-xs font-normal text-muted">({usd(changesPlan.inr)} international)</span>
+              </p>
+              <p className="mt-1 text-sm text-muted">{changesPlan.forWho}</p>
+              <p className="mt-2 text-xs leading-relaxed text-muted">{changesPlan.note}</p>
+            </div>
+            <ul className="flex flex-wrap gap-2 lg:max-w-sm">
+              {changesPlan.features.map((f) => (
+                <li key={f} className="rounded-full border border-line bg-white/5 px-3 py-1 text-xs text-white/80">
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <a
+              href={wa(changesPlan.whatsapp)}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-[#25D366]/40 bg-[#25D366]/15 px-5 py-3 text-sm font-semibold text-[#5be38f] transition hover:bg-[#25D366]/25"
+            >
+              <SocialIcon icon="whatsapp" size={16} /> Request a change
+            </a>
           </div>
         </Reveal>
 

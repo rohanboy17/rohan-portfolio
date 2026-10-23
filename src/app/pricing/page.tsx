@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { profile } from "@/content/profile";
-import { plans, pricingFaqs } from "@/content/pricing";
+import { plans, changesPlan, pricingFaqs } from "@/content/pricing";
 import Pricing from "@/components/sections/Pricing";
 import Faq from "@/components/site/Faq";
 import QuoteCta from "@/components/site/QuoteCta";
@@ -41,7 +41,15 @@ export default function PricingPage() {
               priceCurrency: "INR",
               url: `${profile.siteUrl}/pricing`,
               seller: { "@id": `${profile.siteUrl}/#business` },
-            })),
+            })).concat({
+              "@type": "Offer",
+              name: changesPlan.name,
+              description: changesPlan.forWho,
+              price: num(changesPlan.inr),
+              priceCurrency: "INR",
+              url: `${profile.siteUrl}/pricing`,
+              seller: { "@id": `${profile.siteUrl}/#business` },
+            }),
           },
         ]}
       />
