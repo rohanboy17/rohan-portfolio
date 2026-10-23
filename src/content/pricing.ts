@@ -6,6 +6,9 @@
  * ₹14,999–₹60,000; simple apps ₹14,999–₹29,999 without a backend; maintenance ~₹2,000/month).
  * The offer: about the same price, much more included, delivered in days, and a free demo
  * before paying. Change any figure here and every page updates.
+ *
+ * International clients see US-dollar prices worked out from the rupee price at the day's
+ * exchange rate plus `internationalMarkup` (see src/lib/fx.ts), so they track the rupee.
  */
 export type Plan = {
   slug: string;
@@ -13,7 +16,6 @@ export type Plan = {
   /** Who it's for, one line. */
   forWho: string;
   inr: string;
-  usd: string;
   /** Shown after the price, e.g. "one-time" or "starting price". */
   priceNote: string;
   delivery: string;
@@ -26,13 +28,15 @@ export type Plan = {
   whatsapp: string;
 };
 
+/** Extra charged on top of the converted price for international clients (0.1 = 10%). */
+export const internationalMarkup = 0.1;
+
 export const plans: Plan[] = [
   {
     slug: "launch",
     name: "Launch",
     forWho: "Shops, clinics, freelancers and local businesses that need a professional site fast.",
     inr: "₹4,999",
-    usd: "$99",
     priceNote: "one-time",
     delivery: "Live in 2–3 days",
     features: [
@@ -54,7 +58,6 @@ export const plans: Plan[] = [
     name: "Business",
     forWho: "Growing businesses, B2B suppliers and institutes that want more pages and to rank on Google.",
     inr: "₹9,999",
-    usd: "$199",
     priceNote: "one-time",
     delivery: "Live in 4–5 days",
     popular: true,
@@ -76,7 +79,6 @@ export const plans: Plan[] = [
     name: "Online Store",
     forWho: "Brands and shops ready to sell online with payments, delivery and order management.",
     inr: "₹19,999",
-    usd: "$349",
     priceNote: "one-time",
     delivery: "Live in 7–10 days",
     features: [
@@ -98,7 +100,6 @@ export const plans: Plan[] = [
     name: "App or Web App",
     forWho: "Startups and businesses that need an Android/iOS app or custom software with an admin panel.",
     inr: "₹34,999",
-    usd: "$599",
     priceNote: "starting price",
     delivery: "From 2–3 weeks",
     features: [
@@ -120,7 +121,6 @@ export const plans: Plan[] = [
 export const carePlan = {
   name: "Care plan",
   inr: "₹999",
-  usd: "$19",
   period: "/ month",
   features: ["Updates and backups", "Uptime monitoring", "Up to 1 hour of changes every month", "Priority WhatsApp support"],
 };

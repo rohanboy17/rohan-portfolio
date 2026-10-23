@@ -2,7 +2,8 @@ import Link from "next/link";
 import clsx from "clsx";
 import { ArrowRight, Check, Clock } from "lucide-react";
 import { profile } from "@/content/profile";
-import { plans, carePlan, everyPlan, comparison } from "@/content/pricing";
+import { plans, carePlan, everyPlan, comparison, internationalMarkup } from "@/content/pricing";
+import { usdFromInr, usdPerInr } from "@/lib/fx";
 import SectionHeading from "@/components/ui/SectionHeading";
 import SocialIcon from "@/components/ui/SocialIcon";
 import { Item, Reveal, Stagger } from "@/components/site/MotionPrimitives";
@@ -15,7 +16,9 @@ const wa = (text: string) => `https://wa.me/${waNumber}?text=${encodeURIComponen
  * Pricing plans. Server component (no client JS). `full` adds the market comparison table,
  * used on /pricing; the homepage shows the plans and promises only.
  */
-export default function Pricing({ full = false, asPage = false }: { full?: boolean; asPage?: boolean }) {
+export default async function Pricing({ full = false, asPage = false }: { full?: boolean; asPage?: boolean }) {
+  const rate = await usdPerInr();
+  const usd = (inr: string) => usdFromInr(inr, rate, internationalMarkup);
   return (
     <section id="pricing" aria-labelledby={asPage ? undefined : "pricing-title"} className={clsx(!asPage && "px-4 py-16 sm:px-6 sm:py-24")}>
       <div className={clsx(!asPage && "mx-auto max-w-6xl")}>
@@ -50,7 +53,7 @@ export default function Pricing({ full = false, asPage = false }: { full?: boole
                   <span className="font-display text-4xl font-semibold tracking-tight">{p.inr}</span>
                 </p>
                 <p className="mt-1 text-xs text-muted">
-                  {p.priceNote} · {p.usd} for international clients
+                  {p.priceNote} · {usd(p.inr)} for international clients
                 </p>
                 <p className="mt-3 inline-flex w-fit items-center gap-1.5 rounded-full border border-mint/30 bg-mint/10 px-3 py-1 text-xs font-medium text-mint">
                   <Clock size={12} /> {p.delivery}
@@ -92,6 +95,7 @@ export default function Pricing({ full = false, asPage = false }: { full?: boole
             </Item>
           ))}
         </Stagger>
+        <p className="mt-4 text-center text-xs text-muted sm:text-left">International prices are in US dollars and follow the daily exchange rate.</p>
 
         <Reveal>
           <div className="swipe-sm mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -110,7 +114,7 @@ export default function Pricing({ full = false, asPage = false }: { full?: boole
               <p className="font-semibold text-white">
                 {carePlan.name}: {carePlan.inr}
                 <span className="text-muted">{carePlan.period}</span>{" "}
-                <span className="text-xs font-normal text-muted">({carePlan.usd} international)</span>
+                <span className="text-xs font-normal text-muted">({usd(carePlan.inr)} international)</span>
               </p>
               <p className="mt-1 text-sm text-muted">After your free support period. Cancel anytime.</p>
             </div>

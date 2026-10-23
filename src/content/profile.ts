@@ -2056,7 +2056,7 @@ export const whyHire = [
 export const generalFaqs = [
   {
     q: "How much does a website or app cost?",
-    a: "Websites start at ₹4,999 ($99), online stores at ₹19,999 ($349) and apps or web apps from ₹34,999 ($599). See the pricing page for what each plan includes, or tell me what you need and I'll send a fixed quote within 24 hours.",
+    a: "Websites start at ₹4,999, online stores at ₹19,999 and apps or web apps from ₹34,999. International clients see US-dollar prices on the pricing page, updated daily. See the pricing page for what each plan includes, or tell me what you need and I'll send a fixed quote within 24 hours.",
   },
   {
     q: "Do you work with international clients?",
