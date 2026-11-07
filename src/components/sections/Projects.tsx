@@ -1,7 +1,7 @@
 import Link from "next/link";
 import clsx from "clsx";
 import { ArrowRight } from "lucide-react";
-import { profile, featuredProjects, otherProjects, type Project } from "@/content/profile";
+import { profile, featuredProjects, otherProjects, projectsShipped, type Project } from "@/content/profile";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Clip3D from "@/components/ui/Clip3D";
 import ProjectMedia from "@/components/site/ProjectMedia";
@@ -87,7 +87,7 @@ export default function Projects() {
         <SectionHeading
           eyebrow="Selected work"
           title="Real products, live in production."
-          description="SaaS platforms, marketplaces and e-commerce stores — chosen from 60+ builds, each designed, built and shipped by me."
+          description={`SaaS platforms, marketplaces and e-commerce stores — chosen from ${projectsShipped} builds, each designed, built and shipped by me.`}
           clip="rocket"
         />
 

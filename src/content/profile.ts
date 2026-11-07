@@ -146,12 +146,8 @@ export const profile = {
     "I work directly with founders and businesses in India, the US, Canada, the UAE, Europe, Africa and Asia — one developer from first call to launch, no agency hand-offs. I'm also open to full-time roles on product teams.",
   ],
 
-  stats: [
-    { value: "4+", label: "Years building for the web" },
-    { value: "50+", label: "Projects shipped" },
-    { value: "50+", label: "Live deployments" },
-    { value: "20+", label: "Technologies in production" },
-  ],
+  /** Worked out from the projects below (see "Stats" after the profile), so the numbers stay current. */
+  stats: [] as { value: string; label: string }[],
 
   /** `primary` ones also appear in the hero; every account appears in Contact and the footer. */
   socials: [
@@ -1108,19 +1104,21 @@ export const profile = {
     },
     {
       slug: "cockroach-jobs",
-      title: "Cockroach Jobs",
+      title: "Freelancewfh",
       tagline: "Fixed & freelance job board for Gen Z",
       category: "WordPress",
       industry: "jobs-hr",
       sector: "job-boards",
+      keywords: ["cockroach jobs", "freelance jobs", "remote jobs", "jobs india"],
       clip: "bulb",
       accent: "peach",
       problem: "A hiring startup needed a job board where businesses post vacancies and applicants respond with text, images and video.",
-      solution: "Built a custom 'Cockroach Jobs Core' WordPress plugin on top of a job-portal theme, with employer and seeker flows.",
+      solution:
+        "Built a custom job-board core plugin and brand plugin on a job-portal child theme, with employer and job-seeker flows for local, remote, internship and freelance roles across India.",
       highlights: ["Custom job-board plugin", "Employer and job-seeker dashboards"],
       stack: ["WordPress", "PHP", "Custom plugin"],
-      // cockroachjobs.in was pointing at a domain-parking page on 7 Nov 2026; restore the link when it's back.
-      mediaLabel: "cockroachjobs.in · temporarily offline",
+      // Launched as Cockroach Jobs (cockroachjobs.in); the slug stays so existing links keep working.
+      liveUrl: "https://freelancewfh.com",
     },
     {
       slug: "wowei-lighting",
@@ -1399,7 +1397,7 @@ export const profile = {
     {
       title: "Freelance Full-Stack Developer",
       org: "Self-employed",
-      period: "2023 — Present", // TODO(rohan): confirm start year
+      period: "2023 — Present",
       location: "Remote · India",
       clip: "rocket",
       points: [
@@ -1490,6 +1488,26 @@ for (const p of profile.projects) {
   p.poster ??= media?.poster;
   p.video ??= media?.video;
 }
+
+/* ---------- Stats: counted from the work above so they never fall behind it ---------- */
+const CAREER_START = 2023;
+/** 65 → "60+": round down so a stat never claims more than is listed. */
+const atLeast = (n: number) => `${Math.floor(n / 10) * 10}+`;
+// Stack entries like "Custom theme" or "cPanel" describe the build or the host, not a technology.
+const notTechnology = /^(custom|block|static|css animation|named pipes|windows services|hostinger|cpanel|google drive|google sheets)\b/i;
+const technologies = new Set(
+  profile.projects
+    .flatMap((p) => p.stack)
+    .map((t) => t.replace(/\s*\(.*?\)/g, "").replace(/\s+\d[\d.]*$/, "").trim())
+    .filter((t) => !notTechnology.test(t)),
+);
+export const projectsShipped = atLeast(profile.projects.length);
+profile.stats = [
+  { value: `${new Date().getFullYear() - CAREER_START}+`, label: "Years building for the web" },
+  { value: projectsShipped, label: "Projects shipped" },
+  { value: atLeast(profile.projects.filter((p) => p.liveUrl).length), label: "Live deployments" },
+  { value: atLeast(technologies.size), label: "Technologies in production" },
+];
 
 export const featuredProjects = profile.projects.filter((p) => p.featured);
 export const otherProjects = profile.projects.filter((p) => !p.featured);
