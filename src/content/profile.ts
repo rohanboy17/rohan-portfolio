@@ -2068,7 +2068,7 @@ export const generalFaqs = [
   },
   {
     q: "Do you offer support after launch?",
-    a: "Yes. Bug fixes are included after launch, and I offer ongoing maintenance, updates and new features if you need them.",
+    a: "Yes. Every plan includes free support after launch: 30 days for Launch, 60 for Business, 90 for Online Store and 120 for apps and web apps. After that, the Care plan covers updates, backups and monitoring for ₹999 a month, and Fix & Upgrade handles one-off changes from ₹2,499."
   },
   {
     q: "Are you available for full-time roles too?",

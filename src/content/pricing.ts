@@ -15,15 +15,23 @@ export type Plan = {
   name: string;
   /** Who it's for, one line. */
   forWho: string;
+  /** Business types this plan suits best, shown as tags on the card. */
+  bestFor: string[];
   inr: string;
-  /** Shown after the price, e.g. "one-time" or "starting price". */
+  /** Show "from" before the price. */
+  from?: boolean;
+  /** Shown after the price, e.g. "one-time" or "per month". */
   priceNote: string;
-  delivery: string;
+  delivery?: string;
   popular?: boolean;
   /** First line can be "Everything in X, plus:". */
   features: string[];
   /** Small print under the features. */
   note?: string;
+  /** Points people who need something else to the better plan. */
+  instead?: { when: string; slug: string };
+  /** Button label. */
+  cta: string;
   /** Pre-filled WhatsApp message for the plan's button. */
   whatsapp: string;
 };
@@ -35,7 +43,8 @@ export const plans: Plan[] = [
   {
     slug: "launch",
     name: "Launch",
-    forWho: "Shops, clinics, freelancers and local businesses that need a professional site fast.",
+    forWho: "You need a professional site so customers can find you, trust you and call or WhatsApp you.",
+    bestFor: ["Clinics & doctors", "Salons & gyms", "Restaurants & cafés", "Local shops & services", "Freelancers & coaches"],
     inr: "₹4,999",
     priceNote: "one-time",
     delivery: "Live in 2–3 days",
@@ -51,12 +60,15 @@ export const plans: Plan[] = [
       "2 rounds of changes",
       "30 days of free support",
     ],
+    instead: { when: "Need more than 5 pages, a blog or to edit the site yourself?", slug: "business" },
+    cta: "Get my free demo",
     whatsapp: "Hi Rohan, I'm interested in the Launch website plan (₹4,999). Can I get the free homepage demo?",
   },
   {
     slug: "business",
     name: "Business",
-    forWho: "Growing businesses, B2B suppliers and institutes that want more pages and to rank on Google.",
+    forWho: "You want to rank on Google, show many services or products, and edit the site yourself.",
+    bestFor: ["Manufacturers & B2B suppliers", "Schools & coaching centres", "Real estate & builders", "Hotels & travel agents", "CA, law & consulting firms"],
     inr: "₹9,999",
     priceNote: "one-time",
     delivery: "Live in 4–5 days",
@@ -72,12 +84,15 @@ export const plans: Plan[] = [
       "3 rounds of changes",
       "60 days of free support",
     ],
+    instead: { when: "Want customers to pay and order on the site?", slug: "store" },
+    cta: "Get my free demo",
     whatsapp: "Hi Rohan, I'm interested in the Business website plan (₹9,999). Can I get the free homepage demo?",
   },
   {
     slug: "store",
     name: "Online Store",
-    forWho: "Brands and shops ready to sell online with payments, delivery and order management.",
+    forWho: "You want customers to pick products, pay online and get them delivered to their door.",
+    bestFor: ["Clothing & boutiques", "Beauty & skincare", "Jewellery & handicrafts", "Food & organic products", "D2C brands"],
     inr: "₹19,999",
     priceNote: "one-time",
     delivery: "Live in 7–10 days",
@@ -90,16 +105,20 @@ export const plans: Plan[] = [
       "Fast, mobile-first checkout",
       "Product SEO and structured data for Google",
       "Training video so your team can manage orders",
-      "60 days of free support",
+      "90 days of free support",
     ],
     note: "Shopify plan, hosting and payment-gateway fees are paid to those providers directly, in your name.",
+    instead: { when: "Need bookings, customer accounts or a mobile app?", slug: "app" },
+    cta: "Get my free demo",
     whatsapp: "Hi Rohan, I'm interested in the Online Store plan (₹19,999). Can we talk about my store?",
   },
   {
     slug: "app",
     name: "App or Web App",
-    forWho: "Startups and businesses that need an Android/iOS app or custom software with an admin panel.",
+    forWho: "Your idea needs logins, bookings, dashboards or an app on Google Play and the App Store.",
+    bestFor: ["Startups & SaaS", "Booking & appointment systems", "Delivery & tracking apps", "School, clinic & HR portals", "Marketplaces & CRMs"],
     inr: "₹34,999",
+    from: true,
     priceNote: "starting price",
     delivery: "From 2–3 weeks",
     features: [
@@ -110,36 +129,72 @@ export const plans: Plan[] = [
       "Payments if you need them",
       "Weekly test builds you can try on your phone",
       "Google Play and App Store publishing",
-      "90 days of free support",
+      "120 days of free support",
     ],
     note: "Final price is fixed after a free scoping call, before any work starts. Store developer accounts are in your name.",
+    instead: { when: "Only need customers to find and contact you?", slug: "launch" },
+    cta: "Book a free call",
     whatsapp: "Hi Rohan, I need an app / web app. Can we book a free scoping call?",
   },
 ];
 
-/** Monthly maintenance, offered after the free support period. */
-export const carePlan = {
-  name: "Care plan",
-  inr: "₹999",
-  period: "/ month",
-  features: ["Updates and backups", "Uptime monitoring", "Up to 1 hour of changes every month", "Priority WhatsApp support"],
-};
+/** For sites that are already live: monthly care after free support, and one-off fixes for any site. */
+export const ongoingPlans: Plan[] = [
+  {
+    slug: "care",
+    name: "Care",
+    forWho: "Your site is live and free support has ended. I keep it updated, backed up and online.",
+    bestFor: ["Stores taking daily orders", "Sites with regular updates", "Owners without a tech team"],
+    inr: "₹999",
+    priceNote: "per month",
+    features: ["Updates and backups", "Uptime monitoring", "Up to 1 hour of changes every month", "Priority WhatsApp support"],
+    note: "Starts after your free support period. Cancel anytime.",
+    cta: "Start Care",
+    whatsapp: "Hi Rohan, I'd like the Care plan (₹999/month) for my website.",
+  },
+  {
+    slug: "fix-upgrade",
+    name: "Fix & Upgrade",
+    forWho: "Already have a website, built by me or anyone else? Get it edited, fixed or extended.",
+    bestFor: ["Outdated or slow sites", "Broken pages, forms or checkout", "Sites built by someone else"],
+    inr: "₹2,499",
+    from: true,
+    priceNote: "per request",
+    features: [
+      "Text, image and layout edits",
+      "Bug and broken-page fixes",
+      "New sections, pages or features",
+      "WordPress, Shopify, React / Next.js and PHP sites",
+    ],
+    note: "Starting price. Send me the site and what you need, and I'll confirm a fixed price before any work starts.",
+    cta: "Request a change",
+    whatsapp: "Hi Rohan, I have an existing website and need some changes (Fix & Upgrade). Can you take a look?",
+  },
+];
 
-/** One-off changes to a site that's already live, whoever built it. */
-export const changesPlan = {
-  name: "Changes to an existing website",
-  inr: "₹2,499",
-  period: "per request",
-  forWho: "Already have a website, built by me or another developer? Get it edited, fixed or extended.",
-  features: [
-    "Text, image and layout edits",
-    "Bug and broken-page fixes",
-    "New sections, pages or features",
-    "WordPress, Shopify, React / Next.js and PHP sites",
-  ],
-  note: "Starting price. Send me the site and what you need, and I'll confirm a fixed price before any work starts.",
-  whatsapp: "Hi Rohan, I have an existing website and need some changes. Can you take a look?",
-};
+/** "Which plan fits your business?" guide on /pricing. `plan` is a slug from `plans` or `ongoingPlans`. */
+export const planGuide: { business: string; plan: string; why: string }[] = [
+  {
+    business: "Clinic, salon, gym, restaurant or local shop",
+    plan: "launch",
+    why: "Customers mostly want your services, timings and location, and a quick way to call or WhatsApp you.",
+  },
+  { business: "Freelancer, consultant or coach", plan: "launch", why: "A sharp page with your work, reviews and a contact button is what wins clients." },
+  {
+    business: "Manufacturer, B2B supplier or exporter",
+    plan: "business",
+    why: "A page for each product range ranks on Google and brings bulk enquiries, with no online payments needed.",
+  },
+  { business: "School, college or coaching centre", plan: "business", why: "Courses, faculty, admissions and a notice board you update yourself." },
+  { business: "Real estate, builder, hotel or travel agent", plan: "business", why: "Many project, room or tour pages with photo galleries, plus enquiry tracking." },
+  { business: "Hospital or multi-doctor clinic", plan: "business", why: "Separate pages for each department and doctor that patients find on Google." },
+  { business: "Clothing, beauty, jewellery or handicraft brand", plan: "store", why: "Customers browse, pay by UPI or card, and you manage every order in one place." },
+  { business: "Food, sweets or grocery seller", plan: "store", why: "Online orders with delivery areas, cash on delivery and order-on-WhatsApp." },
+  { business: "Business that needs a full booking or appointment system", plan: "app", why: "Customer accounts, live calendars, reminders and online payments need custom software. A simple booking form is a small add-on to any plan." },
+  { business: "Startup, marketplace or SaaS idea", plan: "app", why: "Sign-ups, user roles, an admin dashboard and a product built to grow." },
+  { business: "Company that needs a portal, CRM or internal tool", plan: "app", why: "Custom workflows for your team, with logins and reports." },
+  { business: "Already have a website that needs work", plan: "fix-upgrade", why: "Edits, fixes and new features on the site you have, whoever built it." },
+];
 
 /** Promises that apply to every plan. */
 export const everyPlan = [
@@ -157,11 +212,19 @@ export const comparison: { label: string; them: string; me: string }[] = [
   { label: "Design", them: "Mostly ready-made templates", me: "Custom-designed and hand-coded" },
   { label: "Copywriting", them: "Extra charge", me: "Help included" },
   { label: "Domain and hosting", them: "Hosting ₹1,000–3,500 a year, domain extra", me: "Both free for the first year" },
-  { label: "Support", them: "AMC from ₹2,000/month", me: "30–90 days free, then ₹999/month" },
+  { label: "Support", them: "AMC from ₹2,000/month", me: "30–120 days free, then ₹999/month" },
   { label: "Who you talk to", them: "Sales or account manager", me: "The developer, directly" },
 ];
 
 export const pricingFaqs = [
+  {
+    q: "Which plan should I choose?",
+    a: "If customers mainly need to find you and contact you, choose Launch. If you want to rank on Google with many pages and edit the site yourself, choose Business. If customers should pay and order online, choose Online Store. If you need logins, bookings, dashboards or a mobile app, choose App or Web App. Still not sure? Tell me what your business does and I'll recommend the cheapest plan that does the job.",
+  },
+  {
+    q: "How long is the free support?",
+    a: "30 days on Launch, 60 days on Business, 90 days on Online Store and 120 days on App or Web App, counted from launch. After that, the Care plan keeps your site updated, backed up and monitored for ₹999 a month, or you can pay only when you need a change.",
+  },
   {
     q: "How can the prices be this low?",
     a: "I work directly with you, with no sales team or office overheads, and I use AI-assisted tools for the repetitive parts of the build. That lets me deliver in days instead of weeks. The design, code and testing are still done and checked by me.",
@@ -180,7 +243,7 @@ export const pricingFaqs = [
   },
   {
     q: "Can you change a website another developer built?",
-    a: "Yes. Edits, fixes and new features on existing WordPress, Shopify, React, Next.js and PHP sites start at ₹2,499 per request. Share the site and what you need, and I'll confirm a fixed price before starting.",
+    a: "Yes, with the Fix & Upgrade plan. Edits, fixes and new features on existing WordPress, Shopify, React, Next.js and PHP sites start at ₹2,499 per request. Share the site and what you need, and I'll confirm a fixed price before starting.",
   },
   {
     q: "Do you work with clients outside India?",
@@ -188,6 +251,6 @@ export const pricingFaqs = [
   },
   {
     q: "What if I need something that's not in a plan?",
-    a: "Tell me what you need and I'll send a fixed quote within 24 hours. Most extras, like more pages or products, a second language or booking systems, are small add-ons.",
+    a: "Tell me what you need and I'll send a fixed quote within 24 hours. Most extras, like more pages or products, a second language or a simple booking form, are small add-ons.",
   },
 ];

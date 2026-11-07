@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { profile } from "@/content/profile";
-import { plans, changesPlan, pricingFaqs } from "@/content/pricing";
+import { plans, ongoingPlans, pricingFaqs } from "@/content/pricing";
 import Pricing from "@/components/sections/Pricing";
 import Faq from "@/components/site/Faq";
 import QuoteCta from "@/components/site/QuoteCta";
@@ -33,23 +33,15 @@ export default function PricingPage() {
             "@context": "https://schema.org",
             "@type": "OfferCatalog",
             name: "Website, online store and app development packages",
-            itemListElement: plans.map((p) => ({
+            itemListElement: [...plans, ...ongoingPlans].map((p) => ({
               "@type": "Offer",
               name: p.name,
               description: p.forWho,
               price: num(p.inr),
               priceCurrency: "INR",
-              url: `${profile.siteUrl}/pricing`,
+              url: `${profile.siteUrl}/pricing#plan-${p.slug}`,
               seller: { "@id": `${profile.siteUrl}/#business` },
-            })).concat({
-              "@type": "Offer",
-              name: changesPlan.name,
-              description: changesPlan.forWho,
-              price: num(changesPlan.inr),
-              priceCurrency: "INR",
-              url: `${profile.siteUrl}/pricing`,
-              seller: { "@id": `${profile.siteUrl}/#business` },
-            }),
+            })),
           },
         ]}
       />
