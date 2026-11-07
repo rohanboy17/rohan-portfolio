@@ -241,5 +241,9 @@
   "vzyble": {
     "poster": "/projects/vzyble.jpg",
     "video": "/videos/vzyble.mp4"
+  },
+  "star-jewelry": {
+    "poster": "/projects/star-jewelry.jpg",
+    "video": "/videos/star-jewelry.mp4"
   }
 }

@@ -30,8 +30,11 @@ function getProject(slug: string) {
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const project = getProject((await params).slug);
   if (!project) return {};
+  // Put what the project is in the title, where search engines weigh it most. Fall back to the
+  // shorter category when the tagline would make the title far longer than results pages show.
+  const withTagline = `${project.title} — ${project.tagline}`;
   return {
-    title: project.title,
+    title: withTagline.length <= 70 ? withTagline : `${project.title} — ${project.category}`,
     description: metaDescription(`${project.tagline}. ${project.solution}`),
     alternates: { canonical: `/projects/${project.slug}` },
     ...shareMetadata({
