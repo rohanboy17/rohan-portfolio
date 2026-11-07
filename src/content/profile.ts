@@ -146,9 +146,6 @@ export const profile = {
     "I work directly with founders and businesses in India, the US, Canada, the UAE, Europe, Africa and Asia — one developer from first call to launch, no agency hand-offs. I'm also open to full-time roles on product teams.",
   ],
 
-  /** Worked out from the projects below (see "Stats" after the profile), so the numbers stay current. */
-  stats: [] as { value: string; label: string }[],
-
   /** `primary` ones also appear in the hero; every account appears in Contact and the footer. */
   socials: [
     { label: "GitHub", href: "https://github.com/rohanboy17", icon: "github", primary: true },
@@ -1490,7 +1487,8 @@ for (const p of profile.projects) {
 }
 
 /* ---------- Stats: counted from the work above so they never fall behind it ---------- */
-const CAREER_START = 2023;
+/** The year Rohan started building for the web. "Years building" counts up from it every January. */
+const BUILDING_SINCE = 2022;
 /** 65 → "60+": round down so a stat never claims more than is listed. */
 const atLeast = (n: number) => `${Math.floor(n / 10) * 10}+`;
 // Stack entries like "Custom theme" or "cPanel" describe the build or the host, not a technology.
@@ -1502,12 +1500,21 @@ const technologies = new Set(
     .filter((t) => !notTechnology.test(t)),
 );
 export const projectsShipped = atLeast(profile.projects.length);
-profile.stats = [
-  { value: `${new Date().getFullYear() - CAREER_START}+`, label: "Years building for the web" },
-  { value: projectsShipped, label: "Projects shipped" },
-  { value: atLeast(profile.projects.filter((p) => p.liveUrl).length), label: "Live deployments" },
-  { value: atLeast(technologies.size), label: "Technologies in production" },
-];
+
+/**
+ * Homepage stats. A function rather than a constant so the year is read each time the page
+ * renders: the homepage re-renders every few hours (`revalidate` in app/page.tsx and its data
+ * fetches), so "Years building"
+ * goes up by itself on 1 January, with no redeploy needed.
+ */
+export function getStats(now = new Date()) {
+  return [
+    { value: `${now.getFullYear() - BUILDING_SINCE}+`, label: "Years building for the web" },
+    { value: projectsShipped, label: "Projects shipped" },
+    { value: atLeast(profile.projects.filter((p) => p.liveUrl).length), label: "Live deployments" },
+    { value: atLeast(technologies.size), label: "Technologies in production" },
+  ];
+}
 
 export const featuredProjects = profile.projects.filter((p) => p.featured);
 export const otherProjects = profile.projects.filter((p) => !p.featured);
