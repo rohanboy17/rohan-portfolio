@@ -87,7 +87,7 @@ export default function Projects() {
         <SectionHeading
           eyebrow="Selected work"
           title="Real products, live in production."
-          description="SaaS platforms, marketplaces and e-commerce stores — chosen from 50+ builds, each designed, built and shipped by me."
+          description="SaaS platforms, marketplaces and e-commerce stores — chosen from 60+ builds, each designed, built and shipped by me."
           clip="rocket"
         />
 

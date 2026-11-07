@@ -217,5 +217,29 @@
   "jetseasyy": {
     "poster": "/projects/jetseasyy.jpg",
     "video": "/videos/jetseasyy.mp4"
+  },
+  "martin-luxury": {
+    "poster": "/projects/martin-luxury.jpg",
+    "video": "/videos/martin-luxury.mp4"
+  },
+  "heyu-international": {
+    "poster": "/projects/heyu-international.jpg",
+    "video": "/videos/heyu-international.mp4"
+  },
+  "novacable": {
+    "poster": "/projects/novacable.jpg",
+    "video": "/videos/novacable.mp4"
+  },
+  "freightwave-global": {
+    "poster": "/projects/freightwave-global.jpg",
+    "video": "/videos/freightwave-global.mp4"
+  },
+  "fresh-vending-machines": {
+    "poster": "/projects/fresh-vending-machines.jpg",
+    "video": "/videos/fresh-vending-machines.mp4"
+  },
+  "vzyble": {
+    "poster": "/projects/vzyble.jpg",
+    "video": "/videos/vzyble.mp4"
   }
 }
