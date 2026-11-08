@@ -2222,7 +2222,7 @@ export const generalFaqs = [
   },
   {
     q: "Do you offer support after launch?",
-    a: "Yes. Every plan includes free support after launch: 30 days for Launch, 60 for Business, 90 for Online Store and 120 for apps and web apps. After that, the Care plan covers updates, backups, monitoring and an hour of changes every month for ₹999. The Web + App Suites include 6 to 12 months of free support, then Suite Care at ₹14,999 a month."
+    a: "Yes. Every plan includes free support after launch: 30 days for Launch, 60 for Business, 90 for Online Store and 120 for apps and web apps. After that, the Care plan covers updates, backups, monitoring, SEO and Google Business Profile upkeep, and an hour of changes every month for ₹999. The Web + App Suites include 6 to 12 months of free support, then Suite Care at ₹14,999 a month."
   },
   {
     q: "Are you available for full-time roles too?",
