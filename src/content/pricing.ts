@@ -268,7 +268,7 @@ export const ongoingPlans: Plan[] = [
     name: "Suite Care",
     forWho: "Your Web + App Suite is live and its free support has ended. I keep the web app, backend and both apps running and patched.",
     bestFor: ["Secure Starter", "Secure Business", "Secure Enterprise"],
-    inr: "₹14,999",
+    inr: "₹9,999",
     priceNote: "per month",
     features: [
       "Hosting for the web app and backend",
@@ -283,14 +283,14 @@ export const ongoingPlans: Plan[] = [
     ],
     note: "Starts when a suite's free support ends. Cancel anytime. Heavy-traffic hosting, store accounts and payment-gateway fees are billed at cost.",
     cta: "Start Suite Care",
-    whatsapp: "Hi Rohan, I'd like Suite Care (₹14,999/month) for my web app and mobile app.",
+    whatsapp: "Hi Rohan, I'd like Suite Care (₹9,999/month) for my web app and mobile app.",
   },
   {
     slug: "fix-upgrade",
     name: "Fix & Upgrade",
     forWho: "Have a website built by another developer or agency? Get it edited, fixed or extended without starting over.",
     bestFor: ["Sites built by someone else", "Outdated or slow sites", "Broken pages, forms or checkout"],
-    inr: "₹2,499",
+    inr: "₹1,999",
     from: true,
     priceNote: "per request",
     features: [
@@ -382,7 +382,7 @@ export const pricingFaqs = [
   },
   {
     q: "How long is the free support?",
-    a: "30 days on Launch, 60 days on Business, 90 days on Online Store and 120 days on App or Web App, counted from launch. After that, the Care plan keeps your site updated, backed up and monitored, keeps its SEO and Google Business Profile in shape, and includes an hour of changes every month, for ₹999 a month. The Web + App Suites include much longer support: 6 months on Secure Starter, 9 months on Secure Business and 12 months on Secure Enterprise, then Suite Care at ₹14,999 a month.",
+    a: "30 days on Launch, 60 days on Business, 90 days on Online Store and 120 days on App or Web App, counted from launch. After that, the Care plan keeps your site updated, backed up and monitored, keeps its SEO and Google Business Profile in shape, and includes an hour of changes every month, for ₹999 a month. The Web + App Suites include much longer support: 6 months on Secure Starter, 9 months on Secure Business and 12 months on Secure Enterprise, then Suite Care at ₹9,999 a month.",
   },
   {
     q: "What does \"high security\" include in the Web + App Suites?",
@@ -406,7 +406,7 @@ export const pricingFaqs = [
   },
   {
     q: "Can you change a website another developer built?",
-    a: "Yes, with the Fix & Upgrade plan. Edits, fixes and new features on existing WordPress, Shopify, React, Next.js and PHP sites start at ₹2,499 per request. Share the site and what you need, and I'll confirm a fixed price before starting.",
+    a: "Yes, with the Fix & Upgrade plan. Edits, fixes and new features on existing WordPress, Shopify, React, Next.js and PHP sites start at ₹1,999 per request. Share the site and what you need, and I'll confirm a fixed price before starting.",
   },
   {
     q: "Do you work with clients outside India?",
