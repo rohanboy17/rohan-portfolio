@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { profile } from "@/content/profile";
-import { plans, suites, suiteCare, ongoingPlans, pricingFaqs } from "@/content/pricing";
+import { plans, suites, ongoingPlans, pricingFaqs } from "@/content/pricing";
 import Pricing from "@/components/sections/Pricing";
 import Faq from "@/components/site/Faq";
 import QuoteCta from "@/components/site/QuoteCta";
@@ -10,7 +10,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import JsonLd, { breadcrumbs, faqPage } from "@/components/site/JsonLd";
 import { shareMetadata } from "@/lib/seo";
 
-const title = "Website Design Prices in Kolkata & India from ₹4,999";
+const title = "Website & App Development Prices in Kolkata from ₹4,999";
 const description =
   "Website from ₹4,999, store ₹19,999, app from ₹34,999, secure web + app suites from ₹59,999. Custom-built, with a free demo before you pay. No hidden charges.";
 
@@ -33,27 +33,19 @@ export default function PricingPage() {
             "@context": "https://schema.org",
             "@type": "OfferCatalog",
             name: "Website, online store, app and secure web + app suite packages",
-            itemListElement: [
-              ...[...plans, ...suites, ...ongoingPlans].map((p) => ({
-                "@type": "Offer",
-                name: p.name,
-                description: p.forWho,
-                price: num(p.inr),
-                priceCurrency: "INR",
-                url: `${profile.siteUrl}/pricing#plan-${p.slug}`,
-                seller: { "@id": `${profile.siteUrl}/#business` },
-              })),
-              {
-                "@type": "Offer",
-                name: suiteCare.name,
-                description: `Monthly care for a Web + App Suite: ${suiteCare.features.join(", ").toLowerCase()}.`,
-                price: num(suiteCare.inr),
-                priceCurrency: "INR",
-                priceSpecification: { "@type": "UnitPriceSpecification", price: num(suiteCare.inr), priceCurrency: "INR", unitCode: "MON" },
-                url: `${profile.siteUrl}/pricing#suite-care`,
-                seller: { "@id": `${profile.siteUrl}/#business` },
-              },
-            ],
+            itemListElement: [...plans, ...suites, ...ongoingPlans].map((p) => ({
+              "@type": "Offer",
+              name: p.name,
+              description: p.forWho,
+              price: num(p.inr),
+              priceCurrency: "INR",
+              // Care and Suite Care are billed monthly.
+              ...(p.priceNote === "per month"
+                ? { priceSpecification: { "@type": "UnitPriceSpecification", price: num(p.inr), priceCurrency: "INR", unitCode: "MON" } }
+                : {}),
+              url: `${profile.siteUrl}/pricing#plan-${p.slug}`,
+              seller: { "@id": `${profile.siteUrl}/#business` },
+            })),
           },
         ]}
       />
@@ -65,16 +57,16 @@ export default function PricingPage() {
         <header className="mx-auto mt-8 max-w-3xl text-center sm:mx-0 sm:text-left">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-lilac">Pricing</p>
           <h1 className="mt-3 text-balance font-display text-4xl font-semibold tracking-tight sm:text-6xl">
-            Websites from ₹4,999. Live in days.
+            From a ₹4,999 website to a secure web + app suite.
           </h1>
           <p className="mt-4 text-pretty text-lg text-muted">
-            Custom-designed websites, online stores and apps for businesses in Kolkata, across India and worldwide. See a free
-            homepage demo before you pay anything.
+            Custom websites, online stores, apps and security-tested web + mobile app suites for businesses in Kolkata, across India
+            and worldwide. Every plan shows what you pay to build it, how long support is free, and what care costs after that.
           </p>
         </header>
 
         <div className="mt-12">
-          <Pricing full asPage />
+          <Pricing />
         </div>
 
         <section className="mt-20">

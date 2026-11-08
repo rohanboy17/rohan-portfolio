@@ -28,8 +28,10 @@ export type Plan = {
   /** Shown after the price, e.g. "one-time" or "per month". */
   priceNote: string;
   delivery?: string;
-  /** Free support included before monthly care starts, e.g. "6 months" (suites only). */
+  /** Free support included after launch, e.g. "30 days" or "6 months". */
   freeSupport?: string;
+  /** Slug of the monthly plan (in `ongoingPlans`) that follows the free support. */
+  care?: string;
   popular?: boolean;
   /** First line can be "Everything in X, plus:". */
   features: string[];
@@ -55,6 +57,8 @@ export const plans: Plan[] = [
     inr: "₹4,999",
     priceNote: "one-time",
     delivery: "Live in 2–3 days",
+    freeSupport: "30 days",
+    care: "care",
     features: [
       "Up to 5 custom-designed pages, no templates",
       "Mobile-first and fast (90+ speed score)",
@@ -65,7 +69,6 @@ export const plans: Plan[] = [
       "Free .in or .com domain and hosting for the first year",
       "Free SSL certificate",
       "2 rounds of changes",
-      "30 days of free support",
     ],
     instead: { when: "Need more than 5 pages, a blog or to edit the site yourself?", slug: "business" },
     cta: "Get my free demo",
@@ -79,6 +82,8 @@ export const plans: Plan[] = [
     inr: "₹9,999",
     priceNote: "one-time",
     delivery: "Live in 4–5 days",
+    freeSupport: "60 days",
+    care: "care",
     popular: true,
     features: [
       "Everything in Launch, plus:",
@@ -89,7 +94,6 @@ export const plans: Plan[] = [
       "Google Business Profile setup",
       "Analytics and enquiry tracking",
       "3 rounds of changes",
-      "60 days of free support",
     ],
     instead: { when: "Want customers to pay and order on the site?", slug: "store" },
     cta: "Get my free demo",
@@ -103,6 +107,8 @@ export const plans: Plan[] = [
     inr: "₹19,999",
     priceNote: "one-time",
     delivery: "Live in 7–10 days",
+    freeSupport: "90 days",
+    care: "care",
     features: [
       "Shopify, WooCommerce or a custom store",
       "Up to 50 products uploaded for you",
@@ -112,7 +118,6 @@ export const plans: Plan[] = [
       "Fast, mobile-first checkout",
       "Product SEO and structured data for Google",
       "Training video so your team can manage orders",
-      "90 days of free support",
     ],
     note: "Shopify plan, hosting and payment-gateway fees are paid to those providers directly, in your name.",
     instead: { when: "Need bookings, customer accounts or a mobile app?", slug: "app" },
@@ -128,6 +133,8 @@ export const plans: Plan[] = [
     from: true,
     priceNote: "starting price",
     delivery: "From 2–3 weeks",
+    freeSupport: "120 days",
+    care: "care",
     features: [
       "Android and iOS from one React Native codebase",
       "Backend API and database included",
@@ -136,7 +143,6 @@ export const plans: Plan[] = [
       "Payments if you need them",
       "Weekly test builds you can try on your phone",
       "Google Play and App Store publishing",
-      "120 days of free support",
     ],
     note: "Final price is fixed after a free scoping call, before any work starts. Store developer accounts are in your name.",
     instead: { when: "Need a web app and mobile app together, security-tested?", slug: "secure-starter" },
@@ -147,7 +153,7 @@ export const plans: Plan[] = [
 
 /**
  * Web + App Suites: a secure web app and an Android + iOS app on one backend. Each card shows
- * the one-time build and, below it, the free support period followed by `suiteCare`.
+ * the one-time build and, below it, the free support period followed by Suite Care.
  */
 export const suites: Plan[] = [
   {
@@ -159,6 +165,7 @@ export const suites: Plan[] = [
     priceNote: "one-time",
     delivery: "From 4–6 weeks",
     freeSupport: "6 months",
+    care: "suite-care",
     features: [
       "Web app plus Android and iOS app (one React Native codebase) on a shared backend",
       "Up to 10 screens per app, with customer and admin roles",
@@ -183,6 +190,7 @@ export const suites: Plan[] = [
     priceNote: "one-time",
     delivery: "From 6–8 weeks",
     freeSupport: "9 months",
+    care: "suite-care",
     popular: true,
     features: [
       "Everything in Secure Starter, plus:",
@@ -207,6 +215,7 @@ export const suites: Plan[] = [
     priceNote: "one-time",
     delivery: "From 10–12 weeks",
     freeSupport: "12 months",
+    care: "suite-care",
     features: [
       "Everything in Secure Business, plus:",
       "Complex workflows and approval chains",
@@ -224,36 +233,42 @@ export const suites: Plan[] = [
   },
 ];
 
-/** Monthly care for a suite once its free support ends. */
-export const suiteCare = {
-  name: "Suite Care",
-  inr: "₹14,999",
-  period: "per month",
-  features: [
-    "Hosting for the web app and backend",
-    "App updates for new iOS and Android releases",
-    "Security patches and dependency updates",
-    "Uptime and error monitoring",
-    "Daily backups",
-    "Up to 8 hours of changes every month",
-    "Priority WhatsApp support",
-  ],
-  note: "Cancel anytime. Heavy-traffic hosting, store accounts and payment-gateway fees are billed at cost.",
-};
-
-/** For sites that are already live: monthly care after free support, and one-off fixes for any site. */
+/**
+ * For products that are already live: monthly care once free support ends (Care for the four
+ * main plans, Suite Care for the suites), and one-off fixes for any site.
+ */
 export const ongoingPlans: Plan[] = [
   {
     slug: "care",
     name: "Care",
-    forWho: "Your site is live and free support has ended. I keep it updated, backed up and online.",
-    bestFor: ["Stores taking daily orders", "Sites with regular updates", "Owners without a tech team"],
+    forWho: "Your website, store or app is live and its free support has ended. I keep it updated, backed up and online.",
+    bestFor: ["Launch & Business sites", "Online stores", "Apps & web apps"],
     inr: "₹999",
     priceNote: "per month",
     features: ["Updates and backups", "Uptime monitoring", "Up to 1 hour of changes every month", "Priority WhatsApp support"],
-    note: "Starts after your free support period. Cancel anytime.",
+    note: "Starts when the free support on Launch, Business, Online Store or App ends. Cancel anytime.",
     cta: "Start Care",
     whatsapp: "Hi Rohan, I'd like the Care plan (₹999/month) for my website.",
+  },
+  {
+    slug: "suite-care",
+    name: "Suite Care",
+    forWho: "Your Web + App Suite is live and its free support has ended. I keep the web app, backend and both apps running and patched.",
+    bestFor: ["Secure Starter", "Secure Business", "Secure Enterprise"],
+    inr: "₹14,999",
+    priceNote: "per month",
+    features: [
+      "Hosting for the web app and backend",
+      "App updates for new iOS and Android releases",
+      "Security patches and dependency updates",
+      "Uptime and error monitoring",
+      "Daily backups",
+      "Up to 8 hours of changes every month",
+      "Priority WhatsApp support",
+    ],
+    note: "Starts when a suite's free support ends. Cancel anytime. Heavy-traffic hosting, store accounts and payment-gateway fees are billed at cost.",
+    cta: "Start Suite Care",
+    whatsapp: "Hi Rohan, I'd like Suite Care (₹14,999/month) for my web app and mobile app.",
   },
   {
     slug: "fix-upgrade",
@@ -316,8 +331,14 @@ export const planGuide: { business: string; plan: string; why: string }[] = [
 
 /** Promises that apply to every plan. */
 export const everyPlan = [
-  { title: "Free demo first", body: "See your homepage designed in 3–4 hours before you pay anything." },
-  { title: "Pay in two parts", body: "50% after you approve the demo, 50% at launch. UPI, bank transfer, PayPal or Binance." },
+  {
+    title: "Free demo first",
+    body: "See your homepage designed in 3–4 hours before you pay anything. Apps and suites start with a free scoping call and a fixed quote.",
+  },
+  {
+    title: "Pay in parts",
+    body: "Websites and stores: 50% after you approve the demo, 50% at launch. Apps and suites: milestones agreed upfront. UPI, bank transfer, PayPal or Binance.",
+  },
   { title: "You own everything", body: "Code, domain and accounts are in your name. No lock-in." },
   { title: "Talk to the developer", body: "Direct WhatsApp line to me: no sales team, no hand-offs." },
 ];
@@ -353,12 +374,12 @@ export const pricingFaqs = [
     a: "Every suite is hardened as it's built: HTTPS everywhere, hashed passwords, role-based access, rate limiting, encrypted backups, plus an automated vulnerability scan and a written security report. Secure Business adds two-factor login and audit logs, and Secure Enterprise adds field encryption, IP allow-listing, load testing and a disaster-recovery plan. A VAPT (vulnerability assessment and penetration test) by an independent security firm is included in Secure Business (web app and API) and Secure Enterprise (web app, API and both mobile apps, with a certificate). Any issues it finds are fixed and retested. For Secure Starter, it's an add-on quoted at cost.",
   },
   {
-    q: "How can the prices be this low?",
-    a: "I work directly with you, with no sales team or office overheads, and I use AI-assisted tools for the repetitive parts of the build. That lets me deliver in days instead of weeks. The design, code and testing are still done and checked by me.",
+    q: "Why do you cost less than agencies?",
+    a: "I work directly with you, with no sales team or office overheads, and I use AI-assisted tools for the repetitive parts of the build. That lets me deliver in days instead of weeks, and even the Web + App Suites cost well below the ₹3–8 lakh Kolkata agencies quote for a web app with mobile apps. The design, code and testing are still done and checked by me, and the top two suites are also tested by an outside security firm.",
   },
   {
     q: "Is the demo really free?",
-    a: "Yes. Tell me about your business and I'll design your homepage in 3–4 hours (Mon–Sat, 10 AM–8 PM IST). If you don't like it, you don't pay anything.",
+    a: "Yes. Tell me about your business and I'll design your homepage in 3–4 hours (Mon–Sat, 10 AM–8 PM IST). If you don't like it, you don't pay anything. For apps and the Web + App Suites, the first step is a free scoping call, then a fixed written quote before any work starts.",
   },
   {
     q: "What do I need to give you?",
