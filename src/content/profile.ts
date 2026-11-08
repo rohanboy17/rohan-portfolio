@@ -1979,7 +1979,7 @@ export const services: Service[] = [
     deliverables: [
       { title: "Custom design", body: "A layout designed around your brand and your customers — no generic template look." },
       { title: "Mobile-first build", body: "Pixel-perfect on phones, tablets and desktops, tested on real devices." },
-      { title: "SEO foundations", body: "Clean headings, metadata, sitemap, structured data and fast Core Web Vitals from day one." },
+      { title: "SEO foundations", body: "Clean headings, metadata and fast Core Web Vitals on every site, with full SEO setup and Google listings from the Business plan up." },
       { title: "Lead capture", body: "Contact forms, quote requests and WhatsApp buttons that deliver straight to your inbox." },
       { title: "Editable content", body: "A CMS (WordPress or headless) when your team needs to update pages without a developer." },
       { title: "Launch & hosting", body: "Domain, hosting, SSL and analytics set up, plus free support after launch and optional monthly Care." },
@@ -1994,7 +1994,7 @@ export const services: Service[] = [
       },
       {
         q: "Will my website show up on Google?",
-        a: "Every site I build ships with technical SEO in place: fast loading, mobile-friendly layouts, proper headings, metadata, a sitemap and structured data. I also set up Google Search Console so your pages get indexed, plus your Google Business Profile, Bing Places and Apple Maps listings so local customers find you.",
+        a: "Every site I build is fast, mobile-friendly and has proper headings and metadata. From the Business plan up, I also add a sitemap and structured data, set up Google Search Console so your pages get indexed, and create your Google Business Profile, Bing Places and Apple Maps listings so local customers find you.",
       },
       {
         q: "Can I edit the website myself after launch?",
