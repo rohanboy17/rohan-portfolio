@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import clsx from "clsx";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
-import { profile, services, getService, projectsForService } from "@/content/profile";
+import { profile, services, getService, projectsForService, plansForService } from "@/content/profile";
 import { accentStyles } from "@/components/ui/accent";
 import Clip3D from "@/components/ui/Clip3D";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -42,6 +42,7 @@ export default async function ServicePage({ params }: Params) {
 
   const a = accentStyles[service.accent];
   const projects = projectsForService(service);
+  const plans = plansForService(service);
   const others = services.filter((s) => s.slug !== service.slug);
   const url = `${profile.siteUrl}/services/${service.slug}`;
 
@@ -143,6 +144,41 @@ export default async function ServicePage({ params }: Params) {
               ))}
             </ul>
           </Reveal>
+        </section>
+
+        <section id="plans" className="mt-20 scroll-mt-28">
+          <SectionHeading
+            eyebrow="Pricing"
+            title="Plans for this service."
+            description="Clear prices, with free support after launch on every build. Open a plan to see everything it includes."
+            clip="money"
+          />
+          <Stagger className={clsx("mt-10 grid gap-3 sm:grid-cols-2 sm:gap-4", plans.length >= 4 ? "lg:grid-cols-4" : "lg:grid-cols-3")}>
+            {plans.map((p) => (
+              <Item key={p.slug} className="h-full">
+                <Link
+                  prefetch={false}
+                  href={`/pricing#plan-${p.slug}`}
+                  className={clsx(
+                    "clay group flex h-full flex-col rounded-3xl p-5 transition hover:border-lilac/40 sm:p-6",
+                    p.popular && "border-lilac/60 ring-1 ring-lilac/40",
+                  )}
+                >
+                  <h3 className="font-display text-lg font-semibold">{p.name}</h3>
+                  <p className="mt-3 flex items-baseline gap-1.5">
+                    {p.from ? <span className="text-sm text-muted">from</span> : null}
+                    <span className="font-display text-3xl font-semibold tracking-tight">{p.inr}</span>
+                  </p>
+                  <p className="mt-1 text-xs text-muted">{p.priceNote}</p>
+                  <p className="mt-3 line-clamp-3 text-pretty text-sm leading-relaxed text-muted">{p.forWho}</p>
+                  {p.freeSupport ? <p className="mt-3 text-xs font-medium text-mint">{p.freeSupport} free support</p> : null}
+                  <span className="mt-auto inline-flex items-center gap-1.5 pt-4 text-sm font-semibold text-lilac">
+                    See what&apos;s included <ArrowRight size={14} className="transition group-hover:translate-x-0.5" />
+                  </span>
+                </Link>
+              </Item>
+            ))}
+          </Stagger>
         </section>
 
         <section id="work" className="mt-20 scroll-mt-28">

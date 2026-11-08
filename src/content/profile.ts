@@ -5,6 +5,15 @@
  */
 
 import demoMedia from "./demo-media.json";
+import { plans as pricingPlans, suites, ongoingPlans } from "./pricing";
+
+/** A plan from src/content/pricing.ts, so FAQ answers quote prices from one place. */
+function plan(slug: string) {
+  const p = [...pricingPlans, ...suites, ...ongoingPlans].find((x) => x.slug === slug);
+  // Fail the build on a typo rather than printing "undefined" on the site.
+  if (!p) throw new Error(`profile.ts refers to unknown plan "${slug}"`);
+  return p;
+}
 
 export type Clip =
   | "laptop" | "rocket" | "sparkles" | "wave" | "fire" | "trophy" | "brain" | "gear" | "globe"
@@ -1939,6 +1948,8 @@ export type Service = {
   idealFor: string[];
   deliverables: { title: string; body: string }[];
   stack: string[];
+  /** Slugs of pricing plans (src/content/pricing.ts) that fit this service, cheapest first. */
+  plans: string[];
   /** Slugs of projects in `profile.projects` that prove this service. */
   projects: string[];
   faqs: { q: string; a: string }[];
@@ -1971,10 +1982,11 @@ export const services: Service[] = [
       { title: "SEO foundations", body: "Clean headings, metadata, sitemap, structured data and fast Core Web Vitals from day one." },
       { title: "Lead capture", body: "Contact forms, quote requests and WhatsApp buttons that deliver straight to your inbox." },
       { title: "Editable content", body: "A CMS (WordPress or headless) when your team needs to update pages without a developer." },
-      { title: "Launch & hosting", body: "Domain, hosting, SSL and analytics set up, plus support after launch." },
+      { title: "Launch & hosting", body: "Domain, hosting, SSL and analytics set up, plus free support after launch and optional monthly Care." },
     ],
     stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "WordPress", "Vercel"],
     projects: ["yunjing-technology", "furui-machinery", "zhenyang-electric", "wolf-rocks", "newco", "asset-care"],
+    plans: ["launch", "business", "care"],
     faqs: [
       {
         q: "How long does a business website take?",
@@ -1982,7 +1994,7 @@ export const services: Service[] = [
       },
       {
         q: "Will my website show up on Google?",
-        a: "Every site I build ships with technical SEO in place: fast loading, mobile-friendly layouts, proper headings, metadata, a sitemap and structured data. I also set up Google Search Console so your pages get indexed.",
+        a: "Every site I build ships with technical SEO in place: fast loading, mobile-friendly layouts, proper headings, metadata, a sitemap and structured data. I also set up Google Search Console so your pages get indexed, plus your Google Business Profile, Bing Places and Apple Maps listings so local customers find you.",
       },
       {
         q: "Can I edit the website myself after launch?",
@@ -2024,6 +2036,7 @@ export const services: Service[] = [
     ],
     stack: ["React Native", "Expo", "TypeScript", "Capacitor", "Node.js", "PHP", "PostgreSQL", "MySQL"],
     projects: ["organisedesk", "routequire", "freeearnhub", "game-arena"],
+    plans: ["app", "secure-starter", "secure-business", "secure-enterprise"],
     faqs: [
       {
         q: "Do you build for both Android and iOS?",
@@ -2040,6 +2053,10 @@ export const services: Service[] = [
       {
         q: "I already have a website. Can it become an app?",
         a: "Often, yes. A web app can be wrapped as a native Android/iOS app with Capacitor, or I can build a dedicated React Native app that shares your existing backend.",
+      },
+      {
+        q: "How much does an app cost?",
+        a: `An Android and iOS app with its backend and admin panel starts from ${plan("app").inr} (App or Web App plan). A web app plus Android and iOS apps on one backend, built with security hardening, starts at ${plan("secure-starter").inr} (Secure Starter), with Secure Business at ${plan("secure-business").inr} and Secure Enterprise at ${plan("secure-enterprise").inr}. The final price is fixed after a free scoping call, before any work starts.`,
       },
     ],
   },
@@ -2073,6 +2090,7 @@ export const services: Service[] = [
     ],
     stack: ["Shopify", "Liquid", "WooCommerce", "WordPress", "Next.js", "Razorpay", "Stripe", "PostgreSQL"],
     projects: ["toyco-india", "containers-unlimited", "euro-agro-fertilizers", "aureve", "marento-home", "ufixpro"],
+    plans: ["store", "care", "fix-upgrade"],
     faqs: [
       {
         q: "Shopify or WooCommerce — which is right for me?",
@@ -2122,6 +2140,7 @@ export const services: Service[] = [
     ],
     stack: ["Next.js", "React", "TypeScript", "Node.js", "Express", "PostgreSQL", "Prisma", "Laravel", "Docker"],
     projects: ["signawaydocs", "routequire", "jetseasyy", "freeearnhub", "game-arena", "rupashi-enterprise"],
+    plans: ["app", "secure-starter", "secure-business", "secure-enterprise"],
     faqs: [
       {
         q: "Can you build an MVP for my startup?",
@@ -2138,6 +2157,10 @@ export const services: Service[] = [
       {
         q: "How do we communicate during the project?",
         a: "You'll get regular progress updates and a live preview link you can click through, and you can reach me on email, WhatsApp or video calls in your time zone.",
+      },
+      {
+        q: "How secure will my web app be?",
+        a: "Every build gets HTTPS, hashed passwords, role-based access and rate limiting. The Web + App Suites add an automated vulnerability scan and a written security report, two-factor login and audit logs from Secure Business up, and field encryption, load testing and a disaster-recovery plan in Secure Enterprise. An outside VAPT test by an independent security firm is included in Secure Enterprise and available as an add-on, at cost, for the other plans.",
       },
     ],
   },
@@ -2171,10 +2194,11 @@ export const services: Service[] = [
     ],
     stack: ["WordPress", "PHP", "WooCommerce", "Block themes", "Elementor", "MySQL"],
     projects: ["cockroach-jobs", "book-spa", "pushkey", "euro-agro-fertilizers", "hype-associates", "xinke-tea"],
+    plans: ["business", "care", "fix-upgrade"],
     faqs: [
       {
         q: "Can you fix or speed up my existing WordPress site?",
-        a: "Yes. I audit slow pages, remove heavy plugins, optimise images and caching, and fix mobile layout problems.",
+        a: `Yes. I audit slow pages, remove heavy plugins, optimise images and caching, and fix mobile layout problems. One-off fixes on a site another developer built start at ${plan("fix-upgrade").inr} with Fix & Upgrade; sites I built are covered by free support, then Care.`,
       },
       {
         q: "Do you use page builders?",
@@ -2195,7 +2219,7 @@ export const workProcess = [
   { title: "Design", body: "I design the key screens and refine them with you until they're right." },
   { title: "Build with live previews", body: "You follow progress on a live preview link, with regular updates." },
   { title: "Launch", body: "Testing on real devices, SEO setup, analytics, and a smooth go-live." },
-  { title: "Support", body: "Post-launch fixes included, plus ongoing maintenance if you need it." },
+  { title: "Support", body: "Free support after launch, from 30 days to 12 months depending on the plan, then optional Care or Suite Care." },
 ];
 
 /** Reasons to hire, shown on the services hub. */
@@ -2210,7 +2234,7 @@ export const whyHire = [
 export const generalFaqs = [
   {
     q: "How much does a website or app cost?",
-    a: "Websites start at ₹4,999, online stores at ₹19,999, apps or web apps from ₹34,999, and secure web + mobile app suites from ₹59,999. International clients see US-dollar prices on the pricing page, updated daily. See the pricing page for what each plan includes, or tell me what you need and I'll send a fixed quote within 24 hours.",
+    a: `Websites start at ${plan("launch").inr}, online stores at ${plan("store").inr}, apps or web apps from ${plan("app").inr}, and secure web + mobile app suites from ${plan("secure-starter").inr}. International clients see US-dollar prices on the pricing page, updated daily. See the pricing page for what each plan includes, or tell me what you need and I'll send a fixed quote within 24 hours.`,
   },
   {
     q: "Do you work with international clients?",
@@ -2222,7 +2246,7 @@ export const generalFaqs = [
   },
   {
     q: "Do you offer support after launch?",
-    a: "Yes. Every plan includes free support after launch: 30 days for Launch, 60 for Business, 90 for Online Store and 120 for apps and web apps. After that, the Care plan covers updates, backups, monitoring, SEO and Google Business Profile upkeep, and an hour of changes every month for ₹999. The Web + App Suites include 6 to 12 months of free support, then Suite Care at ₹9,999 a month."
+    a: `Yes. Every plan includes free support after launch: ${plan("launch").freeSupport} for Launch, ${plan("business").freeSupport} for Business, ${plan("store").freeSupport} for Online Store and ${plan("app").freeSupport} for apps and web apps. After that, the Care plan covers updates, backups, monitoring, SEO and Google Business Profile upkeep, and an hour of changes every month for ${plan("care").inr}. The Web + App Suites include ${plan("secure-starter").freeSupport} to ${plan("secure-enterprise").freeSupport} of free support, then Suite Care at ${plan("suite-care").inr} a month.`
   },
   {
     q: "Are you available for full-time roles too?",
@@ -2241,6 +2265,11 @@ export function projectsForService(service: Service): Project[] {
     if (!project) throw new Error(`Service "${service.slug}" references unknown project "${slug}"`);
     return project;
   });
+}
+
+/** The pricing plans that fit a service, in the order listed on the service. */
+export function plansForService(service: Service) {
+  return service.plans.map(plan);
 }
 
 /** The service a project best demonstrates, for linking case studies to their service page. */

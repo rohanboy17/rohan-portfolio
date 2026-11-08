@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { profile, services } from "@/content/profile";
+import { plans, suites, ongoingPlans } from "@/content/pricing";
 import JsonLd from "@/components/site/JsonLd";
 import { siteNav } from "@/lib/nav";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
@@ -49,6 +50,11 @@ export const viewport: Viewport = {
 
 const sameAs = profile.socials.filter((s) => s.href.startsWith("http")).map((s) => s.href);
 
+// Cheapest to dearest plan on /pricing, e.g. "₹999 – ₹1,99,999", shown by search engines for the business.
+const prices = [...plans, ...suites, ...ongoingPlans].map((p) => Number(p.inr.replace(/[^\d]/g, "")));
+const inr = (n: number) => `₹${n.toLocaleString("en-IN")}`;
+const priceRange = `${inr(Math.min(...prices))} – ${inr(Math.max(...prices))}`;
+
 const siteJsonLd = [
   {
     "@context": "https://schema.org",
@@ -81,6 +87,7 @@ const siteJsonLd = [
     founder: { "@id": `${profile.siteUrl}/#person` },
     address: { "@type": "PostalAddress", addressRegion: "West Bengal", addressCountry: "IN" },
     areaServed: "Worldwide",
+    priceRange,
     availableLanguage: profile.spokenLanguages,
     sameAs,
     hasOfferCatalog: {

@@ -190,9 +190,9 @@ export const suites: Plan[] = [
   {
     slug: "secure-business",
     name: "Secure Business",
-    forWho: "Your customers pay you or trust you with personal data, so security has to be tested, not assumed.",
+    forWho: "Your customers pay you or trust you with personal data, so security has to be built in from the first screen.",
     bestFor: ["Clinics & healthcare", "Finance & insurance", "Logistics & delivery", "E-learning platforms"],
-    inr: "₹1,09,999",
+    inr: "₹99,999",
     priceNote: "one-time",
     delivery: "From 6–8 weeks",
     freeSupport: "9 months",
@@ -205,12 +205,11 @@ export const suites: Plan[] = [
       "Two-factor login and audit logs",
       "Reports and analytics dashboard",
       "Staging environment and automated tests",
-      "Outside VAPT test of the web app and API by an independent security firm, with fixes and a retest",
     ],
-    note: "Paid in milestones agreed on the scoping call. Store accounts and payment-gateway fees are in your name.",
-    instead: { when: "Need integrations, offline mode or strict data rules?", slug: "secure-enterprise" },
+    note: "An outside VAPT test is available as an add-on, quoted at cost. Paid in milestones agreed on the scoping call. Store accounts and payment-gateway fees are in your name.",
+    instead: { when: "Need integrations, offline mode or an outside security test included?", slug: "secure-enterprise" },
     cta: "Book a free scoping call",
-    whatsapp: "Hi Rohan, I'm interested in the Secure Business suite (₹1,09,999). Can we book a free scoping call?",
+    whatsapp: "Hi Rohan, I'm interested in the Secure Business suite (₹99,999). Can we book a free scoping call?",
   },
   {
     slug: "secure-enterprise",
@@ -334,7 +333,7 @@ export const planGuide: { business: string; plan: string; why: string }[] = [
   {
     business: "Clinic, finance or logistics business handling payments or personal data",
     plan: "secure-business",
-    why: "Payments, two-factor login and audit logs, tested by an outside security firm before your customers use it.",
+    why: "Payments, two-factor login, audit logs and a staging environment, with an outside security test available as an add-on.",
   },
   {
     business: "Platform with integrations, offline use or strict data rules",
@@ -369,7 +368,7 @@ export const comparison: { label: string; them: string; me: string }[] = [
   {
     label: "Secure web app + mobile app",
     them: "₹3–8 lakh at Kolkata agencies; outside security test extra (₹25k–1.5 lakh)",
-    me: "₹59,999–₹1,99,999, outside security test included from ₹1,09,999",
+    me: "₹59,999–₹1,99,999, outside security test included in Secure Enterprise",
   },
   { label: "Support", them: "AMC from ₹2,000/month", me: "30 days to 12 months free, then from ₹999/month" },
   { label: "Who you talk to", them: "Sales or account manager", me: "The developer, directly" },
@@ -386,11 +385,11 @@ export const pricingFaqs = [
   },
   {
     q: "What does \"high security\" include in the Web + App Suites?",
-    a: "Every suite is hardened as it's built: HTTPS everywhere, hashed passwords, role-based access, rate limiting, encrypted backups, plus an automated vulnerability scan and a written security report. Secure Business adds two-factor login and audit logs, and Secure Enterprise adds field encryption, IP allow-listing, load testing and a disaster-recovery plan. A VAPT (vulnerability assessment and penetration test) by an independent security firm is included in Secure Business (web app and API) and Secure Enterprise (web app, API and both mobile apps, with a certificate). Any issues it finds are fixed and retested. For Secure Starter, it's an add-on quoted at cost.",
+    a: "Every suite is hardened as it's built: HTTPS everywhere, hashed passwords, role-based access, rate limiting, encrypted backups, plus an automated vulnerability scan and a written security report. Secure Business adds two-factor login and audit logs, and Secure Enterprise adds field encryption, IP allow-listing, load testing and a disaster-recovery plan. A VAPT (vulnerability assessment and penetration test) by an independent security firm is included in Secure Enterprise, covering the web app, API and both mobile apps, with a certificate. Any issues it finds are fixed and retested. For Secure Starter and Secure Business, it's an add-on quoted at cost.",
   },
   {
     q: "Why do you cost less than agencies?",
-    a: "I work directly with you, with no sales team or office overheads, and I use AI-assisted tools for the repetitive parts of the build. That lets me deliver in days instead of weeks, and even the Web + App Suites cost well below the ₹3–8 lakh Kolkata agencies quote for a web app with mobile apps. The design, code and testing are still done and checked by me, and the top two suites are also tested by an outside security firm.",
+    a: "I work directly with you, with no sales team or office overheads, and I use AI-assisted tools for the repetitive parts of the build. That lets me deliver in days instead of weeks, and even the Web + App Suites cost well below the ₹3–8 lakh Kolkata agencies quote for a web app with mobile apps. The design, code and testing are still done and checked by me, and Secure Enterprise is also tested by an outside security firm.",
   },
   {
     q: "Is the demo really free?",

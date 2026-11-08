@@ -2,6 +2,7 @@ import Link from "next/link";
 import clsx from "clsx";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { services } from "@/content/profile";
+import { plans } from "@/content/pricing";
 import { accentStyles } from "@/components/ui/accent";
 import Clip3D from "@/components/ui/Clip3D";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -55,9 +56,12 @@ export default function Services() {
         </Stagger>
 
         <Reveal>
-          <p className="mt-6 text-center text-sm text-muted sm:text-left">
+          <p className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-muted sm:justify-start">
             <Link prefetch={false} href="/services" className="font-semibold text-lilac hover:underline">
               See all services, process &amp; FAQs →
+            </Link>
+            <Link prefetch={false} href="/pricing" className="font-semibold text-lilac hover:underline">
+              Plans &amp; pricing, from {plans[0].inr} →
             </Link>
           </p>
         </Reveal>

@@ -15,7 +15,15 @@ const REASONS = [
   "Something else",
 ];
 
-const BUDGETS = ["Not sure yet", "Under $500", "$500 – $2,000", "$2,000 – $5,000", "$5,000+"];
+// Rupee ranges that line up with the plans on /pricing, with approximate dollars for international clients.
+const BUDGETS = [
+  "Not sure yet",
+  "Under ₹10,000 (≈ $120)",
+  "₹10,000 – ₹35,000 ($120 – $400)",
+  "₹35,000 – ₹1 lakh ($400 – $1,150)",
+  "₹1 – 2 lakh ($1,150 – $2,300)",
+  "₹2 lakh+ ($2,300+)",
+];
 
 const field =
   "mt-2 w-full rounded-2xl border border-line bg-white/[0.03] px-4 py-3 text-base text-white outline-none sm:text-sm transition placeholder:text-white/30 focus:border-lilac/60 focus:bg-white/[0.05]";
