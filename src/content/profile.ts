@@ -2246,7 +2246,7 @@ export const generalFaqs = [
   },
   {
     q: "Do you offer support after launch?",
-    a: `Yes. Every plan includes free support after launch: ${plan("launch").freeSupport} for Launch, ${plan("business").freeSupport} for Business, ${plan("store").freeSupport} for Online Store and ${plan("app").freeSupport} for apps and web apps. After that, the Care plan covers updates, backups, monitoring, SEO and Google Business Profile upkeep, and an hour of changes every month for ${plan("care").inr}. The Web + App Suites include ${plan("secure-starter").freeSupport} to ${plan("secure-enterprise").freeSupport} of free support, then Suite Care at ${plan("suite-care").inr} a month.`
+    a: `Yes. Every plan includes free support after launch: ${plan("launch").freeSupport} for Launch, ${plan("business").freeSupport} for Business, ${plan("store").freeSupport} for Online Store and ${plan("app").freeSupport} for apps and web apps. After that, the Care plan covers updates, backups, monitoring, security scans, on-page SEO checks and an hour of changes every month for ${plan("care").inr}. The Web + App Suites include ${plan("secure-starter").freeSupport} to ${plan("secure-enterprise").freeSupport} of free support, then Suite Care at ${plan("suite-care").inr} a month.`
   },
   {
     q: "Are you available for full-time roles too?",
