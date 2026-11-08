@@ -68,7 +68,7 @@ export default async function Pricing() {
           <GroupHeading>Already live? Keep it running, or make it better.</GroupHeading>
           <GroupIntro>
             Monthly care once your free support ends: Care for websites, stores and apps, Suite Care for the Web + App Suites. Or
-            one-off fixes and upgrades for any website, whoever built it.
+            one-off fixes and upgrades for a website another developer built.
           </GroupIntro>
         </Reveal>
         <Stagger className="mt-6 grid gap-5 md:grid-cols-2 md:gap-4 lg:grid-cols-3">

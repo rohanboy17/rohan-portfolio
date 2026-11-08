@@ -273,8 +273,8 @@ export const ongoingPlans: Plan[] = [
   {
     slug: "fix-upgrade",
     name: "Fix & Upgrade",
-    forWho: "Already have a website, built by me or anyone else? Get it edited, fixed or extended.",
-    bestFor: ["Outdated or slow sites", "Broken pages, forms or checkout", "Sites built by someone else"],
+    forWho: "Have a website built by another developer or agency? Get it edited, fixed or extended without starting over.",
+    bestFor: ["Sites built by someone else", "Outdated or slow sites", "Broken pages, forms or checkout"],
     inr: "₹2,499",
     from: true,
     priceNote: "per request",
@@ -284,7 +284,7 @@ export const ongoingPlans: Plan[] = [
       "New sections, pages or features",
       "WordPress, Shopify, React / Next.js and PHP sites",
     ],
-    note: "Starting price. Send me the site and what you need, and I'll confirm a fixed price before any work starts.",
+    note: "Starting price. Send me the site and what you need, and I'll confirm a fixed price before any work starts. Built your site with me? Changes are covered by your free support, then Care or Suite Care.",
     cta: "Request a change",
     whatsapp: "Hi Rohan, I have an existing website and need some changes (Fix & Upgrade). Can you take a look?",
   },
@@ -326,7 +326,7 @@ export const planGuide: { business: string; plan: string; why: string }[] = [
     plan: "secure-enterprise",
     why: "ERP or CRM integrations, offline mode, load testing and a full outside security test of every app, with a year of support.",
   },
-  { business: "Already have a website that needs work", plan: "fix-upgrade", why: "Edits, fixes and new features on the site you have, whoever built it." },
+  { business: "Website built by another developer that needs work", plan: "fix-upgrade", why: "Edits, fixes and new features on the site you already have, without paying for a rebuild." },
 ];
 
 /** Promises that apply to every plan. */
@@ -367,7 +367,7 @@ export const pricingFaqs = [
   },
   {
     q: "How long is the free support?",
-    a: "30 days on Launch, 60 days on Business, 90 days on Online Store and 120 days on App or Web App, counted from launch. After that, the Care plan keeps your site updated, backed up and monitored for ₹999 a month, or you can pay only when you need a change. The Web + App Suites include much longer support: 6 months on Secure Starter, 9 months on Secure Business and 12 months on Secure Enterprise, then Suite Care at ₹14,999 a month.",
+    a: "30 days on Launch, 60 days on Business, 90 days on Online Store and 120 days on App or Web App, counted from launch. After that, the Care plan keeps your site updated, backed up and monitored, with an hour of changes every month, for ₹999 a month. The Web + App Suites include much longer support: 6 months on Secure Starter, 9 months on Secure Business and 12 months on Secure Enterprise, then Suite Care at ₹14,999 a month.",
   },
   {
     q: "What does \"high security\" include in the Web + App Suites?",
