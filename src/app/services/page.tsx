@@ -3,6 +3,7 @@ import Link from "next/link";
 import clsx from "clsx";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { profile, services, whyHire, generalFaqs } from "@/content/profile";
+import { plans } from "@/content/pricing";
 import { accentStyles } from "@/components/ui/accent";
 import Clip3D from "@/components/ui/Clip3D";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -68,6 +69,11 @@ export default function ServicesPage() {
             );
           })}
         </Stagger>
+        <p className="mt-6 text-center text-sm sm:text-left">
+          <Link prefetch={false} href="/pricing" className="font-semibold text-lilac hover:underline">
+            See plans &amp; pricing, from {plans[0].inr} →
+          </Link>
+        </p>
 
         <section className="mt-20">
           <SectionHeading eyebrow="Why work with me" title="One developer, start to finish." clip="star" />

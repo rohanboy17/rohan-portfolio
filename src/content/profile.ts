@@ -150,7 +150,7 @@ export const profile = {
   },
 
   about: [
-    "I'm a Computer Science graduate (B.Sc, 2023) and GATE 2023 CS qualifier from West Bengal, India. Since then I've shipped 60+ production websites and web apps for startups, B2B brands and e-commerce businesses.",
+    "I'm a Computer Science graduate (B.Sc, 2023) and GATE 2023 CS qualifier from West Bengal, India. Since then I've shipped {projectsShipped} production websites and web apps for startups, B2B brands and e-commerce businesses.",
     "I work end-to-end: Next.js and React on the front, Node, Prisma and PostgreSQL on the back, and Vercel, Docker and CI to ship it. I care about speed, accessibility and the small details that make software feel premium.",
     "I work directly with founders and businesses in India, the US, Canada, the UAE, Europe, Africa and Asia — one developer from first call to launch, no agency hand-offs. I'm also open to full-time roles on product teams.",
   ],
@@ -1239,7 +1239,7 @@ export const profile = {
       clip: "briefcase",
       accent: "sky",
       problem: "A B2B meat and poultry supplier needed a dynamic website its team could keep up to date.",
-      solution: "Built the full stack — React front end with Express and PHP on the back — hosted on Hostinger.",
+      solution: "Built the full stack — React front end with Express and PHP on the back — and handled deployment end to end.",
       highlights: ["Dynamic, data-driven pages", "Deployed and maintained in production"],
       stack: ["React", "Express", "PHP", "Hostinger"],
       liveUrl: "https://rupashienterprise.vercel.app",
@@ -1407,7 +1407,7 @@ export const profile = {
       location: "Remote · India",
       clip: "rocket",
       points: [
-        "Shipped 60+ websites, storefronts and web apps for startups, B2B manufacturers and e-commerce brands.",
+        "Shipped {projectsShipped} websites, storefronts and web apps for startups, B2B manufacturers and e-commerce brands.",
         "Built payment flows with Razorpay, role-based auth, and PostgreSQL/Prisma data models.",
         "Delivered on Next.js, React, Shopify and WooCommerce, deployed on Vercel with CI.",
       ],
@@ -1420,7 +1420,7 @@ export const profile = {
       clip: "briefcase",
       points: [
         "Built the company's B2B dynamic website end to end with React, Express and PHP.",
-        "Handled deployment and hosting on Hostinger; the site is live at rupashienterprise.vercel.app.",
+        "Handled deployment and hosting; the site is live at rupashienterprise.vercel.app.",
       ],
     },
   ] satisfies TimelineItem[] as TimelineItem[],
@@ -1510,6 +1510,11 @@ const technologies = new Set(
 );
 export const projectsShipped = atLeast(profile.projects.length);
 
+// Copy can say "{projectsShipped}" and get the live count, so the bio never falls behind the work.
+const withCount = (s: string) => s.replaceAll("{projectsShipped}", projectsShipped);
+profile.about = profile.about.map(withCount);
+for (const job of profile.experience) job.points = job.points.map(withCount);
+
 /**
  * Homepage stats. A function rather than a constant so the year is read each time the page
  * renders: the homepage re-renders every few hours (`revalidate` in app/page.tsx and its data
@@ -1560,7 +1565,7 @@ export const categories: Category[] = [
     tagline: "Marketplaces and storefronts built on Next.js, WooCommerce and Shopify.",
     clip: "cart",
     accent: "mint",
-    match: ["E-commerce platform", "E-commerce frontend", "WordPress / WooCommerce", "Shopify", "OpenCart"],
+    match: ["E-commerce platform", "E-commerce website", "E-commerce frontend", "WordPress / WooCommerce", "Shopify", "OpenCart"],
   },
   {
     slug: "business-sites",
@@ -1968,7 +1973,7 @@ export const services: Service[] = [
     accent: "peach",
     intro: [
       "Your website is often the first conversation a customer has with your business. I design and build fast, mobile-first websites that explain what you do clearly, load in under two seconds and make it easy to get in touch.",
-      "I've built sites for manufacturers, exporters, brands, travel companies and non-profits in India, the US, Canada, the UAE, Europe and China, including multilingual sites for international buyers.",
+      "I've built sites for manufacturers, exporters, brands, travel companies and non-profits in India, the US, Canada, the UAE, Europe, Morocco and China, including multilingual sites for international buyers.",
     ],
     idealFor: [
       "Businesses that need a new site or a redesign of an outdated one",
@@ -1991,6 +1996,10 @@ export const services: Service[] = [
       {
         q: "How long does a business website take?",
         a: "A Launch site (up to 5 pages) is live in 2–3 days and a Business site (up to 15 pages) in 4–5 days, after you approve the free homepage demo. Larger custom builds take 2–4 weeks.",
+      },
+      {
+        q: "How much does a website cost?",
+        a: `A Launch site (up to 5 pages) is ${plan("launch").inr} and a Business site (up to 15 pages, with SEO setup and Google listings) is ${plan("business").inr}, both one-time with a free domain and hosting for the first year. You see a free homepage demo before you pay anything.`,
       },
       {
         q: "Will my website show up on Google?",
@@ -2092,6 +2101,10 @@ export const services: Service[] = [
     projects: ["toyco-india", "containers-unlimited", "euro-agro-fertilizers", "aureve", "marento-home", "ufixpro"],
     plans: ["store", "care", "fix-upgrade"],
     faqs: [
+      {
+        q: "How much does an online store cost?",
+        a: `The Online Store plan is ${plan("store").inr} one-time, with up to 50 products uploaded for you, UPI, card and cash-on-delivery payments, and ${plan("store").freeSupport} of free support. Shopify, hosting and payment-gateway fees are paid to those providers in your name. Bigger catalogues and custom marketplaces get a fixed quote.`,
+      },
       {
         q: "Shopify or WooCommerce — which is right for me?",
         a: "Shopify is best if you want a fully hosted store with minimal maintenance. WooCommerce suits businesses that want full control, custom B2B logic or no monthly platform fees. I'll recommend one based on your products and budget.",
@@ -2218,7 +2231,7 @@ export const workProcess = [
   { title: "Proposal & fixed quote", body: "You get a clear scope, timeline and price in writing before any work starts." },
   { title: "Design", body: "I design the key screens and refine them with you until they're right." },
   { title: "Build with live previews", body: "You follow progress on a live preview link, with regular updates." },
-  { title: "Launch", body: "Testing on real devices, SEO setup, analytics, and a smooth go-live." },
+  { title: "Launch", body: "Testing on real devices, analytics and a smooth go-live, with SEO setup and Google listings from the Business plan up." },
   { title: "Support", body: "Free support after launch, from 30 days to 12 months depending on the plan, then optional Care or Suite Care." },
 ];
 
@@ -2242,11 +2255,11 @@ export const generalFaqs = [
   },
   {
     q: "How do payments work?",
-    a: "For websites and stores: 50% after you approve the free demo and 50% at launch. Larger apps are split into milestones agreed upfront. I accept UPI and bank transfer in India, and PayPal and Binance for international clients, so paying from anywhere in the world is easy.",
+    a: "For websites and stores: 50% after you approve the free demo and 50% at launch. Apps and Web + App Suites are paid in milestones agreed upfront. I accept UPI and bank transfer in India, and PayPal and Binance for international clients, so paying from anywhere in the world is easy.",
   },
   {
     q: "Do you offer support after launch?",
-    a: `Yes. Every plan includes free support after launch: ${plan("launch").freeSupport} for Launch, ${plan("business").freeSupport} for Business, ${plan("store").freeSupport} for Online Store and ${plan("app").freeSupport} for apps and web apps. After that, the Care plan covers updates, backups, monitoring, security scans, on-page SEO checks and an hour of changes every month for ${plan("care").inr}. The Web + App Suites include ${plan("secure-starter").freeSupport} to ${plan("secure-enterprise").freeSupport} of free support, then Suite Care at ${plan("suite-care").inr} a month.`
+    a: `Yes. Every plan includes free support after launch: ${plan("launch").freeSupport} for Launch, ${plan("business").freeSupport} for Business, ${plan("store").freeSupport} for Online Store and ${plan("app").freeSupport} for apps and web apps. After that, the Care plan covers updates, backups, monitoring, security scans, SEO, Google Business Profile, listings and social profile upkeep, and up to 3 hours of changes every month for ${plan("care").inr}. The Web + App Suites include ${plan("secure-starter").freeSupport?.replace(" months", "")}–${plan("secure-enterprise").freeSupport} of free support, then Suite Care at ${plan("suite-care").inr} a month.`
   },
   {
     q: "Are you available for full-time roles too?",

@@ -256,11 +256,13 @@ export const ongoingPlans: Plan[] = [
       "Uptime monitoring",
       "Security and malware scans",
       "SSL and domain renewal reminders",
-      "Monthly on-page SEO check: titles, meta descriptions, broken links and page speed",
-      "Up to 1 hour of changes every month",
+      "Monthly SEO check: titles, meta descriptions, broken links, page speed and Search Console",
+      "Google Business Profile, Bing Places and Apple Maps listings kept up to date",
+      "Social profile links, bios and contact details kept consistent",
+      "Up to 3 hours of changes every month",
       "Priority WhatsApp support",
     ],
-    note: "Website care and on-page SEO only; Google Business Profile, listings and other off-page work aren't included. Starts when the free support on Launch, Business, Online Store or App ends. Cancel anytime.",
+    note: "Starts when the free support on Launch, Business, Online Store or App ends. Cancel anytime.",
     cta: "Start Care",
     whatsapp: "Hi Rohan, I'd like the Care plan (₹999/month) for my website.",
   },
@@ -282,7 +284,7 @@ export const ongoingPlans: Plan[] = [
       "SEO and app-store listing upkeep",
       "Google Business Profile and other listings kept up to date",
       "Monthly report on uptime, errors and usage",
-      "Up to 8 hours of changes every month",
+      "Up to 30 hours of changes every month",
       "Priority WhatsApp support",
     ],
     note: "Starts when a suite's free support ends. Cancel anytime. Heavy-traffic hosting, store accounts and payment-gateway fees are billed at cost.",
@@ -390,11 +392,11 @@ export const comparison: { label: string; them: string; me: string }[] = [
 export const pricingFaqs = [
   {
     q: "Which plan should I choose?",
-    a: "If customers mainly need to find you and contact you, choose Launch. If you want to rank on Google with many pages and edit the site yourself, choose Business. If customers should pay and order online, choose Online Store. If you need logins, bookings, dashboards or a mobile app, choose App or Web App. If you need a web app and mobile apps together with tested security, choose one of the Web + App Suites. Still not sure? Tell me what your business does and I'll recommend the cheapest plan that does the job.",
+    a: "If customers mainly need to find you and contact you, choose Launch. If you want to rank on Google with many pages and edit the site yourself, choose Business. If customers should pay and order online, choose Online Store. If you need logins, bookings, dashboards or a mobile app, choose App or Web App. If you need a web app and mobile apps together with security built in, choose one of the Web + App Suites. Still not sure? Tell me what your business does and I'll recommend the cheapest plan that does the job.",
   },
   {
     q: "How long is the free support?",
-    a: "30 days on Launch, 60 days on Business, 90 days on Online Store and 120 days on App or Web App, counted from launch. After that, the Care plan keeps your site updated, backed up, monitored and security-scanned, checks its on-page SEO, and includes an hour of changes every month, for ₹999 a month. The Web + App Suites include much longer support: 6 months on Secure Starter, 9 months on Secure Business and 12 months on Secure Enterprise, then Suite Care at ₹9,999 a month.",
+    a: "30 days on Launch, 60 days on Business, 90 days on Online Store and 120 days on App or Web App, counted from launch. After that, the Care plan keeps your site updated, backed up, monitored and security-scanned, keeps its SEO, Google Business Profile, listings and social profiles up to date, and includes up to 3 hours of changes every month, for ₹999 a month. The Web + App Suites include much longer support: 6 months on Secure Starter, 9 months on Secure Business and 12 months on Secure Enterprise, then Suite Care at ₹9,999 a month.",
   },
   {
     q: "What does \"high security\" include in the Web + App Suites?",
@@ -414,7 +416,7 @@ export const pricingFaqs = [
   },
   {
     q: "What's not included in the price?",
-    a: "Only third-party fees: domain and hosting renewal after the first year (I'll quote the exact yearly cost before launch), Shopify or paid hosting for stores and apps, payment-gateway charges, and app-store developer accounts (Google Play $25 once, Apple $99 a year). I'll tell you about each one upfront.",
+    a: "Only third-party fees: domain and hosting renewal after the first year (I'll quote the exact yearly cost before launch), Shopify or paid hosting for stores and apps, payment-gateway charges, app-store developer accounts (Google Play $25 once, Apple $99 a year), and an outside VAPT test if you add one to Secure Starter or Secure Business. I'll tell you about each one upfront.",
   },
   {
     q: "Can you change a website another developer built?",
