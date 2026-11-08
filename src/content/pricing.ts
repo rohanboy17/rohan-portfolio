@@ -7,6 +7,11 @@
  * The offer: about the same price, much more included, delivered in days, and a free demo
  * before paying. Change any figure here and every page updates.
  *
+ * The Web + App Suites sit above that, against Kolkata agencies and app studios (researched
+ * Nov 2026: web + Android + iOS products ₹3–8 lakh, complex ₹8–20 lakh; cross-platform apps
+ * from ₹80k–₹2 lakh; mid-size firms $5–10k minimums, top firms $25k+; web-app maintenance
+ * ₹8k–25k/month; an outside VAPT ₹25k–60k for a small web app, ₹50k–1.5 lakh per mobile app).
+ *
  * International clients see US-dollar prices worked out from the rupee price at the day's
  * exchange rate plus `internationalMarkup` (see src/lib/fx.ts), so they track the rupee.
  */
@@ -23,6 +28,8 @@ export type Plan = {
   /** Shown after the price, e.g. "one-time" or "per month". */
   priceNote: string;
   delivery?: string;
+  /** Free support included before monthly care starts, e.g. "6 months" (suites only). */
+  freeSupport?: string;
   popular?: boolean;
   /** First line can be "Everything in X, plus:". */
   features: string[];
@@ -132,11 +139,107 @@ export const plans: Plan[] = [
       "120 days of free support",
     ],
     note: "Final price is fixed after a free scoping call, before any work starts. Store developer accounts are in your name.",
-    instead: { when: "Only need customers to find and contact you?", slug: "launch" },
+    instead: { when: "Need a web app and mobile app together, security-tested?", slug: "secure-starter" },
     cta: "Book a free call",
     whatsapp: "Hi Rohan, I need an app / web app. Can we book a free scoping call?",
   },
 ];
+
+/**
+ * Web + App Suites: a secure web app and an Android + iOS app on one backend. Each card shows
+ * the one-time build and, below it, the free support period followed by `suiteCare`.
+ */
+export const suites: Plan[] = [
+  {
+    slug: "secure-starter",
+    name: "Secure Starter",
+    forWho: "You're launching a product on the web and on phones at the same time, and it has to be safe from day one.",
+    bestFor: ["Startups & MVPs", "Booking & membership apps", "Local service platforms"],
+    inr: "₹59,999",
+    priceNote: "one-time",
+    delivery: "From 4–6 weeks",
+    freeSupport: "6 months",
+    features: [
+      "Web app plus Android and iOS app (one React Native codebase) on a shared backend",
+      "Up to 10 screens per app, with customer and admin roles",
+      "OTP login and an admin dashboard",
+      "Push notifications",
+      "Security hardening: HTTPS everywhere, hashed passwords, role-based access, rate limiting",
+      "Automated vulnerability scan and a written security report",
+      "Daily encrypted backups",
+      "Google Play and App Store publishing",
+    ],
+    note: "An outside VAPT test is available as an add-on, quoted at cost. Paid in milestones agreed on the scoping call.",
+    instead: { when: "Taking payments or handling customer data?", slug: "secure-business" },
+    cta: "Book a free scoping call",
+    whatsapp: "Hi Rohan, I'm interested in the Secure Starter suite (₹59,999). Can we book a free scoping call?",
+  },
+  {
+    slug: "secure-business",
+    name: "Secure Business",
+    forWho: "Your customers pay you or trust you with personal data, so security has to be tested, not assumed.",
+    bestFor: ["Clinics & healthcare", "Finance & insurance", "Logistics & delivery", "E-learning platforms"],
+    inr: "₹1,09,999",
+    priceNote: "one-time",
+    delivery: "From 6–8 weeks",
+    freeSupport: "9 months",
+    popular: true,
+    features: [
+      "Everything in Secure Starter, plus:",
+      "Up to 25 screens per app, with multiple roles and permissions",
+      "UPI and card payments",
+      "Two-factor login and audit logs",
+      "Reports and analytics dashboard",
+      "Staging environment and automated tests",
+      "Outside VAPT test of the web app and API by an independent security firm, with fixes and a retest",
+    ],
+    note: "Paid in milestones agreed on the scoping call. Store accounts and payment-gateway fees are in your name.",
+    instead: { when: "Need integrations, offline mode or strict data rules?", slug: "secure-enterprise" },
+    cta: "Book a free scoping call",
+    whatsapp: "Hi Rohan, I'm interested in the Secure Business suite (₹1,09,999). Can we book a free scoping call?",
+  },
+  {
+    slug: "secure-enterprise",
+    name: "Secure Enterprise",
+    forWho: "Your platform runs complex workflows, connects to other systems or has to meet strict data rules.",
+    bestFor: ["Hospitals & labs", "Fintech & NBFCs", "Manufacturing & ERP", "Multi-branch businesses"],
+    inr: "₹1,99,999",
+    priceNote: "one-time",
+    delivery: "From 10–12 weeks",
+    freeSupport: "12 months",
+    features: [
+      "Everything in Secure Business, plus:",
+      "Complex workflows and approval chains",
+      "Integrations with your ERP, CRM, payment or logistics systems",
+      "Offline mode and real-time updates",
+      "Encryption of sensitive fields and admin IP allow-listing",
+      "Load testing and a disaster-recovery plan",
+      "Outside VAPT test of the web app, API and both mobile apps, with a certificate",
+      "Priority response throughout the free year",
+    ],
+    note: "Paid in milestones agreed on the scoping call. Store accounts and payment-gateway fees are in your name.",
+    instead: { when: "Want to launch smaller first and grow into this later?", slug: "secure-starter" },
+    cta: "Book a free scoping call",
+    whatsapp: "Hi Rohan, I'm interested in the Secure Enterprise suite (₹1,99,999). Can we book a free scoping call?",
+  },
+];
+
+/** Monthly care for a suite once its free support ends. */
+export const suiteCare = {
+  name: "Suite Care",
+  inr: "₹14,999",
+  period: "per month",
+  features: [
+    "Hosting for the web app and backend",
+    "App updates for new iOS and Android releases",
+    "Security patches and dependency updates",
+    "Uptime and error monitoring",
+    "Daily backups",
+    "Up to 8 hours of changes every month",
+    "Priority WhatsApp support",
+  ],
+  note: "Cancel anytime. Heavy-traffic hosting, store accounts and payment-gateway fees are billed at cost.",
+};
 
 /** For sites that are already live: monthly care after free support, and one-off fixes for any site. */
 export const ongoingPlans: Plan[] = [
@@ -172,7 +275,7 @@ export const ongoingPlans: Plan[] = [
   },
 ];
 
-/** "Which plan fits your business?" guide on /pricing. `plan` is a slug from `plans` or `ongoingPlans`. */
+/** "Which plan fits your business?" guide on /pricing. `plan` is a slug from `plans`, `suites` or `ongoingPlans`. */
 export const planGuide: { business: string; plan: string; why: string }[] = [
   {
     business: "Clinic, salon, gym, restaurant or local shop",
@@ -193,6 +296,21 @@ export const planGuide: { business: string; plan: string; why: string }[] = [
   { business: "Business that needs a full booking or appointment system", plan: "app", why: "Customer accounts, live calendars, reminders and online payments need custom software. A simple booking form is a small add-on to any plan." },
   { business: "Startup, marketplace or SaaS idea", plan: "app", why: "Sign-ups, user roles, an admin dashboard and a product built to grow." },
   { business: "Company that needs a portal, CRM or internal tool", plan: "app", why: "Custom workflows for your team, with logins and reports." },
+  {
+    business: "Startup launching on the web and on phones together",
+    plan: "secure-starter",
+    why: "One backend powers the web app and both mobile apps, hardened and scanned before launch, with 6 months of free support.",
+  },
+  {
+    business: "Clinic, finance or logistics business handling payments or personal data",
+    plan: "secure-business",
+    why: "Payments, two-factor login and audit logs, tested by an outside security firm before your customers use it.",
+  },
+  {
+    business: "Platform with integrations, offline use or strict data rules",
+    plan: "secure-enterprise",
+    why: "ERP or CRM integrations, offline mode, load testing and a full outside security test of every app, with a year of support.",
+  },
   { business: "Already have a website that needs work", plan: "fix-upgrade", why: "Edits, fixes and new features on the site you have, whoever built it." },
 ];
 
@@ -212,18 +330,27 @@ export const comparison: { label: string; them: string; me: string }[] = [
   { label: "Design", them: "Mostly ready-made templates", me: "Custom-designed and hand-coded" },
   { label: "Copywriting", them: "Extra charge", me: "Help included" },
   { label: "Domain and hosting", them: "Hosting ₹1,000–3,500 a year, domain extra", me: "Both free for the first year" },
-  { label: "Support", them: "AMC from ₹2,000/month", me: "30–120 days free, then ₹999/month" },
+  {
+    label: "Secure web app + mobile app",
+    them: "₹3–8 lakh at Kolkata agencies; outside security test extra (₹25k–1.5 lakh)",
+    me: "₹59,999–₹1,99,999, outside security test included from ₹1,09,999",
+  },
+  { label: "Support", them: "AMC from ₹2,000/month", me: "30 days to 12 months free, then from ₹999/month" },
   { label: "Who you talk to", them: "Sales or account manager", me: "The developer, directly" },
 ];
 
 export const pricingFaqs = [
   {
     q: "Which plan should I choose?",
-    a: "If customers mainly need to find you and contact you, choose Launch. If you want to rank on Google with many pages and edit the site yourself, choose Business. If customers should pay and order online, choose Online Store. If you need logins, bookings, dashboards or a mobile app, choose App or Web App. Still not sure? Tell me what your business does and I'll recommend the cheapest plan that does the job.",
+    a: "If customers mainly need to find you and contact you, choose Launch. If you want to rank on Google with many pages and edit the site yourself, choose Business. If customers should pay and order online, choose Online Store. If you need logins, bookings, dashboards or a mobile app, choose App or Web App. If you need a web app and mobile apps together with tested security, choose one of the Web + App Suites. Still not sure? Tell me what your business does and I'll recommend the cheapest plan that does the job.",
   },
   {
     q: "How long is the free support?",
-    a: "30 days on Launch, 60 days on Business, 90 days on Online Store and 120 days on App or Web App, counted from launch. After that, the Care plan keeps your site updated, backed up and monitored for ₹999 a month, or you can pay only when you need a change.",
+    a: "30 days on Launch, 60 days on Business, 90 days on Online Store and 120 days on App or Web App, counted from launch. After that, the Care plan keeps your site updated, backed up and monitored for ₹999 a month, or you can pay only when you need a change. The Web + App Suites include much longer support: 6 months on Secure Starter, 9 months on Secure Business and 12 months on Secure Enterprise, then Suite Care at ₹14,999 a month.",
+  },
+  {
+    q: "What does \"high security\" include in the Web + App Suites?",
+    a: "Every suite is hardened as it's built: HTTPS everywhere, hashed passwords, role-based access, rate limiting, encrypted backups, plus an automated vulnerability scan and a written security report. Secure Business adds two-factor login and audit logs, and Secure Enterprise adds field encryption, IP allow-listing, load testing and a disaster-recovery plan. A VAPT (vulnerability assessment and penetration test) by an independent security firm is included in Secure Business (web app and API) and Secure Enterprise (web app, API and both mobile apps, with a certificate). Any issues it finds are fixed and retested. For Secure Starter, it's an add-on quoted at cost.",
   },
   {
     q: "How can the prices be this low?",

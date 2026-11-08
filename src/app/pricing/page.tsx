@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { profile } from "@/content/profile";
-import { plans, ongoingPlans, pricingFaqs } from "@/content/pricing";
+import { plans, suites, suiteCare, ongoingPlans, pricingFaqs } from "@/content/pricing";
 import Pricing from "@/components/sections/Pricing";
 import Faq from "@/components/site/Faq";
 import QuoteCta from "@/components/site/QuoteCta";
@@ -12,7 +12,7 @@ import { shareMetadata } from "@/lib/seo";
 
 const title = "Website Design Prices in Kolkata & India from ₹4,999";
 const description =
-  "Website from ₹4,999, online store ₹19,999, app from ₹34,999. Custom-built in days, with a free homepage demo before you pay. No hidden charges.";
+  "Website from ₹4,999, store ₹19,999, app from ₹34,999, secure web + app suites from ₹59,999. Custom-built, with a free demo before you pay. No hidden charges.";
 
 export const metadata: Metadata = {
   title: { absolute: title },
@@ -32,16 +32,28 @@ export default function PricingPage() {
           {
             "@context": "https://schema.org",
             "@type": "OfferCatalog",
-            name: "Website, online store and app development packages",
-            itemListElement: [...plans, ...ongoingPlans].map((p) => ({
-              "@type": "Offer",
-              name: p.name,
-              description: p.forWho,
-              price: num(p.inr),
-              priceCurrency: "INR",
-              url: `${profile.siteUrl}/pricing#plan-${p.slug}`,
-              seller: { "@id": `${profile.siteUrl}/#business` },
-            })),
+            name: "Website, online store, app and secure web + app suite packages",
+            itemListElement: [
+              ...[...plans, ...suites, ...ongoingPlans].map((p) => ({
+                "@type": "Offer",
+                name: p.name,
+                description: p.forWho,
+                price: num(p.inr),
+                priceCurrency: "INR",
+                url: `${profile.siteUrl}/pricing#plan-${p.slug}`,
+                seller: { "@id": `${profile.siteUrl}/#business` },
+              })),
+              {
+                "@type": "Offer",
+                name: suiteCare.name,
+                description: `Monthly care for a Web + App Suite: ${suiteCare.features.join(", ").toLowerCase()}.`,
+                price: num(suiteCare.inr),
+                priceCurrency: "INR",
+                priceSpecification: { "@type": "UnitPriceSpecification", price: num(suiteCare.inr), priceCurrency: "INR", unitCode: "MON" },
+                url: `${profile.siteUrl}/pricing#suite-care`,
+                seller: { "@id": `${profile.siteUrl}/#business` },
+              },
+            ],
           },
         ]}
       />

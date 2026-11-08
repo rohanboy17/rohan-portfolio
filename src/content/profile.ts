@@ -2210,7 +2210,7 @@ export const whyHire = [
 export const generalFaqs = [
   {
     q: "How much does a website or app cost?",
-    a: "Websites start at ₹4,999, online stores at ₹19,999 and apps or web apps from ₹34,999. International clients see US-dollar prices on the pricing page, updated daily. See the pricing page for what each plan includes, or tell me what you need and I'll send a fixed quote within 24 hours.",
+    a: "Websites start at ₹4,999, online stores at ₹19,999, apps or web apps from ₹34,999, and secure web + mobile app suites from ₹59,999. International clients see US-dollar prices on the pricing page, updated daily. See the pricing page for what each plan includes, or tell me what you need and I'll send a fixed quote within 24 hours.",
   },
   {
     q: "Do you work with international clients?",
@@ -2222,7 +2222,7 @@ export const generalFaqs = [
   },
   {
     q: "Do you offer support after launch?",
-    a: "Yes. Every plan includes free support after launch: 30 days for Launch, 60 for Business, 90 for Online Store and 120 for apps and web apps. After that, the Care plan covers updates, backups and monitoring for ₹999 a month, and Fix & Upgrade handles one-off changes from ₹2,499."
+    a: "Yes. Every plan includes free support after launch: 30 days for Launch, 60 for Business, 90 for Online Store and 120 for apps and web apps. After that, the Care plan covers updates, backups and monitoring for ₹999 a month, and Fix & Upgrade handles one-off changes from ₹2,499. The Web + App Suites include 6 to 12 months of free support, then Suite Care at ₹14,999 a month."
   },
   {
     q: "Are you available for full-time roles too?",
