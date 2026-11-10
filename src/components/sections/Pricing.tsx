@@ -3,7 +3,7 @@ import Link from "next/link";
 import clsx from "clsx";
 import { ArrowRight, Check, Clock } from "lucide-react";
 import { profile } from "@/content/profile";
-import { plans, suites, ongoingPlans, planGuide, everyPlan, comparison, internationalMarkup, type Plan } from "@/content/pricing";
+import { plans, suites, suiteDesignExamples, ongoingPlans, planGuide, everyPlan, comparison, internationalMarkup, type Plan } from "@/content/pricing";
 import { usdFromInr, usdPerInr } from "@/lib/fx";
 import SocialIcon from "@/components/ui/SocialIcon";
 import { Item, Reveal, Stagger } from "@/components/site/MotionPrimitives";
@@ -48,11 +48,20 @@ export default async function Pricing() {
       <div id="suites" className="mt-16 scroll-mt-28">
         <Reveal>
           <p className="text-center text-xs font-semibold uppercase tracking-[0.28em] text-lilac sm:text-left">Web + App Suites</p>
-          <GroupHeading>Secure web app and mobile app, built and run for you.</GroupHeading>
+          <GroupHeading>Secure, custom-designed web app and mobile app, built and run for you.</GroupHeading>
           <GroupIntro>
-            One backend powers your web app and your Android and iOS apps. Pay once to build it, get 6 to 12 months of free support,
-            then {suiteCare.name} keeps it running for {suiteCare.inr} a month.
+            One backend powers your web app and your Android and iOS apps, designed from scratch for your brand and built to be
+            secure. Pay once to build it, get 6 to 12 months of free support, then {suiteCare.name} keeps it running for{" "}
+            {suiteCare.inr} a month.
           </GroupIntro>
+          <p className="mt-3 flex flex-wrap justify-center gap-x-3 gap-y-1 text-sm text-muted sm:justify-start">
+            <span>See the design quality:</span>
+            {suiteDesignExamples.map((e) => (
+              <Link key={e.href} prefetch={false} href={e.href} className="font-semibold text-lilac hover:underline">
+                {e.label}
+              </Link>
+            ))}
+          </p>
         </Reveal>
         <Stagger className="mt-8 grid gap-5 md:gap-4 lg:grid-cols-3">
           {suites.map((p) => (

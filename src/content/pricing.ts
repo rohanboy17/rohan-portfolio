@@ -163,7 +163,7 @@ export const suites: Plan[] = [
   {
     slug: "secure-starter",
     name: "Secure Starter",
-    forWho: "You're launching a product on the web and on phones at the same time, and it has to be safe from day one.",
+    forWho: "You're launching a product on the web and on phones at the same time, and it has to look premium and be safe from day one.",
     bestFor: ["Startups & MVPs", "Booking & membership apps", "Local service platforms"],
     inr: "₹59,999",
     priceNote: "one-time",
@@ -172,6 +172,8 @@ export const suites: Plan[] = [
     care: "suite-care",
     features: [
       "Web app plus Android and iOS app (one React Native codebase) on a shared backend",
+      "Custom UI design for the web app and both apps: no templates, themes or UI kits, approved by you before the build",
+      "Smooth animations and screen transitions",
       "Up to 10 screens per app, with customer and admin roles",
       "OTP login and an admin dashboard",
       "Push notifications",
@@ -190,7 +192,7 @@ export const suites: Plan[] = [
   {
     slug: "secure-business",
     name: "Secure Business",
-    forWho: "Your customers pay you or trust you with personal data, so security has to be built in from the first screen.",
+    forWho: "Your customers pay you or trust you with personal data, so it has to look trustworthy and be secure from the first screen.",
     bestFor: ["Clinics & healthcare", "Finance & insurance", "Logistics & delivery", "E-learning platforms"],
     inr: "₹99,999",
     priceNote: "one-time",
@@ -205,6 +207,7 @@ export const suites: Plan[] = [
       "Two-factor login and audit logs",
       "Reports and analytics dashboard",
       "Staging environment and automated tests",
+      "A 3D scene on your web app's homepage, built with Three.js and kept fast on phones",
     ],
     note: "An outside VAPT test is available as an add-on, quoted at cost. Paid in milestones agreed on the scoping call. Hosting, store accounts and payment-gateway fees are in your name.",
     instead: { when: "Need integrations, offline mode or an outside security test included?", slug: "secure-enterprise" },
@@ -228,6 +231,7 @@ export const suites: Plan[] = [
       "Offline mode and real-time updates",
       "Encryption of sensitive fields and admin IP allow-listing",
       "Load testing and a disaster-recovery plan",
+      "Scroll-driven storytelling with 3D and custom illustrations",
       "Outside VAPT test of the web app, API and both mobile apps, with a certificate",
       "Priority response throughout the free year",
     ],
@@ -236,6 +240,14 @@ export const suites: Plan[] = [
     cta: "Book a free scoping call",
     whatsapp: "Hi Rohan, I'm interested in the Secure Enterprise suite (₹1,99,999). Can we book a free scoping call?",
   },
+];
+
+/** Live examples of the design quality the suites promise, shown under the suites heading. */
+export const suiteDesignExamples: { label: string; href: string }[] = [
+  { label: "the 3D scene on my homepage", href: "/" },
+  { label: "Martin Luxury", href: "/projects/martin-luxury" },
+  { label: "Shine Li Atelier", href: "/projects/shine-li-atelier" },
+  { label: "Forge74", href: "/projects/forge74" },
 ];
 
 /**
@@ -342,7 +354,7 @@ export const planGuide: { business: string; plan: string; why: string }[] = [
   {
     business: "Startup launching on the web and on phones together",
     plan: "secure-starter",
-    why: "One backend powers the web app and both mobile apps, hardened and scanned before launch, with 6 months of free support.",
+    why: "One backend powers the web app and both mobile apps, custom-designed, hardened and scanned before launch, with 6 months of free support.",
   },
   {
     business: "Clinic, finance or logistics business handling payments or personal data",
@@ -382,7 +394,7 @@ export const comparison: { label: string; them: string; me: string }[] = [
   {
     label: "Secure web app + mobile app",
     them: "₹3–8 lakh at Kolkata agencies; outside security test extra (₹25k–1.5 lakh)",
-    me: "₹59,999–₹1,99,999, outside security test included in Secure Enterprise",
+    me: "₹59,999–₹1,99,999: custom design, 3D from Secure Business, outside security test in Secure Enterprise",
   },
   { label: "Support", them: "AMC from ₹2,000/month", me: "30 days to 12 months free, then from ₹999/month" },
   { label: "Who you talk to", them: "Sales or account manager", me: "The developer, directly" },
@@ -391,7 +403,7 @@ export const comparison: { label: string; them: string; me: string }[] = [
 export const pricingFaqs = [
   {
     q: "Which plan should I choose?",
-    a: "If customers mainly need to find you and contact you, choose Launch. If you want to rank on Google with many pages and edit the site yourself, choose Business. If customers should pay and order online, choose Online Store. If you need logins, bookings, dashboards or a mobile app, choose App or Web App. If you need a web app and mobile apps together with security built in, choose one of the Web + App Suites. Still not sure? Tell me what your business does and I'll recommend the cheapest plan that does the job.",
+    a: "If customers mainly need to find you and contact you, choose Launch. If you want to rank on Google with many pages and edit the site yourself, choose Business. If customers should pay and order online, choose Online Store. If you need logins, bookings, dashboards or a mobile app, choose App or Web App. If you need a web app and mobile apps together with security built in and a custom design, choose one of the Web + App Suites. Still not sure? Tell me what your business does and I'll recommend the cheapest plan that does the job.",
   },
   {
     q: "How long is the free support?",
@@ -400,6 +412,10 @@ export const pricingFaqs = [
   {
     q: "What does \"high security\" include in the Web + App Suites?",
     a: "Every suite is hardened as it's built: HTTPS everywhere, hashed passwords, role-based access, rate limiting, encrypted backups, plus an automated vulnerability scan and a written security report. Secure Business adds two-factor login and audit logs, and Secure Enterprise adds field encryption, IP allow-listing, load testing and a disaster-recovery plan. A VAPT (vulnerability assessment and penetration test) by an independent security firm is included in Secure Enterprise, covering the web app, API and both mobile apps, with a certificate. Any issues it finds are fixed and retested. For Secure Starter and Secure Business, it's an add-on quoted at cost.",
+  },
+  {
+    q: "What does custom design and 3D include in the Web + App Suites?",
+    a: "Every suite is designed from scratch for your brand, with no templates, themes or UI kits. You approve the design of the key screens before building starts, and the web app and both phone apps share the same look. All three suites get smooth animations and screen transitions. Secure Business and Secure Enterprise add a 3D scene on your web app's homepage, built with Three.js like the one on my homepage. It loads after the page with a still image as a fallback, so phones stay fast. The phone apps get polished motion rather than 3D. Secure Enterprise also adds scroll-driven storytelling and custom illustrations.",
   },
   {
     q: "Why do you cost less than agencies?",

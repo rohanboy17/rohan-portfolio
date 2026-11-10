@@ -2065,7 +2065,7 @@ export const services: Service[] = [
       },
       {
         q: "How much does an app cost?",
-        a: `An Android and iOS app with its backend and admin panel starts from ${plan("app").inr} (App or Web App plan). A web app plus Android and iOS apps on one backend, built with security hardening, starts at ${plan("secure-starter").inr} (Secure Starter), with Secure Business at ${plan("secure-business").inr} and Secure Enterprise at ${plan("secure-enterprise").inr}. The final price is fixed after a free scoping call, before any work starts.`,
+        a: `An Android and iOS app with its backend and admin panel starts from ${plan("app").inr} (App or Web App plan). A web app plus Android and iOS apps on one backend, custom-designed and built with security hardening, starts at ${plan("secure-starter").inr} (Secure Starter), with Secure Business at ${plan("secure-business").inr} and Secure Enterprise at ${plan("secure-enterprise").inr}. The final price is fixed after a free scoping call, before any work starts.`,
       },
     ],
   },
