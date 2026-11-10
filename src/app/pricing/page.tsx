@@ -60,7 +60,7 @@ export default function PricingPage() {
             From a ₹4,999 website to a secure web + app suite.
           </h1>
           <p className="mt-4 text-pretty text-lg text-muted">
-            Custom websites, online stores, apps and security-tested web + mobile app suites for businesses in Kolkata, across India
+            Custom websites, online stores, apps and secure, custom-designed web + mobile app suites for businesses in Kolkata, across India
             and worldwide. Every plan shows what you pay to build it, how long support is free, and what care costs after that.
           </p>
         </header>

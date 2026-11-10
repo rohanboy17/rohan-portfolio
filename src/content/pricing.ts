@@ -149,7 +149,7 @@ export const plans: Plan[] = [
       "Google Business Profile, Bing Places and Apple Maps listings set up",
     ],
     note: "Final price is fixed after a free scoping call, before any work starts. Hosting and store developer accounts are in your name.",
-    instead: { when: "Need a web app and mobile app together, security-tested?", slug: "secure-starter" },
+    instead: { when: "Need a web app and mobile app together, custom-designed and secure?", slug: "secure-starter" },
     cta: "Book a free call",
     whatsapp: "Hi Rohan, I need an app / web app. Can we book a free scoping call?",
   },

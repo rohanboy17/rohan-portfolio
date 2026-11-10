@@ -2247,7 +2247,7 @@ export const whyHire = [
 export const generalFaqs = [
   {
     q: "How much does a website or app cost?",
-    a: `Websites start at ${plan("launch").inr}, online stores at ${plan("store").inr}, apps or web apps from ${plan("app").inr}, and secure web + mobile app suites from ${plan("secure-starter").inr}. International clients see US-dollar prices on the pricing page, updated daily. See the pricing page for what each plan includes, or tell me what you need and I'll send a fixed quote within 24 hours.`,
+    a: `Websites start at ${plan("launch").inr}, online stores at ${plan("store").inr}, apps or web apps from ${plan("app").inr}, and secure, custom-designed web + mobile app suites from ${plan("secure-starter").inr}. International clients see US-dollar prices on the pricing page, updated daily. See the pricing page for what each plan includes, or tell me what you need and I'll send a fixed quote within 24 hours.`,
   },
   {
     q: "Do you work with international clients?",
