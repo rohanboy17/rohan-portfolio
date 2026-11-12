@@ -23,7 +23,14 @@ export async function inrPerUsd(): Promise<number> {
   return FALLBACK_INR_PER_USD;
 }
 
-/** $249 → ₹21,199: converted at `rate`, rounded up to the next hundred minus one. */
+/**
+ * Dollars to a clean rupee price at `rate`, so converted prices look set by hand:
+ * under ₹10,000 → next hundred minus one (₹2,299); under ₹1 lakh → nearest thousand minus one
+ * (₹11,999, ₹41,999); from ₹1 lakh → nearest ₹5,000 (₹1,85,000).
+ */
 export function inrFromUsd(usd: number, rate: number): number {
-  return Math.ceil((usd * rate) / 100) * 100 - 1;
+  const inr = usd * rate;
+  if (inr < 10_000) return Math.ceil(inr / 100) * 100 - 1;
+  if (inr < 100_000) return Math.round(inr / 1000) * 1000 - 1;
+  return Math.round(inr / 5000) * 5000;
 }

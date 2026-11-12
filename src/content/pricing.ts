@@ -33,6 +33,8 @@ export type Plan = {
   freeSupport?: string;
   /** Slug of the monthly plan (in `ongoingPlans`) that follows the free support. */
   care?: string;
+  /** Paid in three milestones (`milestoneSplit`), shown under the price. */
+  milestones?: boolean;
   popular?: boolean;
   /** First line can be "Everything in X, plus:". */
   features: string[];
@@ -61,6 +63,8 @@ export const offerPrice = (usd: number) => Math.floor((usd * (100 - launchOffer.
 export const formatUsd = (n: number) => `$${n.toLocaleString("en-US")}`;
 export const formatInr = (n: number) => `₹${n.toLocaleString("en-IN")}`;
 /** For text that can't show a live price: names the offer and its end date. */
+/** How the bigger builds (store, app, suites) are paid, shown under their price. */
+export const milestoneSplit = "30% to start · 40% after design approval · 30% at launch";
 export const offerSentence = `Every plan, including Care, Suite Care and Fix & Upgrade, is ${launchOffer.percent}% off until ${launchOffer.endsLabel}.`;
 
 export const plans: Plan[] = [
@@ -127,6 +131,7 @@ export const plans: Plan[] = [
     usd: 899,
     priceNote: "one-time",
     delivery: "Live in 7–10 days",
+    milestones: true,
     freeSupport: "90 days",
     care: "care",
     features: [
@@ -156,6 +161,7 @@ export const plans: Plan[] = [
     usd: 1799,
     from: true,
     priceNote: "starting price",
+    milestones: true,
     delivery: "From 2–3 weeks",
     freeSupport: "120 days",
     care: "care",
@@ -193,6 +199,7 @@ export const suites: Plan[] = [
     priceNote: "one-time",
     delivery: "From 4–6 weeks",
     freeSupport: "6 months",
+    milestones: true,
     care: "suite-care",
     features: [
       "Web app plus Android and iOS app (one React Native codebase) on a shared backend",
@@ -210,7 +217,7 @@ export const suites: Plan[] = [
       "SEO for the web app and app-store listings",
       "Google Business Profile, Bing Places and Apple Maps listings set up",
     ],
-    note: "An outside VAPT test is available as an add-on, quoted at cost. Paid in milestones agreed on the scoping call. Hosting, store accounts and payment-gateway fees are in your name.",
+    note: "An outside VAPT test is available as an add-on, quoted at cost. Hosting, store accounts and payment-gateway fees are in your name.",
     instead: { when: "Taking payments or handling customer data?", slug: "secure-business" },
     cta: "Book a free scoping call",
     whatsapp: "Hi Rohan, I'm interested in the Secure Starter suite. Can we book a free scoping call?",
@@ -224,6 +231,7 @@ export const suites: Plan[] = [
     priceNote: "one-time",
     delivery: "From 6–8 weeks",
     freeSupport: "9 months",
+    milestones: true,
     care: "suite-care",
     popular: true,
     features: [
@@ -235,7 +243,7 @@ export const suites: Plan[] = [
       "Staging environment and automated tests",
       "A 3D scene on your web app's homepage, built with Three.js and kept fast on phones",
     ],
-    note: "An outside VAPT test is available as an add-on, quoted at cost. Paid in milestones agreed on the scoping call. Hosting, store accounts and payment-gateway fees are in your name.",
+    note: "An outside VAPT test is available as an add-on, quoted at cost. Hosting, store accounts and payment-gateway fees are in your name.",
     instead: { when: "Need integrations, offline mode or an outside security test included?", slug: "secure-enterprise" },
     cta: "Book a free scoping call",
     whatsapp: "Hi Rohan, I'm interested in the Secure Business suite. Can we book a free scoping call?",
@@ -249,6 +257,7 @@ export const suites: Plan[] = [
     priceNote: "one-time",
     delivery: "From 10–12 weeks",
     freeSupport: "12 months",
+    milestones: true,
     care: "suite-care",
     features: [
       "Everything in Secure Business, plus:",
@@ -262,7 +271,7 @@ export const suites: Plan[] = [
       "Outside VAPT test of the web app, API and both mobile apps, with a certificate",
       "Priority response throughout the free year",
     ],
-    note: "Paid in milestones agreed on the scoping call. Hosting, store accounts and payment-gateway fees are in your name.",
+    note: "Hosting, store accounts and payment-gateway fees are in your name.",
     instead: { when: "Want to launch smaller first and grow into this later?", slug: "secure-starter" },
     cta: "Book a free scoping call",
     whatsapp: "Hi Rohan, I'm interested in the Secure Enterprise suite. Can we book a free scoping call?",
@@ -407,7 +416,7 @@ export const everyPlan = [
   },
   {
     title: "Pay in parts",
-    body: "Websites and stores: 50% after you approve the demo, 50% at launch. Apps and suites: milestones agreed upfront. UPI, bank transfer, PayPal or Binance.",
+    body: "Launch and Business: 50% after you approve the demo, 50% at launch. Stores, apps and suites: 30% to start, 40% after design approval, 30% at launch. UPI, bank transfer, PayPal or Binance.",
   },
   { title: "You own everything", body: "Code, domain and accounts are in your name. No lock-in." },
   { title: "Talk to the developer", body: "Direct WhatsApp line to me: no sales team, no hand-offs." },
@@ -449,7 +458,7 @@ export const pricingFaqs = [
   },
   {
     q: "How long is the free support?",
-    a: `30 days on Launch, 60 days on Business, 90 days on Online Store and 120 days on App or Web App, counted from launch. After that, the Care plan keeps your site updated, backed up, monitored and security-scanned, keeps its SEO, Google Business Profile, listings and social profiles up to date, and includes up to 3 hours of changes every month, for ${usdOf("care")} a month. The Web + App Suites include much longer support: 6 months on Secure Starter, 9 months on Secure Business and 12 months on Secure Enterprise, then Suite Care at ${usdOf("suite-care")} a month. ${offerSentence}`,
+    a: `30 days on Launch, 60 days on Business, 90 days on Online Store and 120 days on App or Web App, counted from launch. After that, the optional Care plan keeps your site updated, backed up, monitored and security-scanned, keeps its SEO, Google Business Profile, listings and social profiles up to date, and includes up to 3 hours of changes every month, for ${usdOf("care")} a month. The Web + App Suites include much longer support: 6 months on Secure Starter, 9 months on Secure Business and 12 months on Secure Enterprise, then the optional Suite Care plan at ${usdOf("suite-care")} a month. Both are month to month, so you can stop any time. ${offerSentence}`,
   },
   {
     q: "Which currency do you charge in?",

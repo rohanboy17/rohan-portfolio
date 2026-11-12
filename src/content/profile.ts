@@ -2255,11 +2255,11 @@ export const generalFaqs = [
   },
   {
     q: "How do payments work?",
-    a: "For websites and stores: 50% after you approve the free demo and 50% at launch. Apps and Web + App Suites are paid in milestones agreed upfront. I accept PayPal, Binance, bank transfer and UPI, so paying from anywhere in the world is easy.",
+    a: "Launch and Business sites: 50% after you approve the free demo and 50% at launch. Online stores, apps and Web + App Suites: 30% to start, 40% after design approval and 30% at launch. I accept PayPal, Binance, bank transfer and UPI, so paying from anywhere in the world is easy.",
   },
   {
     q: "Do you offer support after launch?",
-    a: `Yes. Every plan includes free support after launch: ${plan("launch").freeSupport} for Launch, ${plan("business").freeSupport} for Business, ${plan("store").freeSupport} for Online Store and ${plan("app").freeSupport} for apps and web apps. After that, the Care plan covers updates, backups, monitoring, security scans, SEO, Google Business Profile, listings and social profile upkeep, and up to 3 hours of changes every month for ${formatUsd(plan("care").usd)}. The Web + App Suites include ${plan("secure-starter").freeSupport?.replace(" months", "")}–${plan("secure-enterprise").freeSupport} of free support, then Suite Care at ${formatUsd(plan("suite-care").usd)} a month.`
+    a: `Yes. Every plan includes free support after launch: ${plan("launch").freeSupport} for Launch, ${plan("business").freeSupport} for Business, ${plan("store").freeSupport} for Online Store and ${plan("app").freeSupport} for apps and web apps. After that, the optional Care plan covers updates, backups, monitoring, security scans, SEO, Google Business Profile, listings and social profile upkeep, and up to 3 hours of changes every month for ${formatUsd(plan("care").usd)}. The Web + App Suites include ${plan("secure-starter").freeSupport?.replace(" months", "")}–${plan("secure-enterprise").freeSupport} of free support, then optional Suite Care at ${formatUsd(plan("suite-care").usd)} a month. Both are month to month, so you can stop any time.`
   },
   {
     q: "Are you available for full-time roles too?",

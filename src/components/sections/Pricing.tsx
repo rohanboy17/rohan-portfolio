@@ -3,7 +3,7 @@ import Link from "next/link";
 import clsx from "clsx";
 import { ArrowRight, Check, Clock } from "lucide-react";
 import { profile } from "@/content/profile";
-import { plans, suites, suiteDesignExamples, ongoingPlans, planGuide, everyPlan, comparison, launchOffer, offerActive, type Plan } from "@/content/pricing";
+import { plans, suites, suiteDesignExamples, ongoingPlans, planGuide, everyPlan, comparison, launchOffer, offerActive, milestoneSplit, type Plan } from "@/content/pricing";
 import SocialIcon from "@/components/ui/SocialIcon";
 import { Item, Reveal, Stagger } from "@/components/site/MotionPrimitives";
 import MobileCollapse from "@/components/site/MobileCollapse";
@@ -57,7 +57,7 @@ export default function Pricing() {
           <GroupHeading>Secure, custom-designed web app and mobile app, built and run for you.</GroupHeading>
           <GroupIntro>
             One backend powers your web app and your Android and iOS apps, designed from scratch for your brand and built to be
-            secure. Pay once to build it, get 6 to 12 months of free support, then {suiteCare.name} keeps it running for{" "}
+            secure. Pay once to build it, get 6 to 12 months of free support, then optional {suiteCare.name} keeps it running for{" "}
             <Price usd={suiteCare.usd} strike={false} /> a month.
           </GroupIntro>
           <p className="mt-3 flex flex-wrap justify-center gap-x-3 gap-y-1 text-sm text-muted sm:justify-start">
@@ -211,6 +211,7 @@ function PlanCard({ plan: p }: { plan: Plan }) {
       <p className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted">
         {p.priceNote} <OfferBadge />
       </p>
+      {p.milestones ? <MilestoneNote /> : null}
       {p.delivery ? <DeliveryBadge text={p.delivery} /> : null}
       <BestFor items={p.bestFor} />
       {/* flex-1 lets the feature list absorb spare height, so run panels and buttons line up across a row */}
@@ -245,6 +246,7 @@ function SuiteCard({ plan: p }: { plan: Plan }) {
           <Price usd={p.usd} />
         </p>
         <OfferBadge className="mt-1.5" />
+        {p.milestones ? <MilestoneNote /> : null}
         {p.delivery ? <DeliveryBadge text={p.delivery} /> : null}
         <FeatureList plan={p} />
       </div>
@@ -261,18 +263,23 @@ function RunPanel({ plan: p }: { plan: Plan }) {
   const care = planBySlug(p.care);
   return (
     <div className="mt-5 rounded-3xl border border-mint/25 bg-mint/[0.06] p-4">
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-mint">Run · monthly</p>
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-mint">After launch</p>
       <p className="mt-2">
         <span className="font-display text-2xl font-semibold">{p.freeSupport}</span> <span className="text-sm text-white/85">free support</span>
       </p>
       <p className="mt-1 text-sm text-white/85">
-        Then <Price usd={care.usd} /> {care.priceNote}
+        Then optional {care.name} at <Price usd={care.usd} /> {care.priceNote}, cancel anytime
       </p>
       <a href={`#plan-${care.slug}`} className="mt-2 inline-block text-xs font-semibold text-mint hover:underline">
         What&apos;s in {care.name} ↓
       </a>
     </div>
   );
+}
+
+/** How the bigger builds are paid, so a high price reads as three smaller steps. */
+function MilestoneNote() {
+  return <p className="mt-2 text-xs leading-relaxed text-white/70">Pay {milestoneSplit}</p>;
 }
 
 function PopularBadge() {
