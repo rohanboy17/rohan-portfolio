@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { profile, services } from "@/content/profile";
-import { plans, suites, ongoingPlans } from "@/content/pricing";
+import { plans, suites, ongoingPlans, formatUsd } from "@/content/pricing";
 import JsonLd from "@/components/site/JsonLd";
 import { siteNav } from "@/lib/nav";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
@@ -50,15 +50,10 @@ export const viewport: Viewport = {
 
 const sameAs = profile.socials.filter((s) => s.href.startsWith("http")).map((s) => s.href);
 
-// Cheapest to dearest plan on /pricing in both currencies, e.g. "₹799 – ₹1,99,999 · $25 – $14,999",
-// shown by search engines for the business.
-const allPlans = [...plans, ...suites, ...ongoingPlans];
-const amount = (s: string) => Number(s.replace(/[^\d]/g, ""));
-const span = (key: "inr" | "usd", locale: string, symbol: string) => {
-  const n = allPlans.map((p) => amount(p[key]));
-  return `${symbol}${Math.min(...n).toLocaleString(locale)} – ${symbol}${Math.max(...n).toLocaleString(locale)}`;
-};
-const priceRange = `${span("inr", "en-IN", "₹")} · ${span("usd", "en-US", "$")}`;
+// Cheapest to dearest regular plan price on /pricing, e.g. "$25 – $14,999", shown by search engines
+// for the business. Prices are set in dollars; rupees follow the day's rate.
+const usdPrices = [...plans, ...suites, ...ongoingPlans].map((p) => p.usd);
+const priceRange = `${formatUsd(Math.min(...usdPrices))} – ${formatUsd(Math.max(...usdPrices))}`;
 
 const siteJsonLd = [
   {

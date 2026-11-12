@@ -62,7 +62,7 @@ export default function Services() {
               See all services, process &amp; FAQs →
             </Link>
             <Link prefetch={false} href="/pricing" className="font-semibold text-lilac hover:underline">
-              Plans &amp; pricing, from <Price inr={plans[0].inr} usd={plans[0].usd} /> →
+              Plans &amp; pricing, from <Price usd={plans[0].usd} strike={false} /> →
             </Link>
           </p>
         </Reveal>

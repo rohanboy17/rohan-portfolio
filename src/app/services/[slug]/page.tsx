@@ -173,7 +173,7 @@ export default async function ServicePage({ params }: Params) {
                   <p className="mt-3 flex items-baseline gap-1.5">
                     {p.from ? <span className="text-sm text-muted">from</span> : null}
                     <span className="font-display text-3xl font-semibold tracking-tight">
-                      <Price inr={p.inr} usd={p.usd} />
+                      <Price usd={p.usd} />
                     </span>
                   </p>
                   <p className="mt-1 text-xs text-muted">{p.priceNote}</p>

@@ -1,23 +1,19 @@
 /**
  * Pricing for /pricing and the plan cards on the service pages.
  *
- * Positioned against published price lists of low-cost Kolkata web-design firms (researched
- * Oct 2026: ₹2,999–₹8,499 for 5-page sites, often +18% GST and 5–15 days; online stores
- * ₹14,999–₹60,000; simple apps ₹14,999–₹29,999 without a backend; maintenance ~₹2,000/month).
- * The offer: about the same price, much more included, delivered in days, and a free demo
- * before paying. Change any figure here and every page updates.
+ * Prices are set in US dollars (`usd`). Rupee prices are worked out from the day's exchange rate
+ * (see src/lib/fx.ts), so Indian and international clients pay the same amount.
  *
- * The Web + App Suites sit above that, against Kolkata agencies and app studios (researched
- * Nov 2026: web + Android + iOS products ₹3–8 lakh, complex ₹8–20 lakh; cross-platform apps
- * from ₹80k–₹2 lakh; mid-size firms $5–10k minimums, top firms $25k+; web-app maintenance
- * ₹8k–25k/month; an outside VAPT ₹25k–60k for a small web app, ₹50k–1.5 lakh per mobile app).
+ * Positioned against global rates (researched Nov 2026: freelancer hourly US $75–150, UK $55–130,
+ * Western Europe $50–110, Eastern Europe $25–50, India $20–52; 5-page site $1,000–5,000 freelance,
+ * US agency median $3,850; Shopify store $2,000–5,000 freelance; app MVP $15k–40k freelance,
+ * $40k–100k agency; WordPress care $50–150/month; site fixes $14–45/hr on Upwork, $80–120/hr on
+ * Codeable; an outside VAPT ₹25k–60k for a small web app, ₹50k–1.5 lakh per mobile app).
  *
- * International clients see their own fixed US-dollar price list (`usd`), set against global
- * rates (researched Nov 2026: freelancer hourly US $75–150, UK $55–130, Western Europe $50–110,
- * Eastern Europe $25–50, India $20–52; 5-page site $1,000–5,000 freelance, US agency median
- * $3,850; Shopify store $2,000–5,000 freelance; app MVP $15k–40k freelance, $40k–100k agency;
- * WordPress care $50–150/month; site fixes $14–45/hr on Upwork, $80–120/hr on Codeable).
- * The dollar prices are deliberately aggressive, to win first international clients.
+ * Feature lists cover what clients in India and abroad expect at each level: privacy and cookie
+ * pages, analytics, accessibility basics and booking links for websites; global and Indian payment
+ * methods, multi-currency and tax setup for stores; sign-in, analytics, crash reporting and
+ * store-required account deletion for apps.
  */
 export type Plan = {
   slug: string;
@@ -26,9 +22,8 @@ export type Plan = {
   forWho: string;
   /** Business types this plan suits best, shown as tags on the card. */
   bestFor: string[];
-  inr: string;
-  /** Fixed price for international clients, e.g. "$249". */
-  usd: string;
+  /** Regular price in US dollars. Rupees are converted from it; the launch offer is taken off it. */
+  usd: number;
   /** Show "from" before the price. */
   from?: boolean;
   /** Shown after the price, e.g. "one-time" or "per month". */
@@ -51,19 +46,30 @@ export type Plan = {
   whatsapp: string;
 };
 
-/** "₹4,999 (US$249)": both prices, for text that can't follow the ₹/$ switch. */
-export function bothPrices(p: Pick<Plan, "inr" | "usd">) {
-  return `${p.inr} (US${p.usd})`;
-}
+/**
+ * A real, time-limited discount on every plan. Prices show the regular price crossed out and the
+ * offer price beside it until `endsAt`; after that the regular prices apply on their own.
+ */
+export const launchOffer = {
+  percent: 50,
+  endsAt: "2026-12-31T23:59:59+05:30",
+  endsLabel: "31 December 2026",
+};
+export const offerActive = (now = new Date()) => now <= new Date(launchOffer.endsAt);
+/** $249 → $124 during the offer (rounded down to whole dollars). */
+export const offerPrice = (usd: number) => Math.floor((usd * (100 - launchOffer.percent)) / 100);
+export const formatUsd = (n: number) => `$${n.toLocaleString("en-US")}`;
+export const formatInr = (n: number) => `₹${n.toLocaleString("en-IN")}`;
+/** For text that can't show a live price: names the offer and its end date. */
+export const offerSentence = `Every plan, including Care, Suite Care and Fix & Upgrade, is ${launchOffer.percent}% off until ${launchOffer.endsLabel}.`;
 
 export const plans: Plan[] = [
   {
     slug: "launch",
     name: "Launch",
-    forWho: "You need a professional site so customers can find you, trust you and call or WhatsApp you.",
+    forWho: "You need a professional site so customers can find you, trust you and call, WhatsApp or book you.",
     bestFor: ["Clinics & doctors", "Salons & gyms", "Restaurants & cafés", "Local shops & services", "Freelancers & coaches"],
-    inr: "₹4,999",
-    usd: "$249",
+    usd: 249,
     priceNote: "one-time",
     delivery: "Live in 2–3 days",
     freeSupport: "30 days",
@@ -72,23 +78,25 @@ export const plans: Plan[] = [
       "Up to 5 custom-designed pages, no templates",
       "Mobile-first and fast (90+ speed score)",
       "Copywriting help included",
-      "WhatsApp, call and enquiry-form buttons",
+      "WhatsApp, call, email and enquiry-form buttons, with spam protection",
+      "Booking link for appointments (Calendly or Google Calendar)",
       "Google Maps and social links",
-      "Free .in or .com domain and hosting for the first year",
+      "Privacy policy, cookie notice and terms pages (GDPR-ready)",
+      "Accessibility basics: readable contrast, image alt text, keyboard-friendly menus",
+      "Free domain (.com or your country's) and hosting for the first year",
       "Free SSL certificate",
       "2 rounds of changes",
     ],
     instead: { when: "Need Google SEO and listings, more pages or to edit the site yourself?", slug: "business" },
     cta: "Get my free demo",
-    whatsapp: "Hi Rohan, I'm interested in the Launch website plan (₹4,999). Can I get the free homepage demo?",
+    whatsapp: "Hi Rohan, I'm interested in the Launch website plan. Can I get the free homepage demo?",
   },
   {
     slug: "business",
     name: "Business",
     forWho: "You want to rank on Google, show many services or products, and edit the site yourself.",
     bestFor: ["Manufacturers & B2B suppliers", "Schools & coaching centres", "Real estate & builders", "Hotels & travel agents", "CA, law & consulting firms"],
-    inr: "₹9,999",
-    usd: "$499",
+    usd: 499,
     priceNote: "one-time",
     delivery: "Live in 4–5 days",
     freeSupport: "60 days",
@@ -103,20 +111,20 @@ export const plans: Plan[] = [
       "On-page SEO for your key searches",
       "Google Business Profile, Bing Places and Apple Maps listings set up",
       "Google Business Profile optimised with photos, services and first posts",
-      "Analytics and enquiry tracking",
+      "Google Analytics 4 with enquiry and call tracking, behind a cookie-consent banner",
+      "Testimonials and reviews section",
       "3 rounds of changes",
     ],
     instead: { when: "Want customers to pay and order on the site?", slug: "store" },
     cta: "Get my free demo",
-    whatsapp: "Hi Rohan, I'm interested in the Business website plan (₹9,999). Can I get the free homepage demo?",
+    whatsapp: "Hi Rohan, I'm interested in the Business website plan. Can I get the free homepage demo?",
   },
   {
     slug: "store",
     name: "Online Store",
-    forWho: "You want customers to pick products, pay online and get them delivered to their door.",
+    forWho: "You want customers to pick products, pay online and get them delivered, at home or abroad.",
     bestFor: ["Clothing & boutiques", "Beauty & skincare", "Jewellery & handicrafts", "Food & organic products", "D2C brands"],
-    inr: "₹19,999",
-    usd: "$899",
+    usd: 899,
     priceNote: "one-time",
     delivery: "Live in 7–10 days",
     freeSupport: "90 days",
@@ -124,26 +132,28 @@ export const plans: Plan[] = [
     features: [
       "Shopify, WooCommerce or a custom store",
       "Up to 50 products uploaded for you",
-      "UPI, card and Razorpay payments, plus cash on delivery",
-      "Shipping rules, coupons and order emails",
+      "Cards, PayPal, Stripe, Apple Pay and Google Pay, plus UPI, Razorpay and cash on delivery in India",
+      "Multi-currency prices and international shipping zones",
+      "Tax set up for your market (GST, VAT or US sales tax)",
+      "Shipping rules, coupons, order emails and abandoned-cart emails",
       "Order-on-WhatsApp button",
       "Fast, mobile-first checkout",
       "SEO setup: titles, sitemap, Search Console and product structured data",
       "Google Business Profile, Bing Places and Apple Maps listings set up",
+      "Privacy, returns, shipping and terms pages (GDPR-ready)",
       "Training video so your team can manage orders",
     ],
     note: "Shopify plan, hosting and payment-gateway fees are paid to those providers directly, in your name.",
     instead: { when: "Need bookings, customer accounts or a mobile app?", slug: "app" },
     cta: "Get my free demo",
-    whatsapp: "Hi Rohan, I'm interested in the Online Store plan (₹19,999). Can we talk about my store?",
+    whatsapp: "Hi Rohan, I'm interested in the Online Store plan. Can we talk about my store?",
   },
   {
     slug: "app",
     name: "App or Web App",
     forWho: "Your idea needs logins, bookings, dashboards or an app on Google Play and the App Store.",
     bestFor: ["Startups & SaaS", "Booking & appointment systems", "Delivery & tracking apps", "School, clinic & HR portals", "Marketplaces & CRMs"],
-    inr: "₹34,999",
-    usd: "$1,799",
+    usd: 1799,
     from: true,
     priceNote: "starting price",
     delivery: "From 2–3 weeks",
@@ -152,11 +162,13 @@ export const plans: Plan[] = [
     features: [
       "Android and iOS from one React Native codebase",
       "Backend API and database included",
-      "Login, user roles and admin dashboard",
+      "Sign-in with email, Google or Apple, user roles and an admin dashboard",
       "Push notifications",
-      "Payments if you need them",
+      "Payments if you need them (Stripe, PayPal or Razorpay)",
+      "Analytics and crash reporting",
+      "In-app account deletion and privacy policy, as Apple and Google require",
       "Weekly test builds you can try on your phone",
-      "Google Play and App Store publishing",
+      "Google Play and App Store publishing, including the privacy and data-safety forms",
       "SEO for the web pages and app-store listings",
       "Google Business Profile, Bing Places and Apple Maps listings set up",
     ],
@@ -177,8 +189,7 @@ export const suites: Plan[] = [
     name: "Secure Starter",
     forWho: "You're launching a product on the web and on phones at the same time, and it has to look premium and be safe from day one.",
     bestFor: ["Startups & MVPs", "Booking & membership apps", "Local service platforms"],
-    inr: "₹59,999",
-    usd: "$3,999",
+    usd: 3999,
     priceNote: "one-time",
     delivery: "From 4–6 weeks",
     freeSupport: "6 months",
@@ -188,10 +199,12 @@ export const suites: Plan[] = [
       "Custom UI design for the web app and both apps: no templates, themes or UI kits, approved by you before the build",
       "Smooth animations and screen transitions",
       "Up to 10 screens per app, with customer and admin roles",
-      "OTP login and an admin dashboard",
+      "Sign-in with OTP, Google or Apple, and an admin dashboard",
       "Push notifications",
       "Security hardening: HTTPS everywhere, hashed passwords, role-based access, rate limiting",
       "Automated vulnerability scan and a written security report",
+      "Privacy-ready data handling: consent, data export and account deletion (GDPR and India's DPDP Act)",
+      "Analytics and crash reporting",
       "Daily encrypted backups",
       "Google Play and App Store publishing",
       "SEO for the web app and app-store listings",
@@ -200,15 +213,14 @@ export const suites: Plan[] = [
     note: "An outside VAPT test is available as an add-on, quoted at cost. Paid in milestones agreed on the scoping call. Hosting, store accounts and payment-gateway fees are in your name.",
     instead: { when: "Taking payments or handling customer data?", slug: "secure-business" },
     cta: "Book a free scoping call",
-    whatsapp: "Hi Rohan, I'm interested in the Secure Starter suite (₹59,999). Can we book a free scoping call?",
+    whatsapp: "Hi Rohan, I'm interested in the Secure Starter suite. Can we book a free scoping call?",
   },
   {
     slug: "secure-business",
     name: "Secure Business",
     forWho: "Your customers pay you or trust you with personal data, so it has to look trustworthy and be secure from the first screen.",
     bestFor: ["Clinics & healthcare", "Finance & insurance", "Logistics & delivery", "E-learning platforms"],
-    inr: "₹99,999",
-    usd: "$6,999",
+    usd: 6999,
     priceNote: "one-time",
     delivery: "From 6–8 weeks",
     freeSupport: "9 months",
@@ -217,7 +229,7 @@ export const suites: Plan[] = [
     features: [
       "Everything in Secure Starter, plus:",
       "Up to 25 screens per app, with multiple roles and permissions",
-      "UPI and card payments",
+      "Payments by card, PayPal, Apple Pay and Google Pay, plus UPI in India, with subscriptions if you need them",
       "Two-factor login and audit logs",
       "Reports and analytics dashboard",
       "Staging environment and automated tests",
@@ -226,15 +238,14 @@ export const suites: Plan[] = [
     note: "An outside VAPT test is available as an add-on, quoted at cost. Paid in milestones agreed on the scoping call. Hosting, store accounts and payment-gateway fees are in your name.",
     instead: { when: "Need integrations, offline mode or an outside security test included?", slug: "secure-enterprise" },
     cta: "Book a free scoping call",
-    whatsapp: "Hi Rohan, I'm interested in the Secure Business suite (₹99,999). Can we book a free scoping call?",
+    whatsapp: "Hi Rohan, I'm interested in the Secure Business suite. Can we book a free scoping call?",
   },
   {
     slug: "secure-enterprise",
     name: "Secure Enterprise",
     forWho: "Your platform runs complex workflows, connects to other systems or has to meet strict data rules.",
     bestFor: ["Hospitals & labs", "Fintech & NBFCs", "Manufacturing & ERP", "Multi-branch businesses"],
-    inr: "₹1,99,999",
-    usd: "$14,999",
+    usd: 14999,
     priceNote: "one-time",
     delivery: "From 10–12 weeks",
     freeSupport: "12 months",
@@ -244,6 +255,7 @@ export const suites: Plan[] = [
       "Complex workflows and approval chains",
       "Integrations with your ERP, CRM, payment or logistics systems",
       "Offline mode and real-time updates",
+      "Multiple languages and currencies",
       "Encryption of sensitive fields and admin IP allow-listing",
       "Load testing and a disaster-recovery plan",
       "Scroll-driven storytelling with 3D and custom illustrations",
@@ -253,7 +265,7 @@ export const suites: Plan[] = [
     note: "Paid in milestones agreed on the scoping call. Hosting, store accounts and payment-gateway fees are in your name.",
     instead: { when: "Want to launch smaller first and grow into this later?", slug: "secure-starter" },
     cta: "Book a free scoping call",
-    whatsapp: "Hi Rohan, I'm interested in the Secure Enterprise suite (₹1,99,999). Can we book a free scoping call?",
+    whatsapp: "Hi Rohan, I'm interested in the Secure Enterprise suite. Can we book a free scoping call?",
   },
 ];
 
@@ -275,8 +287,7 @@ export const ongoingPlans: Plan[] = [
     name: "Care",
     forWho: "Your website, store or app is live and its free support has ended. I keep it updated, backed up and online.",
     bestFor: ["Launch & Business sites", "Online stores", "Apps & web apps"],
-    inr: "₹999",
-    usd: "$49",
+    usd: 49,
     priceNote: "per month",
     features: [
       "Software, theme and plugin updates",
@@ -287,20 +298,21 @@ export const ongoingPlans: Plan[] = [
       "Monthly SEO check: titles, meta descriptions, broken links, page speed and Search Console",
       "Google Business Profile, Bing Places and Apple Maps listings kept up to date",
       "Social profile links, bios and contact details kept consistent",
+      "Privacy and cookie pages kept current",
+      "Monthly report on uptime, speed and visits",
       "Up to 3 hours of changes every month",
-      "Priority WhatsApp support",
+      "Priority WhatsApp and email support",
     ],
     note: "Starts when the free support on Launch, Business, Online Store or App ends. Cancel anytime.",
     cta: "Start Care",
-    whatsapp: "Hi Rohan, I'd like the Care plan (₹999/month) for my website.",
+    whatsapp: "Hi Rohan, I'd like the Care plan for my website.",
   },
   {
     slug: "suite-care",
     name: "Suite Care",
     forWho: "Your Web + App Suite is live and its free support has ended. I keep the web app, backend and both apps running and patched.",
     bestFor: ["Secure Starter", "Secure Business", "Secure Enterprise"],
-    inr: "₹9,999",
-    usd: "$499",
+    usd: 499,
     priceNote: "per month",
     features: [
       "App updates for new iOS and Android releases",
@@ -309,23 +321,23 @@ export const ongoingPlans: Plan[] = [
       "Crash reports from both apps reviewed and fixed",
       "Daily backups, with a restore test every month",
       "SSL, domain and push-notification certificate renewals handled",
+      "App-store policy and privacy-form updates when Apple or Google change the rules",
       "SEO and app-store listing upkeep",
       "Google Business Profile and other listings kept up to date",
       "Monthly report on uptime, errors and usage",
       "Up to 30 hours of changes every month",
-      "Priority WhatsApp support",
+      "Priority WhatsApp and email support",
     ],
     note: "Starts when a suite's free support ends. Cancel anytime. Hosting, store accounts and payment-gateway fees are paid separately, in your name.",
     cta: "Start Suite Care",
-    whatsapp: "Hi Rohan, I'd like Suite Care (₹9,999/month) for my web app and mobile app.",
+    whatsapp: "Hi Rohan, I'd like Suite Care for my web app and mobile app.",
   },
   {
     slug: "fix-upgrade",
     name: "Fix & Upgrade",
     forWho: "Have a website built by another developer or agency? Get it edited, fixed or extended without starting over.",
     bestFor: ["Sites built by someone else", "Slow or hacked sites", "Broken pages, forms or checkout"],
-    inr: "₹799",
-    usd: "$25",
+    usd: 25,
     priceNote: "per hour",
     features: [
       "Text, image and layout edits, including Elementor and other page builders",
@@ -334,12 +346,13 @@ export const ongoingPlans: Plan[] = [
       "Speed optimisation and Core Web Vitals fixes",
       "Hacked-site cleanup and malware removal",
       "Contact form, email delivery and WhatsApp button fixes",
-      "Payment gateway and checkout fixes (Razorpay, PayPal, Stripe)",
+      "Payment gateway and checkout fixes (Stripe, PayPal, Razorpay)",
       "Plugin, theme and version updates, with conflict fixes",
       "Hosting or domain moves and SSL setup",
+      "Cookie banner, privacy pages and accessibility fixes",
       "Broken links, 404 errors and redirects",
       "New sections, pages or features",
-      "WordPress, Shopify, WooCommerce, React / Next.js and PHP sites",
+      "WordPress, Shopify, WooCommerce, Wix, Squarespace, React / Next.js and PHP sites",
     ],
     note: "One-hour minimum. Send me the site and what you need; I'll estimate the hours and confirm the total before any work starts. Built your site with me? Changes are covered by your free support, then Care or Suite Care.",
     cta: "Request a change",
@@ -352,7 +365,7 @@ export const planGuide: { business: string; plan: string; why: string }[] = [
   {
     business: "Clinic, salon, gym, restaurant or local shop",
     plan: "launch",
-    why: "Customers mostly want your services, timings and location, and a quick way to call or WhatsApp you.",
+    why: "Customers mostly want your services, timings and location, and a quick way to call, WhatsApp or book you.",
   },
   { business: "Freelancer, consultant or coach", plan: "launch", why: "A sharp page with your work, reviews and a contact button is what wins clients." },
   {
@@ -363,9 +376,9 @@ export const planGuide: { business: string; plan: string; why: string }[] = [
   { business: "School, college or coaching centre", plan: "business", why: "Courses, faculty, admissions and a notice board you update yourself." },
   { business: "Real estate, builder, hotel or travel agent", plan: "business", why: "Many project, room or tour pages with photo galleries, plus enquiry tracking." },
   { business: "Hospital or multi-doctor clinic", plan: "business", why: "Separate pages for each department and doctor that patients find on Google." },
-  { business: "Clothing, beauty, jewellery or handicraft brand", plan: "store", why: "Customers browse, pay by UPI or card, and you manage every order in one place." },
+  { business: "Clothing, beauty, jewellery or handicraft brand", plan: "store", why: "Customers browse, pay by card, PayPal or UPI, and you manage every order in one place." },
   { business: "Food, sweets or grocery seller", plan: "store", why: "Online orders with delivery areas, cash on delivery and order-on-WhatsApp." },
-  { business: "Business that needs a full booking or appointment system", plan: "app", why: "Customer accounts, live calendars, reminders and online payments need custom software. A simple booking form is a small add-on to any plan." },
+  { business: "Business that needs a full booking or appointment system", plan: "app", why: "Customer accounts, live calendars, reminders and online payments need custom software. A simple booking link is included in every website plan." },
   { business: "Startup, marketplace or SaaS idea", plan: "app", why: "Sign-ups, user roles, an admin dashboard and a product built to grow." },
   { business: "Company that needs a portal, CRM or internal tool", plan: "app", why: "Custom workflows for your team, with logins and reports." },
   {
@@ -400,46 +413,30 @@ export const everyPlan = [
   { title: "Talk to the developer", body: "Direct WhatsApp line to me: no sales team, no hand-offs." },
 ];
 
-/** "Typical low-cost agency vs me", from published Kolkata price lists (Oct 2026). */
-export const comparison: { label: string; them: string; me: string }[] = [
-  { label: "5-page website", them: "₹5,000–8,500, often +18% GST", me: "₹4,999" },
-  { label: "Delivery", them: "5–15 working days", me: "2–3 days" },
-  { label: "See it before you pay", them: "No", me: "Free homepage demo in 3–4 hours" },
-  { label: "Design", them: "Mostly ready-made templates", me: "Custom-designed and hand-coded" },
-  { label: "Copywriting", them: "Extra charge", me: "Help included" },
-  { label: "Domain and hosting", them: "Hosting ₹1,000–3,500 a year, domain extra", me: "Both free for the first year" },
-  {
-    label: "Secure web app + mobile app",
-    them: "₹3–8 lakh at Kolkata agencies; outside security test extra (₹25k–1.5 lakh)",
-    me: "₹59,999–₹1,99,999: custom design, 3D from Secure Business, outside security test in Secure Enterprise",
-  },
-  { label: "Support", them: "AMC from ₹2,000/month", me: "30 days to 12 months free, then from ₹999/month" },
-  { label: "Who you talk to", them: "Sales or account manager", me: "The developer, directly" },
-];
-
-/** The same comparison for international visitors, against typical global rates (Nov 2026). */
-export const comparisonGlobal: { label: string; them: string; me: string }[] = [
-  { label: "5-page website", them: "$1,000–5,000 from a freelancer; US agency median $3,850", me: "$249" },
-  { label: "Online store", them: "$2,000–5,000 from a Shopify freelancer", me: "$899" },
-  {
-    label: "App MVP",
-    them: "$15k–40k from a freelancer; $40k–100k from an agency",
-    me: "From $1,799; web app plus iOS and Android from $3,999",
-  },
+/**
+ * "Typical freelancer or agency vs me" against global rates (Nov 2026). Rows with `plan` show that
+ * plan's live price (with the offer) between `prefix` and `suffix`; the rest show `me`.
+ */
+export const comparison: { label: string; them: string; me?: string; plan?: string; prefix?: string; suffix?: string }[] = [
+  { label: "5-page website", them: "$1,000–5,000 from a freelancer; US agency median $3,850", plan: "launch" },
+  { label: "Online store", them: "$2,000–5,000 from a Shopify freelancer", plan: "store" },
+  { label: "App MVP", them: "$15k–40k from a freelancer; $40k–100k from an agency", plan: "app", prefix: "From " },
+  { label: "Web app + iOS + Android", them: "$30k–70k cross-platform; outside security test extra", plan: "secure-starter", prefix: "From " },
   { label: "Delivery", them: "Weeks to months", me: "Websites in days" },
   { label: "See it before you pay", them: "Rarely", me: "Free homepage demo in 3–4 hours" },
   { label: "Design", them: "Often a premium theme", me: "Custom-designed and hand-coded" },
-  { label: "Monthly care", them: "$50–150/month for WordPress care", me: "$49/month, including 3 hours of changes" },
-  { label: "Fixing someone else's site", them: "$14–45/hr on Upwork, $80–120/hr on Codeable", me: "$25/hr" },
+  { label: "Monthly care", them: "$50–150/month for WordPress care", plan: "care", suffix: " a month, including 3 hours of changes" },
+  { label: "Fixing someone else's site", them: "$14–45/hr on Upwork, $80–120/hr on Codeable", plan: "fix-upgrade", suffix: " an hour" },
   { label: "Who you talk to", them: "An account manager or a marketplace chat", me: "The developer, directly" },
 ];
 
-/** A plan by slug, for FAQ answers that quote both prices. */
+/** A plan by slug, for FAQ answers that quote prices. */
 const planOf = (slug: string) => {
   const p = [...plans, ...suites, ...ongoingPlans].find((x) => x.slug === slug);
   if (!p) throw new Error(`pricing.ts refers to unknown plan "${slug}"`);
   return p;
 };
+const usdOf = (slug: string) => formatUsd(planOf(slug).usd);
 
 export const pricingFaqs = [
   {
@@ -447,8 +444,16 @@ export const pricingFaqs = [
     a: "If customers mainly need to find you and contact you, choose Launch. If you want to rank on Google with many pages and edit the site yourself, choose Business. If customers should pay and order online, choose Online Store. If you need logins, bookings, dashboards or a mobile app, choose App or Web App. If you need a web app and mobile apps together with security built in and a custom design, choose one of the Web + App Suites. Still not sure? Tell me what your business does and I'll recommend the cheapest plan that does the job.",
   },
   {
+    q: `Is the ${launchOffer.percent}% discount real, and how long does it last?`,
+    a: `Yes. ${offerSentence} The crossed-out price is the regular price and the one beside it is what you pay. Projects confirmed before ${launchOffer.endsLabel} keep the offer price, and monthly plans are billed at the offer price for months that start before that date. After it, the regular prices apply.`,
+  },
+  {
     q: "How long is the free support?",
-    a: `30 days on Launch, 60 days on Business, 90 days on Online Store and 120 days on App or Web App, counted from launch. After that, the Care plan keeps your site updated, backed up, monitored and security-scanned, keeps its SEO, Google Business Profile, listings and social profiles up to date, and includes up to 3 hours of changes every month, for ${bothPrices(planOf("care"))} a month. The Web + App Suites include much longer support: 6 months on Secure Starter, 9 months on Secure Business and 12 months on Secure Enterprise, then Suite Care at ${bothPrices(planOf("suite-care"))} a month.`,
+    a: `30 days on Launch, 60 days on Business, 90 days on Online Store and 120 days on App or Web App, counted from launch. After that, the Care plan keeps your site updated, backed up, monitored and security-scanned, keeps its SEO, Google Business Profile, listings and social profiles up to date, and includes up to 3 hours of changes every month, for ${usdOf("care")} a month. The Web + App Suites include much longer support: 6 months on Secure Starter, 9 months on Secure Business and 12 months on Secure Enterprise, then Suite Care at ${usdOf("suite-care")} a month. ${offerSentence}`,
+  },
+  {
+    q: "Which currency do you charge in?",
+    a: "Prices are set in US dollars. Clients in India see and pay the rupee equivalent at the day's exchange rate (switch this page to ₹ to see it), by UPI or bank transfer. International clients pay in dollars by PayPal, Binance or bank transfer, and we work over WhatsApp, email or video calls in your time zone.",
   },
   {
     q: "What does \"high security\" include in the Web + App Suites?",
@@ -459,8 +464,12 @@ export const pricingFaqs = [
     a: "Every suite is designed from scratch for your brand, with no templates, themes or UI kits. You approve the design of the key screens before building starts, and the web app and both phone apps share the same look. All three suites get smooth animations and screen transitions. Secure Business and Secure Enterprise add a 3D scene on your web app's homepage, built with Three.js like the one on my homepage. It loads after the page with a still image as a fallback, so phones stay fast. The phone apps get polished motion rather than 3D. Secure Enterprise also adds scroll-driven storytelling and custom illustrations.",
   },
   {
+    q: "Will my site meet privacy and accessibility rules?",
+    a: "Every website and store comes with a privacy policy, cookie notice and terms pages written for the tools it actually uses, and analytics only runs after visitors accept cookies, which is what GDPR and UK rules expect. Pages are built with readable contrast, image alt text and keyboard-friendly menus. Apps include the in-app account deletion and privacy forms Apple and Google require. For legal advice specific to your business, check with a lawyer.",
+  },
+  {
     q: "Why do you cost less than agencies?",
-    a: "I work directly with you, with no sales team or office overheads, and I use AI-assisted tools for the repetitive parts of the build. That lets me deliver in days instead of weeks, and even the Web + App Suites cost well below what agencies quote for a web app with mobile apps: ₹3–8 lakh in Kolkata, $40k–100k in the US. The design, code and testing are still done and checked by me, and Secure Enterprise is also tested by an outside security firm.",
+    a: "I work directly with you, with no sales team or office overheads, and I use AI-assisted tools for the repetitive parts of the build. That lets me deliver in days instead of weeks, and even the Web + App Suites cost well below what agencies quote for a web app with mobile apps: $40k–100k in the US. The design, code and testing are still done and checked by me, and Secure Enterprise is also tested by an outside security firm.",
   },
   {
     q: "Is the demo really free?",
@@ -476,14 +485,10 @@ export const pricingFaqs = [
   },
   {
     q: "Can you change a website another developer built?",
-    a: `Yes, with the Fix & Upgrade plan: edits, bug fixes, mobile and speed fixes, hacked-site cleanup, form and checkout fixes, plugin updates, hosting moves and new features on existing WordPress, Shopify, WooCommerce, React, Next.js and PHP sites, at ${bothPrices(planOf("fix-upgrade"))} per hour. Share the site and what you need, and I'll estimate the hours and confirm the total before starting.`,
-  },
-  {
-    q: "Do you work with clients outside India?",
-    a: "Yes. International clients get a fixed US-dollar price list: switch this page to $ to see it. Pay by PayPal, Binance or bank transfer, and we work over WhatsApp, email or video calls in your time zone.",
+    a: `Yes, with the Fix & Upgrade plan: edits, bug fixes, mobile and speed fixes, hacked-site cleanup, form and checkout fixes, plugin updates, hosting moves and new features on existing WordPress, Shopify, WooCommerce, Wix, Squarespace, React, Next.js and PHP sites, at ${usdOf("fix-upgrade")} an hour (${formatUsd(offerPrice(planOf("fix-upgrade").usd))} during the launch offer). Share the site and what you need, and I'll estimate the hours and confirm the total before starting.`,
   },
   {
     q: "What if I need something that's not in a plan?",
-    a: "Tell me what you need and I'll send a fixed quote within 24 hours. Most extras, like more pages or products, a second language or a simple booking form, are small add-ons.",
+    a: "Tell me what you need and I'll send a fixed quote within 24 hours. Most extras, like more pages or products, a second language or a custom booking system, are small add-ons.",
   },
 ];

@@ -3,11 +3,11 @@ import Link from "next/link";
 import clsx from "clsx";
 import { ArrowRight, Check, Clock } from "lucide-react";
 import { profile } from "@/content/profile";
-import { plans, suites, suiteDesignExamples, ongoingPlans, planGuide, everyPlan, comparison, comparisonGlobal, type Plan } from "@/content/pricing";
+import { plans, suites, suiteDesignExamples, ongoingPlans, planGuide, everyPlan, comparison, launchOffer, offerActive, type Plan } from "@/content/pricing";
 import SocialIcon from "@/components/ui/SocialIcon";
 import { Item, Reveal, Stagger } from "@/components/site/MotionPrimitives";
 import MobileCollapse from "@/components/site/MobileCollapse";
-import Price from "@/components/site/Price";
+import Price, { OfferBadge } from "@/components/site/Price";
 import CurrencySwitch from "@/components/site/CurrencySwitch";
 
 const waNumber = profile.whatsapp.match(/wa\.me\/(\d+)/)?.[1] ?? "";
@@ -31,8 +31,14 @@ export default function Pricing() {
   return (
     <section id="pricing">
       <h2 className="sr-only">Plans</h2>
+      {offerActive() ? (
+        <p className="mb-4 rounded-2xl border border-peach/30 bg-peach/10 px-4 py-3 text-center text-sm text-white sm:text-left">
+          <span className="font-semibold text-peach">Limited-time offer:</span> {launchOffer.percent}% off every plan, including Care and Fix &amp;
+          Upgrade, until {launchOffer.endsLabel}.
+        </p>
+      ) : null}
       <div className="mb-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
-        <p className="text-sm text-muted">Prices in ₹ for India and $ everywhere else. Switch any time.</p>
+        <p className="text-sm text-muted">Prices are set in US dollars; rupee prices follow today&apos;s exchange rate.</p>
         <CurrencySwitch />
       </div>
 
@@ -52,7 +58,7 @@ export default function Pricing() {
           <GroupIntro>
             One backend powers your web app and your Android and iOS apps, designed from scratch for your brand and built to be
             secure. Pay once to build it, get 6 to 12 months of free support, then {suiteCare.name} keeps it running for{" "}
-            <Price inr={suiteCare.inr} usd={suiteCare.usd} /> a month.
+            <Price usd={suiteCare.usd} strike={false} /> a month.
           </GroupIntro>
           <p className="mt-3 flex flex-wrap justify-center gap-x-3 gap-y-1 text-sm text-muted sm:justify-start">
             <span>See the design quality:</span>
@@ -132,21 +138,15 @@ export default function Pricing() {
       <Reveal>
         <div className="mt-16">
           <GroupHeading>How this compares</GroupHeading>
-          <div data-cur="inr">
-            <GroupIntro>Typical Kolkata agencies, from their published price lists and directory listings (October–November 2026).</GroupIntro>
-            <ComparisonTable rows={comparison} them="Typical agency" />
-          </div>
-          <div data-cur="usd">
-            <GroupIntro>Typical freelancers and agencies in the US, UK and Europe, from 2026 pricing guides and marketplace rates.</GroupIntro>
-            <ComparisonTable rows={comparisonGlobal} them="Typical freelancer or agency" />
-          </div>
+          <GroupIntro>Typical freelancers and agencies in the US, UK and Europe, from 2026 pricing guides and marketplace rates.</GroupIntro>
+          <ComparisonTable />
         </div>
       </Reveal>
     </section>
   );
 }
 
-function ComparisonTable({ rows, them }: { rows: { label: string; them: string; me: string }[]; them: string }) {
+function ComparisonTable() {
   return (
     <div className="clay mt-6 overflow-hidden rounded-3xl">
       <table className="w-full text-left text-sm">
@@ -155,18 +155,28 @@ function ComparisonTable({ rows, them }: { rows: { label: string; them: string; 
             <th scope="col" className="px-4 py-3 font-semibold sm:px-6">
               <span className="sr-only">Feature</span>
             </th>
-            <th scope="col" className="px-4 py-3 font-semibold sm:px-6">{them}</th>
+            <th scope="col" className="px-4 py-3 font-semibold sm:px-6">Typical freelancer or agency</th>
             <th scope="col" className="px-4 py-3 font-semibold text-lilac sm:px-6">Working with me</th>
           </tr>
         </thead>
         <tbody>
-          {rows.map((row) => (
+          {comparison.map((row) => (
             <tr key={row.label} className="border-b border-line last:border-0">
               <th scope="row" className="px-4 py-3 font-semibold text-white sm:px-6">
                 {row.label}
               </th>
               <td className="px-4 py-3 text-muted sm:px-6">{row.them}</td>
-              <td className="px-4 py-3 text-white sm:px-6">{row.me}</td>
+              <td className="px-4 py-3 text-white sm:px-6">
+                {row.plan ? (
+                  <>
+                    {row.prefix}
+                    <Price usd={planBySlug(row.plan).usd} />
+                    {row.suffix}
+                  </>
+                ) : (
+                  row.me
+                )}
+              </td>
             </tr>
           ))}
         </tbody>
@@ -195,10 +205,12 @@ function PlanCard({ plan: p }: { plan: Plan }) {
       <p className="mt-4 flex items-baseline gap-2">
         {p.from ? <span className="text-sm text-muted">from</span> : null}
         <span className="font-display text-4xl font-semibold tracking-tight">
-          <Price inr={p.inr} usd={p.usd} />
+          <Price usd={p.usd} />
         </span>
       </p>
-      <p className="mt-1 text-xs text-muted">{p.priceNote}</p>
+      <p className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted">
+        {p.priceNote} <OfferBadge />
+      </p>
       {p.delivery ? <DeliveryBadge text={p.delivery} /> : null}
       <BestFor items={p.bestFor} />
       {/* flex-1 lets the feature list absorb spare height, so run panels and buttons line up across a row */}
@@ -230,8 +242,9 @@ function SuiteCard({ plan: p }: { plan: Plan }) {
       <div className="mt-5 flex-1 rounded-3xl border border-line bg-white/[0.03] p-4">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-lilac">Build · {p.priceNote}</p>
         <p className="mt-2 font-display text-4xl font-semibold tracking-tight">
-          <Price inr={p.inr} usd={p.usd} />
+          <Price usd={p.usd} />
         </p>
+        <OfferBadge className="mt-1.5" />
         {p.delivery ? <DeliveryBadge text={p.delivery} /> : null}
         <FeatureList plan={p} />
       </div>
@@ -253,7 +266,7 @@ function RunPanel({ plan: p }: { plan: Plan }) {
         <span className="font-display text-2xl font-semibold">{p.freeSupport}</span> <span className="text-sm text-white/85">free support</span>
       </p>
       <p className="mt-1 text-sm text-white/85">
-        Then <Price inr={care.inr} usd={care.usd} /> {care.priceNote}
+        Then <Price usd={care.usd} /> {care.priceNote}
       </p>
       <a href={`#plan-${care.slug}`} className="mt-2 inline-block text-xs font-semibold text-mint hover:underline">
         What&apos;s in {care.name} ↓

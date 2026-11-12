@@ -15,14 +15,15 @@ const REASONS = [
   "Something else",
 ];
 
-// Rupee ranges that line up with the plans on /pricing, with approximate dollars for international clients.
+// Dollar ranges that line up with the plans on /pricing (prices are set in dollars), with rough
+// rupee equivalents at about ₹94 to the dollar.
 const BUDGETS = [
   "Not sure yet",
-  "Under ₹10,000 (≈ $120)",
-  "₹10,000 – ₹35,000 ($120 – $400)",
-  "₹35,000 – ₹1 lakh ($400 – $1,150)",
-  "₹1 – 2 lakh ($1,150 – $2,300)",
-  "₹2 lakh+ ($2,300+)",
+  "Under $250 (≈ ₹23k)",
+  "$250 – $1,000 (≈ ₹23k – 94k)",
+  "$1,000 – $5,000 (≈ ₹94k – 4.7 lakh)",
+  "$5,000 – $15,000 (≈ ₹4.7 – 14 lakh)",
+  "$15,000+ (≈ ₹14 lakh+)",
 ];
 
 const field =

@@ -72,7 +72,7 @@ export default function ServicesPage() {
         </Stagger>
         <p className="mt-6 text-center text-sm sm:text-left">
           <Link prefetch={false} href="/pricing" className="font-semibold text-lilac hover:underline">
-            See plans &amp; pricing, from <Price inr={plans[0].inr} usd={plans[0].usd} /> →
+            See plans &amp; pricing, from <Price usd={plans[0].usd} strike={false} /> →
           </Link>
         </p>
 

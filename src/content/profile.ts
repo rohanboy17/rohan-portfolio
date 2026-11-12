@@ -5,7 +5,7 @@
  */
 
 import demoMedia from "./demo-media.json";
-import { plans as pricingPlans, suites, ongoingPlans, bothPrices } from "./pricing";
+import { plans as pricingPlans, suites, ongoingPlans, formatUsd, offerSentence } from "./pricing";
 
 /** A plan from src/content/pricing.ts, so FAQ answers quote prices from one place. */
 function plan(slug: string) {
@@ -1999,7 +1999,7 @@ export const services: Service[] = [
       },
       {
         q: "How much does a website cost?",
-        a: `A Launch site (up to 5 pages) is ${bothPrices(plan("launch"))} and a Business site (up to 15 pages, with SEO setup and Google listings) is ${bothPrices(plan("business"))}, both one-time with a free domain and hosting for the first year. You see a free homepage demo before you pay anything.`,
+        a: `A Launch site (up to 5 pages) is ${formatUsd(plan("launch").usd)} and a Business site (up to 15 pages, with SEO setup and Google listings) is ${formatUsd(plan("business").usd)}, both one-time with a free domain and hosting for the first year. You see a free homepage demo before you pay anything. ${offerSentence} Indian clients pay the rupee equivalent at the day's exchange rate.`,
       },
       {
         q: "Will my website show up on Google?",
@@ -2065,7 +2065,7 @@ export const services: Service[] = [
       },
       {
         q: "How much does an app cost?",
-        a: `An Android and iOS app with its backend and admin panel starts from ${bothPrices(plan("app"))} (App or Web App plan). A web app plus Android and iOS apps on one backend, custom-designed and built with security hardening, starts at ${bothPrices(plan("secure-starter"))} (Secure Starter), with Secure Business at ${bothPrices(plan("secure-business"))} and Secure Enterprise at ${bothPrices(plan("secure-enterprise"))}. The final price is fixed after a free scoping call, before any work starts.`,
+        a: `An Android and iOS app with its backend and admin panel starts from ${formatUsd(plan("app").usd)} (App or Web App plan). A web app plus Android and iOS apps on one backend, custom-designed and built with security hardening, starts at ${formatUsd(plan("secure-starter").usd)} (Secure Starter), with Secure Business at ${formatUsd(plan("secure-business").usd)} and Secure Enterprise at ${formatUsd(plan("secure-enterprise").usd)}. The final price is fixed after a free scoping call, before any work starts. ${offerSentence}`,
       },
     ],
   },
@@ -2103,7 +2103,7 @@ export const services: Service[] = [
     faqs: [
       {
         q: "How much does an online store cost?",
-        a: `The Online Store plan is ${bothPrices(plan("store"))} one-time, with up to 50 products uploaded for you, UPI, card and cash-on-delivery payments, and ${plan("store").freeSupport} of free support. Shopify, hosting and payment-gateway fees are paid to those providers in your name. Bigger catalogues and custom marketplaces get a fixed quote.`,
+        a: `The Online Store plan is ${formatUsd(plan("store").usd)} one-time, with up to 50 products uploaded for you, card, PayPal, Stripe, Apple Pay and Google Pay payments (plus UPI and cash on delivery in India), multi-currency prices, and ${plan("store").freeSupport} of free support. Shopify, hosting and payment-gateway fees are paid to those providers in your name. Bigger catalogues and custom marketplaces get a fixed quote. ${offerSentence}`,
       },
       {
         q: "Shopify or WooCommerce — which is right for me?",
@@ -2211,7 +2211,7 @@ export const services: Service[] = [
     faqs: [
       {
         q: "Can you fix or speed up my existing WordPress site?",
-        a: `Yes. I audit slow pages, remove heavy plugins, optimise images and caching, and fix mobile layout problems. One-off fixes on a site another developer built cost ${bothPrices(plan("fix-upgrade"))} per hour with Fix & Upgrade; sites I built are covered by free support, then Care.`,
+        a: `Yes. I audit slow pages, remove heavy plugins, optimise images and caching, and fix mobile layout problems. One-off fixes on a site another developer built cost ${formatUsd(plan("fix-upgrade").usd)} per hour with Fix & Upgrade; sites I built are covered by free support, then Care.`,
       },
       {
         q: "Do you use page builders?",
@@ -2247,7 +2247,7 @@ export const whyHire = [
 export const generalFaqs = [
   {
     q: "How much does a website or app cost?",
-    a: `Websites start at ${bothPrices(plan("launch"))}, online stores at ${bothPrices(plan("store"))}, apps or web apps from ${bothPrices(plan("app"))}, and secure, custom-designed web + mobile app suites from ${bothPrices(plan("secure-starter"))}. International clients get a fixed US-dollar price list on the pricing page. See the pricing page for what each plan includes, or tell me what you need and I'll send a fixed quote within 24 hours.`,
+    a: `Websites start at ${formatUsd(plan("launch").usd)}, online stores at ${formatUsd(plan("store").usd)}, apps or web apps from ${formatUsd(plan("app").usd)}, and secure, custom-designed web + mobile app suites from ${formatUsd(plan("secure-starter").usd)}. Prices are set in US dollars, and Indian clients pay the rupee equivalent at the day's exchange rate. ${offerSentence} See the pricing page for what each plan includes, or tell me what you need and I'll send a fixed quote within 24 hours.`,
   },
   {
     q: "Do you work with international clients?",
@@ -2259,7 +2259,7 @@ export const generalFaqs = [
   },
   {
     q: "Do you offer support after launch?",
-    a: `Yes. Every plan includes free support after launch: ${plan("launch").freeSupport} for Launch, ${plan("business").freeSupport} for Business, ${plan("store").freeSupport} for Online Store and ${plan("app").freeSupport} for apps and web apps. After that, the Care plan covers updates, backups, monitoring, security scans, SEO, Google Business Profile, listings and social profile upkeep, and up to 3 hours of changes every month for ${bothPrices(plan("care"))}. The Web + App Suites include ${plan("secure-starter").freeSupport?.replace(" months", "")}–${plan("secure-enterprise").freeSupport} of free support, then Suite Care at ${bothPrices(plan("suite-care"))} a month.`
+    a: `Yes. Every plan includes free support after launch: ${plan("launch").freeSupport} for Launch, ${plan("business").freeSupport} for Business, ${plan("store").freeSupport} for Online Store and ${plan("app").freeSupport} for apps and web apps. After that, the Care plan covers updates, backups, monitoring, security scans, SEO, Google Business Profile, listings and social profile upkeep, and up to 3 hours of changes every month for ${formatUsd(plan("care").usd)}. The Web + App Suites include ${plan("secure-starter").freeSupport?.replace(" months", "")}–${plan("secure-enterprise").freeSupport} of free support, then Suite Care at ${formatUsd(plan("suite-care").usd)} a month.`
   },
   {
     q: "Are you available for full-time roles too?",
