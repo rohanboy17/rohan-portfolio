@@ -19,11 +19,11 @@ const REASONS = [
 // rupee equivalents at about ₹94 to the dollar.
 const BUDGETS = [
   "Not sure yet",
-  "Under $250 (≈ ₹23k)",
-  "$250 – $1,000 (≈ ₹23k – 94k)",
-  "$1,000 – $5,000 (≈ ₹94k – 4.7 lakh)",
-  "$5,000 – $15,000 (≈ ₹4.7 – 14 lakh)",
-  "$15,000+ (≈ ₹14 lakh+)",
+  "Under $150 (≈ ₹14k)",
+  "$150 – $500 (≈ ₹14k – 47k)",
+  "$500 – $2,000 (≈ ₹47k – 1.9 lakh)",
+  "$2,000 – $5,000 (≈ ₹1.9 – 4.7 lakh)",
+  "$5,000+ (≈ ₹4.7 lakh+)",
 ];
 
 const field =

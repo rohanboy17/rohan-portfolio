@@ -58,7 +58,7 @@ export const launchOffer = {
   endsLabel: "31 December 2026",
 };
 export const offerActive = (now = new Date()) => now <= new Date(launchOffer.endsAt);
-/** $249 → $124 during the offer (rounded down to whole dollars). */
+/** $124 → $62 during the offer (rounded down to whole dollars). */
 export const offerPrice = (usd: number) => Math.floor((usd * (100 - launchOffer.percent)) / 100);
 export const formatUsd = (n: number) => `$${n.toLocaleString("en-US")}`;
 export const formatInr = (n: number) => `₹${n.toLocaleString("en-IN")}`;
@@ -73,7 +73,7 @@ export const plans: Plan[] = [
     name: "Launch",
     forWho: "You need a professional site so customers can find you, trust you and call, WhatsApp or book you.",
     bestFor: ["Clinics & doctors", "Salons & gyms", "Restaurants & cafés", "Local shops & services", "Freelancers & coaches"],
-    usd: 249,
+    usd: 124,
     priceNote: "one-time",
     delivery: "Live in 2–3 days",
     freeSupport: "30 days",
@@ -100,7 +100,7 @@ export const plans: Plan[] = [
     name: "Business",
     forWho: "You want to rank on Google, show many services or products, and edit the site yourself.",
     bestFor: ["Manufacturers & B2B suppliers", "Schools & tutoring centres", "Real estate & builders", "Hotels & travel agents", "Accounting, law & consulting firms"],
-    usd: 499,
+    usd: 249,
     priceNote: "one-time",
     delivery: "Live in 4–5 days",
     freeSupport: "60 days",
@@ -128,7 +128,7 @@ export const plans: Plan[] = [
     name: "Online Store",
     forWho: "You want customers to pick products, pay online and get them delivered, at home or abroad.",
     bestFor: ["Clothing & boutiques", "Beauty & skincare", "Jewellery & handicrafts", "Food & organic products", "D2C brands"],
-    usd: 899,
+    usd: 449,
     priceNote: "one-time",
     delivery: "Live in 7–10 days",
     milestones: true,
@@ -158,7 +158,7 @@ export const plans: Plan[] = [
     name: "App or Web App",
     forWho: "Your idea needs logins, bookings, dashboards or an app on Google Play and the App Store.",
     bestFor: ["Startups & SaaS", "Booking & appointment systems", "Delivery & tracking apps", "School, clinic & HR portals", "Marketplaces & CRMs"],
-    usd: 1799,
+    usd: 899,
     from: true,
     priceNote: "starting price",
     milestones: true,
@@ -195,7 +195,7 @@ export const suites: Plan[] = [
     name: "Secure Starter",
     forWho: "You're launching a product on the web and on phones at the same time, and it has to look premium and be safe from day one.",
     bestFor: ["Startups & MVPs", "Booking & membership apps", "Local service platforms"],
-    usd: 3999,
+    usd: 1999,
     priceNote: "one-time",
     delivery: "From 4–6 weeks",
     freeSupport: "6 months",
@@ -227,7 +227,7 @@ export const suites: Plan[] = [
     name: "Secure Business",
     forWho: "Your customers pay you or trust you with personal data, so it has to look trustworthy and be secure from the first screen.",
     bestFor: ["Clinics & healthcare", "Finance & insurance", "Logistics & delivery", "E-learning platforms"],
-    usd: 6999,
+    usd: 3499,
     priceNote: "one-time",
     delivery: "From 6–8 weeks",
     freeSupport: "9 months",
@@ -253,7 +253,7 @@ export const suites: Plan[] = [
     name: "Secure Enterprise",
     forWho: "Your platform runs complex workflows, connects to other systems or has to meet strict data rules.",
     bestFor: ["Hospitals & labs", "Fintech & lenders", "Manufacturing & ERP", "Multi-branch businesses"],
-    usd: 14999,
+    usd: 7499,
     priceNote: "one-time",
     delivery: "From 10–12 weeks",
     freeSupport: "12 months",
@@ -296,7 +296,7 @@ export const ongoingPlans: Plan[] = [
     name: "Care",
     forWho: "Your website, store or app is live and its free support has ended. I keep it updated, backed up and online.",
     bestFor: ["Launch & Business sites", "Online stores", "Apps & web apps"],
-    usd: 49,
+    usd: 24,
     priceNote: "per month",
     features: [
       "Software, theme and plugin updates",
@@ -321,7 +321,7 @@ export const ongoingPlans: Plan[] = [
     name: "Suite Care",
     forWho: "Your Web + App Suite is live and its free support has ended. I keep the web app, backend and both apps running and patched.",
     bestFor: ["Secure Starter", "Secure Business", "Secure Enterprise"],
-    usd: 499,
+    usd: 249,
     priceNote: "per month",
     features: [
       "App updates for new iOS and Android releases",
@@ -346,7 +346,7 @@ export const ongoingPlans: Plan[] = [
     name: "Fix & Upgrade",
     forWho: "Have a website built by another developer or agency? Get it edited, fixed or extended without starting over.",
     bestFor: ["Sites built by someone else", "Slow or hacked sites", "Broken pages, forms or checkout"],
-    usd: 25,
+    usd: 12,
     priceNote: "per hour",
     features: [
       "Text, image and layout edits, including Elementor and other page builders",

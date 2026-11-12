@@ -50,7 +50,7 @@ export const viewport: Viewport = {
 
 const sameAs = profile.socials.filter((s) => s.href.startsWith("http")).map((s) => s.href);
 
-// Cheapest to dearest regular plan price on /pricing, e.g. "$25 – $14,999", shown by search engines
+// Cheapest to dearest regular plan price on /pricing, e.g. "$12 – $7,499", shown by search engines
 // for the business. Prices are set in dollars; rupees follow the day's rate.
 const usdPrices = [...plans, ...suites, ...ongoingPlans].map((p) => p.usd);
 const priceRange = `${formatUsd(Math.min(...usdPrices))} – ${formatUsd(Math.max(...usdPrices))}`;

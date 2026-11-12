@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { profile } from "@/content/profile";
-import { plans, suites, ongoingPlans, pricingFaqs, launchOffer, offerActive, offerPrice } from "@/content/pricing";
+import { plans, suites, ongoingPlans, pricingFaqs, launchOffer, offerActive, offerPrice, formatUsd } from "@/content/pricing";
 import { inrPerUsd, inrFromUsd } from "@/lib/fx";
 import Pricing from "@/components/sections/Pricing";
 import Faq from "@/components/site/Faq";
@@ -11,9 +11,10 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import JsonLd, { breadcrumbs, faqPage } from "@/components/site/JsonLd";
 import { shareMetadata } from "@/lib/seo";
 
-const title = "Website & App Development Prices — Websites from $249";
-const description =
-  "Websites from $249, stores $899, apps from $1,799, secure web + app suites from $3,999. 50% off every plan until 31 Dec 2026. Free demo first.";
+// Built from the plan data so the title and description always match the cards.
+const usdOf = (slug: string) => formatUsd([...plans, ...suites].find((p) => p.slug === slug)!.usd);
+const title = `Website & App Development Prices — Websites from ${usdOf("launch")}`;
+const description = `Websites from ${usdOf("launch")}, stores ${usdOf("store")}, apps from ${usdOf("app")}, secure web + app suites from ${usdOf("secure-starter")}. ${launchOffer.percent}% off every plan until 31 Dec 2026. Free demo first.`;
 
 export const metadata: Metadata = {
   title: { absolute: title },
