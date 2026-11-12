@@ -107,7 +107,7 @@ export const profile = {
   demoOffer: {
     title: "Get a free {business} homepage demo in 3–4 hours",
     body: "Tell me about your business and I'll design a homepage demo for you, free and with no obligation, so you can see it before you decide.",
-    smallPrint: "Mon–Sat, 10 AM–8 PM IST · no obligation",
+    smallPrint: "Mon–Sat, 10 AM–8 PM IST (04:30–14:30 UTC) · no obligation",
     whatsapp: "Hi Rohan, I'd like a free {business} website demo.",
   },
   email: "rohanmondalpc@gmail.com",
@@ -1999,7 +1999,7 @@ export const services: Service[] = [
       },
       {
         q: "How much does a website cost?",
-        a: `A Launch site (up to 5 pages) is ${formatUsd(plan("launch").usd)} and a Business site (up to 15 pages, with SEO setup and Google listings) is ${formatUsd(plan("business").usd)}, both one-time with a free domain and hosting for the first year. You see a free homepage demo before you pay anything. ${offerSentence} Indian clients pay the rupee equivalent at the day's exchange rate.`,
+        a: `A Launch site (up to 5 pages) is ${formatUsd(plan("launch").usd)} and a Business site (up to 15 pages, with SEO setup and Google listings) is ${formatUsd(plan("business").usd)}, both one-time with a free domain and hosting for the first year. You see a free homepage demo before you pay anything. ${offerSentence}`,
       },
       {
         q: "Will my website show up on Google?",
@@ -2093,7 +2093,7 @@ export const services: Service[] = [
       { title: "Shopify stores", body: "Custom Online Store 2.0 themes and sections, tuned for speed and conversions." },
       { title: "WooCommerce stores", body: "WordPress stores with custom plugins for B2B pricing, shipping and checkout." },
       { title: "Custom marketplaces", body: "Next.js + PostgreSQL platforms with multi-vendor dashboards and payouts." },
-      { title: "Payments", body: "Razorpay and UPI for India, Stripe or PayPal for international customers, verified on the server." },
+      { title: "Payments", body: "Stripe, PayPal, Apple Pay, Google Pay, Razorpay and UPI, verified on the server." },
       { title: "Product catalogue", body: "Categories, filters and search that help customers find the right product fast." },
       { title: "Store redesigns", body: "Modernise an existing store without losing products, orders or SEO." },
     ],
@@ -2103,7 +2103,7 @@ export const services: Service[] = [
     faqs: [
       {
         q: "How much does an online store cost?",
-        a: `The Online Store plan is ${formatUsd(plan("store").usd)} one-time, with up to 50 products uploaded for you, card, PayPal, Stripe, Apple Pay and Google Pay payments (plus UPI and cash on delivery in India), multi-currency prices, and ${plan("store").freeSupport} of free support. Shopify, hosting and payment-gateway fees are paid to those providers in your name. Bigger catalogues and custom marketplaces get a fixed quote. ${offerSentence}`,
+        a: `The Online Store plan is ${formatUsd(plan("store").usd)} one-time, with up to 50 products uploaded for you, card, PayPal, Stripe, Apple Pay, Google Pay, UPI and cash-on-delivery payments, multi-currency prices, and ${plan("store").freeSupport} of free support. Shopify, hosting and payment-gateway fees are paid to those providers in your name. Bigger catalogues and custom marketplaces get a fixed quote. ${offerSentence}`,
       },
       {
         q: "Shopify or WooCommerce — which is right for me?",
@@ -2115,7 +2115,7 @@ export const services: Service[] = [
       },
       {
         q: "Which payment gateways do you integrate?",
-        a: "Razorpay and UPI for India, and Stripe and PayPal for international payments, as well as any gateway with a documented API.",
+        a: "Stripe, PayPal, Apple Pay, Google Pay, Razorpay and UPI, as well as any gateway with a documented API.",
       },
       {
         q: "Do you build multi-vendor marketplaces?",
@@ -2247,7 +2247,7 @@ export const whyHire = [
 export const generalFaqs = [
   {
     q: "How much does a website or app cost?",
-    a: `Websites start at ${formatUsd(plan("launch").usd)}, online stores at ${formatUsd(plan("store").usd)}, apps or web apps from ${formatUsd(plan("app").usd)}, and secure, custom-designed web + mobile app suites from ${formatUsd(plan("secure-starter").usd)}. Prices are set in US dollars, and Indian clients pay the rupee equivalent at the day's exchange rate. ${offerSentence} See the pricing page for what each plan includes, or tell me what you need and I'll send a fixed quote within 24 hours.`,
+    a: `Websites start at ${formatUsd(plan("launch").usd)}, online stores at ${formatUsd(plan("store").usd)}, apps or web apps from ${formatUsd(plan("app").usd)}, and secure, custom-designed web + mobile app suites from ${formatUsd(plan("secure-starter").usd)}. Prices are set in USD and can also be viewed in rupees at the day's exchange rate. ${offerSentence} See the pricing page for what each plan includes, or tell me what you need and I'll send a fixed quote within 24 hours.`,
   },
   {
     q: "Do you work with international clients?",
@@ -2255,7 +2255,7 @@ export const generalFaqs = [
   },
   {
     q: "How do payments work?",
-    a: "For websites and stores: 50% after you approve the free demo and 50% at launch. Apps and Web + App Suites are paid in milestones agreed upfront. I accept UPI and bank transfer in India, and PayPal and Binance for international clients, so paying from anywhere in the world is easy.",
+    a: "For websites and stores: 50% after you approve the free demo and 50% at launch. Apps and Web + App Suites are paid in milestones agreed upfront. I accept PayPal, Binance, bank transfer and UPI, so paying from anywhere in the world is easy.",
   },
   {
     q: "Do you offer support after launch?",

@@ -38,7 +38,7 @@ export default function Pricing() {
         </p>
       ) : null}
       <div className="mb-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
-        <p className="text-sm text-muted">Prices are set in US dollars; rupee prices follow today&apos;s exchange rate.</p>
+        <p className="text-sm text-muted">Prices are in USD; rupee (₹) prices follow today&apos;s exchange rate.</p>
         <CurrencySwitch />
       </div>
 
@@ -138,7 +138,7 @@ export default function Pricing() {
       <Reveal>
         <div className="mt-16">
           <GroupHeading>How this compares</GroupHeading>
-          <GroupIntro>Typical freelancers and agencies in the US, UK and Europe, from 2026 pricing guides and marketplace rates.</GroupIntro>
+          <GroupIntro>Typical freelancers and agencies worldwide, from 2026 pricing guides and marketplace rates.</GroupIntro>
           <ComparisonTable />
         </div>
       </Reveal>

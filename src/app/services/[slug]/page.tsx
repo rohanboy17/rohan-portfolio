@@ -12,7 +12,7 @@ import { Item, Reveal, Stagger } from "@/components/site/MotionPrimitives";
 import ProcessSteps from "@/components/site/ProcessSteps";
 import Faq from "@/components/site/Faq";
 import QuoteCta from "@/components/site/QuoteCta";
-import Price from "@/components/site/Price";
+import Price, { OfferBadge } from "@/components/site/Price";
 import CurrencySwitch from "@/components/site/CurrencySwitch";
 import JsonLd, { breadcrumbs, faqPage } from "@/components/site/JsonLd";
 import { shareMetadata } from "@/lib/seo";
@@ -176,7 +176,9 @@ export default async function ServicePage({ params }: Params) {
                       <Price usd={p.usd} />
                     </span>
                   </p>
-                  <p className="mt-1 text-xs text-muted">{p.priceNote}</p>
+                  <p className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted">
+                    {p.priceNote} <OfferBadge />
+                  </p>
                   <p className="mt-3 line-clamp-3 text-pretty text-sm leading-relaxed text-muted">{p.forWho}</p>
                   {p.freeSupport ? <p className="mt-3 text-xs font-medium text-mint">{p.freeSupport} free support</p> : null}
                   <span className="mt-auto inline-flex items-center gap-1.5 pt-4 text-sm font-semibold text-lilac">

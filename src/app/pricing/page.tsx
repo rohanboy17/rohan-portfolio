@@ -70,7 +70,7 @@ export default async function PricingPage() {
             From a simple website to a secure web + app suite.
           </h1>
           <p className="mt-4 text-pretty text-lg text-muted">
-            Custom websites, online stores, apps and secure, custom-designed web + mobile app suites for businesses in India and
+            Custom websites, online stores, apps and secure, custom-designed web + mobile app suites for businesses
             worldwide. Every plan shows what you pay to build it, how long support is free, and what care costs after that.
           </p>
         </header>

@@ -95,7 +95,7 @@ export const plans: Plan[] = [
     slug: "business",
     name: "Business",
     forWho: "You want to rank on Google, show many services or products, and edit the site yourself.",
-    bestFor: ["Manufacturers & B2B suppliers", "Schools & coaching centres", "Real estate & builders", "Hotels & travel agents", "CA, law & consulting firms"],
+    bestFor: ["Manufacturers & B2B suppliers", "Schools & tutoring centres", "Real estate & builders", "Hotels & travel agents", "Accounting, law & consulting firms"],
     usd: 499,
     priceNote: "one-time",
     delivery: "Live in 4–5 days",
@@ -132,9 +132,9 @@ export const plans: Plan[] = [
     features: [
       "Shopify, WooCommerce or a custom store",
       "Up to 50 products uploaded for you",
-      "Cards, PayPal, Stripe, Apple Pay and Google Pay, plus UPI, Razorpay and cash on delivery in India",
+      "Cards, PayPal, Stripe, Apple Pay and Google Pay, plus UPI, Razorpay and cash on delivery",
       "Multi-currency prices and international shipping zones",
-      "Tax set up for your market (GST, VAT or US sales tax)",
+      "Sales tax, VAT or GST set up for your market",
       "Shipping rules, coupons, order emails and abandoned-cart emails",
       "Order-on-WhatsApp button",
       "Fast, mobile-first checkout",
@@ -203,7 +203,7 @@ export const suites: Plan[] = [
       "Push notifications",
       "Security hardening: HTTPS everywhere, hashed passwords, role-based access, rate limiting",
       "Automated vulnerability scan and a written security report",
-      "Privacy-ready data handling: consent, data export and account deletion (GDPR and India's DPDP Act)",
+      "Privacy-ready data handling: consent, data export and account deletion (GDPR and similar data-protection laws)",
       "Analytics and crash reporting",
       "Daily encrypted backups",
       "Google Play and App Store publishing",
@@ -229,7 +229,7 @@ export const suites: Plan[] = [
     features: [
       "Everything in Secure Starter, plus:",
       "Up to 25 screens per app, with multiple roles and permissions",
-      "Payments by card, PayPal, Apple Pay and Google Pay, plus UPI in India, with subscriptions if you need them",
+      "Payments by card, PayPal, Apple Pay, Google Pay and UPI, with subscriptions if you need them",
       "Two-factor login and audit logs",
       "Reports and analytics dashboard",
       "Staging environment and automated tests",
@@ -244,7 +244,7 @@ export const suites: Plan[] = [
     slug: "secure-enterprise",
     name: "Secure Enterprise",
     forWho: "Your platform runs complex workflows, connects to other systems or has to meet strict data rules.",
-    bestFor: ["Hospitals & labs", "Fintech & NBFCs", "Manufacturing & ERP", "Multi-branch businesses"],
+    bestFor: ["Hospitals & labs", "Fintech & lenders", "Manufacturing & ERP", "Multi-branch businesses"],
     usd: 14999,
     priceNote: "one-time",
     delivery: "From 10–12 weeks",
@@ -373,7 +373,7 @@ export const planGuide: { business: string; plan: string; why: string }[] = [
     plan: "business",
     why: "A page for each product range ranks on Google and brings bulk enquiries, with no online payments needed.",
   },
-  { business: "School, college or coaching centre", plan: "business", why: "Courses, faculty, admissions and a notice board you update yourself." },
+  { business: "School, college or tutoring centre", plan: "business", why: "Courses, faculty, admissions and a notice board you update yourself." },
   { business: "Real estate, builder, hotel or travel agent", plan: "business", why: "Many project, room or tour pages with photo galleries, plus enquiry tracking." },
   { business: "Hospital or multi-doctor clinic", plan: "business", why: "Separate pages for each department and doctor that patients find on Google." },
   { business: "Clothing, beauty, jewellery or handicraft brand", plan: "store", why: "Customers browse, pay by card, PayPal or UPI, and you manage every order in one place." },
@@ -418,7 +418,7 @@ export const everyPlan = [
  * plan's live price (with the offer) between `prefix` and `suffix`; the rest show `me`.
  */
 export const comparison: { label: string; them: string; me?: string; plan?: string; prefix?: string; suffix?: string }[] = [
-  { label: "5-page website", them: "$1,000–5,000 from a freelancer; US agency median $3,850", plan: "launch" },
+  { label: "5-page website", them: "$1,000–5,000 from a freelancer; agency median $3,850", plan: "launch" },
   { label: "Online store", them: "$2,000–5,000 from a Shopify freelancer", plan: "store" },
   { label: "App MVP", them: "$15k–40k from a freelancer; $40k–100k from an agency", plan: "app", prefix: "From " },
   { label: "Web app + iOS + Android", them: "$30k–70k cross-platform; outside security test extra", plan: "secure-starter", prefix: "From " },
@@ -453,7 +453,7 @@ export const pricingFaqs = [
   },
   {
     q: "Which currency do you charge in?",
-    a: "Prices are set in US dollars. Clients in India see and pay the rupee equivalent at the day's exchange rate (switch this page to ₹ to see it), by UPI or bank transfer. International clients pay in dollars by PayPal, Binance or bank transfer, and we work over WhatsApp, email or video calls in your time zone.",
+    a: "Prices are set in USD. You can also see them in rupees (₹) with the switch at the top of this page, converted at the day's exchange rate. Pay by PayPal, Binance, bank transfer or UPI, and we work over WhatsApp, email or video calls in your time zone.",
   },
   {
     q: "What does \"high security\" include in the Web + App Suites?",
@@ -465,15 +465,15 @@ export const pricingFaqs = [
   },
   {
     q: "Will my site meet privacy and accessibility rules?",
-    a: "Every website and store comes with a privacy policy, cookie notice and terms pages written for the tools it actually uses, and analytics only runs after visitors accept cookies, which is what GDPR and UK rules expect. Pages are built with readable contrast, image alt text and keyboard-friendly menus. Apps include the in-app account deletion and privacy forms Apple and Google require. For legal advice specific to your business, check with a lawyer.",
+    a: "Every website and store comes with a privacy policy, cookie notice and terms pages written for the tools it actually uses, and analytics only runs after visitors accept cookies, which is what GDPR and similar privacy rules expect. Pages are built with readable contrast, image alt text and keyboard-friendly menus. Apps include the in-app account deletion and privacy forms Apple and Google require. For legal advice specific to your business, check with a lawyer.",
   },
   {
     q: "Why do you cost less than agencies?",
-    a: "I work directly with you, with no sales team or office overheads, and I use AI-assisted tools for the repetitive parts of the build. That lets me deliver in days instead of weeks, and even the Web + App Suites cost well below what agencies quote for a web app with mobile apps: $40k–100k in the US. The design, code and testing are still done and checked by me, and Secure Enterprise is also tested by an outside security firm.",
+    a: "I work directly with you, with no sales team or office overheads, and I use AI-assisted tools for the repetitive parts of the build. That lets me deliver in days instead of weeks, and even the Web + App Suites cost well below what agencies quote for a web app with mobile apps: $40k–100k at typical agencies. The design, code and testing are still done and checked by me, and Secure Enterprise is also tested by an outside security firm.",
   },
   {
     q: "Is the demo really free?",
-    a: "Yes. Tell me about your business and I'll design your homepage in 3–4 hours (Mon–Sat, 10 AM–8 PM IST). If you don't like it, you don't pay anything. For apps and the Web + App Suites, the first step is a free scoping call, then a fixed written quote before any work starts.",
+    a: "Yes. Tell me about your business and I'll design your homepage in 3–4 hours (Mon–Sat, 10 AM–8 PM IST, which is 04:30–14:30 UTC). If you don't like it, you don't pay anything. For apps and the Web + App Suites, the first step is a free scoping call, then a fixed written quote before any work starts.",
   },
   {
     q: "What do I need to give you?",
