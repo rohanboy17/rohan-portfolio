@@ -479,3 +479,9 @@ html[data-loading="nav"] {
 html:not(.js) .js-only {
   display: none;
 }
+/* Prices: <Price> renders both currencies and only one shows. Rupees unless the inline script in
+   app/layout.tsx (or the ₹/$ switch) sets data-currency="usd". */
+html[data-currency="usd"] [data-cur="inr"],
+html:not([data-currency="usd"]) [data-cur="usd"] {
+  display: none;
+}

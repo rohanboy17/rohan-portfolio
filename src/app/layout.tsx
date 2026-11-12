@@ -50,10 +50,15 @@ export const viewport: Viewport = {
 
 const sameAs = profile.socials.filter((s) => s.href.startsWith("http")).map((s) => s.href);
 
-// Cheapest to dearest plan on /pricing, e.g. "₹999 – ₹1,99,999", shown by search engines for the business.
-const prices = [...plans, ...suites, ...ongoingPlans].map((p) => Number(p.inr.replace(/[^\d]/g, "")));
-const inr = (n: number) => `₹${n.toLocaleString("en-IN")}`;
-const priceRange = `${inr(Math.min(...prices))} – ${inr(Math.max(...prices))}`;
+// Cheapest to dearest plan on /pricing in both currencies, e.g. "₹799 – ₹1,99,999 · $25 – $14,999",
+// shown by search engines for the business.
+const allPlans = [...plans, ...suites, ...ongoingPlans];
+const amount = (s: string) => Number(s.replace(/[^\d]/g, ""));
+const span = (key: "inr" | "usd", locale: string, symbol: string) => {
+  const n = allPlans.map((p) => amount(p[key]));
+  return `${symbol}${Math.min(...n).toLocaleString(locale)} – ${symbol}${Math.max(...n).toLocaleString(locale)}`;
+};
+const priceRange = `${span("inr", "en-IN", "₹")} · ${span("usd", "en-US", "$")}`;
 
 const siteJsonLd = [
   {
@@ -120,10 +125,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         {/* "lite" = phones, touch screens, low-end devices, Data Saver or reduced motion: CSS and
             components drop the costly effects (blur, grain, floating art, autoplay video). Set before
             first paint so nothing flashes. */}
+        {/* data-currency picks ₹ or $ for <Price>: the visitor's saved choice, else rupees for an
+            Indian timezone and dollars for everyone else. */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "(function(){var d=document.documentElement,n=navigator;d.classList.add('js');d.dataset.loading='page';var done=function(){if(d.dataset.loading==='page')delete d.dataset.loading};addEventListener('load',done);setTimeout(done,15000);try{if(matchMedia('(hover: none), (pointer: coarse), (max-width: 767px), (prefers-reduced-motion: reduce)').matches||(n.deviceMemory&&n.deviceMemory<=4)||(n.hardwareConcurrency&&n.hardwareConcurrency<=4)||(n.connection&&n.connection.saveData))d.classList.add('lite')}catch(e){}})()",
+              "(function(){var d=document.documentElement,n=navigator;d.classList.add('js');d.dataset.loading='page';var done=function(){if(d.dataset.loading==='page')delete d.dataset.loading};addEventListener('load',done);setTimeout(done,15000);try{if(matchMedia('(hover: none), (pointer: coarse), (max-width: 767px), (prefers-reduced-motion: reduce)').matches||(n.deviceMemory&&n.deviceMemory<=4)||(n.hardwareConcurrency&&n.hardwareConcurrency<=4)||(n.connection&&n.connection.saveData))d.classList.add('lite')}catch(e){}var c=null;try{c=localStorage.getItem('currency')}catch(e){}if(c!=='inr'&&c!=='usd'){var z='';try{z=Intl.DateTimeFormat().resolvedOptions().timeZone||''}catch(e){}c=/^Asia\\/(Kolkata|Calcutta)$/.test(z)?'inr':'usd'}d.dataset.currency=c})()",
           }}
         />
       </head>

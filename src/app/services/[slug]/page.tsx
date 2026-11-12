@@ -12,6 +12,8 @@ import { Item, Reveal, Stagger } from "@/components/site/MotionPrimitives";
 import ProcessSteps from "@/components/site/ProcessSteps";
 import Faq from "@/components/site/Faq";
 import QuoteCta from "@/components/site/QuoteCta";
+import Price from "@/components/site/Price";
+import CurrencySwitch from "@/components/site/CurrencySwitch";
 import JsonLd, { breadcrumbs, faqPage } from "@/components/site/JsonLd";
 import { shareMetadata } from "@/lib/seo";
 
@@ -153,7 +155,10 @@ export default async function ServicePage({ params }: Params) {
             description="Clear prices, with free support after launch on every build. Open a plan to see everything it includes."
             clip="money"
           />
-          <Stagger className={clsx("mt-10 grid gap-3 sm:grid-cols-2 sm:gap-4", plans.length >= 4 ? "lg:grid-cols-4" : "lg:grid-cols-3")}>
+          <div className="mt-6 flex justify-center sm:justify-start">
+            <CurrencySwitch />
+          </div>
+          <Stagger className={clsx("mt-6 grid gap-3 sm:grid-cols-2 sm:gap-4", plans.length >= 4 ? "lg:grid-cols-4" : "lg:grid-cols-3")}>
             {plans.map((p) => (
               <Item key={p.slug} className="h-full">
                 <Link
@@ -167,7 +172,9 @@ export default async function ServicePage({ params }: Params) {
                   <h3 className="font-display text-lg font-semibold">{p.name}</h3>
                   <p className="mt-3 flex items-baseline gap-1.5">
                     {p.from ? <span className="text-sm text-muted">from</span> : null}
-                    <span className="font-display text-3xl font-semibold tracking-tight">{p.inr}</span>
+                    <span className="font-display text-3xl font-semibold tracking-tight">
+                      <Price inr={p.inr} usd={p.usd} />
+                    </span>
                   </p>
                   <p className="mt-1 text-xs text-muted">{p.priceNote}</p>
                   <p className="mt-3 line-clamp-3 text-pretty text-sm leading-relaxed text-muted">{p.forWho}</p>

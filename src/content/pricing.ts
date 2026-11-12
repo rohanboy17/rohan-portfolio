@@ -1,5 +1,5 @@
 /**
- * Pricing for /pricing and the homepage pricing section.
+ * Pricing for /pricing and the plan cards on the service pages.
  *
  * Positioned against published price lists of low-cost Kolkata web-design firms (researched
  * Oct 2026: ₹2,999–₹8,499 for 5-page sites, often +18% GST and 5–15 days; online stores
@@ -12,8 +12,12 @@
  * from ₹80k–₹2 lakh; mid-size firms $5–10k minimums, top firms $25k+; web-app maintenance
  * ₹8k–25k/month; an outside VAPT ₹25k–60k for a small web app, ₹50k–1.5 lakh per mobile app).
  *
- * International clients see US-dollar prices worked out from the rupee price at the day's
- * exchange rate plus `internationalMarkup` (see src/lib/fx.ts), so they track the rupee.
+ * International clients see their own fixed US-dollar price list (`usd`), set against global
+ * rates (researched Nov 2026: freelancer hourly US $75–150, UK $55–130, Western Europe $50–110,
+ * Eastern Europe $25–50, India $20–52; 5-page site $1,000–5,000 freelance, US agency median
+ * $3,850; Shopify store $2,000–5,000 freelance; app MVP $15k–40k freelance, $40k–100k agency;
+ * WordPress care $50–150/month; site fixes $14–45/hr on Upwork, $80–120/hr on Codeable).
+ * The dollar prices are deliberately aggressive, to win first international clients.
  */
 export type Plan = {
   slug: string;
@@ -23,6 +27,8 @@ export type Plan = {
   /** Business types this plan suits best, shown as tags on the card. */
   bestFor: string[];
   inr: string;
+  /** Fixed price for international clients, e.g. "$249". */
+  usd: string;
   /** Show "from" before the price. */
   from?: boolean;
   /** Shown after the price, e.g. "one-time" or "per month". */
@@ -45,8 +51,10 @@ export type Plan = {
   whatsapp: string;
 };
 
-/** Extra charged on top of the converted price for international clients (0.1 = 10%). */
-export const internationalMarkup = 0.1;
+/** "₹4,999 (US$249)": both prices, for text that can't follow the ₹/$ switch. */
+export function bothPrices(p: Pick<Plan, "inr" | "usd">) {
+  return `${p.inr} (US${p.usd})`;
+}
 
 export const plans: Plan[] = [
   {
@@ -55,6 +63,7 @@ export const plans: Plan[] = [
     forWho: "You need a professional site so customers can find you, trust you and call or WhatsApp you.",
     bestFor: ["Clinics & doctors", "Salons & gyms", "Restaurants & cafés", "Local shops & services", "Freelancers & coaches"],
     inr: "₹4,999",
+    usd: "$249",
     priceNote: "one-time",
     delivery: "Live in 2–3 days",
     freeSupport: "30 days",
@@ -79,6 +88,7 @@ export const plans: Plan[] = [
     forWho: "You want to rank on Google, show many services or products, and edit the site yourself.",
     bestFor: ["Manufacturers & B2B suppliers", "Schools & coaching centres", "Real estate & builders", "Hotels & travel agents", "CA, law & consulting firms"],
     inr: "₹9,999",
+    usd: "$499",
     priceNote: "one-time",
     delivery: "Live in 4–5 days",
     freeSupport: "60 days",
@@ -106,6 +116,7 @@ export const plans: Plan[] = [
     forWho: "You want customers to pick products, pay online and get them delivered to their door.",
     bestFor: ["Clothing & boutiques", "Beauty & skincare", "Jewellery & handicrafts", "Food & organic products", "D2C brands"],
     inr: "₹19,999",
+    usd: "$899",
     priceNote: "one-time",
     delivery: "Live in 7–10 days",
     freeSupport: "90 days",
@@ -132,6 +143,7 @@ export const plans: Plan[] = [
     forWho: "Your idea needs logins, bookings, dashboards or an app on Google Play and the App Store.",
     bestFor: ["Startups & SaaS", "Booking & appointment systems", "Delivery & tracking apps", "School, clinic & HR portals", "Marketplaces & CRMs"],
     inr: "₹34,999",
+    usd: "$1,799",
     from: true,
     priceNote: "starting price",
     delivery: "From 2–3 weeks",
@@ -166,6 +178,7 @@ export const suites: Plan[] = [
     forWho: "You're launching a product on the web and on phones at the same time, and it has to look premium and be safe from day one.",
     bestFor: ["Startups & MVPs", "Booking & membership apps", "Local service platforms"],
     inr: "₹59,999",
+    usd: "$3,999",
     priceNote: "one-time",
     delivery: "From 4–6 weeks",
     freeSupport: "6 months",
@@ -195,6 +208,7 @@ export const suites: Plan[] = [
     forWho: "Your customers pay you or trust you with personal data, so it has to look trustworthy and be secure from the first screen.",
     bestFor: ["Clinics & healthcare", "Finance & insurance", "Logistics & delivery", "E-learning platforms"],
     inr: "₹99,999",
+    usd: "$6,999",
     priceNote: "one-time",
     delivery: "From 6–8 weeks",
     freeSupport: "9 months",
@@ -220,6 +234,7 @@ export const suites: Plan[] = [
     forWho: "Your platform runs complex workflows, connects to other systems or has to meet strict data rules.",
     bestFor: ["Hospitals & labs", "Fintech & NBFCs", "Manufacturing & ERP", "Multi-branch businesses"],
     inr: "₹1,99,999",
+    usd: "$14,999",
     priceNote: "one-time",
     delivery: "From 10–12 weeks",
     freeSupport: "12 months",
@@ -261,6 +276,7 @@ export const ongoingPlans: Plan[] = [
     forWho: "Your website, store or app is live and its free support has ended. I keep it updated, backed up and online.",
     bestFor: ["Launch & Business sites", "Online stores", "Apps & web apps"],
     inr: "₹999",
+    usd: "$49",
     priceNote: "per month",
     features: [
       "Software, theme and plugin updates",
@@ -284,6 +300,7 @@ export const ongoingPlans: Plan[] = [
     forWho: "Your Web + App Suite is live and its free support has ended. I keep the web app, backend and both apps running and patched.",
     bestFor: ["Secure Starter", "Secure Business", "Secure Enterprise"],
     inr: "₹9,999",
+    usd: "$499",
     priceNote: "per month",
     features: [
       "App updates for new iOS and Android releases",
@@ -307,9 +324,9 @@ export const ongoingPlans: Plan[] = [
     name: "Fix & Upgrade",
     forWho: "Have a website built by another developer or agency? Get it edited, fixed or extended without starting over.",
     bestFor: ["Sites built by someone else", "Slow or hacked sites", "Broken pages, forms or checkout"],
-    inr: "₹1,999",
-    from: true,
-    priceNote: "per request",
+    inr: "₹799",
+    usd: "$25",
+    priceNote: "per hour",
     features: [
       "Text, image and layout edits, including Elementor and other page builders",
       "Bug, error and broken-page fixes",
@@ -324,7 +341,7 @@ export const ongoingPlans: Plan[] = [
       "New sections, pages or features",
       "WordPress, Shopify, WooCommerce, React / Next.js and PHP sites",
     ],
-    note: "Starting price. Send me the site and what you need, and I'll confirm a fixed price before any work starts. Built your site with me? Changes are covered by your free support, then Care or Suite Care.",
+    note: "One-hour minimum. Send me the site and what you need; I'll estimate the hours and confirm the total before any work starts. Built your site with me? Changes are covered by your free support, then Care or Suite Care.",
     cta: "Request a change",
     whatsapp: "Hi Rohan, I have an existing website and need some changes (Fix & Upgrade). Can you take a look?",
   },
@@ -400,6 +417,30 @@ export const comparison: { label: string; them: string; me: string }[] = [
   { label: "Who you talk to", them: "Sales or account manager", me: "The developer, directly" },
 ];
 
+/** The same comparison for international visitors, against typical global rates (Nov 2026). */
+export const comparisonGlobal: { label: string; them: string; me: string }[] = [
+  { label: "5-page website", them: "$1,000–5,000 from a freelancer; US agency median $3,850", me: "$249" },
+  { label: "Online store", them: "$2,000–5,000 from a Shopify freelancer", me: "$899" },
+  {
+    label: "App MVP",
+    them: "$15k–40k from a freelancer; $40k–100k from an agency",
+    me: "From $1,799; web app plus iOS and Android from $3,999",
+  },
+  { label: "Delivery", them: "Weeks to months", me: "Websites in days" },
+  { label: "See it before you pay", them: "Rarely", me: "Free homepage demo in 3–4 hours" },
+  { label: "Design", them: "Often a premium theme", me: "Custom-designed and hand-coded" },
+  { label: "Monthly care", them: "$50–150/month for WordPress care", me: "$49/month, including 3 hours of changes" },
+  { label: "Fixing someone else's site", them: "$14–45/hr on Upwork, $80–120/hr on Codeable", me: "$25/hr" },
+  { label: "Who you talk to", them: "An account manager or a marketplace chat", me: "The developer, directly" },
+];
+
+/** A plan by slug, for FAQ answers that quote both prices. */
+const planOf = (slug: string) => {
+  const p = [...plans, ...suites, ...ongoingPlans].find((x) => x.slug === slug);
+  if (!p) throw new Error(`pricing.ts refers to unknown plan "${slug}"`);
+  return p;
+};
+
 export const pricingFaqs = [
   {
     q: "Which plan should I choose?",
@@ -407,7 +448,7 @@ export const pricingFaqs = [
   },
   {
     q: "How long is the free support?",
-    a: "30 days on Launch, 60 days on Business, 90 days on Online Store and 120 days on App or Web App, counted from launch. After that, the Care plan keeps your site updated, backed up, monitored and security-scanned, keeps its SEO, Google Business Profile, listings and social profiles up to date, and includes up to 3 hours of changes every month, for ₹999 a month. The Web + App Suites include much longer support: 6 months on Secure Starter, 9 months on Secure Business and 12 months on Secure Enterprise, then Suite Care at ₹9,999 a month.",
+    a: `30 days on Launch, 60 days on Business, 90 days on Online Store and 120 days on App or Web App, counted from launch. After that, the Care plan keeps your site updated, backed up, monitored and security-scanned, keeps its SEO, Google Business Profile, listings and social profiles up to date, and includes up to 3 hours of changes every month, for ${bothPrices(planOf("care"))} a month. The Web + App Suites include much longer support: 6 months on Secure Starter, 9 months on Secure Business and 12 months on Secure Enterprise, then Suite Care at ${bothPrices(planOf("suite-care"))} a month.`,
   },
   {
     q: "What does \"high security\" include in the Web + App Suites?",
@@ -419,7 +460,7 @@ export const pricingFaqs = [
   },
   {
     q: "Why do you cost less than agencies?",
-    a: "I work directly with you, with no sales team or office overheads, and I use AI-assisted tools for the repetitive parts of the build. That lets me deliver in days instead of weeks, and even the Web + App Suites cost well below the ₹3–8 lakh Kolkata agencies quote for a web app with mobile apps. The design, code and testing are still done and checked by me, and Secure Enterprise is also tested by an outside security firm.",
+    a: "I work directly with you, with no sales team or office overheads, and I use AI-assisted tools for the repetitive parts of the build. That lets me deliver in days instead of weeks, and even the Web + App Suites cost well below what agencies quote for a web app with mobile apps: ₹3–8 lakh in Kolkata, $40k–100k in the US. The design, code and testing are still done and checked by me, and Secure Enterprise is also tested by an outside security firm.",
   },
   {
     q: "Is the demo really free?",
@@ -435,11 +476,11 @@ export const pricingFaqs = [
   },
   {
     q: "Can you change a website another developer built?",
-    a: "Yes, with the Fix & Upgrade plan: edits, bug fixes, mobile and speed fixes, hacked-site cleanup, form and checkout fixes, plugin updates, hosting moves and new features on existing WordPress, Shopify, WooCommerce, React, Next.js and PHP sites, from ₹1,999 per request. Share the site and what you need, and I'll confirm a fixed price before starting.",
+    a: `Yes, with the Fix & Upgrade plan: edits, bug fixes, mobile and speed fixes, hacked-site cleanup, form and checkout fixes, plugin updates, hosting moves and new features on existing WordPress, Shopify, WooCommerce, React, Next.js and PHP sites, at ${bothPrices(planOf("fix-upgrade"))} per hour. Share the site and what you need, and I'll estimate the hours and confirm the total before starting.`,
   },
   {
     q: "Do you work with clients outside India?",
-    a: "Yes. International clients pay the USD prices shown, by PayPal, Binance or bank transfer, and we work over WhatsApp, email or video calls in your time zone.",
+    a: "Yes. International clients get a fixed US-dollar price list: switch this page to $ to see it. Pay by PayPal, Binance or bank transfer, and we work over WhatsApp, email or video calls in your time zone.",
   },
   {
     q: "What if I need something that's not in a plan?",

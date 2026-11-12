@@ -10,9 +10,9 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import JsonLd, { breadcrumbs, faqPage } from "@/components/site/JsonLd";
 import { shareMetadata } from "@/lib/seo";
 
-const title = "Website & App Development Prices in Kolkata from ₹4,999";
+const title = "Website & App Development Prices from ₹4,999 / $249";
 const description =
-  "Website from ₹4,999, store ₹19,999, app from ₹34,999, secure web + app suites from ₹59,999. Custom-built, with a free demo before you pay. No hidden charges.";
+  "Websites from ₹4,999 ($249), stores ₹19,999 ($899), apps from ₹34,999 ($1,799), secure web + app suites from ₹59,999 ($3,999). Free demo first.";
 
 export const metadata: Metadata = {
   title: { absolute: title },
@@ -33,19 +33,24 @@ export default function PricingPage() {
             "@context": "https://schema.org",
             "@type": "OfferCatalog",
             name: "Website, online store, app and secure web + app suite packages",
-            itemListElement: [...plans, ...suites, ...ongoingPlans].map((p) => ({
-              "@type": "Offer",
-              name: p.name,
-              description: p.forWho,
-              price: num(p.inr),
-              priceCurrency: "INR",
-              // Care and Suite Care are billed monthly.
-              ...(p.priceNote === "per month"
-                ? { priceSpecification: { "@type": "UnitPriceSpecification", price: num(p.inr), priceCurrency: "INR", unitCode: "MON" } }
-                : {}),
-              url: `${profile.siteUrl}/pricing#plan-${p.slug}`,
-              seller: { "@id": `${profile.siteUrl}/#business` },
-            })),
+            // One offer per plan per currency: rupees for India, fixed dollars for everyone else.
+            itemListElement: [...plans, ...suites, ...ongoingPlans].flatMap((p) =>
+              (["INR", "USD"] as const).map((currency) => {
+                const price = num(currency === "INR" ? p.inr : p.usd);
+                // Care plans are billed monthly and Fix & Upgrade hourly.
+                const unitCode = p.priceNote === "per month" ? "MON" : p.priceNote === "per hour" ? "HUR" : null;
+                return {
+                  "@type": "Offer",
+                  name: p.name,
+                  description: p.forWho,
+                  price,
+                  priceCurrency: currency,
+                  ...(unitCode ? { priceSpecification: { "@type": "UnitPriceSpecification", price, priceCurrency: currency, unitCode } } : {}),
+                  url: `${profile.siteUrl}/pricing#plan-${p.slug}`,
+                  seller: { "@id": `${profile.siteUrl}/#business` },
+                };
+              }),
+            ),
           },
         ]}
       />

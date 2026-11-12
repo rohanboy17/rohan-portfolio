@@ -11,6 +11,7 @@ import { Item, Stagger } from "@/components/site/MotionPrimitives";
 import ProcessSteps from "@/components/site/ProcessSteps";
 import Faq from "@/components/site/Faq";
 import QuoteCta from "@/components/site/QuoteCta";
+import Price from "@/components/site/Price";
 import JsonLd, { breadcrumbs, faqPage } from "@/components/site/JsonLd";
 import { shareMetadata } from "@/lib/seo";
 
@@ -71,7 +72,7 @@ export default function ServicesPage() {
         </Stagger>
         <p className="mt-6 text-center text-sm sm:text-left">
           <Link prefetch={false} href="/pricing" className="font-semibold text-lilac hover:underline">
-            See plans &amp; pricing, from {plans[0].inr} →
+            See plans &amp; pricing, from <Price inr={plans[0].inr} usd={plans[0].usd} /> →
           </Link>
         </p>
 

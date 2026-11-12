@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { services } from "@/content/profile";
 import { plans } from "@/content/pricing";
+import Price from "@/components/site/Price";
 import { accentStyles } from "@/components/ui/accent";
 import Clip3D from "@/components/ui/Clip3D";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -61,7 +62,7 @@ export default function Services() {
               See all services, process &amp; FAQs →
             </Link>
             <Link prefetch={false} href="/pricing" className="font-semibold text-lilac hover:underline">
-              Plans &amp; pricing, from {plans[0].inr} →
+              Plans &amp; pricing, from <Price inr={plans[0].inr} usd={plans[0].usd} /> →
             </Link>
           </p>
         </Reveal>
